@@ -5,7 +5,7 @@ updated: 2024-03-21T10:17
 
 ## User Authentication and Access Control
 
-[!Note]
+> [!Note]
 > ensuring that users are who they claim to be (authentication) and controlling their access to resources or functionalities within the system (access control / authorization).
 > This feature includes functionalities such as user login/authentication, authorization (determining what actions users are allowed to perform based on their roles and permissions), and enforcing security measures like password policies and session management.
 > Not to confuse with User Management since user authentication and access control focus specifically on verifying user identities and controlling their access to system resources or functionalities while user management deals with the overall management of user accounts and their associated information.
@@ -56,7 +56,7 @@ updated: 2024-03-21T10:17
 
 ## User Management
 
-[!Note]
+> [!Note]
 > creating, updating, and managing user accounts within the system.
 > This feature typically includes operations such as user registration, profile management, password reset, user roles and permissions management, and user activity tracking.
 > Allowing users to update their profile information, resetting passwords, or deactivating user accounts are part of user management.
@@ -122,7 +122,7 @@ updated: 2024-03-21T10:17
 
 ## Contacts Management
 
-> [!Info]
+> [!Note]
 > refers to an individual person who is associated with a business or organization.
 >
 > - Individuals associated with businesses.
@@ -174,7 +174,7 @@ updated: 2024-03-21T10:17
 
 ## Companies Management
 
-> [!Info]
+> [!Note]
 > information about businesses or organizations with which a company interacts or seeks to do business. This data is crucial for understanding the broader context of a sales opportunity and building relationships with key stakeholders within those organizations.
 
 - **Functional: Company Creation** (#Familiar)
@@ -218,7 +218,7 @@ updated: 2024-03-21T10:17
 
 ## Sales Management (w/ Clarifications)
 
-> [!Info]
+> [!Note]
 > Sales management in CRM involves several key processes :
 >
 > - Managing Deals: Tracking potential sales opportunities through stages like prospecting, qualification, and closure.
@@ -228,7 +228,7 @@ updated: 2024-03-21T10:17
 
 ### Tasks Management
 
-> [!Info]
+> [!Note]
 > Sales teams often have various tasks associated with managing deals and nurturing relationships with prospects. Tasks can include making calls, sending emails, scheduling meetings, conducting product demonstrations, and following up on leads. In a CRM, tasks can be assigned to specific team members, prioritized, and tracked to ensure timely completion.
 > Objective : For sales managers can monitor task progress and provide support or guidance as needed.
 
@@ -274,7 +274,7 @@ updated: 2024-03-21T10:17
 
 ### Deals Management
 
-> [!Info]
+> [!Note]
 > A deal in CRM represents a specific sales opportunity or transaction between a company and a potential customer. It progresses through various stages of the sales process, from identification to closure, within the CRM system. Key aspects include qualification, pipeline stages, deal details, activity tracking, and forecasting.
 
 - **Functional: Deal Creation** (#Familiar)
