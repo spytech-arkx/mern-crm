@@ -13,7 +13,8 @@ Given the critical importance of such tool in modern business operations, this p
 - **Sales Pipeline Management**: Track deals through various stages of the sales pipeline.
 - **Task Management**: Assign and track tasks related to sales, customer interactions, and other business activities, improving team collaboration and organization.
 - **Reporting**: Generate reports to gain insights into sales performance, customer trends, and identify areas for improvement.
-Check out [PAPER.md](PAPER.md) for a full breakdown of the functionalities we aim to implement.
+
+Please check out [PAPER.md](PAPER.md) for a full breakdown of the functionalities we aim to implement.
 
 ## Evaluation Criteria
 - Functionality: Completeness and effectiveness of the implemented features.
