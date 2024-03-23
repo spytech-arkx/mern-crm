@@ -1,46 +1,25 @@
-# ArkX Final Project
+Final Project | CRM @[ArkX](https://www.arkx.group/)
 
-## Introduction
-
+## Introduction: What is a CRM?
 [**Customer relationship management (CRM)**](https://www.salesforce.com/crm/what-is-crm/) is a technology for managing all your company’s relationships and interactions with customers and potential customers. The goal is simple: Improve business relationships to grow your business. A CRM system helps companies stay connected to customers, streamline processes, and improve profitability.
 
 a **CRM system**, on the other hand is a tool that helps with contact management, sales management, agent productivity, and more. CRM tools can now be used to manage customer relationships across the entire customer lifecycle, spanning marketing, sales, digital commerce, and customer service interactions.
 
-Given the critical importance of such tool in modern business operations, our team opted to develop a CRM using the **MERN Stack**. The primary objective of this project is to enable us to apply and showcase the skills and knowledge we've acquired throughout our bootcamp at ARKX.
-
 ## Description
+Given the critical importance of such tool in modern business operations, this project builds a Customer Relationship Management (CRM) system using the MERN stack (MongoDB, Express, React, Node.js). The CRM aims to improve customer interaction management and sales efficiency for businesses, particularly focusing on **general business needs**. However, the core functionalities can be easily adapted to various industries.
 
-The CRM system will include both a front office for customer interaction and a back office for administrative tasks. The system will offer essential CRM features tailored for managing contacts, products, analytics, and communication.
+## Key Functionalities
+- **Contact Management**: Create, store, and manage detailed contact information for leads, customers, and other business associates.
+- **Sales Pipeline Management**: Track deals through various stages of the sales pipeline.
+- **Task Management**: Assign and track tasks related to sales, customer interactions, and other business activities, improving team collaboration and organization.
+- **Reporting**: Generate reports to gain insights into sales performance, customer trends, and identify areas for improvement. 
 
-The features have been carefully selected to first meet the required functionalities outlined in the [specifications](https://arkx-academy.gitbook.io/e-commerce-project-mern/get-started/functional-specifications). Secondly, to test our current knowledge, and lastly, to realistically enable us to deliver a fully functional project within the specified timeframe.
+## Evaluation Criteria
+- Functionality: Completeness and effectiveness of the implemented features.
+- User Interface (UI) and User Experience (UX): Design, ease of use, and overall user experience.
+- Code Quality: Code structure, readability, maintainability, and adherence to best practices.
+- Documentation: Clarity and comprehensiveness of the project's documentation
+- Team Organization and Collaboration: effective communication and demonstrated collaboration through a presentation.
 
-## Planning
-
-1. **Setting up repositories**
-2. **Creating the project backlog**
-3. **Sprint planning**
-
-## Features
-
-- [ ] User Authentication and Access Control
-- [ ] Users Management
-- [ ] Contacts Management
-- [ ] Companies Management
-- [ ] Tasks Management
-- [ ] Sales Management
-- [ ] Notification and Communications
-- [ ] User Preferences and System Settings
-- [ ] Analytics and Reporting
-- [ ] Billing and Invoicing
-- [ ] Deployment
-
----
-
-**Arkx Talent Factory**
-
-- Mohammed Ali BENJELLOUN
-- Nawfel TAHIRI
-- Souhail FARAJI
-- Zakaria ERRAHIL
-
-**Mentored by Aymane El Aouad**
+## Contributing
+Please check out the [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines about how to contribute to the CRM project's codebase.
