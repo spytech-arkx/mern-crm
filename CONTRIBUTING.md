@@ -11,8 +11,10 @@ First of all, you will need to have a copy of the Github repository on your own 
 
 1. Visit the project [repository](https://github.com/spytech-arkx/mern-crm) on GitHub.
 2. Click on the "Fork" button in the top right corner. This creates your own copy of the repository.
+
    ![](https://im.gurl.eu.org/file/51d054586606580d2a5d0.png)
-3. Choose whether to only copy the main branch or other branches ( dev, prod..)
+4. Choose whether to only copy the main branch or other branches ( dev, prod..)
+   
    ![](https://im.gurl.eu.org/file/5779679339b8c50f47808.png)
 
 ### **Clone Your Fork:**
@@ -21,6 +23,7 @@ You've made a copy of the project (on GitHub). Now, let's download it to your co
 
 1. Open a terminal window.
 2. Use the `git clone` command to clone your forked repository to your local machine. Replace `<your-username>` with your GitHub username and `<repository-name>` with the actual name of the repository, or simply copy paste the link by clicking on the green code button.
+   
    ![](https://im.gurl.eu.org/file/b7d0e6bf42ae155d0aa37.png)
 
 ```bash
@@ -51,7 +54,9 @@ Since our project will require specific software or libraries to run (express, m
   git checkout <branch-name>
 ```
 
-> [!WARNING] > **Descriptive**: Choose names that clearly convey the purpose of the branch. Avoid vague names like "feature-branch" or "new-branch."
+> [!WARNING]
+>
+> **Descriptive**: Choose names that clearly convey the purpose of the branch. Avoid vague names like "feature-branch" or "new-branch."
 >
 > - Good: "feature/user-authentication" (adds user authentication functionality)
 > - Bad: "feature-branch"
@@ -81,8 +86,16 @@ Since our project will require specific software or libraries to run (express, m
 git add <filename1> <filename2> ... (or git add .)
 git commit -m "Your descriptive commit message"
 ```
+![Add](https://im.gurl.eu.org/file/73e1d59a89b0fca62ecbc.png)
 
-> [!Warning]
+Notice the new file added to "changes to be committed".
+
+![Commit](https://im.gurl.eu.org/file/ebe10fa685cebeedf63cf.png)
+
+Each commit has a unique identifier, changes, author, commit message and a timestamp.
+
+> [!Important]
+>
 > **Commit Message:**
 >
 > - **Clear and Concise:** Briefly describe what the commit changes.
@@ -92,13 +105,13 @@ git commit -m "Your descriptive commit message"
 >   - Bad: "change: added validation logic to login form"
 > - **Optional Body:** Use the message body for additional details, references to issues, or complex changes.
 
-1. **Push Your Changes:**
+2. **Push Your Changes:**
+Now that you have commited your work, time for you to publish (upload to the cloud) using your platform of choice. For now, we will stick to Github. Use the `git push` command to push your local branch with your changes to your forked repository on GitHub.
 
-- Use the `git push` command to push your local branch with your changes to your forked repository on GitHub.
-
-```bash
+```zsh
 git push origin <branch-name>
 ```
+![](https://im.gurl.eu.org/file/2874c0d69ea0a2dd8c9e5.gif)
 
 3. **Create a Pull Request:**
 
