@@ -1,0 +1,12 @@
+# Node.js files
+node_modules/
+.env 
+
+# IDE/linter specific files
+.eslintcache
+.idea/
+.vscode/
+
+# Optional: Logs and temporary files
+logs/
+tmp/
