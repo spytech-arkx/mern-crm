@@ -15,9 +15,14 @@ exports.getDeals = async (req, res) => {
   });
 };
 exports.getDealById = async (req, res) => {
-  product = await getDealByIdCRUD(req.params.id);
+  deal = await getDealByIdCRUD(req.params.id);
+  if (!deal) {
+    res.json({
+      message: `deal id: ${req.params.id} not found`,
+    });
+  }
   res.json({
-    data: product,
+    data: deal,
   });
 };
 
@@ -41,21 +46,55 @@ exports.createDeal = async (req, res) => {
     contacts,
     close_date,
   });
+  if (!result) {
+    res.json({
+      message: `Couldn't add this deal`,
+    });
+  }
+
   res.status(StatusCodes.OK).json({
     data: result,
-    message: "OK",
   });
 };
 
 exports.updateDeal = async (req, res) => {
-  product = await updateDealCRUD(req.params.id, req.body);
+  //deal = await updateDealCRUD(req.params.id, req.body);
+  const {
+    deal_name,
+    description,
+    amount,
+    stage,
+    company,
+    contacts,
+    close_date,
+  } = req.body;
+
+  const result = await updateDealCRUD(req.params.id, {
+    deal_name,
+    description,
+    amount,
+    stage,
+    company,
+    contacts,
+    close_date,
+  });
+  if (!result) {
+    res.json({
+      message: `deal id: ${req.params.id} not found`,
+    });
+  }
   res.status(200).json({
-    data: product,
+    data: result,
   });
 };
 exports.deleteDeal = async (req, res) => {
-  product = await deleteDealCRUD(req.params.id);
-  return res.status(204).json({
-    data: product,
+  deal = await deleteDealCRUD(req.params.id);
+  if (!deal) {
+    res.json({
+      message: `Couldn't Delete this deal`,
+    });
+  }
+  res.status(200).json({
+    data: deal,
   });
 };
