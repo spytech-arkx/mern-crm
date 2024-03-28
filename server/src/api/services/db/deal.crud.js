@@ -43,15 +43,13 @@ exports.updateDealCRUD = async (id, body) => {
     console.error("Error updating deal:", error);
   }
 };
-
 exports.deleteDealCRUD = async (id) => {
   try {
-    const tempId = id;
     if (mongoose.Types.ObjectId.isValid(id)) {
-      const deal = await dealSchema.deleteOne({ _id: id });
-      return `deal id: ${tempId} was deleted succesfully`;
+      return await dealSchema.findOneAndDelete({ _id: id });
     }
   } catch (error) {
     console.error("Error deleting deal:", error);
+    throw error; // Re-throw the error to handle it further up the call stack
   }
 };
