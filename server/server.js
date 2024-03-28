@@ -4,11 +4,11 @@ const { urlencoded } = require("body-parser");
 const cookieParser = require("cookie-parser");
 require("dotenv").config();
 
-const companyRouter = require('./src/api/routes/company.routes')
-const contactRouter = require('./src/api/routes/contact.routes')
-const dealRouter = require('./src/api/routes/deal.routes')
-const taskRouter = require('./src/api/routes/task.routes')
-const userRouter = require('./src/api/routes/user.routes')
+const companyRouter = require("./src/api/routes/company.routes");
+const contactRouter = require("./src/api/routes/contact.routes");
+const dealRouter = require("./src/api/routes/deal.routes");
+const taskRouter = require("./src/api/routes/task.routes");
+const userRouter = require("./src/api/routes/user.routes");
 
 const app = express();
 const port = process.env.PORT || 3000; // Use port from environment or default to 3000
@@ -24,11 +24,11 @@ mongoose
   .catch((err) => console.error("Error connecting to MongoDB:", err));
 
 // API Routers
-app.use("/api/companies", companyRouter);
-app.use("/api/contacts", contactRouter);
-app.use("/api/deals", dealRouter);
+//app.use("/api/companies", companyRouter);
+//app.use("/api/contacts", contactRouter);
+//app.use("/api/deals", dealRouter);
+//app.use("/api/users", userRouter);
 app.use("/api/tasks", taskRouter);
-app.use("/api/users", userRouter);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}.`);
