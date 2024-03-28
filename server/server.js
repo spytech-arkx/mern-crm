@@ -24,11 +24,11 @@ mongoose
   .catch((err) => console.error("Error connecting to MongoDB:", err));
 
 // API Routers
-app.use("/api/companies", companyRouter);
-app.use("/api/contacts", contactRouter);
-app.use("/api/deals", dealRouter);
-app.use("/api/tasks", taskRouter);
-app.use("/api/users", userRouter);
+// app.use("/api/companies", companyRouter);
+// app.use("/api/contacts", contactRouter);
+// app.use("/api/deals", dealRouter);
+// app.use("/api/tasks", taskRouter);
+// app.use("/api/users", userRouter);
 
 app.listen(port, () => {
   console.log(`Server listening on port ${port}.`);
