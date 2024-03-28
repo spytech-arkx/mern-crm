@@ -5,8 +5,8 @@ const mongoose = require("mongoose");
 
 const allTasks = async (req, res) => {
   try {
-    const tasks = await Task.find();
-    res.json(tasks);
+    const tasks = await Task.find().sort({ createAt: -1 });
+    res.status(200).json(tasks);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
@@ -15,8 +15,16 @@ const allTasks = async (req, res) => {
 // GET task by ID
 
 const getTask = async (req, res) => {
+  const { id } = req.params;
+
+  //add verification ID
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "no such task" });
+  }
+
   try {
-    const task = await Task.findById(req.params.id);
+    const task = await Task.findById(id);
     if (task == null) {
       return res.status(404).json({ message: "Tâche introuvable" });
     }
@@ -40,8 +48,15 @@ const createTask = async (req, res) => {
 // Update a task by ID
 
 const updateTask = async (req, res) => {
+  const { id } = req.params;
+
+  //add verification ID
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "no such task" });
+  }
   try {
-    const task = await Task.findByIdAndUpdate(req.params.id, req.body, {
+    const task = await Task.findByIdAndUpdate(id, req.body, {
       new: true,
     });
     res.json(task);
@@ -53,8 +68,16 @@ const updateTask = async (req, res) => {
 // Delete a task
 
 const deleteTask = async (req, res) => {
+  const { id } = req.params;
+
+  //add verification ID
+
+  if (!mongoose.Types.ObjectId.isValid(id)) {
+    return res.status(404).json({ error: "no such task" });
+  }
+
   try {
-    await Task.findByIdAndDelete(req.params.id);
+    await Task.findByIdAndDelete(id);
     res.json({ message: "Tâche supprimée" });
   } catch (err) {
     res.status(500).json({ message: err.message });
