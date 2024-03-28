@@ -20,16 +20,16 @@ app.use(urlencoded({ extended: true })); //  Parses urlencoded bodies and only l
 // Database Connection
 mongoose
   .connect(process.env.MONGODB_URI)
-  .then(() => console.log("Connected to MongoDB"))
+  .then(() => console.log("Connected to MongoDB.."))
   .catch((err) => console.error("Error connecting to MongoDB:", err));
 
 // API Routers
-app.use("/api/companies", companyRouter);
+// app.use("/api/companies", companyRouter);
 app.use("/api/contacts", contactRouter);
-app.use("/api/deals", dealRouter);
-app.use("/api/tasks", taskRouter);
-app.use("/api/users", userRouter);
+// app.use("/api/deals", dealRouter);
+// app.use("/api/tasks", taskRouter);
+// app.use("/api/users", userRouter);
 
 app.listen(port, () => {
-  console.log(`Server listening on port ${port}.`);
+  console.log(`Server listening on http://localhost:${port}/api`);
 });
