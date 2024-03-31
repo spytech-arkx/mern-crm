@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const dealSchema = require("../../models/deal.model");
+const dealSchema = require("../../models/deal");
 exports.getDealsCRUD = async () => {
   try {
     // Retrieve all deals

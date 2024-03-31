@@ -6,7 +6,7 @@ const {
   addDealCRUD,
   updateDealCRUD,
   deleteDealCRUD,
-} = require("../services/db/deal.crud");
+} = require("../services/db/deal");
 
 exports.getDeals = async (req, res) => {
   const deals = await getDealsCRUD();

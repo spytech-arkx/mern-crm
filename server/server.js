@@ -2,20 +2,21 @@ const express = require("express");
 const mongoose = require("mongoose");
 const { urlencoded } = require("body-parser");
 const cookieParser = require("cookie-parser");
+const logger = require('./src/utils/logger')
 require("dotenv").config();
 
-const companyRouter = require("./src/api/routes/company.routes");
-const contactRouter = require("./src/api/routes/contact.routes");
-const dealRouter = require("./src/api/routes/deal.routes");
-const taskRouter = require("./src/api/routes/task.routes");
-const userRouter = require("./src/api/routes/user.routes");
+const companyRouter = require("./src/api/routes/company");
+const contactRouter = require("./src/api/routes/contact");
+const dealRouter = require("./src/api/routes/deal");
+const taskRouter = require("./src/api/routes/task");
+const userRouter = require("./src/api/routes/user");
 
 const app = express();
 const port = process.env.PORT || 3000; // Use port from environment or default to 3000
-//console.log(process.env.PORT);
 app.use(express.json()); // Parse JSON body data
 app.use(cookieParser()); // Parse HTTP request cookies.
 app.use(urlencoded({ extended: true })); //  Parses urlencoded bodies and only looks at requests where the Content-Type header matches the type option.
+app.use(logger); // A logger for just about everything.
 
 // Database Connection process.env.MONGODB_URI
 mongoose

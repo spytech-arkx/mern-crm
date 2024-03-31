@@ -6,7 +6,7 @@ const {
   createDeal,
   updateDeal,
   deleteDeal,
-} = require("../controllers/deal.controller");
+} = require("../controllers/deal");
 
 router.get("/:id", getDealById);
 router.post("/", createDeal);

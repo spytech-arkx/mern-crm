@@ -1,4 +1,4 @@
-const Contact = require('../../models/contact.model');
+const Contact = require('../../models/contact');
 
 async function readContacts(filter, projection, options) {
   try {
