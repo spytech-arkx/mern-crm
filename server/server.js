@@ -28,8 +28,9 @@ mongoose
 // app.use("/api/companies", companyRouter);
 app.use("/api/contacts", contactRouter);
 app.use("/api/deals", dealRouter);
-// app.use("/api/tasks", taskRouter);
+ app.use("/api/tasks", taskRouter);
 // app.use("/api/users", userRouter);
+
 
 app.listen(port, () => {
   console.log(`Server listening on http://localhost:${port}/api`);
