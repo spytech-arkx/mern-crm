@@ -1,8 +1,8 @@
 const express = require('express');
-const { validationResult } = require('express-validator');
 const {
   validateTaskName,
   validateTaskDescription,
+  validateTaskId,
 } = require('../validators/task.validators');
 const {
   allTasks,
@@ -14,7 +14,6 @@ const {
 
 // Route pour la gestion des tâches
 const router = express.Router();
-const Task = require('../models/task.model');
 
 // Endpoint GET all tasks
 
@@ -22,7 +21,7 @@ router.get('/', allTasks);
 
 // Endpoint GET a task by ID
 
-router.get('/:id', getTask);
+router.get('/:id', validateTaskId, getTask);
 
 // Endpoint POST a task
 
@@ -30,10 +29,15 @@ router.post('/', [validateTaskName(), validateTaskDescription()], createTask);
 
 // Endpoint UPDATE a task by ID
 
-router.put('/:id', [validateTaskName(), validateTaskDescription()], updateTask);
+router.put(
+  '/:id',
+  validateTaskId,
+  [validateTaskName(), validateTaskDescription()],
+  updateTask,
+);
 
 // Endpoint DELETE task
 
-router.delete('/:id', deleteTask);
+router.delete('/:id', validateTaskId, deleteTask);
 
 module.exports = router;
