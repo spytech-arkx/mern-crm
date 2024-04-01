@@ -9,5 +9,8 @@
         "ecmaVersion": "latest"
     },
     "rules": {
+        "linebreak-style": "off",
+        "no-console": "warn",
+        "no-useless-catch": "off"
     }
 }
