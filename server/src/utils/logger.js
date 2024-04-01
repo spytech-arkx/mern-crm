@@ -1,4 +1,4 @@
-const winston = require('winston'); // Assuming use of a popular logging library like Winston
+const winston = require('winston');
 require('dotenv').config('../../.env');
 
 const config = {
@@ -10,7 +10,7 @@ const config = {
     info: 4,
     verbose: 5,
     silly: 6,
-    timestamp: 7
+    timestamp: 7,
   },
   colors: {
     error: 'red',
@@ -20,8 +20,8 @@ const config = {
     info: 'green',
     verbose: 'cyan',
     silly: 'magenta',
-    format : 'yellow'
-  }
+    format: 'yellow',
+  },
 };
 
 winston.addColors(config.colors);
@@ -31,7 +31,7 @@ const logger = winston.createLogger({
   format: winston.format.combine(
     winston.format.colorize(),
     winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), // Include timestamps
-    winston.format.printf((info) => `${info.timestamp} [${info.level}] ${info.message}`)
+    winston.format.printf((info) => `${info.timestamp} [${info.level}] ${info.message}`),
   ),
   transports: [
     new winston.transports.Console(), // Log to console for development
