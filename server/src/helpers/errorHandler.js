@@ -21,6 +21,21 @@ function handleError(error, response) {
         errors: error.errors.map((err) => err.message),
       });
 
+    case 'MongoBulkWriteError':
+      if (error.code === 11000) {
+        return response.status(400).json({
+          type: 'DuplicateKeyError',
+          message: 'Duplicate key error: This field must be unique.',
+          error,
+        });
+      }
+      // Handle other MongoWriteError cases (e.g., validation errors on the server)
+      return response.status(400).json({
+        type: 'MongoWriteError',
+        message: 'Write operation failed.',
+        error,
+      });
+
     case 'MongoError':
       if (error.code === 11000) {
         return response.status(400).json({

@@ -87,7 +87,7 @@ const ContactSchema = new mongoose.Schema(
       // Must be provided at POST, this is the most convenient way.
       type: String,
       trim: true,
-      enum: ['contact', 'user', 'task', 'deal', 'company'],
+      enum: ['contact', 'ct', 'Contact'],
       default: 'contact',
     },
     CreatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
