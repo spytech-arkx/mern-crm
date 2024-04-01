@@ -1,23 +1,27 @@
 const xss = require('xss');
 
-const sanitizeString = (value) => {
+function sanitizeString(value) {
   return xss(value);
-};
+}
 
 const sanitizeObject = (obj) => {
   const sanitizedObj = {};
-  for (const key in obj) {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) { // make sure is isn't inherited, toString can break the code
+  Object.keys(obj).forEach((key) => {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
       const value = obj[key];
-      sanitizedObj[key] = typeof value === 'object' && value !== null ? sanitizeObject(value) : sanitizeString(value);
+      if (typeof value === 'object' && value !== null) {
+        sanitizedObj[key] = sanitizeObject(value);
+      } else {
+        sanitizedObj[key] = sanitizeString(value);
+      }
     }
-  }
+  });
   return sanitizedObj;
 };
 
-const sanitize = (req, res, next) => {
+const sanitizeBodyData = (req, res, next) => {
   req.body = sanitizeObject(req.body);
   next();
 };
 
-module.exports = sanitize;
+module.exports = sanitizeBodyData;
