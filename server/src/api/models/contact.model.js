@@ -7,13 +7,14 @@ const ContactSchema = new mongoose.Schema(
       type: String,
       required: [true, 'First name is required.'],
       trim: true,
+      match: [/^[a-zA-Z\s]+$/, 'Please provide a valide name.'],
     },
     lastName: {
       type: String,
       required: [true, 'Last name is required.'],
       trim: true,
+      match: [/^[a-zA-Z\s]+$/, 'Please provide a valide name.'],
     },
-    middleName: { type: String, default: '', trim: true },
 
     // Contact Information
     email: {
@@ -37,7 +38,10 @@ const ContactSchema = new mongoose.Schema(
         'Please provide a valid phone number.',
       ],
     },
-    birthday: Date,
+    birthday: {
+      type: Date,
+      required: false,
+    },
     notes: {
       type: String,
       maxlength: 80,
@@ -79,7 +83,8 @@ const ContactSchema = new mongoose.Schema(
     },
 
     // System Information
-    type: { // Must be provided at POST, this is the most convenient way.
+    type: {
+      // Must be provided at POST, this is the most convenient way.
       type: String,
       trim: true,
       enum: ['contact', 'user', 'task', 'deal', 'company'],
@@ -103,4 +108,5 @@ const ContactSchema = new mongoose.Schema(
   },
 );
 
-exports.Contact = mongoose.model('Contact', ContactSchema);
+const Contact = mongoose.model('Contact', ContactSchema);
+module.exports = Contact;

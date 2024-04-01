@@ -1,34 +1,20 @@
-const express = require("express");
-const {
-  allTasks,
-  getTask,
-  createTask,
-  updateTask,
-  deleteTask,
-} = require("../controllers/task.controller");
+// const express = require('express');
+// const {
+//   allTasks,
+//   getTask,
+//   createTask,
+//   updateTask,
+//   deleteTask,
+// } = require('../controllers/task.controller');
 
-// Route pour la gestion des tâches
-const router = express.Router();
-const Task = require("../models/task.model");
+// // Route pour la gestion des tâches
+// const router = express.Router();
 
-// Endpoint GET all tasks
+// // CRUD Operations
+// router.get('/', allTasks);
+// router.get('/:id', getTask);
+// router.post('/', createTask);
+// router.put('/:id', updateTask);
+// router.delete('/:id', deleteTask);
 
-router.get("/", allTasks);
-
-// Endpoint GET a task by ID
-
-router.get("/:id", getTask);
-
-// Endpoint POST a task
-
-router.post("/", createTask);
-
-// Endpoint UPDATE a task by ID
-
-router.put("/:id", updateTask);
-
-// Endpoint DELETE task
-
-router.delete("/:id", deleteTask);
-
-module.exports = router;
+// module.exports = router;
