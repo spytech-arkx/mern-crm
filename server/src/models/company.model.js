@@ -5,6 +5,7 @@ const companySchema = new mongoose.Schema(
     // Main Information
     companyName: {
       type: String,
+      unique: true,
       required: [true, 'Company Name is required.'],
       trim: true,
       minlength: 3,
@@ -12,6 +13,7 @@ const companySchema = new mongoose.Schema(
     },
     Website: {
       type: String,
+      unique: true,
       trim: true,
       validate: {
         validator: (url) => /^(https?:\/\/)?([\da-z.-]+)\.([a-z]{2,6})([/\w .-]*)*\/?$/.test(url),
