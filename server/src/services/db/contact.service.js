@@ -17,7 +17,6 @@ async function readContacts(filter, projection, options) {
 // docs : documents (or document) to write (or write to)
 // operation : insertOne, updateOne, updateMany, replaceOne, deleteOne, and/or deleteMany
 // options: session (clientSession), ordered execute writes in order and stop at the first error
-// TO-DO : actually make use of bulkWriting, otherwise why not use (findByandOperation..)
 async function writeContacts(docs, operation, filters) {
   try {
     const arr = Array.isArray(docs) ? docs : [docs];
@@ -41,3 +40,5 @@ module.exports = {
   readContacts,
   writeContacts,
 };
+
+// TODO : actually make use of bulkWriting, otherwise why not use (findByandOperation..)

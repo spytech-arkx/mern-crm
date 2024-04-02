@@ -14,7 +14,13 @@ const contactRouter = express.Router();
 contactRouter.post('/', sanitizeBodyData, validateBodyData, createContacts);
 contactRouter.get('/', getContacts);
 contactRouter.get('/:id', validateParamsId, getContactById);
-contactRouter.patch('/:id', validateParamsId, sanitizeBodyData, validateBodyData, updateContact);
+contactRouter.patch(
+  '/:id',
+  validateParamsId,
+  sanitizeBodyData,
+  validateBodyData,
+  updateContact,
+);
 contactRouter.delete('/:id', validateParamsId, deleteContact);
 
 // contactRouter.get('/analytics')
