@@ -30,7 +30,7 @@ async function writeContacts(docs, operation, filters) {
       return obj;
     }, {});
 
-    return await Contact.bulkWrite([bulkOps], { ordered: false });
+    return await Contact.bulkWrite([bulkOps], { ordered: true });
   } catch (err) {
     throw err; // error-handling fl'controller (res, req)
   }

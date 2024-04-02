@@ -23,7 +23,7 @@ async function writeCompanies(docs, operation, filters) {
       return obj;
     }, {});
 
-    return await Company.bulkWrite([bulkOps], { ordered: false });
+    return await Company.bulkWrite([bulkOps], { ordered: true });
   } catch (err) {
     throw err;
   }
