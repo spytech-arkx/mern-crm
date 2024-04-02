@@ -1,6 +1,5 @@
 const Joi = require('joi');
 const schemaSelector = require('../helpers/schemaChoiceHandler');
-const handleError = require('../helpers/errorHandler');
 const typeHandler = require('../helpers/typeHandler');
 
 // When validate() throws, err contains an object with details about the validation failures.
@@ -19,7 +18,14 @@ const validateBodyData = (req, res, next) => {
   // Validation successful, continue processing
   if (error) {
     // handle it here and now.
-    return handleError(error, res);
+    return res.status(400).json({
+      type: 'ValidationError',
+      message: 'Validation failed :/',
+      errors: error.details.map((detail) => ({
+        field: detail.path.join('.'),
+        message: detail.message,
+      })),
+    });
   }
   req.body = value;
   next();

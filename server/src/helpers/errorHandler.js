@@ -19,10 +19,7 @@ function handleError(error, response) {
         return response.status(400).json({
           type: 'ValidationError',
           message: 'Validation failed :/',
-          errors: error.details.map((detail) => ({
-            field: detail.path.join('.'),
-            message: detail.message,
-          })),
+          error,
         });
 
       case 'MongoBulkWriteError':
