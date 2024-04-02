@@ -1,21 +1,28 @@
 const Joi = require('joi');
-const contactSchema = require('../models/joi/contact.schema');
+const schemaSelector = require('../helpers/schemaChoiceHandler');
+const handleError = require('../helpers/errorHandler');
+const typeHandler = require('../helpers/typeHandler');
 
-// TO-DO : handle bulk documents validations.
+// When validate() throws, err contains an object with details about the validation failures.
+// You can access these details using the following properties:
+//     error.details: An array of objects representing each validation error.
+//     error.details[i].message: The specific error message for each validation failure.
+//     error.details[i].path: (e.g., "companyName" or "BillingAddress.Street").
+// eslint-disable-next-line consistent-return
 const validateBodyData = (req, res, next) => {
-  // validate the body, headers, cookies, formdata and queries next..
-  const { error: invalidDataError } = contactSchema.validate(req.body, {
+  const { method } = req;
+  const type = typeHandler(req.originalUrl);
+  const { error, value } = schemaSelector(type, method).validate(req.body, {
     abortEarly: 'true',
     convert: 'false',
   });
-  if (invalidDataError) {
-    return res.status(400).json({
-      type: 'ValidationError',
-      errors: invalidDataError.details,
-      message: 'Bad Request',
-    });
+  // Validation successful, continue processing
+  if (error) {
+    // handle it here and now.
+    return handleError(error, res);
   }
-  return next();
+  req.body = value;
+  next();
 };
 
 const validateParamsId = (req, res, next) => {
@@ -35,3 +42,6 @@ module.exports = {
   validateBodyData,
   validateParamsId,
 };
+
+// TODO: validate the body, headers, cookies, formdata and queries next..
+// TODO : handle bulk documents validations.
