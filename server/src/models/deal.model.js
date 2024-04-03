@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 // Define the Deal schema
 const dealSchema = mongoose.Schema({
@@ -18,20 +18,20 @@ const dealSchema = mongoose.Schema({
   },
   stage: {
     type: String,
-    enum: ["Qualification", "Negotiation", "Closure", "Other"],
-    default: "Qualification",
+    enum: ['Qualification', 'Negotiation', 'Closure', 'Other'],
+    default: 'Qualification',
   },
   company: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "Company",
+    ref: 'Company',
     required: true,
   },
-  contacts: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Contact",
-    },
-  ],
+  contacts: {
+    type: [mongoose.Schema.Types.ObjectId],
+    ref: 'Contact',
+    required: true,
+  },
+
   close_date: [
     {
       type: String,
@@ -41,4 +41,4 @@ const dealSchema = mongoose.Schema({
 
 // Create and export the Deal model
 
-module.exports = mongoose.model("Deal", dealSchema);
+module.exports = mongoose.model('Deal', dealSchema);
