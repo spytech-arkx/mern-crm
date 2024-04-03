@@ -1,28 +1,27 @@
 const express = require('express');
-const validateObjectId = require('../middlewares/id.validator');
-// const validateContact = require('../middlewares/validator');
-const sanitize = require('../middlewares/sanitizer');
 const {
   getContactById,
   getContacts,
   updateContact,
   deleteContact,
-  softDeleteContact,
   createContacts,
 } = require('../controllers/contact.controller');
+const { validateParamsId, validateBodyData } = require('../middlewares/validator');
+const sanitizeBodyData = require('../middlewares/sanitizer');
+
 const contactRouter = express.Router();
 
-contactRouter.post('/', sanitize, /*validateContact, */ createContacts);
+contactRouter.post('/', sanitizeBodyData, validateBodyData, createContacts);
 contactRouter.get('/', getContacts);
-contactRouter.get('/:id', validateObjectId, getContactById);
+contactRouter.get('/:id', validateParamsId, getContactById);
 contactRouter.patch(
   '/:id',
-  validateObjectId,
-  sanitize,
-  /*validateContact, */ updateContact,
+  validateParamsId,
+  sanitizeBodyData,
+  validateBodyData,
+  updateContact,
 );
-contactRouter.delete('/:id', validateObjectId, deleteContact);
-// contactRouter.delete("/:id", validateObjectId , softDeleteContact);
+contactRouter.delete('/:id', validateParamsId, deleteContact);
 
 // contactRouter.get('/analytics')
 // contactRouter.get('/analytics/:id')

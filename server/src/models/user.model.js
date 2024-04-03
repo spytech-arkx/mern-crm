@@ -25,8 +25,7 @@ const userSchema = new mongoose.Schema({
     unique: true,
     lowercase: true, // Convert email to lowercase for consistency
     validate: {
-      validator: (email) =>
-        /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm.test(email),
+      validator: (email) => /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm.test(email),
       message: 'Invalid email format',
     },
   },

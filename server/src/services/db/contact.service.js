@@ -1,47 +1,44 @@
+/* eslint-disable no-param-reassign */
 const Contact = require('../../models/contact.model');
 
+// mongoDB filters : filter = {_id: id} for example reads by Id
+// options : tailable, limit, skip, allowDiskUse, batchSize, readPreference, hint, comment
+// projection : Specifies which document fields to include or exclude
+// more on : https://mongoosejs.com/docs/api/query.html#Query.prototype.select()
 async function readContacts(filter, projection, options) {
   try {
-    const response = await Contact.find(filter, projection, options);
-    return response;
+    return await Contact.find(filter, projection, options); // Return the response
   } catch (err) {
-    console.log('Error retrieving data:', err);
+    throw err;
   }
 }
 
-// Note : The save() method returns a promise.
-// If save() succeeds, the promise resolves to the document that was saved.
-async function writeContacts(body) {
+// write
+// docs : documents (or document) to write (or write to)
+// operation : insertOne, updateOne, updateMany, replaceOne, deleteOne, and/or deleteMany
+// options: session (clientSession), ordered execute writes in order and stop at the first error
+async function writeContacts(docs, operation, filters) {
   try {
-    if (Array.isArray(body)) {
-      const newContacts = await Contact.insertMany(body);
-      return newContacts
-    } else {
-      const newContact = new Contact(body);
-      await newContact.save();
-      return newContact;
-    }
+    const arr = Array.isArray(docs) ? docs : [docs];
+
+    const bulkOps = arr.reduce((obj, current) => {
+      obj[operation] = {
+        filter: filters,
+        update: operation === 'updateOne' ? current : undefined, // Add update only for updates
+        document: operation === 'insertOne' ? current : undefined, // Add document only for inserts
+      };
+      return obj;
+    }, {});
+
+    return await Contact.bulkWrite([bulkOps], { ordered: true });
   } catch (err) {
-    if (err.name === 'ValidationError') {
-      // Handle validation errors specifically
-      const { errors } = err;
-      // Access specific validation errors using errors object (e.g., errors.name.message)
-      throw {
-        type: "ContactValidationError",
-        message: "Validation errors occurred:",
-        errors: errors, // Include specific validation errors
-      };
-    } else {
-      // Handle other errors (e.g., database errors)
-      throw {
-        type: "ContactSaveError",
-        message: err.message || "An error occurred while saving the contact.",
-      };
-    }
+    throw err; // error-handling fl'controller (res, req)
   }
 }
 
 module.exports = {
   readContacts,
-  writeContacts
+  writeContacts,
 };
+
+// TODO : actually make use of bulkWriting, otherwise why not use (findByandOperation..)
