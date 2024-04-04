@@ -15,14 +15,9 @@ exports.loginUser = async (req, res) => {
     delete newUser.password; // Remove the password
     const token = await generateToken(newUser);
     res.cookie('tokenAuth', token);
-    res.status(200).json({
-        message: 'Logged in',
-      });
-    }else{
-        return res.status(400).json({ message: 'Incorrect Password' });
-    }
-  } catch (err) {
-    return handleError(err, res);
+    res.status(302).redirect('/user/profile');
+  }catch (err) {
+    handleError(err, res);
   }
 };
 
