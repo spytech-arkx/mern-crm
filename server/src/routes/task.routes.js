@@ -12,17 +12,16 @@ const {
   deleteTask,
 } = require('../controllers/task.controller');
 
-const router = express.Router();
-router.get('/', allTasks);
-router.get('/:id', validateTaskId, getTask);
-router.post('/', [validateTaskName(), validateTaskDescription()], createTask);
-router.put(
+const taskRouter = express.Router();
+taskRouter.get('/', allTasks);
+taskRouter.get('/:id', validateTaskId, getTask);
+taskRouter.post('/', [validateTaskName(), validateTaskDescription()], createTask);
+taskRouter.put(
   '/:id',
   validateTaskId,
   [validateTaskName(), validateTaskDescription()],
   updateTask,
 );
-router.delete('/:id', validateTaskId, deleteTask);
+taskRouter.delete('/:id', validateTaskId, deleteTask);
 
-
-module.exports = router;
+module.exports = taskRouter;
