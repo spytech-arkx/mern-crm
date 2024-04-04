@@ -1,35 +1,40 @@
-const { readUsers, writeUsers } = require('../services/db/user.service');
+const { readUsers, writeUsers, getUserByEmail } = require('../services/db/user.service');
 const { comparePassword, hashPassword } = require('../helpers/hashing');
 const { generateToken } = require('../helpers/jwt');
 const handleError = require('../helpers/errorHandler');
 
 //rendering pages
-exports.renderLogin = (req, res) => {
-  res.render('login');
-};
+// exports.renderLogin = (req, res) => {
+//   res.render('login');
+// };
 
-exports.renderProfile = (req, res) => {
-  res.render('profile');
-};
+// exports.renderProfile = (req, res) => {
+//   res.render('profile');
+// };
 
 //logic
 
 exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
-
-    const user = await readUsers({ email });
-    console.log('before', user);
+    const user = await getUserByEmail(email);
     if (!user) return res.status(400).json({ message: 'User not found' });
     // const checked = await comparePassword(password, user.password);
 
-    if (!checked) return res.status(400).json({ message: 'Incorrect Password' });
-    delete user.password;
-    delete user._id;
-    const token = await generateToken(user);
+    if (user.password == password){
+    let newUser= ({...user}._doc); //extracting user data
+    delete newUser.password; // Remove the password
+    const token = await generateToken(newUser);
     res.cookie('tokenAuth', token);
-    res.status(302).redirect('/user/profile');
-  } catch (err) {}
+    res.status(200).json({
+        message: 'Logged in',
+      });
+    }else{
+        return res.status(400).json({ message: 'Incorrect Password' });
+    }
+  } catch (err) {
+    return handleError(err, res);
+  }
 };
 
 exports.getUsers = async (req, res) => {
