@@ -1,19 +1,26 @@
 const express = require('express');
-const sanitize = require('../middlewares/sanitizer');
-const validateObjectId = require('../middlewares/id.validator');
-const router = express.Router();
 const {
-  getDeals,
   getDealById,
-  createDeal,
+  getDeals,
   updateDeal,
   deleteDeal,
+  createDeal,
 } = require('../controllers/deal.controller');
+const { validateParamsId, validateBodyData } = require('../middlewares/validator');
+const sanitizeBodyData = require('../middlewares/sanitizer');
 
-router.get('/:id', validateObjectId, getDealById);
-router.post('/', sanitize, createDeal);
-router.put('/:id', validateObjectId, sanitize, updateDeal);
-router.delete('/:id', validateObjectId, deleteDeal);
+const dealRouter = express.Router();
 
-router.get('/', getDeals);
-module.exports = router;
+dealRouter.post('/', sanitizeBodyData, validateBodyData, createDeal);
+dealRouter.get('/', getDeals);
+dealRouter.get('/:id', validateParamsId, getDealById);
+dealRouter.patch(
+  '/:id',
+  validateParamsId,
+  sanitizeBodyData,
+  validateBodyData,
+  updateDeal,
+);
+dealRouter.delete('/:id', validateParamsId, deleteDeal);
+
+module.exports = dealRouter;
