@@ -9,11 +9,13 @@ const {
   deleteUser,
   updateUser,
   createUsers,
+  loginUser,
 } = require('../controllers/user.controller');
 
 const userRouter = express.Router();
 
 userRouter.post('/', sanitizeBodyData, validateBodyData, createUsers);
+userRouter.post('/auth/login', avoidAuth, loginUser);
 userRouter.get('/', getUsers);
 userRouter.get('/:id', validateParamsId, getUserById);
 userRouter.patch(
