@@ -3,17 +3,6 @@ const { comparePassword, hashPassword } = require('../helpers/hashing');
 const { generateToken } = require('../helpers/jwt');
 const handleError = require('../helpers/errorHandler');
 
-//rendering pages
-// exports.renderLogin = (req, res) => {
-//   res.render('login');
-// };
-
-// exports.renderProfile = (req, res) => {
-//   res.render('profile');
-// };
-
-//logic
-
 exports.loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
