@@ -1,7 +1,6 @@
 const express = require('express');
 const { validateParamsId, validateBodyData } = require('../middlewares/validator');
 const sanitizeBodyData = require('../middlewares/sanitizer');
-const {loginUser} = require("../controllers/user.controller");
 const {avoidAuth}= require("../middlewares/avoid.auth")
 const {
   getUsers,
