@@ -8,6 +8,16 @@ async function readUsers(filter, projection, options) {
     throw err;
   }
 }
+async function getUserByEmail(email) {
+    try {
+        const filter = { email: email }; // Filter by the specified email
+        const projection = { email: 1, password: 1 }; // Include only the email field
+        const user= await User.find(filter, projection); // Return the response
+        return user[0];
+    } catch (err) {
+        throw err;
+      }
+    }
 
 async function writeUsers(docs, operation, filters) {
   try {
@@ -32,4 +42,5 @@ async function writeUsers(docs, operation, filters) {
 module.exports = {
   readUsers,
   writeUsers,
+  getUserByEmail,
 };
