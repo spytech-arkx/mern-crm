@@ -2,7 +2,6 @@ const Task = require('../models/task.model');
 const { handleValidationError } = require('../models/express-validator/task.validators');
 
 // GET all tasks
-
 const allTasks = async (req, res) => {
   try {
     const tasks = await Task.find().sort({ createAt: -1 });
@@ -19,7 +18,6 @@ const allTasks = async (req, res) => {
 };
 
 // GET task by ID
-
 const getTask = async (req, res) => {
   const { id } = req.params;
 
@@ -40,7 +38,6 @@ const getTask = async (req, res) => {
 };
 
 // Create new task POST
-
 const createTask = async (req, res) => {
   handleValidationError(req, res);
 
@@ -53,12 +50,9 @@ const createTask = async (req, res) => {
 };
 
 // Update a task by ID
-
 const updateTask = async (req, res) => {
   //validation error part
-
   handleValidationError(req, res);
-
   const { id } = req.params;
 
   try {
@@ -75,7 +69,6 @@ const updateTask = async (req, res) => {
 };
 
 // Delete a task by id
-
 const deleteTask = async (req, res) => {
   const { id } = req.params;
 
