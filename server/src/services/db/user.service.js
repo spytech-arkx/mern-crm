@@ -48,4 +48,73 @@ const login = async (email, password) => {
   return user; // Return the user if login is successful
 };
 
-module.exports = { signup, login, createToken };
+// GET all users
+
+const allUsers = async () => {
+  try {
+    const users = await User.find().sort({ createdAt: -1 });
+    if (users.length === 0) throw new Error(`No user available`);
+
+    return users;
+  } catch (err) {
+    if (err.message === 'No user available') {
+      throw new Error('No user available');
+    } else {
+      throw new Error('internal server error');
+    }
+  }
+};
+
+// GET user by ID
+
+const getUser = async (userId) => {
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      throw new Error('No such user');
+    }
+    return user;
+  } catch (err) {
+    throw new Error('Internal server error');
+  }
+};
+
+// Update a user by ID
+
+const updateUser = async (userId, newData) => {
+  try {
+    const userUp = await User.findByIdAndUpdate(userId, newData, {
+      new: true,
+    });
+    if (!userUp) {
+      throw new Error('No such user');
+    }
+    return userUp;
+  } catch (err) {
+    throw new Error('Internal server error');
+  }
+};
+
+// Delete a user by id
+
+const deleteUser = async (userId) => {
+  try {
+    const deletedUser = await User.findByIdAndDelete(userId);
+    if (!deletedUser) {
+      throw new Error('No such user');
+    }
+    return deletedUser;
+  } catch (err) {
+    throw new Error(`Internal server error`);
+  }
+};
+
+module.exports = {
+  signup,
+  login,
+  createToken,
+  allUsers,
+  getUser,
+  updateUser,
+  deleteUser,
+};

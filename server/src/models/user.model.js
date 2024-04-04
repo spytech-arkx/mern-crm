@@ -34,7 +34,8 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 8,
   },
-  /* phoneNumber: {
+
+  phoneNumber: {
     type: String,
   },
   address: {
@@ -56,7 +57,7 @@ const userSchema = new mongoose.Schema({
   updatedAt: {
     type: Date,
     default: Date.now,
-  },*/
+  },
 });
 
 const User = mongoose.model('User', userSchema);
