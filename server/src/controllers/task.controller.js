@@ -1,86 +1,85 @@
-const Task = require("../models/task.model");
-const mongoose = require("mongoose");
+const Task = require('../models/task.model');
+const { handleValidationError } = require('../models/express-validator/task.validators');
 
 // GET all tasks
-
 const allTasks = async (req, res) => {
   try {
     const tasks = await Task.find().sort({ createAt: -1 });
+    if (tasks.length === 0) throw new Error(`No task available`);
+
     res.status(200).json(tasks);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    if (err.message === 'No task available') {
+      res.status(404).json({ message: 'No task available' });
+    } else {
+      res.status(500).json({ message: 'Internal server error' });
+    }
   }
 };
 
 // GET task by ID
-
 const getTask = async (req, res) => {
   const { id } = req.params;
 
-  //add verification ID
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "no such task" });
-  }
-
   try {
     const task = await Task.findById(id);
-    if (task == null) {
-      return res.status(404).json({ message: "Tâche introuvable" });
+    if (!task) {
+      return res.status(404).json({ message: 'no such task' });
     }
-    res.json(task);
+    res.status(200).json(task);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.log(err);
+    if (err.message === 'no such task') {
+      res.status(404).json({ message: 'no such task' });
+    }
+
+    res.status(500).json({ message: `Server Error` });
   }
 };
 
 // Create new task POST
-
 const createTask = async (req, res) => {
+  handleValidationError(req, res);
+
   try {
     const task = await Task.create(req.body);
-    res.status(201).json(task);
+    res.status(201).json({ message: 'Task created ', task });
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    handleValidationError(res, err);
   }
 };
 
 // Update a task by ID
-
 const updateTask = async (req, res) => {
+  //validation error part
+  handleValidationError(req, res);
   const { id } = req.params;
 
-  //add verification ID
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "no such task" });
-  }
   try {
     const task = await Task.findByIdAndUpdate(id, req.body, {
       new: true,
     });
-    res.json(task);
+    if (!task) {
+      res.status(404).json({ messge: 'No such task' });
+    }
+    res.status(200).json({ message: 'Task Updated', task });
   } catch (err) {
-    res.status(400).json({ message: err.message });
+    handleValidationError(res, err);
   }
 };
 
-// Delete a task
-
+// Delete a task by id
 const deleteTask = async (req, res) => {
   const { id } = req.params;
 
-  //add verification ID
-
-  if (!mongoose.Types.ObjectId.isValid(id)) {
-    return res.status(404).json({ error: "no such task" });
-  }
-
   try {
-    await Task.findByIdAndDelete(id);
-    res.json({ message: "Tâche supprimée" });
+    const deletedTask = await Task.findByIdAndDelete(id);
+    if (!deletedTask) {
+      return res.status(404).json({ message: 'Task not deleted' });
+    }
+    res.json({ message: 'Task deleted', deletedTask });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: `Internal server error` });
   }
 };
 
