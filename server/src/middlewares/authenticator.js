@@ -1,5 +1,5 @@
 const { login, signup, createToken } = require('../services/db/user.service');
-const { handleValidationError } = require('../validators/user.validators');
+const { handleValidationError } = require('../models/express-validator/user.validators');
 
 // Controller function to register a new user
 const registerUser = async (req, res) => {

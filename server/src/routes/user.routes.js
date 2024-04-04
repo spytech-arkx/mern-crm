@@ -12,7 +12,7 @@ const {
   validatePassword,
   validateEmail,
   handleValidationError,
-} = require('../validators/user.validators');
+} = require('../models/express-validator/user.validators');
 const { registerUser, loginUser } = require('../middlewares/authenticator'); // Import controller functions
 const router = express.Router(); // Create an Express router
 

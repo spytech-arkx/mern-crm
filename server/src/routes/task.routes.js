@@ -3,7 +3,7 @@ const {
   validateTaskName,
   validateTaskDescription,
   validateTaskId,
-} = require('../validators/task.validators');
+} = require('../models/express-validator/task.validators');
 const {
   allTasks,
   getTask,

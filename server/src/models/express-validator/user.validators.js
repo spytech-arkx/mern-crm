@@ -12,7 +12,6 @@ const handleValidationError = (req, res, next) => {
 // function for validate Id using mongoose
 
 const validateUserId = (req, res, next) => {
-  console.log('test');
   const { id } = req.params;
 
   if (!mongoose.Types.ObjectId.isValid(id)) {

@@ -1,5 +1,5 @@
 const Task = require('../models/task.model');
-const { handleValidationError } = require('../validators/task.validators');
+const { handleValidationError } = require('../models/express-validator/task.validators');
 
 // GET all tasks
 
@@ -65,7 +65,10 @@ const updateTask = async (req, res) => {
     const task = await Task.findByIdAndUpdate(id, req.body, {
       new: true,
     });
-    res.json({ message: 'Task Updated', task });
+    if (!task) {
+      res.status(404).json({ messge: 'No such task' });
+    }
+    res.status(200).json({ message: 'Task Updated', task });
   } catch (err) {
     handleValidationError(res, err);
   }
