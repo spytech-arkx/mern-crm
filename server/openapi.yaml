@@ -1,0 +1,1140 @@
+# oas3.1 for the project, current version (1.0.0) doesnt inclure queries,
+# filters, pagination and other specific endpoints. Next version will.
+
+openapi: 3.1.0
+info:
+  version: 1.0.0
+  title: 'oas3.1-crm'
+  description: 'CRM User Management API: Manage user registration, login (basic & OAuth), profiles, and CRUD operations for CRM users.'
+servers:
+  - description: Development phase (loop-back ip)
+    url: http://localhost:3000/api
+paths:
+  '/contacts':
+    get:
+      summary: List all contacts
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  '$ref': '#/components/schemas/Contact'
+    post:
+      summary: Create a new contact
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              '$ref': '#/components/schemas/Contact'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                '$ref': '#/components/schemas/Contact'
+        '400':
+          description: Bad Request
+  '/contacts/{id}':
+    get:
+      summary: Get a specific contact by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                '$ref': '#/components/schemas/Contact'
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete a specific contact
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+    patch:
+      summary: Update a specific contact
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              '$ref': '#/components/schemas/ContactUpdate'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                '$ref': '#/components/schemas/Contact'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+  '/deals':
+    get:
+      summary: List all deals
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  '$ref': '#/components/schemas/Deal'
+    post:
+      summary: Create a new deal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              '$ref': '#/components/schemas/Deal'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                '$ref': '#/components/schemas/Deal'
+        '400':
+          description: Bad Request
+  '/deals/{id}':
+    get:
+      summary: Get a specific deal by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                '$ref': '#/components/schemas/Deal'
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete a specific deal
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+    patch:
+      summary: Update a specific deal
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              '$ref': '#/components/schemas/DealUpdate'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                '$ref': '#/components/schemas/Deal'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+  '/tasks':
+    get:
+      summary: List all tasks
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  '$ref': '#/components/schemas/Task'
+    post:
+      summary: Create a new task
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              '$ref': '#/components/schemas/Task'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                '$ref': '#/components/schemas/Task'
+        '400':
+          description: Bad Request
+  '/tasks/{id}':
+    get:
+      summary: Get a specific task by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                '$ref': '#/components/schemas/Task'
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete a specific task
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+    patch:
+      summary: Update a specific task
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              '$ref': '#/components/schemas/TaskUpdate'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                '$ref': '#/components/schemas/Task'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+  '/companies':
+    get:
+      summary: List all companies
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  '$ref': '#/components/schemas/Company'
+    post:
+      summary: Create a new company
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              '$ref': '#/components/schemas/Company'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                '$ref': '#/components/schemas/Company'
+        '400':
+          description: Bad Request
+  '/companies/{id}':
+    get:
+      summary: Get a specific company by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                '$ref': '#/components/schemas/Company'
+        '404':
+          description: Not Found
+    delete:
+      summary: Delete a specific company
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '204':
+          description: No Content
+        '404':
+          description: Not Found
+    patch:
+      summary: Update a specific company
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              '$ref': '#/components/schemas/CompanyUpdate'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                '$ref': '#/components/schemas/Company'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+  '/users':
+    post:
+      summary: Register a new user
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              '$ref': '#/components/schemas/UserRegistration'
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                '$ref': '#/components/schemas/User'
+        '400':
+          description: Bad Request
+    get:
+      summary: List all users (requires admin privileges)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  '$ref': '#/components/schemas/User'
+        '401':
+          description: Unauthorized
+  '/users/{id}':
+    get:
+      summary: Get a specific user by ID (requires admin privileges)
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                '$ref': '#/components/schemas/User'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+    patch:
+      summary: Update user profile (requires authentication)
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              '$ref': '#/components/schemas/UserUpdate'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                '$ref': '#/components/schemas/User'
+        '401':
+          description: Unauthorized
+        '404':
+          description: Not Found
+  '/users/me':
+    get:
+      summary: Get current user profile (requires authentication)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                '$ref': '#/components/schemas/User'
+        '401':
+          description: Unauthorized
+  '/users/login':
+    post:
+      summary: Login user with email and password
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  description: User email address
+                password:
+                  type: string
+                  description: User password
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Authentication token
+        '401':
+          description: Unauthorized
+  '/users/login/oauth2/google':
+    post:
+      summary: Login user with Google OAuth2
+      security:
+        - googleOAuth: []
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Authentication token
+        '401':
+          description: Unauthorized
+  '/users/signup/oauth2/google':
+    post:
+      summary: Initiate signup using Google OAuth2 (redirects to Google authorization)
+      description: This endpoint redirects the user to Google's authorization URL
+        to initiate signup using their Google account.
+      responses:
+        '302':
+          description: Found (Redirects to Google authorization URL)
+  '/users/x-google-signup-exchange':
+    post:
+      summary: Exchange authorization code for user information (backend process)
+      description: This is an informational section describing the backend process
+        after the user is redirected from Google's authorization URL. Your CRM system
+        will typically receive an authorization code in the redirect URI. This code
+        is then exchanged with Google's token endpoint (not defined here) to retrieve
+        user information (e.g., email address) for signup purposes.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  description: Authorization code received from Google
+                clientId:
+                  type: string
+                  description: Your CRM system's client ID registered with Google
+                clientSecret:
+                  type: string
+                  description: Your CRM system's client secret registered with Google
+                redirectURI:
+                  type: string
+                  description: The redirect URI configured for your CRM system in
+                    Google
+  '/users/login/oauth2/microsoft':
+    post:
+      summary: Login user with Microsoft OAuth2
+      security:
+        - microsoftOAuth: []
+      responses:
+        '200':
+          description: Login successful
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  token:
+                    type: string
+                    description: Authentication token
+        '401':
+          description: Unauthorized
+  '/users/signup/oauth2/microsoft':
+    post:
+      summary: Initiate signup using Microsoft OAuth2 (redirects to Microsoft authorization)
+      description: This endpoint redirects the user to Microsoft's authorization URL
+        to initiate signup using their Microsoft account.
+      responses:
+        '302':
+          description: Found (Redirects to Microsoft authorization URL)
+  '/users/x-microsoft-signup-exchange':
+    post:
+      summary: Exchange authorization code for user information (backend process)
+      description: This is an informational section describing the backend process
+        after the user is redirected from Microsoft's authorization URL. Your CRM
+        system will typically receive an authorization code in the redirect URI. This
+        code is then exchanged with Microsoft's token endpoint (not defined here)
+        to retrieve user information (e.g., email address) for signup purposes.
+      requestBody:
+        required: true
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              type: object
+              properties:
+                code:
+                  type: string
+                  description: Authorization code received from Microsoft
+                client_id:
+                  type: string
+                  description: Your CRM system's client ID registered with Microsoft
+                    Azure Active Directory
+                client_secret:
+                  type: string
+                  description: Your CRM system's client secret registered with Microsoft
+                    Azure Active Directory
+                redirect_uri:
+                  type: string
+                  description: The redirect URI
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+    googleOAuth:
+      type: oauth2
+      description: Login/Signup with Google
+      flows:
+        authorizationCode:
+          authorizationUrl: https://accounts.google.com/oAuth2/v2/auth
+          tokenUrl: https://oauth2.googleapis.com/token
+          scopes:
+            openid: OpenID Connect scopes
+    microsoftOAuth:
+      type: oauth2
+      description: Login/Signup with Microsoft
+      flows:
+        authorizationCode:
+          authorizationUrl: https://login.microsoftonline.com/common/oauth2/v2.0/authorize
+          tokenUrl: https://login.microsoftonline.com/common/oauth2/v2.0/token
+          scopes:
+            openid: OpenID Connect scopes
+  schemas:
+    Contact:
+      type: object
+      required:
+        - firstName
+        - lastName
+      properties:
+        _id:
+          type: string
+          description: Internal ID (generated by MongoDB)
+        firstName:
+          type: string
+          description: Contact's first name
+        lastName:
+          type: string
+          description: Contact's last name
+        middleName:
+          type: string
+          description: Contact's middle name
+        email:
+          type: string
+          description: Contact's email address
+        phone:
+          type: string
+          description: Contact's phone number
+        birthday:
+          type: string
+          format: date
+          description: Contact's date of birth
+        notes:
+          type: string
+          maxLength: 80
+          description: Contact notes
+        socials:
+          type: object
+          properties:
+            Twitter:
+              type: string
+              description: Contact's Twitter profile URL (optional)
+            LinkedIn:
+              type: string
+              description: Contact's LinkedIn profile URL (optional)
+        Address:
+          type: object
+          properties:
+            Street:
+              type: string
+              description: Contact's street address
+            City:
+              type: string
+              description: Contact's city
+            State:
+              type: string
+              description: Contact's state or province
+            Country:
+              type: string
+              description: Contact's country
+        company:
+          type: string
+          description: ID referencing associated company (if applicable)
+        SkypeID:
+          type: string
+          description: Contact's Skype ID (optional)
+        createdBy:
+          type: string
+          description: ID of the user who created the contact
+        modifiedBy:
+          type: string
+          description: ID of the user who last modified the contact
+        createdAt:
+          type: string
+          format: date-time
+          description: Contact creation date (automatically generated)
+        updatedAt:
+          type: string
+          format: date-time
+          description: Contact update date (automatically updated)
+        locked:
+          type: boolean
+          description: Flag indicating if the contact is locked for editing
+        fullName:
+          type: string
+          readOnly: true
+          description: Full name derived from first and last name (read-only)
+    ContactUpdate:
+      type: object
+      required:
+        - firstName
+        - lastName
+      properties:
+        firstName:
+          type: string
+          description: Contact's first name (optional for updates)
+        lastName:
+          type: string
+          description: Contact's last name (optional for updates)
+        middleName:
+          type: string
+          description: Contact's middle name (optional for updates)
+        email:
+          type: string
+          description: Contact's email address (optional for updates)
+        phone:
+          type: string
+          description: Contact's phone number (optional for updates)
+        birthday:
+          type: string
+          format: date
+          description: Contact's date of birth (optional for updates)
+        notes:
+          type: string
+          maxLength: 80
+          description: Contact notes (optional for updates)
+        socials:
+          type: object
+          properties:
+            Twitter:
+              type: string
+              description: Contact's Twitter profile URL (optional for updates)
+            LinkedIn:
+              type: string
+              description: Contact's LinkedIn profile URL (optional for updates)
+        Address:
+          type: object
+          properties:
+            Street:
+              type: string
+              description: Contact's street address (optional for updates)
+            City:
+              type: string
+              description: Contact's city (optional for updates)
+            State:
+              type: string
+              description: Contact's state or province (optional for updates)
+            Country:
+              type: string
+              description: Contact's country (optional for updates)
+        SkypeID:
+          type: string
+          description: Contact's Skype ID (optional for updates)
+    Deal:
+      type: object
+      required:
+        - name
+        - amount
+        - company
+      properties:
+        _id:
+          type: string
+          description: Internal ID (generated by MongoDB)
+        name:
+          type: string
+          description: Deal name
+        description:
+          type: string
+          description: Deal description
+        amount:
+          type: number
+          description: Deal amount
+          minimum: 0
+        stage:
+          type: string
+          description: Deal stage
+          enum:
+            - Qualification
+            - Negotiation
+            - Closure
+            - Other
+          default: Qualification
+        company:
+          type: string
+          description: ID of the associated company
+        contacts:
+          type: array
+          description: Array of contact IDs associated with the deal
+          items:
+            type: string
+        closeDate:
+          type: array
+          description: Array of closing dates (optional)
+          items:
+            type: string
+        createdBy:
+          type: string
+          description: ID of the user who created the task
+        modifiedBy:
+          type: string
+          description: ID of the user who last modified the task
+        createdAt:
+          type: string
+          format: date-time
+          description: Deal creation date (automatically generated)
+        updatedAt:
+          type: string
+          format: date-time
+          description: Deal update date (automatically updated)
+    DealUpdate:
+      type: object
+      required:
+        - name
+        - amount
+        - company
+      properties:
+        name:
+          type: string
+          description: Deal name
+        description:
+          type: string
+          description: Deal description
+        amount:
+          type: number
+          description: Deal amount
+        stage:
+          type: string
+          description: Deal stage
+        company:
+          type: string
+          description: ID of the associated company
+        contacts:
+          type: array
+          description: Array of contact IDs associated with the deal
+          items:
+            type: string
+        closeDate:
+          type: array
+          description: Array of closing dates (optional)
+          items:
+            type: string
+    Task:
+      type: object
+      required:
+        - name
+        - description
+      properties:
+        _id:
+          type: string
+          description: Internal ID (generated by MongoDB)
+        name:
+          type: string
+          description: Task name
+        description:
+          type: string
+          description: Task description
+        dueDate:
+          type: string
+          format: date
+          description: Task due date (optional)
+        priority:
+          type: string
+          description: Task priority
+          enum:
+            - Low
+            - Medium
+            - High
+          default: Medium
+        assignedTo:
+          type: string
+          description: ID of the user assigned to the task
+        status:
+          type: string
+          description: Task status
+          enum:
+            - Todo
+            - In Progress
+            - Done
+          default: Todo
+        createdAt:
+          type: string
+          format: date-time
+          description: Task creation date (automatically generated)
+        updatedAt:
+          type: string
+          format: date-time
+          description: Task update date (automatically updated)
+    TaskUpdate:
+      type: object
+      required:
+        - name
+        - description
+      properties:
+        name:
+          type: string
+          description: Task name
+        description:
+          type: string
+          description: Task description
+        dueDate:
+          type: string
+          format: date
+          description: Task due date
+        priority:
+          type: string
+          description: Task priority
+        assignedTo:
+          type: string
+          description: ID of the user assigned to the task
+        status:
+          type: string
+          description: Task status
+    Company:
+      type: object
+      required:
+        - name
+      properties:
+        _id:
+          type: string
+          description: Internal ID (generated by MongoDB)
+        name:
+          type: string
+          description: Company name
+        industry:
+          type: string
+          description: Company industry
+        website:
+          type: string
+          description: Company website URL
+        phone:
+          type: string
+          description: Company phone number
+        email:
+          type: string
+          description: Company email address
+        address:
+          type: object
+          properties:
+            Street:
+              type: string
+              description: Company street address
+            City:
+              type: string
+              description: Company city
+            State:
+              type: string
+              description: Company state or province
+            Country:
+              type: string
+              description: Company country
+        contacts:
+          type: array
+          description: Array of contact IDs associated with the company
+          items:
+            type: string
+        createdAt:
+          type: string
+          format: date-time
+          description: Company creation date (automatically generated)
+        updatedAt:
+          type: string
+          format: date-time
+          description: Company update date (automatically updated)
+    CompanyUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Company name
+        industry:
+          type: string
+          description: Company industry
+        website:
+          type: string
+          description: Company website URL
+        phone:
+          type: string
+          description: Company phone number
+        email:
+          type: string
+          description: Company email address
+        address:
+          type: object
+          properties:
+            Street:
+              type: string
+              description: Company street address
+            City:
+              type: string
+              description: Company city
+            State:
+              type: string
+              description: Company state or province
+            Country:
+              type: string
+              description: Company country
+        contacts:
+          type: array
+    User:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - email
+      properties:
+        _id:
+          type: string
+          description: Internal ID (generated by MongoDB)
+        firstName:
+          type: string
+          description: User's first name
+        lastName:
+          type: string
+          description: User's last name
+        email:
+          type: string
+          description: User's email address
+          unique: true
+        phone:
+          type: string
+          description: User's phone number
+        mobile:
+          type: string
+          description: User's mobile phone number
+        website:
+          type: string
+          description: User's website (optional)
+        fax:
+          type: string
+          description: User's fax number (optional)
+        dateOfBirth:
+          type: string
+          format: date
+          description: User's date of birth (optional)
+        street:
+          type: string
+          description: User's street address
+        language:
+          type: string
+          description: User's preferred language
+        country:
+          type: string
+          description: User's country
+        city:
+          type: string
+          description: User's city
+        timeZone:
+          type: string
+          description: User's time zone
+        state:
+          type: string
+          description: User's state or province
+        zipCode:
+          type: string
+          description: User's zip code
+        role:
+          type: string
+          description: User's role (e.g., admin, manager, user)
+        profile:
+          type: string
+          description: User's profile (e.g., sales, marketing, support)
+        status:
+          type: string
+          description: User's status (e.g., active, inactive)
+        onlineStatus:
+          type: boolean
+          description: User's online status (optional)
+        fullName:
+          type: string
+          readOnly: true
+          description: Full name derived from first and last name (read-only)
+        confirm:
+          type: boolean
+          description: User email confirmation status (optional)
+        alias:
+          type: string
+          description: User's alias (optional)
+        addedBy:
+          type: string
+          description: ID of the user who added this user (optional)
+        modifiedBy:
+          type: string
+          description: ID of the user who last modified this user (optional)
+        createdAt:
+          type: string
+          format: date-time
+          description: User creation date (automatically generated)
+        updatedAt:
+          type: string
+          format: date-time
+          description: User update date (automatically updated)
+    UserRegistration:
+      type: object
+      required:
+        - firstName
+        - lastName
+        - email
+        - password
+      properties:
+        firstName:
+          type: string
+          description: User's first name
+        lastName:
+          type: string
+          description: User's last name
+        email:
+          type: string
+          description: User's email address
+          unique: true
+        password:
+          type: string
+          description: User's password
+        street:
+          type: string
+          description: User's street address
+        language:
+          type: string
+          description: User's preferred language
+        country:
+          type: string
+          description: User's country
+        city:
+          type: string
+          description: User's city
+    UserUpdate:
+      type: object
+      properties:
+        firstName:
+          type: string
+          description: User's first name
+        lastName:
+          type: string
+          description: User's last name
+        email:
+          type: string
+          description: User's email address
+          unique: true
+        password:
+          type: string
+          description: User's password

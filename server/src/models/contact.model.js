@@ -7,19 +7,21 @@ const ContactSchema = new mongoose.Schema(
       type: String,
       required: [true, 'First name is required.'],
       trim: true,
+      match: [/^[a-zA-Z\s]+$/, 'Please provide a valide name.'],
     },
     lastName: {
       type: String,
       required: [true, 'Last name is required.'],
       trim: true,
+      match: [/^[a-zA-Z\s]+$/, 'Please provide a valide name.'],
     },
-    middleName: { type: String, default: '', trim: true },
 
     // Contact Information
     email: {
       type: String,
       trim: true,
-      unique: false,
+      unique: true,
+      sparse: true,
       match: [
         /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm,
         'Please provide a valid email address.',
@@ -27,7 +29,8 @@ const ContactSchema = new mongoose.Schema(
     },
     phone: {
       type: String,
-      unique: false,
+      unique: true,
+      sparse: true,
       trim: true,
       match: [
         /* Detects most of the phone numbers all over the world */
@@ -35,7 +38,10 @@ const ContactSchema = new mongoose.Schema(
         'Please provide a valid phone number.',
       ],
     },
-    birthday: Date,
+    birthday: {
+      type: Date,
+      required: false,
+    },
     notes: {
       type: String,
       maxlength: 80,
@@ -47,12 +53,15 @@ const ContactSchema = new mongoose.Schema(
       X: {
         type: String,
         trim: true,
-        unique: false,
+        unique: true,
+        sparse: true,
         match: /twitter/g,
       },
       LinkedIn: {
         type: String,
         trim: true,
+        unique: true,
+        sparse: true,
         unique: false,
         match: /linkedin/g, // l3gz
       },
@@ -71,10 +80,17 @@ const ContactSchema = new mongoose.Schema(
     SkypeID: {
       type: String,
       trim: true,
-      match: [/^live:([a-zA-Z0-9][a-zA-Z0-9\-]{5,31})$/, 'Not a Skype ID.'],
+      match: [/^live:([a-zA-Z0-9][a-zA-Z0-9-]{5,31})$/, 'Not a Skype ID.'],
     },
 
     // System Information
+    type: {
+      // Must be provided at POST, this is the most convenient way.
+      type: String,
+      trim: true,
+      enum: ['contact', 'ct', 'Contact'],
+      default: 'contact',
+    },
     CreatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     ModifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     Locked: Boolean, // Flag indicating if record is locked for editing

@@ -1,51 +1,53 @@
-const { body } = require('express-validator');
+const Joi = require('joi');
+const schemaSelector = require('../helpers/schemaChoiceHandler');
+const typeHandler = require('../helpers/typeHandler');
 
-exports.validateContact = [
-  // Main Information
-  body('firstName').trim().notEmpty().withMessage('First name is required.'),
-  body('lastName').trim().notEmpty().withMessage('Last name is required.'),
+// When validate() throws, err contains an object with details about the validation failures.
+// You can access these details using the following properties:
+//     error.details: An array of objects representing each validation error.
+//     error.details[i].message: The specific error message for each validation failure.
+//     error.details[i].path: (e.g., "companyName" or "BillingAddress.Street").
+// eslint-disable-next-line consistent-return
+const validateBodyData = (req, res, next) => {
+  const { method } = req;
+  const type = typeHandler(req.originalUrl);
+  const { error, value } = schemaSelector(type, method).validate(req.body, {
+    abortEarly: 'true',
+    convert: 'false',
+  });
+  // Validation successful, continue processing
+  if (error) {
+    // handle it here and now.
+    return res.status(400).json({
+      type: 'ValidationError',
+      message: 'Validation failed :/',
+      errors: error.details.map((detail) => ({
+        field: detail.path.join('.'),
+        message: detail.message,
+      })),
+    });
+  }
+  req.body = value;
+  next();
+};
 
-  // Contact Information
-  body('contact.email')
-    .optional()
-    .isEmail()
-    .withMessage('Please provide a valid email address.'),
-  body('contact.phone')
-    .optional()
-    .matches(
-      /(?:([+]\d{1,4})[-.\s]?)?(?:[(](\d{1,3})[)][-.\s]?)?(\d{1,4})[-.\s]?(\d{1,4})[-.\s]?(\d{1,9})/,
-    )
-    .withMessage('Please provide a valid phone number.'),
-  body('contact.birthday')
-    .optional()
-    .isISO8601()
-    .toDate()
-    .withMessage('Please provide a valid date for birthday.'),
-  body('contact.notes')
-    .optional()
-    .isLength({ max: 80 })
-    .withMessage('Notes can have a maximum of 80 characters.'),
+const validateParamsId = (req, res, next) => {
+  // Validate the id parameter separately using Joi, I could use mongoose ofc
+  const { error: invalidIdError } = Joi.string().hex().length(24).validate(req.params.id);
+  if (invalidIdError) {
+    return res.status(400).json({
+      type: 'ValidationError',
+      message: 'Invalid id format',
+      path: '_id',
+    });
+  }
+  return next();
+};
 
-  // Social Media Links
-  body('socials.X')
-    .optional()
-    .matches(/twitter/g)
-    .withMessage('Must provide a valid X(Formerly Twitter) handle.'),
-  body('socials.LinkedIn')
-    .optional()
-    .matches(/linkedin/g)
-    .withMessage('LinkedIn must be a valid LinkedIn profile URL.'),
+module.exports = {
+  validateBodyData,
+  validateParamsId,
+};
 
-  // Address Information (Optional)
-  body('Address.Street').optional().trim(),
-  body('Address.City').optional().trim(),
-  body('Address.State').optional().trim(),
-  body('Address.Country').optional().trim(),
-
-  // Association Information
-  body('Company').optional().isMongoId().withMessage('Invalid company ID.'),
-  body('SkypeID')
-    .optional()
-    .matches(/^live:([a-zA-Z0-9][a-zA-Z0-9\-]{5,31})$/)
-    .withMessage('Not a valid Skype ID.'),
-];
+// TODO: validate the body, headers, cookies, formdata and queries next..
+// TODO : handle bulk documents validations.

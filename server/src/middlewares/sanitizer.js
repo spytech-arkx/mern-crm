@@ -1,22 +1,27 @@
 const xss = require('xss');
 
-const sanitize = (req, res, next) => {
-  const sanitized = {};
-  for (const key in req.body) {
-    if (Object.prototype.hasOwnProperty.call(req.body, key)) {
-      const value = req.body[key];
-      // Check if the value is an object
+function sanitizeString(value) {
+  return xss(value);
+}
+
+const sanitizeObject = (obj) => {
+  const sanitizedObj = {};
+  Object.keys(obj).forEach((key) => {
+    if (Object.prototype.hasOwnProperty.call(obj, key)) {
+      const value = obj[key];
       if (typeof value === 'object' && value !== null) {
-        // If it's an object, recursively sanitize it
-        sanitized[key] = sanitize(value);
+        sanitizedObj[key] = sanitizeObject(value);
       } else {
-        // If it's not an object, sanitize the value
-        sanitized[key] = xss(value);
+        sanitizedObj[key] = sanitizeString(value);
       }
     }
-  }
-  req.body = sanitized;
+  });
+  return sanitizedObj;
+};
+
+const sanitizeBodyData = (req, res, next) => {
+  req.body = sanitizeObject(req.body);
   next();
 };
 
-module.exports = sanitize;
+module.exports = sanitizeBodyData;
