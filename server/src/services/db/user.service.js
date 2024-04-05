@@ -9,15 +9,22 @@ async function readUsers(filter, projection, options) {
   }
 }
 async function getUserByEmail(email) {
-    try {
-        const filter = { email: email }; // Filter by the specified email
-        const projection = { email: 1, password: 1 }; // Include only the email field
-        const user= await User.find(filter, projection); // Return the response
-        return user[0];
-    } catch (err) {
-        throw err;
-      }
+  try {
+    const filter = { email: email }; // Filter by the specified email
+    const projection = { email: 1, password: 1 }; // Include email and password fields
+    const user = await User.find(filter, projection); // Return the response
+
+    // Check if any user was found
+    if (user) {
+      return user[0];
+    } else {
+      return null; // Return null if no user was found
     }
+  } catch (err) {
+    throw err;
+  }
+}
+
 
 async function writeUsers(docs, operation, filters) {
   try {
