@@ -24,12 +24,16 @@ userRouter.get('/:id', validateUserId, getUserById);
 // Endpoint for registering a new user
 userRouter.post(
   '/register',
-  [validateUserName(), validateEmail(), validatePassword()],
+  [validateUserName(), validateEmail(), validatePassword(), handleValidationError],
   registerUser,
 );
 
 // Endpoint for logging in an existing user
-userRouter.post('/login', [validateEmail(), validatePassword()], loginUser);
+userRouter.post(
+  '/login',
+  [validateEmail(), validatePassword(), handleValidationError],
+  loginUser,
+);
 
 // Endpoint for updating a user by ID
 userRouter.put(
