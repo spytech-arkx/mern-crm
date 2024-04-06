@@ -62,7 +62,6 @@ const ContactSchema = new mongoose.Schema(
         trim: true,
         unique: true,
         sparse: true,
-        unique: false,
         match: /linkedin/g, // l3gz
       },
     },

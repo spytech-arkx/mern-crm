@@ -54,7 +54,8 @@ const userSchema = Joi.object({
     .messages({
       'string.base': '"username" should be a type of string',
       'string.empty': '"username" cannot be an empty string',
-      'string.pattern': '"username" must be lowercase, only include numbers, alphabet and "_"',
+      'string.pattern':
+        '"username" must be lowercase, only include numbers, alphabet and "_"',
       'any.required': '"username" is required',
     }),
   dateOfBirth: Joi.date(),
@@ -93,6 +94,7 @@ const userUpdateSchema = Joi.object({
 
   // Contact Information
   email: Joi.string().trim().email({ allowUnicode: false }).optional(),
+  password: Joi.string().optional(),
   phone: Joi.string()
     .trim()
     .pattern(/^\+(?:[0-9] ?){6,14}$/)
@@ -142,7 +144,13 @@ const userUpdateSchema = Joi.object({
   notes: Joi.string().trim().optional(),
 });
 
+const userLoginSchema = Joi.object({
+  email: Joi.string().required().trim().lowercase().email(),
+  password: Joi.string().required(),
+});
+
 module.exports = {
   userSchema,
   userUpdateSchema,
+  userLoginSchema,
 };

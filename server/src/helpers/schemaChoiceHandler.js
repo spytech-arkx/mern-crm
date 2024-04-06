@@ -1,7 +1,7 @@
 const { companySchema, companyUpdateSchema } = require('../models/joi/company.schema');
 const { contactSchema, contactUpdateSchema } = require('../models/joi/contact.schema');
 const { dealUpdateSchema, dealSchema } = require('../models/joi/deal.schema');
-const { userUpdateSchema, userSchema } = require('../models/joi/user.schema');
+const { userUpdateSchema, userSchema, userLoginSchema } = require('../models/joi/user.schema');
 
 // eslint-disable-next-line consistent-return
 function schemaSelector(type, method) {
@@ -27,6 +27,8 @@ function schemaSelector(type, method) {
           return contactSchema;
         case 'user':
           return userSchema;
+        case 'login':
+          return userLoginSchema;
         case 'deal':
           return dealSchema;
         default:

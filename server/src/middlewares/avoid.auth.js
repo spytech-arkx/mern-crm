@@ -4,12 +4,14 @@ exports.avoidAuth = (req, res, next) => {
   try {
     const token = req.cookies.tokenAuth || null;
     if (!token) {
-      next();
+      return next();
     }
     const verify = verifyToken(token);
     if (!verify) {
-      next();
+      return next();
     }
     return res.status(200).json({ message: 'you are already logged' });
-  } catch (err) {}
+  } catch (err) {
+    throw err;
+  }
 };

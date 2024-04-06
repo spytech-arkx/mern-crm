@@ -15,11 +15,17 @@ exports.loginUser = async (req, res) => {
       delete newUser.password; // Remove the password
       const token = await generateToken(newUser);
       res.cookie('tokenAuth', token);
-      res.status(302).json({ message: 'Logged in' });
-    }
+      return res.status(302).json({ message: 'Logged in' });
+    } // ila makanch ?
+    return res.status(403).json({ type: 'Forbideen', message: 'Invalid credentials' });
   } catch (err) {
-    handleError(err, res);
+    return handleError(err, res);
   }
+};
+
+exports.logout = (req, res) => {
+  res.cookie('tokenAuth', '', { expires: new Date(0) });
+  return res.status(200).send('Logout successful.');
 };
 
 exports.getUsers = async (req, res) => {
