@@ -1,10 +1,7 @@
 const { login, signup, createToken } = require('../services/db/user.service');
-const { handleValidationError } = require('../models/express-validator/user.validators');
 
 // Controller function to register a new user
 const registerUser = async (req, res) => {
-  handleValidationError(req, res);
-
   // Extract username, email, and password from the request body
   const { username, email, password } = req.body;
 
@@ -22,8 +19,6 @@ const registerUser = async (req, res) => {
 
 // Controller function to log in an existing use
 const loginUser = async (req, res) => {
-  handleValidationError(req, res);
-
   // Extract email and password from the request body
   const { email, password } = req.body;
 
