@@ -1,64 +1,96 @@
-const {
-  allUsers,
-  getUser,
-  updateUser,
-  deleteUser,
-} = require('../services/db/user.service');
+const { readUsers, writeUsers, getUserByEmail } = require('../services/db/user.service');
+const { comparePassword, hashPassword } = require('../helpers/hashing');
+const { generateToken } = require('../helpers/jwt');
+const handleError = require('../helpers/errorHandler');
 
-const getUsers = async (req, res) => {
+exports.loginUser = async (req, res) => {
   try {
-    const users = await allUsers();
-    res.status(200).json(users);
-  } catch (err) {
-    if (err.message === 'No user available') {
-      res.status(404).json({ error: err.message });
-    } else {
-      res.status(500).json({ error: 'Internal server error' });
+    const { email, password } = req.body;
+    const user = await getUserByEmail(email);
+    if (!user) return res.status(400).json({ message: 'User not found' });
+    // const checked = await comparePassword(password, user.password);
+
+    if (user.password === password) {
+      const newUser = { ...user }._doc; //extracting user data
+      delete newUser.password; // Remove the password
+      const token = await generateToken(newUser);
+      res.cookie('tokenAuth', token);
+      res.status(302).json({ message: 'Logged in' });
     }
+  } catch (err) {
+    handleError(err, res);
   }
 };
 
-const getUserById = async (req, res) => {
+exports.getUsers = async (req, res) => {
   try {
-    const userId = req.params.id;
-    const user = await getUser(userId);
-    res.status(200).json(user);
+    const companies = await readUsers({}, { createdAt: 0, modifiedAt: 0 });
+    res.status(200).json({
+      type: 'read_all',
+      items: companies.length ? companies : 'Nothing here :/',
+    });
   } catch (err) {
-    if (err.message === 'No such user') {
-      res.status(404).json('No such user');
-    } else {
-      res.status(500).json({ error: 'Internal server error' });
-    }
+    handleError(err, res);
   }
 };
 
-const patchUser = async (req, res) => {
+exports.getUserById = async (req, res) => {
   try {
-    const userId = req.params.id;
-    const newData = req.body;
-    const user = await updateUser(userId, newData);
-    res.status(200).json(user);
-  } catch (err) {
-    if (err.message === 'No such user') {
-      res.status(404).json({ error: err.message });
-    } else {
-      res.status(500).json({ error: 'Internal server error' });
+    const companies = await readUsers(
+      { _id: req.params.id },
+      { createdAt: 0, modifiedAt: 0 },
+    );
+    if (!companies.length) {
+      return res
+        .status(404)
+        .json({ type: 'ErrorNotFound', message: 'User not found :/' });
     }
+    return res.status(200).json({ type: 'read_one', item: companies[0] });
+  } catch (err) {
+    return handleError(err, res);
   }
 };
 
-const deleteUserById = async (req, res) => {
+exports.createUsers = async (req, res) => {
   try {
-    const userId = req.params.id;
-    const user = await deleteUser(userId);
-    res.status(200).json(user);
+    const writeData = await writeUsers(req.body, 'insertOne');
+    res
+      .status(201)
+      .json({ type: 'write_insert', result: writeData, message: 'Created.' });
   } catch (err) {
-    if (err.message === 'No such user') {
-      res.status(404).json({ error: err.message });
-    } else {
-      res.status(500).json({ error: 'Internal server error' });
-    }
+    handleError(err, res);
   }
 };
 
-module.exports = { getUsers, getUserById, patchUser, deleteUserById };
+exports.updateUser = async (req, res) => {
+  try {
+    const writeData = await writeUsers(req.body, 'updateOne', { _id: req.params.id });
+    if (!writeData.modifiedCount) {
+      return res
+        .status(404)
+        .json({ type: 'ErrorNotFound', message: 'User not found :/' });
+    }
+    return res
+      .status(200)
+      .json({ type: 'write_update', result: writeData, message: 'Updated.' });
+  } catch (err) {
+    return handleError(err, res);
+  }
+};
+
+exports.deleteUser = async (req, res) => {
+  try {
+    const writeData = await writeUsers({}, 'deleteOne', { _id: req.params.id });
+    if (!writeData.deletedCount) {
+      return res
+        .status(404)
+        .json({ type: 'ErrorNotFound', message: 'User not found :/' });
+    }
+    return res
+      .status(200)
+      .json({ type: 'write_delete', result: writeData, message: 'Deleted.' });
+    // 204 : No Content actually returns no content..
+  } catch (err) {
+    return handleError(err, res);
+  }
+};
