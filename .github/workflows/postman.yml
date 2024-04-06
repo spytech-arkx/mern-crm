@@ -21,7 +21,7 @@ jobs:
         with:
           # super-linter needs the full git history to get the
           # list of files that changed across commits
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Super-linter
         uses: super-linter/super-linter@v6.3.1  # x-release-please-version
@@ -34,7 +34,7 @@ jobs:
   automated-api-tests:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Install Postman CLI
         run: |
           curl -o- "https://dl-cli.pstmn.io/install/linux64.sh" | sh
