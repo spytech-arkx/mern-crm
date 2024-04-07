@@ -68,7 +68,7 @@ exports.createDeal = async (req, res) => {
       });
     }
 
-    res.status(StatusCodes.OK).json({
+    res.status(StatusCodes.CREATED).json({
       data: result,
     });
   } catch (error) {
