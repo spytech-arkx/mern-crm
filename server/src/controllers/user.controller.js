@@ -15,11 +15,17 @@ exports.loginUser = async (req, res) => {
       delete newUser.password; // Remove the password
       const token = await generateToken(newUser);
       res.cookie('tokenAuth', token);
-      res.status(302).json({message: 'Logged in'});
+      res.status(200).json({message: 'Logged in'});
+    }else{
+      res.status(401).json({message: 'wrong password'});
     }
   } catch (err) {
     handleError(err, res);
   }
+};
+exports.logout = (req, res) => {
+  res.cookie("tokenAuth", "", { expires: new Date(0) });
+  res.status(200).send("Logout successful.");
 };
 
 exports.getUsers = async (req, res) => {
