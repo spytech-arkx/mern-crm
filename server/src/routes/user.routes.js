@@ -16,9 +16,9 @@ const {
 
 const userRouter = express.Router();
 
-userRouter.post('/', sanitizeBodyData, validateBodyData, createUsers);
-userRouter.post('/auth/login', avoidAuth, loginUser);
-userRouter.post('/auth/logout', isAuth, logout);
+userRouter.post('/register', sanitizeBodyData, validateBodyData, createUsers);
+userRouter.post('/login', avoidAuth, loginUser);
+userRouter.get('/logout', isAuth, logout);
 userRouter.get('/', getUsers);
 userRouter.get('/:id', validateParamsId, getUserById);
 userRouter.patch(
@@ -28,7 +28,6 @@ userRouter.patch(
   validateBodyData,
   updateUser,
 );
-userRouter.post('/auth/login', avoidAuth, loginUser)
 userRouter.delete('/:id', validateParamsId, deleteUser);
 
 module.exports = userRouter;

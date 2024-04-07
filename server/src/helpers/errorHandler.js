@@ -6,6 +6,7 @@
 // - Not found : handled using bulkWrite result count! etc...
 
 function handleError(error, response) {
+  console.log(error);
   if (!Array.isArray(error)) {
     switch (error.name) {
       case 'CastError':
