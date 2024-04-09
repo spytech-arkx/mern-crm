@@ -1,8 +1,8 @@
 const express = require('express');
 const { validateParamsId, validateBodyData } = require('../middlewares/validator');
 const sanitizeBodyData = require('../middlewares/sanitizer');
-const {avoidAuth}= require("../middlewares/avoid.auth");
-const {isAuth}= require("../middlewares/is.auth");
+const { avoidAuth } = require('../middlewares/avoid.auth');
+const { isAuth } = require('../middlewares/is.auth');
 
 const {
   getUsers,

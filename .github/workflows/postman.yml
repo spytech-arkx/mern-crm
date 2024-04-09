@@ -1,0 +1,41 @@
+name: linter+api-tests
+
+on:
+  push:
+    branches:
+      - fashyl
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # Ensure full git history for linting
+
+      - name: Super-linter
+        uses: super-linter/super-linter@v6.3.1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DISABLE_ERRORS: true
+          JAVASCRIPT_ES_CONFIG_FILE: ./server/.eslintrc.json
+
+  automated-api-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Postman CLI
+        run: |
+          curl -o- "https://dl.cli.pstmn.io/download/latest/linux64" | sh
+
+      - name: Login to Postman CLI
+        run: postman login --with-api-key ${{ secrets.POSTMAN_API_KEY }}
+
+      - name: Run API tests
+        run: |
+          postman collection run "32845137-d39a4b27-15ee-4b19-b96a-9edbee62ad33"

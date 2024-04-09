@@ -1,4 +1,3 @@
-// **NOTE** Could combine all of em in one service, but gotta separate concerns
 const User = require('../../models/user.model');
 
 async function readUsers(filter, projection, options) {
@@ -8,23 +7,22 @@ async function readUsers(filter, projection, options) {
     throw err;
   }
 }
+
 async function getUserByEmail(email) {
   try {
     const filter = { email: email }; // Filter by the specified email
     const projection = { email: 1, password: 1 }; // Include email and password fields
     const user = await User.find(filter, projection); // Return the response
-
+    // const user = await readUsers({email}, { email: 1, password: 1 })
     // Check if any user was found
     if (user) {
       return user[0];
-    } else {
-      return null; // Return null if no user was found
     }
+    return null;
   } catch (err) {
     throw err;
   }
 }
-
 
 async function writeUsers(docs, operation, filters) {
   try {

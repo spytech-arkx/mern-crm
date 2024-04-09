@@ -1,138 +1,51 @@
-const { ReasonPhrases, StatusCodes } = require('http-status-codes');
-const {
-  getDealsCRUD,
-  getDealByIdCRUD,
-  addDealCRUD,
-  updateDealCRUD,
-  deleteDealCRUD,
-} = require('../services/db/deal.crud');
+const handleError = require('../helpers/errorHandler');
+const { readDeals, writeDeals } = require('../services/db/deal.service');
 
 exports.getDeals = async (req, res) => {
   try {
-    const deals = await getDealsCRUD();
-    res.status(StatusCodes.OK).json({
-      data: deals,
-    });
-  } catch (error) {
-    console.error('Error fetching deals:', error);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: 'Internal Server Error',
-    });
+    const deals = await readDeals({}, { createdAt: 0, modifiedAt: 0 });
+    res.status(200).json({ type: 'read_all', items: deals.length ? deals : 'Nothing here :/' });
+  } catch (err) {
+    handleError(err, res);
   }
 };
 
 exports.getDealById = async (req, res) => {
   try {
-    const deal = await getDealByIdCRUD(req.params.id);
-    if (!deal) {
-      return res.status(StatusCodes.NOT_FOUND).json({
-        message: `Deal id: ${req.params.id} not found`,
-      });
-    }
-    res.status(StatusCodes.OK).json({
-      data: deal,
-    });
-  } catch (error) {
-    console.error('Error fetching deal by id:', error);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: 'Internal Server Error',
-    });
+    const deals = await readDeals({ _id: req.params.id }, { createdAt: 0, modifiedAt: 0 });
+    if (!deals.length) return res.status(404).json({ type: 'ErrorNotFound', message: 'Deal not found :/' });
+    return res.status(200).json({ type: 'read_one', item: deals[0] });
+  } catch (err) {
+    return handleError(err, res);
   }
 };
 
-exports.createDeal = async (req, res) => {
+exports.createDeals = async (req, res) => {
   try {
-    const { deal_name, description, amount, stage, company, contacts, close_date } =
-      req.body;
-
-    // Validate input data (example: check if required fields are present)
-    if (!deal_name || !description || !amount || !stage || !company) {
-      return res.status(StatusCodes.BAD_REQUEST).json({
-        message: 'Missing required fields',
-      });
-    }
-
-    const result = await addDealCRUD({
-      deal_name,
-      description,
-      amount,
-      stage,
-      company,
-      contacts,
-      close_date,
-    });
-
-    if (!result) {
-      return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-        message: "Couldn't add this deal",
-      });
-    }
-
-    res.status(StatusCodes.CREATED).json({
-      data: result,
-    });
-  } catch (error) {
-    console.error('Error creating deal:', error);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: 'Internal Server Error',
-    });
+    const writeData = await writeDeals(req.body, 'insertOne');
+    res.status(201).json({ type: 'write_insert', result: writeData, message: 'Created.' });
+  } catch (err) {
+    handleError(err, res);
   }
 };
 
 exports.updateDeal = async (req, res) => {
   try {
-    const { deal_name, description, amount, stage, company, contacts, close_date } =
-      req.body;
-
-    // Validate input data (example: check if required fields are present)
-    if (!deal_name || !description || !amount || !stage || !company) {
-      return res.status(StatusCodes.BAD_REQUEST).json({
-        message: 'Missing required fields',
-      });
-    }
-
-    const result = await updateDealCRUD(req.params.id, {
-      deal_name,
-      description,
-      amount,
-      stage,
-      company,
-      contacts,
-      close_date,
-    });
-
-    if (!result) {
-      return res.status(StatusCodes.NOT_FOUND).json({
-        message: `Deal id: ${req.params.id} not found`,
-      });
-    }
-
-    res.status(StatusCodes.OK).json({
-      data: result,
-    });
-  } catch (error) {
-    console.error('Error updating deal:', error);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: 'Internal Server Error',
-    });
+    const writeData = await writeDeals(req.body, 'updateOne', { _id: req.params.id });
+    if (!writeData.modifiedCount) return res.status(404).json({ type: 'ErrorNotFound', message: 'Deal not found :/' });
+    return res.status(200).json({ type: 'write_update', result: writeData, message: 'Updated.' });
+  } catch (err) {
+    return handleError(err, res);
   }
 };
 
 exports.deleteDeal = async (req, res) => {
   try {
-    const deal = await deleteDealCRUD(req.params.id);
-    if (!deal) {
-      return res.status(StatusCodes.NOT_FOUND).json({
-        message: `Deal id: ${req.params.id} not found`,
-      });
-    }
-    res.status(StatusCodes.OK).json({
-      data: deal,
-    });
-  } catch (error) {
-    console.error('Error deleting deal:', error);
-    res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
-      message: 'Internal Server Error',
-    });
+    const writeData = await writeDeals({}, 'deleteOne', { _id: req.params.id });
+    if (!writeData.deletedCount) return res.status(404).json({ type: 'ErrorNotFound', message: 'Deal not found :/' });
+    return res.status(200).json({ type: 'write_delete', result: writeData, message: 'Deleted.' });
+    // 204 : No Content actually returns no content..
+  } catch (err) {
+    return handleError(err, res);
   }
 };
