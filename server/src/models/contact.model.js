@@ -3,21 +3,24 @@ const mongoose = require('mongoose');
 const ContactSchema = new mongoose.Schema(
   {
     // Main Information
-    firstName: {
+    Salutation: {
+      type: String,
+      enum: ['Mr.', 'Mrs.', 'Ms.', 'Dr.', 'Prof.', ''],
+    },
+    FirstName: {
       type: String,
       required: [true, 'First name is required.'],
       trim: true,
       match: [/^[a-zA-Z\s]+$/, 'Please provide a valide name.'],
     },
-    lastName: {
+    LastName: {
       type: String,
       required: [true, 'Last name is required.'],
       trim: true,
       match: [/^[a-zA-Z\s]+$/, 'Please provide a valide name.'],
     },
-
     // Contact Information
-    email: {
+    Email: {
       type: String,
       trim: true,
       unique: true,
@@ -27,7 +30,7 @@ const ContactSchema = new mongoose.Schema(
         'Please provide a valid email address.',
       ],
     },
-    phone: {
+    Phone: {
       type: String,
       unique: true,
       sparse: true,
@@ -38,18 +41,26 @@ const ContactSchema = new mongoose.Schema(
         'Please provide a valid phone number.',
       ],
     },
-    birthday: {
+    Birthday: {
       type: Date,
       required: false,
     },
-    notes: {
+    Address: {
+      street: { type: String, trim: true },
+      city: { type: String, trim: true },
+      state: { type: String, trim: true },
+      country: { type: String, trim: true },
+      zipCode: { type: String, trim: true },
+    },
+    Description: {
       type: String,
       maxlength: 80,
       trim: true,
     },
+    EmailOptOut: Boolean,
 
     // Social Media Links
-    socials: {
+    Socials: {
       X: {
         type: String,
         trim: true,
@@ -63,35 +74,45 @@ const ContactSchema = new mongoose.Schema(
         unique: true,
         sparse: true,
         match: /linkedin/g, // l3gz
-      },
+      }, // Add more.. la bghiti
     },
 
-    // Address Information (Optional)
-    Address: {
-      Street: { type: String, trim: true },
-      City: { type: String, trim: true },
-      State: { type: String, trim: true },
-      Country: { type: String, trim: true },
+    // Sales pipeline specific infos
+    LeadSource: {
+      type: String,
+      enum: [
+        'None',
+        'Advertisement',
+        'Employee Referral',
+        'Facebook',
+        'Twitter',
+        'Google+',
+        'External Referral',
+        'Public Relations',
+        'Web Download',
+        'Web Research',
+        'Cold Call',
+        'Chat',
+        '',
+      ],
     },
 
     // Association Information
-    Company: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
-    SkypeID: {
+    CompanyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
+    Title: {
+      type: String,
+      trim: true,
+      MaxLength: 60,
+    },
+    SkypeId: {
       type: String,
       trim: true,
       match: [/^live:([a-zA-Z0-9][a-zA-Z0-9-]{5,31})$/, 'Not a Skype ID.'],
     },
 
     // System Information
-    type: {
-      // Must be provided at POST, this is the most convenient way.
-      type: String,
-      trim: true,
-      enum: ['contact', 'ct', 'Contact'],
-      default: 'contact',
-    },
     CreatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    ModifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    LastModifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     Locked: Boolean, // Flag indicating if record is locked for editing
   },
   {
@@ -108,5 +129,4 @@ const ContactSchema = new mongoose.Schema(
   },
 );
 
-const Contact = mongoose.model('Contact', ContactSchema);
-module.exports = Contact;
+module.exports = mongoose.model('Contact', ContactSchema);

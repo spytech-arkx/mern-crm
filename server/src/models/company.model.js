@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
 
-const companySchema = new mongoose.Schema(
+const CompanySchema = new mongoose.Schema(
   {
     // Main Information
-    companyName: {
+    CompanyName: {
       type: String,
       unique: true,
       required: [true, 'Company Name is required.'],
@@ -11,38 +11,16 @@ const companySchema = new mongoose.Schema(
       minlength: 3,
       maxlength: 50,
     },
-    Website: {
-      type: String,
-      unique: true,
-      trim: true,
-      validate: {
-        validator: (url) => /^(https?:\/\/)?([\da-z.-]+)\.([a-z]{2,6})([/\w .-]*)*\/?$/.test(url),
-        message: (props) => `${props.value} is not a valid website URL.`,
-      },
-    },
-    Industry: {
-      type: String,
-      required: true,
-      enum: ['Technology', 'Healthcare', 'Finance', 'Retail', 'Other'],
-    },
-    Size: {
-      type: String,
-      required: true,
-      enum: ['Small', 'Medium', 'Enterprise'],
-    },
 
     // Address Information
     BillingAddress: {
       Street: {
         type: String,
         trim: true,
-        required: [
-          this.ShippingAddress === undefined,
-          'At least one address (Billing or Shipping) is required.',
-        ],
       },
       City: { type: String, trim: true },
       State: { type: String, trim: true },
+      BillingCode: { type: String, trim: true }, // Khtissar
       PostalCode: {
         type: String,
         trim: true,
@@ -52,9 +30,11 @@ const companySchema = new mongoose.Schema(
         },
       },
     },
+
     ShippingAddress: {
       Street: { type: String, trim: true },
       City: { type: String, trim: true },
+      ShippingCode: { type: String, trim: true },
       PostalCode: {
         type: String,
         trim: true,
@@ -66,29 +46,48 @@ const companySchema = new mongoose.Schema(
     },
 
     // Company Relationships
-    companyOwner: { type: mongoose.Types.ObjectId, ref: 'User' }, // User lookup
-    parentCompany: { type: mongoose.Types.ObjectId, ref: 'Company' }, // Optional lookup for parent company
+    Owner: { type: mongoose.Types.ObjectId, ref: 'User' }, // User lookup
+    ParentCompany: { type: mongoose.Types.ObjectId, ref: 'Company' }, // Optional lookup for parent company
 
     // Descriptive Information
     Description: { type: String, trim: true, maxlength: 255 },
     Rating: {
       type: String,
-      enum: ['Hot', 'Warm', 'Cold'],
+      trim: true,
+      enum: ['Aqcuired', 'Active', 'Market Failed', 'Project Cancelled', 'Shut Down'],
     },
-    companySite: { type: String, trim: true },
-    BillingCode: { type: String, trim: true },
-    ShippingCode: { type: String, trim: true },
+    Website: {
+      type: String,
+      unique: true,
+      trim: true,
+      validate: {
+        validator: (url) => /^(https?:\/\/)?([\da-z.-]+)\.([a-z]{2,6})([/\w .-]*)*\/?$/.test(url),
+        message: (props) => `${props.value} is not a valid website URL.`,
+      },
+    },
     TickerSymbol: { type: String, trim: true, uppercase: true }, // (AAPL, TSLA ...)
 
     // Company Details
     companyType: {
       type: String,
-      required: true,
-      enum: ['Customer', 'Partner', 'Vendor'],
+      // required: true,
+      trim: true,
+      maxlength: 16,
+      // enum: ['Customer', 'Partner', 'Vendor'],
     },
     Ownership: {
       type: String,
-      enum: ['Public', 'Private', 'Government'],
+      // required: true,
+      trim: true,
+      maxlength: 16,
+      // enum: ['Public', 'Private', 'Government'], // sync with lfront
+    },
+    Industry: {
+      type: String,
+      required: true,
+      trim: true,
+      maxlength: 30,
+      // enum: ['Technology', 'Finance', 'Education','Real Estate'...], // synci l'front!
     },
     Employees: { type: Number, min: 1 }, // Set a minimum for employee count
     AnnualRevenue: { type: mongoose.Types.Decimal128 },
@@ -97,18 +96,10 @@ const companySchema = new mongoose.Schema(
     Tag: { type: String, trim: true },
 
     // System Information
-    type: {
-      type: String,
-      trim: true,
-      default: 'company',
-    },
     CreatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     ModifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    CreatedTime: Date,
-    ModifiedTime: Date,
     LastActivityTime: Date,
     RecordId: Number, // Optional (unique ID from original data source)
-
     // Virtuals
     // None for the moment
   },
@@ -117,4 +108,4 @@ const companySchema = new mongoose.Schema(
   },
 );
 
-module.exports = mongoose.model('Company', companySchema);
+module.exports = mongoose.model('Company', CompanySchema);
