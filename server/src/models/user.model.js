@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const validator = require('validator'); // Import Validator for data validatio
 
 const userSchema = new mongoose.Schema({
-  firstName: {
+  /*firstName: {
     type: String,
     required: true,
   },
@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  */
   username: {
     type: String,
     required: true,
@@ -33,6 +34,10 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
     minlength: 8,
+  },
+  verified: {
+    type: Boolean,
+    default: false,
   },
 
   phoneNumber: {

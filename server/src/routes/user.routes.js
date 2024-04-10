@@ -4,6 +4,7 @@ const {
   getUserById,
   patchUser,
   deleteUserById,
+  verifyEmail,
 } = require('../controllers/user.controller');
 const {
   validateUserId,
@@ -28,6 +29,9 @@ userRouter.post(
   registerUser,
 );
 
+// Endpoint for Email verification
+userRouter.get('/verify-email/:token', verifyEmail);
+
 // Endpoint for logging in an existing user
 userRouter.post(
   '/login',
@@ -39,8 +43,8 @@ userRouter.post(
 userRouter.put(
   '/:id',
   [
-    validateUserName(),
     validateUserId,
+    validateUserName(),
     validateEmail(),
     validatePassword(),
     handleValidationError,
