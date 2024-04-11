@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const User = require('../models/user.model');
 
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
@@ -32,4 +33,38 @@ const sendVerificationEmail = async (email, verificationLink) => {
   }
 };
 
-module.exports = { sendVerificationEmail };
+// send email to many users
+const sendNotifEmail = async (
+  subject = 'hello',
+  message = 'hello from nodemailer',
+  sender = 'no-reply@snz.ark',
+) => {
+  try {
+    // Recherche des rôles
+    const roles = await User.distinct('role');
+    console.log('roles :', roles);
+
+    // Choix du rôle à sélectionner
+    const roleSelect = 'salesperson';
+
+    // Recherche des utilisateurs avec le rôle sélectionné et récupération de leurs emails
+    const users = await User.find({ role: roleSelect }, 'email');
+    const emails = users.map((user) => user.email);
+    console.log('users found :', users, emails);
+
+    // Création des options de messagerie
+    const mailOptions = {
+      from: sender,
+      to: emails,
+      subject: subject,
+      html: `<p> ${message} </p>`,
+    };
+
+    // Envoi du courriel
+    await transporter.sendMail(mailOptions);
+    console.log('Mail sent successfully');
+  } catch (error) {
+    console.error('Failed to send Mail:', error);
+  }
+};
+module.exports = { sendVerificationEmail, sendNotifEmail };
