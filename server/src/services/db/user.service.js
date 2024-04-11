@@ -1,40 +1,8 @@
 const User = require('../../models/user.model');
-const nodemailer = require('nodemailer');
+const { sendVerificationEmail } = require('../../controllers/email.controller');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-// nodemailer logic
-const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST,
-  port: process.env.EMAIL_PORT,
-  secure: false, // false car nous utilisons le port non sécurisé 587
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASSWORD,
-  },
-});
-transporter.verify((error, success) => {
-  if (error) {
-    console.log(error);
-  } else {
-    console.log('ready for msgs');
-    console.log(success);
-  }
-});
-const sendVerificationEmail = async (email, verificationLink) => {
-  const mailOptions = {
-    from: 'nawfel@email.com',
-    to: email,
-    subject: 'email verification',
-    html: `<p>click on the link to confirm your registration</p><a href="${verificationLink}">HERE</a>`,
-  };
-  try {
-    await transporter.sendMail(mailOptions);
-    console.log('mail sent succesfuly');
-  } catch (error) {
-    console.error('failed to send Mail');
-  }
-};
 // Function to create a JWT token
 const createToken = (_id) => {
   return jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: '1h' });
@@ -56,10 +24,11 @@ const signup = async (username, email, password) => {
   const hash = await bcrypt.hash(password, 10);
   // Create a new user with hashed password
   const user = await User.create({ username, email, password: hash, verified: false });
-
+  //create token for email verification
   const verificationToken = createToken(user._id);
-
+  // link to send to user for verify email
   const verificationLink = `http://localhost:3000/api/users/verify-email/${verificationToken}`;
+  // send verification email after registration
   await sendVerificationEmail(email, verificationLink);
   return user; // Return the newly created user
 };

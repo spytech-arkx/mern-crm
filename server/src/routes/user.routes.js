@@ -1,10 +1,10 @@
 const express = require('express');
+const { verifyEmail } = require('../middlewares/emailVerification');
 const {
   getUsers,
   getUserById,
   patchUser,
   deleteUserById,
-  verifyEmail,
 } = require('../controllers/user.controller');
 const {
   validateUserId,
