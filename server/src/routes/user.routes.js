@@ -1,6 +1,6 @@
 const express = require('express');
-const { verifyEmail } = require('../middlewares/emailVerification');
-const { sendNotifEmail } = require('../controllers/email.controller');
+const { verifyEmail } = require('../services/emails/emailVerification');
+const { sendNotifEmail, postEmail } = require('../services/emails/email.controller');
 const {
   getUsers,
   getUserById,
@@ -19,7 +19,8 @@ const userRouter = express.Router(); // Create an Express router
 
 // Endpoint GET all users
 userRouter.get('/', getUsers);
-userRouter.get('/notif', sendNotifEmail);
+userRouter.post('/notif', sendNotifEmail);
+userRouter.post('/send/:id', validateUserId, postEmail);
 
 // Endpoint GET a user by ID
 userRouter.get('/:id', validateUserId, getUserById);

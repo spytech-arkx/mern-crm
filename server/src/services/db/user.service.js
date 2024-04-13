@@ -1,5 +1,5 @@
 const User = require('../../models/user.model');
-const { sendVerificationEmail } = require('../../controllers/email.controller');
+const { sendVerificationEmail } = require('../emails/email.service');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -29,7 +29,13 @@ const signup = async (username, email, password) => {
   // link to send to user for verify email
   const verificationLink = `http://localhost:3000/api/users/verify-email/${verificationToken}`;
   // send verification email after registration
-  await sendVerificationEmail(email, verificationLink);
+  const result = await sendVerificationEmail(email, verificationLink);
+  if (result.success) {
+    return { message: result.message };
+  } else {
+    return { error: result.message };
+  }
+
   return user; // Return the newly created user
 };
 
