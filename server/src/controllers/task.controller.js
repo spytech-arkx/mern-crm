@@ -41,10 +41,13 @@ const getTask = async (req, res) => {
 
 // Create new task POST
 const createTask = async (req, res) => {
+  const { name, description } = req.body;
   handleValidationError(req, res);
 
   try {
-    const task = await Task.create(req.body);
+    const user_id = req.user._id;
+    const task = await Task.create({ name, description, assignedTo: user_id });
+    console.log(user_id);
     res.status(201).json({ message: 'Task created ', task });
   } catch (err) {
     handleValidationError(res, err);
