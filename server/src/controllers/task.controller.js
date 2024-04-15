@@ -1,3 +1,5 @@
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable camelcase */
 const Task = require('../models/task.model');
 const { handleValidationError } = require('../models/express-validator/task.validators');
 

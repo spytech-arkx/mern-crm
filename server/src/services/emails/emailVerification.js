@@ -3,7 +3,7 @@ const User = require('../../models/user.model');
 
 // Middleware function to verify the email address using a token
 const verifyEmail = async (req, res, next) => {
-  const token = req.params.token;
+  const { token } = req.params;
 
   try {
     if (!token) {

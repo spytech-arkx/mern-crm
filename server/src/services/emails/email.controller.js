@@ -7,7 +7,6 @@ const sendNotifEmail = async (req, res) => {
 
   try {
     const roles = await User.distinct('role');
-    console.log('roles :', roles);
     // Check if the specified role exists
     if (!roles.includes(role)) {
       return res.status(404).json({ message: `Role ${role} does not exist` });
