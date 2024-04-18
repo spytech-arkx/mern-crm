@@ -1,6 +1,7 @@
 const express = require('express');
 const { validateParamsId, validateBodyData } = require('../middlewares/validator');
 const sanitizeBodyData = require('../middlewares/sanitizer');
+const { isAuth } = require('../middlewares/authenticator');
 const {
   getCompanies,
   getCompanyById,
@@ -10,7 +11,7 @@ const {
 } = require('../controllers/company.controller');
 
 const companyRouter = express.Router();
-
+companyRouter.use(isAuth);
 companyRouter.post('/', sanitizeBodyData, validateBodyData, createCompanies);
 companyRouter.get('/', getCompanies);
 companyRouter.get('/:id', validateParamsId, getCompanyById);

@@ -1,8 +1,7 @@
 const express = require('express');
 const { validateParamsId, validateBodyData } = require('../middlewares/validator');
+const { isAuth } = require('../middlewares/authenticator');
 const sanitizeBodyData = require('../middlewares/sanitizer');
-const { avoidAuth } = require('../middlewares/avoid.auth');
-const { isAuth } = require('../middlewares/is.auth');
 
 const {
   getUsers,
@@ -10,15 +9,14 @@ const {
   deleteUser,
   updateUser,
   createUsers,
-  loginUser,
-  logout,
+  register,
 } = require('../controllers/user.controller');
 
 const userRouter = express.Router();
 
-userRouter.post('/register', sanitizeBodyData, validateBodyData, createUsers);
-userRouter.post('/login', avoidAuth, loginUser);
-userRouter.get('/logout', isAuth, logout);
+userRouter.post('/register', sanitizeBodyData, validateBodyData, register);
+userRouter.use(isAuth);
+userRouter.post('/', sanitizeBodyData, validateBodyData, createUsers);
 userRouter.get('/', getUsers);
 userRouter.get('/:id', validateParamsId, getUserById);
 userRouter.patch(
