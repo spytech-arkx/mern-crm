@@ -13,14 +13,18 @@
   "dependencies": {
     "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
+    "connect-mongo": "^5.1.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-session": "^1.18.0",
     "joi": "^17.12.2",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.2.3",
     "nodemailer": "^6.9.13",
+    "passport": "^0.7.0",
     "passport-google-oauth2": "^0.2.0",
+    "passport-local": "^1.0.0",
     "snappy": "^7.2.2",
     "winston": "^3.13.0",
     "xss": "^1.0.15"
