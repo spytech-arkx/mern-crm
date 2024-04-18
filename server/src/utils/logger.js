@@ -9,7 +9,7 @@ const logger = winston.createLogger({
   ),
   transports: [
     new winston.transports.Console(), // Log to console for development
-    new winston.transports.File({ filename: './app.log' }),
+    // new winston.transports.File({ filename: './app.log' }),
     // Add other transports for production environments, e.g., file, database
   ],
 });
@@ -29,12 +29,11 @@ const colors = {
 
 const requestLogger = (req, res, next) => {
   const startTime = process.hrtime(); // Record start time for request duration
-
-  // Get color for HTTP method and status code
   logger.info(`HTTP${req.httpVersion} ${req.method} ${req.url}`);
 
   res.on('finish', () => {
     const statusCodeColor = colors[res.statusCode] || 'white';
+    // to then calculate responseTime(approx.)
     const durationInMs = process.hrtime(startTime)[0] * 1000 + process.hrtime(startTime)[1] / 1e6;
     logger.info(
       `> \x1b[${statusCodeColor}m${res.statusCode}\x1b[0m ${res.statusMessage} in ${durationInMs}ms\n`,
