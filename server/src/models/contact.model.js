@@ -3,24 +3,24 @@ const mongoose = require('mongoose');
 const ContactSchema = new mongoose.Schema(
   {
     // Main Information
-    Salutation: {
+    salutation: {
       type: String,
       enum: ['Mr.', 'Mrs.', 'Ms.', 'Dr.', 'Prof.', ''],
     },
-    FirstName: {
+    firstName: {
       type: String,
       required: [true, 'First name is required.'],
       trim: true,
       match: [/^[a-zA-Z\s]+$/, 'Please provide a valide name.'],
     },
-    LastName: {
+    lastName: {
       type: String,
       required: [true, 'Last name is required.'],
       trim: true,
       match: [/^[a-zA-Z\s]+$/, 'Please provide a valide name.'],
     },
     // Contact Information
-    Email: {
+    email: {
       type: String,
       trim: true,
       unique: true,
@@ -30,7 +30,7 @@ const ContactSchema = new mongoose.Schema(
         'Please provide a valid email address.',
       ],
     },
-    Phone: {
+    phone: {
       type: String,
       unique: true,
       sparse: true,
@@ -41,26 +41,26 @@ const ContactSchema = new mongoose.Schema(
         'Please provide a valid phone number.',
       ],
     },
-    Birthday: {
+    birthday: {
       type: Date,
       required: false,
     },
-    Address: {
+    address: {
       street: { type: String, trim: true },
       city: { type: String, trim: true },
       state: { type: String, trim: true },
       country: { type: String, trim: true },
       zipCode: { type: String, trim: true },
     },
-    Description: {
+    description: {
       type: String,
       maxlength: 80,
       trim: true,
     },
-    EmailOptOut: Boolean,
+    emailOptOut: Boolean,
 
     // Social Media Links
-    Socials: {
+    socials: {
       X: {
         type: String,
         trim: true,
@@ -78,7 +78,7 @@ const ContactSchema = new mongoose.Schema(
     },
 
     // Sales pipeline specific infos
-    LeadSource: {
+    leadSource: {
       type: String,
       enum: [
         'None',
@@ -98,22 +98,22 @@ const ContactSchema = new mongoose.Schema(
     },
 
     // Association Information
-    CompanyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
-    Title: {
+    companyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
+    title: {
       type: String,
       trim: true,
       MaxLength: 60,
     },
-    SkypeId: {
+    skypeId: {
       type: String,
       trim: true,
       match: [/^live:([a-zA-Z0-9][a-zA-Z0-9-]{5,31})$/, 'Not a Skype ID.'],
     },
 
     // System Information
-    CreatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    LastModifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    Locked: Boolean, // Flag indicating if record is locked for editing
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    lastModifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    locked: Boolean, // Flag indicating if record is locked for editing
   },
   {
     timestamps: true,

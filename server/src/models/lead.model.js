@@ -2,46 +2,45 @@ const mongoose = require('mongoose');
 
 const LeadSchema = new mongoose.Schema({
   // *** Identification and Basic Information ***
-  FirstName: {
+  firstName: {
     type: String,
     required: [true, 'First name is required.'],
     trim: true,
     match: [/^[a-zA-Z\s]+$/, 'Please provide a valide name.'],
   },
-  LastName: {
+  lastName: {
     type: String,
     required: [true, 'Last name is required.'],
     trim: true,
     match: [/^[a-zA-Z\s]+$/, 'Please provide a valide name.'],
   },
-  Title: {
+  title: {
     type: String,
     maxLength: 26,
     trim: true,
   }, // Job title of the lead contact
-  Owner: { type: mongoose.Types.ObjectId, ref: 'User' }, // User lookup
-  Description: {
+  owner: { type: mongoose.Types.ObjectId, ref: 'User' }, // User lookup
+  description: {
     type: String,
     trim: true,
     maxLength: 255,
   }, // General description of the lead
-  Company: {
+  company: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Company',
-    required: true,
   },
 
   // *** Address Information ***
-  Address: {
-    Street: String,
-    City: String,
-    State: String,
-    Country: String,
-    PostalCode: String, // Optional
+  address: {
+    street: String,
+    city: String,
+    state: String,
+    country: String,
+    postalCode: String, // Optional
   },
 
   // *** Contact Information ***
-  Email: {
+  email: {
     type: String,
     trim: true,
     unique: true,
@@ -51,7 +50,7 @@ const LeadSchema = new mongoose.Schema({
       'Please provide a valid email address.',
     ],
   },
-  Phone: {
+  phone: {
     type: String,
     unique: true,
     sparse: true,
@@ -62,9 +61,10 @@ const LeadSchema = new mongoose.Schema({
       'Please provide a valid phone number.',
     ],
   },
-  Website: {
+  website: {
     type: String,
     unique: true,
+    sparse: true,
     trim: true,
     validate: {
       validator: (url) => /^(https?:\/\/)?([\da-z.-]+)\.([a-z]{2,6})([/\w .-]*)*\/?$/.test(url),
@@ -72,7 +72,7 @@ const LeadSchema = new mongoose.Schema({
     },
   },
   // *** Lead Qualification and Source ***
-  LeadSource: {
+  leadSource: {
     type: String,
     enum: [
       'None',
@@ -90,67 +90,63 @@ const LeadSchema = new mongoose.Schema({
       '',
     ],
   },
-  LeadStatus: {
+  leadStatus: {
     type: String,
     enum: ['Not Contacted', 'Not Qualified', 'Qualified', 'Contacted', 'Lost Lead'],
   }, // Sales funnel stages
-  Industry: {
+  industry: {
     type: String,
-    required: true,
     trim: true,
     maxlength: 30,
     // enum: ['Technology', 'Finance', 'Education','Real Estate'...], // synci l'front!
   },
-  NumberOfEmployees: {
+  numberOfEmployees: {
     type: Number,
     min: 1,
   }, // Optional (company size)
-  AnnualRevenue: { type: mongoose.Types.Decimal128 }, // Optional (company revenue)
+  annualRevenue: { type: mongoose.Types.Decimal128 }, // Optional (company revenue)
 
-  Tag: String, // Keyword or label for categorization
-  Rating: {
+  tag: String, // Keyword or label for categorization
+  rating: {
     type: String,
     trim: true,
     enum: ['Aqcuired', 'Active', 'Market Failed', 'Project Cancelled', 'Shut Down'],
   },
 
   // *** Communication Preferences ***
-  EmailOptOut: {
+  emailOptOut: {
     type: Boolean, // Flag indicating email opt-out
   },
-  SkypeId: {
+  skypeId: {
     type: String,
     trim: true,
     match: [/^live:([a-zA-Z0-9][a-zA-Z0-9-]{5,31})$/, 'Not a Skype ID.'],
   },
 
   // *** System Information ***
-  CreatedBy: { type: mongoose.Types.ObjectId, ref: 'User' }, // User who created the lead
-  ModifiedBy: { type: mongoose.Types.ObjectId, ref: 'User' }, // User who last modified the lead
+  createdBy: { type: mongoose.Types.ObjectId, ref: 'User' }, // User who created the lead
+  modifiedBy: { type: mongoose.Types.ObjectId, ref: 'User' }, // User who last modified the lead
 
-  Salutation: {
+  salutation: {
     type: String,
     enum: ['Mr.', 'Mrs.', 'Ms.', 'Dr.', 'Prof.'],
   },
 
   // *** Conversion Information (Optional) ***
-  Converted: {
-    ConvertedDate: Date,
-    ConvertedBy: { type: mongoose.Types.ObjectId, ref: 'User' },
-    ConvertedContact: { type: mongoose.Schema.Types.ObjectId, ref: 'Contact' },
-    ConvertedDeal: { type: mongoose.Schema.Types.ObjectId, ref: 'Deal' },
+  converted: {
+    convertedDate: Date,
+    convertedBy: { type: mongoose.Types.ObjectId, ref: 'User' },
+    convertedContact: { type: mongoose.Schema.Types.ObjectId, ref: 'Contact' },
+    convertedDeal: { type: mongoose.Schema.Types.ObjectId, ref: 'Deal' },
   },
 
   // *** Additional Attributes ***
-  IsConverted: Boolean, // Flag indicating conversion to customer
-  Birthday: Date, // Optional
+  isConverted: Boolean, // Flag indicating conversion to customer
+  birthday: Date, // Optional
 
   // *** Security and Permissions ***
-  Locked: Boolean, // Flag indicating if record is locked for editing
-});
-
-LeadSchema.add({ timestamps: true });
-LeadSchema.add({
+  locked: Boolean, // Flag indicating if record is locked for editing
+}, { timestamps: true }, {
   virtuals: {
     fullName: {
       get() {

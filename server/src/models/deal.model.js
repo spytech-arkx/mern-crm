@@ -3,65 +3,64 @@ const mongoose = require('mongoose');
 const DealSchema = new mongoose.Schema(
   {
     // Deal Information
-    DealName: {
+    dealName: {
       type: String,
       unique: true,
+      sparse: true,
       required: true,
       trim: true,
       minlength: 3,
       maxlength: 50,
     },
-    Description: {
+    description: {
       type: String,
       trim: true,
       maxlength: 255,
     },
-    Amount: {
+    amount: {
       type: mongoose.Schema.Types.Decimal128,
       required: true,
     },
-    ClosingDate: Date,
-    ExpectedRevenue: {
+    closingDate: Date,
+    expectedRevenue: {
       type: mongoose.Schema.Types.Decimal128,
-      required: true,
     },
 
     // Deal Associations
-    CompanyId: {
+    companyId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Company',
       required: true,
     },
-    ContactId: {
+    contactId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Contact',
     },
 
     // Deal Stages and Tracking
-    Stage: {
+    stage: {
       type: String,
       required: true,
       enum: ['Qualification', 'Proposal', 'Negotiation', 'Closed Won', 'Closed Lost'],
     },
-    Type: {
-      type: String,
-      required: true,
-      enum: ['New Business', 'Renewal', 'Upsell'],
-    },
-    ReasonForLoss: {
-      type: String,
-      enum: ['Competitor', 'Budget Constraints', 'No Decision', 'Other'],
-    },
-    NextStep: {
+    type: {
       type: String,
       trim: true,
     },
-    Probability: {
+    reasonForLoss: {
+      type: String,
+      enum: ['Competitor', 'Budget Constraints', 'No Decision', 'Other'],
+    },
+    nextStep: {
+      type: String,
+      trim: true,
+    },
+    probability: {
       type: Number,
       min: 0,
       max: 100,
     },
-    LeadSource: {
+    leadSource: {
       type: String,
       enum: [
         'None',
@@ -76,7 +75,6 @@ const DealSchema = new mongoose.Schema(
         'Web Research',
         'Cold Call',
         'Chat',
-        '',
       ],
     },
 
@@ -85,17 +83,17 @@ const DealSchema = new mongoose.Schema(
     //   LeadConversionTime: Number, // Optional (in days)
     //   OverallSalesDuration: Number, // Optional (in days)
     //   LastActivityTime: Date,
-    Tag: {
+    tag: {
       type: String,
       trim: true,
     },
 
     // System Information
-    CreatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    ModifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    RecordId: Number, // Optional (unique ID from original data source)
-    ChangeLogTime: Date, // Optional (timestamp of last change)
-    Locked: Boolean,
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    modifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    recordId: Number, // Optional (unique ID from original data source)
+    changeLogTime: Date, // Optional (timestamp of last change)
+    locked: Boolean,
   },
   {
     timestamps: true,

@@ -1,48 +1,49 @@
 const mongoose = require('mongoose');
 
 const TaskSchema = new mongoose.Schema({
-  Subject: {
+  subject: {
     type: String,
     maxLength: 50,
     trim: true,
     required: true,
     unique: true,
+    sparse: true,
   }, // Name or title of the task
-  DueDate: Date, // Date by which the task should be completed
-  Owner: {
+  dueDate: Date, // Date by which the task should be completed
+  owner: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   }, // Reference to the User model, representing the task's owner
 
   // Descriptive fields for task details
-  Status: {
+  status: {
     type: String,
     trim: true,
     enum: ['To Do', 'In Progress', 'Completed', 'Deferred'],
   },
-  Priority: {
+  priority: {
     type: String,
     trim: true,
     enum: ['P0', 'P1', 'P2'],
   },
-  Description: {
+  description: {
     type: String,
     maxLength: 255,
   }, // Additional information about the task
 
   // Audit fields for tracking task history
-  CreatedBy: {
+  createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   }, // User who created the task
-  ModifiedBy: {
+  modifiedBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   }, // User who last modified the task
 
   // Extended functionality
-  ClosedTime: Date, // Date and time when the task was marked as completed
-  Tags: {
+  closedTime: Date, // Date and time when the task was marked as completed
+  tags: {
     type: Array,
     properties: {
       type: String,
@@ -50,8 +51,8 @@ const TaskSchema = new mongoose.Schema({
       maxLength: 16,
     },
   }, // Comma-separated list of tags for organizing tasks
-  Reminder: Date, // Date and time for a reminder.
-  RelatedTo: {
+  reminder: Date, // Date and time for a reminder.
+  relatedTo: {
     type: mongoose.Schema.Types.ObjectId,
     refPath: 'relatedToRef', // docs: https://mongoosejs.com/docs/populate.html#dynamic-refpath
   }, // Lookup field for referencing other models (e.g., Project, Deal, Contact)
@@ -59,11 +60,11 @@ const TaskSchema = new mongoose.Schema({
     type: String,
     enum: ['Deal', 'Contact'],
   }, // Identifies the model type for RelatedTo
-  ContactName: {
+  contactName: {
     type: String,
     ref: 'Contact',
   }, // Reference to a Contact model for associated contacts (optional)
-  Locked: Boolean, // Flag to indicate if a task is locked for editing (optional)
-});
+  locked: Boolean, // Flag to indicate if a task is locked for editing (optional)
+}, { timestamps: true });
 
 module.exports = mongoose.model('Task', TaskSchema);

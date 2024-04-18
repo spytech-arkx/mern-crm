@@ -3,9 +3,10 @@ const mongoose = require('mongoose');
 const CompanySchema = new mongoose.Schema(
   {
     // Main Information
-    CompanyName: {
+    companyName: {
       type: String,
       unique: true,
+      sparse: true,
       required: [true, 'Company Name is required.'],
       trim: true,
       minlength: 3,
@@ -13,7 +14,7 @@ const CompanySchema = new mongoose.Schema(
     },
 
     // Address Information
-    BillingAddress: {
+    billingAddress: {
       Street: {
         type: String,
         trim: true,
@@ -31,7 +32,7 @@ const CompanySchema = new mongoose.Schema(
       },
     },
 
-    ShippingAddress: {
+    shippingAddress: {
       Street: { type: String, trim: true },
       City: { type: String, trim: true },
       ShippingCode: { type: String, trim: true },
@@ -46,26 +47,27 @@ const CompanySchema = new mongoose.Schema(
     },
 
     // Company Relationships
-    Owner: { type: mongoose.Types.ObjectId, ref: 'User' }, // User lookup
-    ParentCompany: { type: mongoose.Types.ObjectId, ref: 'Company' }, // Optional lookup for parent company
+    owner: { type: mongoose.Types.ObjectId, ref: 'User' }, // User lookup
+    parentCompany: { type: mongoose.Types.ObjectId, ref: 'Company' }, // Optional lookup for parent company
 
     // Descriptive Information
-    Description: { type: String, trim: true, maxlength: 255 },
-    Rating: {
+    description: { type: String, trim: true, maxlength: 255 },
+    rating: {
       type: String,
       trim: true,
       enum: ['Aqcuired', 'Active', 'Market Failed', 'Project Cancelled', 'Shut Down'],
     },
-    Website: {
+    website: {
       type: String,
       unique: true,
+      sparse: true,
       trim: true,
       validate: {
         validator: (url) => /^(https?:\/\/)?([\da-z.-]+)\.([a-z]{2,6})([/\w .-]*)*\/?$/.test(url),
         message: (props) => `${props.value} is not a valid website URL.`,
       },
     },
-    TickerSymbol: { type: String, trim: true, uppercase: true }, // (AAPL, TSLA ...)
+    tickerSymbol: { type: String, trim: true, uppercase: true }, // (AAPL, TSLA ...)
 
     // Company Details
     companyType: {
@@ -75,31 +77,31 @@ const CompanySchema = new mongoose.Schema(
       maxlength: 16,
       // enum: ['Customer', 'Partner', 'Vendor'],
     },
-    Ownership: {
+    ownership: {
       type: String,
       // required: true,
       trim: true,
       maxlength: 16,
       // enum: ['Public', 'Private', 'Government'], // sync with lfront
     },
-    Industry: {
+    industry: {
       type: String,
       required: true,
       trim: true,
       maxlength: 30,
       // enum: ['Technology', 'Finance', 'Education','Real Estate'...], // synci l'front!
     },
-    Employees: { type: Number, min: 1 }, // Set a minimum for employee count
-    AnnualRevenue: { type: mongoose.Types.Decimal128 },
+    employees: { type: Number, min: 1 }, // Set a minimum for employee count
+    annualRevenue: { type: mongoose.Types.Decimal128 },
 
     // Optional Information
-    Tag: { type: String, trim: true },
+    tag: { type: String, trim: true },
 
     // System Information
-    CreatedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    ModifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    LastActivityTime: Date,
-    RecordId: Number, // Optional (unique ID from original data source)
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    modifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    lastActivityTime: Date,
+    recordId: Number, // Optional (unique ID from original data source)
     // Virtuals
     // None for the moment
   },
