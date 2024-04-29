@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 const { body, validationResult } = require('express-validator');
 const mongoose = require('mongoose');
 
@@ -22,56 +23,44 @@ const validateTaskId = (req, res, next) => {
 };
 
 // Function for validae and sanitize Task name field
-const validateTaskName = () => {
-  return body('name').trim().escape().notEmpty().withMessage('Task name required');
-  //add more validations
-};
-
+const validateTaskName = () =>
+  body('name').trim().escape().notEmpty().withMessage('Task name required');
+// add more validations
 // Function for validae and sanitize Task description field
-const validateTaskDescription = () => {
-  return body('description')
-    .trim()
-    .escape()
-    .notEmpty()
-    .withMessage('Description required');
+const validateTaskDescription = () =>
+  body('description').trim().escape().notEmpty().withMessage('Description required');
 
-  //add more validations
-};
-
+// add more validations
 // Function for validae and sanitize Task dueDate field
 
-const validateTaskDueDate = () => {
-  return body('dueDate')
+const validateTaskDueDate = () =>
+  body('dueDate')
     .optional({ nullable: true, checkFalsy: true })
     .isISO8601()
     .withMessage('Date format not valid')
     .toDate();
-};
 
 // Function for validae and sanitize Task priority field
 
-const validateTaskPriority = () => {
-  return body('priority')
+const validateTaskPriority = () =>
+  body('priority')
     .optional({ nullable: true, checkFalsy: true })
     .isIn(['Low', 'Medium', 'High'])
     .withMessage('Choose a priority level');
-};
 
 // Function for validae and sanitize Task assignedTo field
-const validateTaskAssignedTo = () => {
-  return body('assignedTo')
+const validateTaskAssignedTo = () =>
+  body('assignedTo')
     .optional({ nullable: true, checkFalsy: true })
     .isMongoId()
     .withMessage('Invalid Id');
-};
 
 // Function for validae and sanitize Task status field
-const validateTaskStatus = () => {
-  return body('status')
+const validateTaskStatus = () =>
+  body('status')
     .optional({ nullable: true, checkFalsy: true })
     .isIn(['Todo', 'In Progress', 'Done'])
     .withMessage('Choose a status');
-};
 
 module.exports = {
   validateTaskName,

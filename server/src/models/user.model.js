@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const validator = require('validator'); // Import Validator for data validatio
 
 const userSchema = new mongoose.Schema({
-  firstName: {
+  /*firstName: {
     type: String,
     required: true,
   },
@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  */
   username: {
     type: String,
     required: true,
@@ -34,6 +35,10 @@ const userSchema = new mongoose.Schema({
     required: true,
     minlength: 8,
   },
+  verified: {
+    type: Boolean,
+    default: false,
+  },
 
   phoneNumber: {
     type: String,
@@ -47,8 +52,8 @@ const userSchema = new mongoose.Schema({
   },
   role: {
     type: String,
-    enum: ['admin', 'manager', 'salesperson', 'support'],
-    default: 'salesperson',
+    enum: [`Owner`, 'admin', 'manager', 'salesperson', 'support'],
+    default: 'admin',
   },
   createdAt: {
     type: Date,

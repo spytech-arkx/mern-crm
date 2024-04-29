@@ -1,5 +1,9 @@
 const express = require('express');
+const { verifyEmail } = require('../services/emails/emailVerification');
+const { sendNotifEmail, postEmail } = require('../services/emails/email.controller');
 const {
+  registerUser,
+  loginUser,
   getUsers,
   getUserById,
   patchUser,
@@ -12,11 +16,14 @@ const {
   validateEmail,
   handleValidationError,
 } = require('../models/express-validator/user.validators');
-const { registerUser, loginUser } = require('../middlewares/authenticator'); // Import controller functions
+const { permission, authenticator } = require('../middlewares/authenticator');
+
 const userRouter = express.Router(); // Create an Express router
 
 // Endpoint GET all users
-userRouter.get('/', getUsers);
+userRouter.get('/', authenticator, permission('admin'), getUsers);
+userRouter.post('/notif', sendNotifEmail);
+userRouter.post('/send/:id', validateUserId, postEmail);
 
 // Endpoint GET a user by ID
 userRouter.get('/:id', validateUserId, getUserById);
@@ -27,6 +34,9 @@ userRouter.post(
   [validateUserName(), validateEmail(), validatePassword(), handleValidationError],
   registerUser,
 );
+
+// Endpoint for Email verification
+userRouter.get('/verify-email/:token', verifyEmail);
 
 // Endpoint for logging in an existing user
 userRouter.post(
@@ -39,8 +49,8 @@ userRouter.post(
 userRouter.put(
   '/:id',
   [
-    validateUserName(),
     validateUserId,
+    validateUserName(),
     validateEmail(),
     validatePassword(),
     handleValidationError,

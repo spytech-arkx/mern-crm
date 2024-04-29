@@ -10,6 +10,7 @@ const contactRouter = require('./src/routes/contact.routes');
 const dealRouter = require('./src/routes/deal.routes');
 const taskRouter = require('./src/routes/task.routes');
 const userRouter = require('./src/routes/user.routes');
+const { authenticator, permission } = require('./src/middlewares/authenticator');
 
 const app = express();
 const port = process.env.PORT || 3000; // Use port from environment or default to 3000
@@ -25,10 +26,10 @@ mongoose
   .catch((err) => console.error('Error connecting to MongoDB:', err));
 
 // API Routers
-app.use("/api/companies", companyRouter);
+app.use('/api/companies', authenticator, permission('Owner'), companyRouter);
 app.use('/api/contacts', contactRouter);
 app.use('/api/deals', dealRouter);
-app.use('/api/tasks', taskRouter);
+app.use('/api/tasks', authenticator, permission('Owner'), taskRouter);
 app.use('/api/users', userRouter);
 
 app.listen(port, () => {

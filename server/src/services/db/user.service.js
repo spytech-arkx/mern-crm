@@ -1,11 +1,11 @@
-const User = require('../../models/user.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const User = require('../../models/user.model');
+const { sendVerificationEmail } = require('../emails/email.service');
 
 // Function to create a JWT token
-const createToken = (_id) => {
-  return jwt.sign({ _id }, process.env.JWT_SECRET, { expiresIn: '1h' });
-};
+const createToken = (_id, role) =>
+  jwt.sign({ _id, role }, process.env.JWT_SECRET, { expiresIn: '1h' });
 
 // Function to sign up a new user
 const signup = async (username, email, password) => {
@@ -22,10 +22,25 @@ const signup = async (username, email, password) => {
   // Hash the password
   const hash = await bcrypt.hash(password, 10);
   // Create a new user with hashed password
-  const user = await User.create({ username, email, password: hash });
-  return user; // Return the newly created user
-};
+  const user = await User.create({
+    username,
+    email,
+    password: hash,
+    verified: false,
+    role: 'Owner', // on peut mettre une logique pour que si l'email qu'il enregistre === process.env.OWNER_MAIL on lui donne le role "Owner"
+  });
+  // create token for email verification
+  const verificationToken = createToken(user._id, user.role);
+  // link to send to user for verify email
+  const verificationLink = `http://localhost:3000/api/users/verify-email/${verificationToken}`;
+  // send verification email after registration
+  const result = await sendVerificationEmail(email, verificationLink);
 
+  if (result.success) {
+    return { user, verificationToken, message: result.message };
+  }
+  return { error: result.message };
+};
 // Function to log in an existing user
 const login = async (email, password) => {
   // Check if all fields are filled
@@ -53,7 +68,7 @@ const login = async (email, password) => {
 const allUsers = async () => {
   try {
     const users = await User.find().sort({ createdAt: -1 });
-    if (users.length === 0) throw new Error(`No user available`);
+    if (users.length === 0) throw new Error('No user available');
 
     return users;
   } catch (err) {
@@ -105,7 +120,7 @@ const deleteUser = async (userId) => {
     }
     return deletedUser;
   } catch (err) {
-    throw new Error(`Internal server error`);
+    throw new Error('Internal server error');
   }
 };
 

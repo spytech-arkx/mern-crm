@@ -22,14 +22,12 @@
     "mongoose": "^8.2.3",
     "nodemailer": "^6.9.13",
     "snappy": "^7.2.2",
-    "winston": "^3.13.0",
+    "uuid": "^9.0.1",
     "validator": "^13.11.0",
+    "winston": "^3.13.0",
     "xss": "^1.0.15"
   },
   "devDependencies": {
-    "eslint": "^8.57.0",
-    "eslint-config-airbnb-base": "^15.0.0",
-    "eslint-plugin-import": "^2.29.1",
     "http-status-codes": "^2.3.0",
     "nodemon": "^3.1.0"
   }

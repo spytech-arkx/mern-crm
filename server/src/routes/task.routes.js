@@ -13,6 +13,7 @@ const {
 } = require('../controllers/task.controller');
 
 const taskRouter = express.Router();
+
 taskRouter.get('/', allTasks);
 taskRouter.get('/:id', validateTaskId, getTask);
 taskRouter.post('/', [validateTaskName(), validateTaskDescription()], createTask);

@@ -1,5 +1,5 @@
 // Modèle de données pour une tâche
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
 const taskSchema = new mongoose.Schema(
   {
@@ -17,22 +17,22 @@ const taskSchema = new mongoose.Schema(
     },
     priority: {
       type: String,
-      enum: ["Low", "Medium", "High"],
-      default: "Medium",
+      enum: ['Low', 'Medium', 'High'],
+      default: 'Medium',
     },
     assignedTo: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: 'User',
     },
     status: {
       type: String,
-      enum: ["Todo", "In Progress", "Done"],
-      default: "Todo",
+      enum: ['Todo', 'In Progress', 'Done'],
+      default: 'Todo',
     },
   },
-  { timestamps: true }
+  { timestamps: true },
 );
 
-const Task = mongoose.model("Task", taskSchema);
+const Task = mongoose.model('Task', taskSchema);
 
 module.exports = Task;
