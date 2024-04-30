@@ -1,8 +1,12 @@
+import { Button } from './components/ui/button'
 import './styles/index.css'
 
 function App() {
   return (
-    <h1 className='text-3xl text-blue-800'>Hello World</h1>
+    <>
+    <text className='text-9xl'>Hello World</text>
+    <Button>Button</Button>
+    </>
   )
 }
 
