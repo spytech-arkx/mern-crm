@@ -2,6 +2,7 @@
 
 ## TO-DO
 - [x] Setup the project
-- [ ] Setup tailwindcss + shadcnUI CLI
+- [x] Setup tailwindcss
+- [ ] Setup shadcnUI CLI
 - [ ] Scaffold basic UI with mock data
 - [ ] ...
