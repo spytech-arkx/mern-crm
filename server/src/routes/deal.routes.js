@@ -1,16 +1,27 @@
 const express = require('express');
-const router = express.Router();
+const { validateParamsId, validateBodyData } = require('../middlewares/validator');
+const { isAuth } = require('../middlewares/authenticator');
+const sanitizeBodyData = require('../middlewares/sanitizer');
 const {
   getDeals,
   getDealById,
-  createDeal,
-  updateDeal,
   deleteDeal,
+  updateDeal,
+  createDeals,
 } = require('../controllers/deal.controller');
-router.get('/:id', getDealById);
-router.post('/', createDeal);
-router.put('/:id', updateDeal);
-router.delete('/:id', deleteDeal);
 
-router.get('/', getDeals);
-module.exports = router;
+const dealRouter = express.Router();
+dealRouter.use(isAuth);
+dealRouter.post('/', sanitizeBodyData, validateBodyData, createDeals);
+dealRouter.get('/', getDeals);
+dealRouter.get('/:id', validateParamsId, getDealById);
+dealRouter.patch(
+  '/:id',
+  validateParamsId,
+  sanitizeBodyData,
+  validateBodyData,
+  updateDeal,
+);
+dealRouter.delete('/:id', validateParamsId, deleteDeal);
+
+module.exports = dealRouter;

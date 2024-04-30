@@ -1,28 +1,27 @@
 const express = require('express');
+const { validateParamsId, validateBodyData } = require('../middlewares/validator');
+const { isAuth } = require('../middlewares/authenticator');
+const sanitizeBodyData = require('../middlewares/sanitizer');
 const {
-  validateTaskName,
-  validateTaskDescription,
-  validateTaskId,
-} = require('../models/express-validator/task.validators');
-const {
-  allTasks,
-  getTask,
-  createTask,
-  updateTask,
+  getTasks,
+  getTaskById,
   deleteTask,
+  updateTask,
+  createTasks,
 } = require('../controllers/task.controller');
 
 const taskRouter = express.Router();
-
-taskRouter.get('/', allTasks);
-taskRouter.get('/:id', validateTaskId, getTask);
-taskRouter.post('/', [validateTaskName(), validateTaskDescription()], createTask);
-taskRouter.put(
+taskRouter.use(isAuth);
+taskRouter.post('/', sanitizeBodyData, validateBodyData, createTasks);
+taskRouter.get('/', getTasks);
+taskRouter.get('/:id', validateParamsId, getTaskById);
+taskRouter.patch(
   '/:id',
-  validateTaskId,
-  [validateTaskName(), validateTaskDescription()],
+  validateParamsId,
+  sanitizeBodyData,
+  validateBodyData,
   updateTask,
 );
-taskRouter.delete('/:id', validateTaskId, deleteTask);
+taskRouter.delete('/:id', validateParamsId, deleteTask);
 
 module.exports = taskRouter;

@@ -381,8 +381,8 @@ paths:
                 type: array
                 items:
                   '$ref': '#/components/schemas/User'
-        '401':
-          description: Unauthorized
+        '403':
+          description: Forbidden
   '/users/{id}':
     get:
       summary: Get a specific user by ID (requires admin privileges)
@@ -401,8 +401,8 @@ paths:
             application/json:
               schema:
                 '$ref': '#/components/schemas/User'
-        '401':
-          description: Unauthorized
+        '403':
+          description: Forbidden
         '404':
           description: Not Found
     patch:
@@ -494,8 +494,12 @@ paths:
                   token:
                     type: string
                     description: Authentication token
+        '400':
+          description: Bad Request
         '401':
-          description: Unauthorized
+          description: Unauthorized (credentials are invalid)
+        '403':
+          description: Forbidden (insufficient scopes)
   '/users/signup/oauth2/google':
     post:
       summary: Initiate signup using Google OAuth2 (redirects to Google authorization)
@@ -548,8 +552,12 @@ paths:
                   token:
                     type: string
                     description: Authentication token
+        '400':
+          description: Bad Request
         '401':
-          description: Unauthorized
+          description: Unauthorized (credentials are invalid)
+        '403':
+          description: Forbidden (insufficient scopes)
   '/users/signup/oauth2/microsoft':
     post:
       summary: Initiate signup using Microsoft OAuth2 (redirects to Microsoft authorization)

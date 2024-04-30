@@ -1,54 +1,47 @@
 const winston = require('winston');
-require('dotenv').config('../../.env');
-
-const config = {
-  levels: {
-    error: 0,
-    debug: 1,
-    warn: 2,
-    data: 3,
-    info: 4,
-    verbose: 5,
-    silly: 6,
-    timestamp: 7,
-  },
-  colors: {
-    error: 'red',
-    debug: 'blue',
-    warn: 'yellow',
-    data: 'grey',
-    info: 'green',
-    verbose: 'cyan',
-    silly: 'magenta',
-    format: 'yellow',
-  },
-};
-
-winston.addColors(config.colors);
 
 const logger = winston.createLogger({
   level: 'info', // Set the default logging level (can be adjusted based on needs)
   format: winston.format.combine(
     winston.format.colorize(),
-    winston.format.timestamp({ format: 'YYYY-MM-DD HH:mm:ss' }), // Include timestamps
-    winston.format.printf((info) => `${info.timestamp} [${info.level}] ${info.message}`),
+    winston.format.printf((info) => `[${info.level}] ${info.message}`),
   ),
   transports: [
     new winston.transports.Console(), // Log to console for development
+    // new winston.transports.File({ filename: './app.log' }),
     // Add other transports for production environments, e.g., file, database
-    // new winston.transports.File({ filename: 'app.log' }),
   ],
 });
 
-module.exports = (req, res, next) => {
-  logger.info(`HTTP ${req.method} ${req.url} ${res.statusCode}`);
-  // Optionally log request body and other details as needed
-  // logger.info(`Request body: ${JSON.stringify(req.body)}`);
+const colors = {
+  200: '32',
+  201: '32',
+  204: '32',
+  300: '36',
+  302: '36',
+  400: '35',
+  404: '35',
+  401: '33',
+  403: '33',
+  500: '31',
+};
+
+const requestLogger = (req, res, next) => {
+  const startTime = process.hrtime(); // Record start time for request duration
+  logger.info(`HTTP${req.httpVersion} ${req.method} ${req.url}`);
 
   res.on('finish', () => {
-    logger.info(`Response sent: ${res.statusCode} ${res.statusMessage}`);
-    // logger.info(`Response body: ${JSON.stringify(res.body)}`);
+    const statusCodeColor = colors[res.statusCode] || 'white';
+    // to then calculate responseTime(approx.)
+    const durationInMs = process.hrtime(startTime)[0] * 1000 + process.hrtime(startTime)[1] / 1e6;
+    logger.info(
+      `> \x1b[${statusCodeColor}m${res.statusCode}\x1b[0m ${res.statusMessage} in ${durationInMs}ms\n`,
+    );
   });
-
   next();
+};
+
+module.exports = {
+  logger,
+  requestLogger,
 };

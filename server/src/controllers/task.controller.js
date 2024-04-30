@@ -1,97 +1,51 @@
-/* eslint-disable no-underscore-dangle */
-/* eslint-disable camelcase */
-const Task = require('../models/task.model');
-const { handleValidationError } = require('../models/express-validator/task.validators');
+const handleError = require('../helpers/errorHandler');
+const { readTasks, writeTasks } = require('../services/db/task.service');
 
-// GET all tasks
-const allTasks = async (req, res) => {
+exports.getTasks = async (req, res) => {
   try {
-    const tasks = await Task.find().sort({ createAt: -1 });
-    if (tasks.length === 0) throw new Error(`No task available`);
-
-    res.status(200).json(tasks);
+    const tasks = await readTasks({}, { createdAt: 0, modifiedAt: 0 });
+    res.status(200).json({ type: 'read_all', items: tasks.length ? tasks : 'Nothing here :/' });
   } catch (err) {
-    if (err.message === 'No task available') {
-      res.status(404).json({ message: 'No task available' });
-    } else {
-      res.status(500).json({ message: 'Internal server error' });
-    }
+    handleError(err, res);
   }
 };
 
-// GET task by ID
-const getTask = async (req, res) => {
-  const { id } = req.params;
-
+exports.getTaskById = async (req, res) => {
   try {
-    const task = await Task.findById(id);
-    if (!task) {
-      return res.status(404).json({ message: 'no such task' });
-    }
-    res.status(200).json(task);
+    const tasks = await readTasks({ _id: req.params.id }, { createdAt: 0, modifiedAt: 0 });
+    if (!tasks.length) return res.status(404).json({ type: 'ErrorNotFound', message: 'Task not found :/' });
+    return res.status(200).json({ type: 'read_one', item: tasks[0] });
   } catch (err) {
-    console.log(err);
-    if (err.message === 'no such task') {
-      res.status(404).json({ message: 'no such task' });
-    }
-
-    res.status(500).json({ message: `Server Error` });
+    return handleError(err, res);
   }
 };
 
-// Create new task POST
-const createTask = async (req, res) => {
-  const { name, description } = req.body;
-  handleValidationError(req, res);
-
+exports.createTasks = async (req, res) => {
   try {
-    const user_id = req.user._id;
-    const task = await Task.create({ name, description, assignedTo: user_id });
-    console.log(user_id);
-    res.status(201).json({ message: 'Task created ', task });
+    const writeData = await writeTasks(req.body, 'insertOne');
+    res.status(201).json({ type: 'write_insert', result: writeData, message: 'Created.' });
   } catch (err) {
-    handleValidationError(res, err);
+    handleError(err, res);
   }
 };
 
-// Update a task by ID
-const updateTask = async (req, res) => {
-  //validation error part
-  handleValidationError(req, res);
-  const { id } = req.params;
-
+exports.updateTask = async (req, res) => {
   try {
-    const task = await Task.findByIdAndUpdate(id, req.body, {
-      new: true,
-    });
-    if (!task) {
-      res.status(404).json({ messge: 'No such task' });
-    }
-    res.status(200).json({ message: 'Task Updated', task });
+    const writeData = await writeTasks(req.body, 'updateOne', { _id: req.params.id });
+    if (!writeData.modifiedCount) return res.status(404).json({ type: 'ErrorNotFound', message: 'Task not found :/' });
+    return res.status(200).json({ type: 'write_update', result: writeData, message: 'Updated.' });
   } catch (err) {
-    handleValidationError(res, err);
+    return handleError(err, res);
   }
 };
 
-// Delete a task by id
-const deleteTask = async (req, res) => {
-  const { id } = req.params;
-
+exports.deleteTask = async (req, res) => {
   try {
-    const deletedTask = await Task.findByIdAndDelete(id);
-    if (!deletedTask) {
-      return res.status(404).json({ message: 'Task not deleted' });
-    }
-    res.json({ message: 'Task deleted', deletedTask });
+    const writeData = await writeTasks({}, 'deleteOne', { _id: req.params.id });
+    if (!writeData.deletedCount) return res.status(404).json({ type: 'ErrorNotFound', message: 'Task not found :/' });
+    return res.status(200).json({ type: 'write_delete', result: writeData, message: 'Deleted.' });
+    // 204 : No Content actually returns no content..
   } catch (err) {
-    res.status(500).json({ message: `Internal server error` });
+    return handleError(err, res);
   }
-};
-
-module.exports = {
-  allTasks,
-  getTask,
-  createTask,
-  updateTask,
-  deleteTask,
 };

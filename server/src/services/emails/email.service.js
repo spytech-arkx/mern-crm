@@ -1,5 +1,7 @@
 const nodemailer = require('nodemailer');
-// Create a Nodemailer transporter with configuration options
+const { logger } = require('../../utils/logger');
+require('dotenv').config();
+
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
   port: process.env.EMAIL_PORT,
@@ -9,30 +11,32 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASSWORD,
   },
 });
+
 // Verify if the transporter is ready to send emails
 transporter.verify((error, success) => {
   if (error) {
-    console.log(error);
+    logger.log("error", "Email transporter not reading for mailing:", error);
   } else {
-    console.log('ready for msgs');
-    console.log(success);
+    logger.log("info", 'Transporter ready for mailing.');
   }
 });
+
 // Function to send a verification email with a verification link
 const sendVerificationEmail = async (email, verificationLink) => {
   const mailOptions = {
     from: 'no-reply@snz.ark',
     to: email,
-    subject: 'email verification',
-    html: `<p>click on the link to confirm your registration</p><a href="${verificationLink}">HERE</a>`,
+    subject: 'Welcome! Please verify your Email :)',
+    html: `<p>Click on the link to confirm your registration</p><a href="${verificationLink}">HERE</a>`,
   };
   try {
-    await transporter.sendMail(mailOptions);
+    const result = await transporter.sendMail(mailOptions);
     return { success: true, message: 'Mail sent successfully' };
   } catch (error) {
     return { success: false, message: 'Failed to send Mail' };
   }
 };
+
 // Function to send a customizable email
 const sendEmail = async (sender, to, subject, text, html) => {
   try {

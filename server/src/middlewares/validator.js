@@ -1,6 +1,7 @@
 const Joi = require('joi');
 const schemaSelector = require('../helpers/schemaChoiceHandler');
 const typeHandler = require('../helpers/typeHandler');
+const { logger } = require('../utils/logger');
 
 // When validate() throws, err contains an object with details about the validation failures.
 // You can access these details using the following properties:
@@ -15,8 +16,8 @@ const validateBodyData = (req, res, next) => {
     abortEarly: 'true',
     convert: 'false',
   });
-  // Validation successful, continue processing
   if (error) {
+    logger.log('error', '400 Bad Request, error(s): ', error);
     // handle it here and now.
     return res.status(400).json({
       type: 'ValidationError',
@@ -27,6 +28,7 @@ const validateBodyData = (req, res, next) => {
       })),
     });
   }
+  // Validation successful, continue processing
   req.body = value;
   next();
 };
@@ -38,7 +40,6 @@ const validateParamsId = (req, res, next) => {
     return res.status(400).json({
       type: 'ValidationError',
       message: 'Invalid id format',
-      path: '_id',
     });
   }
   return next();

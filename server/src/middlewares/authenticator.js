@@ -45,18 +45,23 @@ const authenticator = async (req, res, next) => {
     if (error.name === 'JsonWebTokenError' || error.name === 'TokenExpiredError') {
       return res.status(401).json({ error: 'Invalid token' });
     }
-    console.log(error);
     res.status(401).json({ error: 'request not authorized' });
   }
 };
 
 const permission = (role) => (req, res, next) => {
-  console.log(req.user);
   if (req.user.role === role) {
     next(); // Si le rôle de l'utilisateur correspond, passez à la prochaine fonction de middleware
   } else {
     return res.status(403).json({ error: 'Not allowed' }); // Sinon, renvoyez une erreur d'autorisation
   }
 };
-
 module.exports = { authenticator, permission };
+
+// ↑↑ JWT based auth + A shot at RBAC.
+// ↓↓ Session based auth (Passport)
+
+module.exports.isAuth = (req, res, next) => {
+  if (req.isAuthenticated()) return next();
+  return res.status(403).json({ type: 'Forbidden', msg: 'Invalid credentials.' });
+};

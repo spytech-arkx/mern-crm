@@ -1,108 +1,99 @@
 const {
-  allUsers,
-  getUser,
-  updateUser,
-  deleteUser,
   login,
-  signup,
   createToken,
 } = require('../services/db/user.service');
 
-const getUsers = async (req, res) => {
+
+// ↑↑ JWT based auth (Nawfel).
+
+const handleError = require('../helpers/errorHandler');
+const User = require('../models/user.model');
+const { readUsers, writeUsers, updateWithoutReturn } = require('../services/db/user.service');
+
+// Admin priv. required
+exports.getUsers = async (req, res) => {
   try {
-    const users = await allUsers();
-    res.status(200).json(users);
+    const users = await readUsers({}, { createdAt: 0, modifiedAt: 0 });
+    res.status(200).json(users.length ? users : 'Nothing here :/');
   } catch (err) {
-    if (err.message === 'No user available') {
-      res.status(404).json({ error: err.message });
-    } else {
-      res.status(500).json({ error: 'Internal server error' });
-    }
+    handleError(err, res);
   }
 };
 
-const getUserById = async (req, res) => {
+// Admin priv. required
+exports.getUserById = async (req, res) => {
   try {
-    const userId = req.params.id;
-    const user = await getUser(userId);
-    res.status(200).json(user);
+    const users = await readUsers({ _id: req.params.id });
+    if (!users.length) return res.status(404).json({ type: 'ErrorNotFound', message: 'User not found :/' });
+    return res.status(200).json(users[0]);
   } catch (err) {
-    if (err.message === 'No such user') {
-      res.status(404).json('No such user');
-    } else {
-      res.status(500).json({ error: 'Internal server error' });
-    }
+    return handleError(err, res);
   }
 };
 
-const patchUser = async (req, res) => {
+// Admin priv. required
+exports.createUsers = async (req, res) => {
   try {
-    const userId = req.params.id;
-    const newData = req.body;
-    const user = await updateUser(userId, newData);
-    res.status(200).json(user);
+    const writeData = await writeUsers(req.body, 'insertOne');
+    res.status(201).json({ result: writeData, message: 'Created.' });
   } catch (err) {
-    if (err.message === 'No such user') {
-      res.status(404).json({ error: err.message });
-    } else {
-      res.status(500).json({ error: 'Internal server error' });
-    }
+    handleError(err, res);
   }
 };
 
-const deleteUserById = async (req, res) => {
+/**
+ * The register function registers a new user.
+ * @param {Object} req- The request object.
+ * @param {Object} res - The response.
+ */
+exports.register = async (req, res) => {
   try {
-    const userId = req.params.id;
-    const user = await deleteUser(userId);
-    res.status(200).json(user);
+    const newUser = new User({
+      firstName: req.body.firstName,
+      lastName: req.body.lastName,
+      email: req.body.email,
+      username: req.body.username,
+      password: req.body.password,
+      // role: 'Owner', // TO-DO: on peut mettre une logique pour que si l'email qu'il enregistre === process.env.OWNER_MAIL on lui donne le role "Owner"
+    });
+    const user = await newUser.save();
+    res.status(201).json(user);
+    // res.redirect('/login');
   } catch (err) {
-    if (err.message === 'No such user') {
-      res.status(404).json({ error: err.message });
-    } else {
-      res.status(500).json({ error: 'Internal server error' });
-    }
+    handleError(err, res);
   }
 };
 
-// Controller function to register a new user
-const registerUser = async (req, res) => {
-  // Extract username, email, and password from the request body
-  const { username, email, password } = req.body;
-
-  try {
-    // Call the signup function to create a new user
-    const user = await signup(username, email, password);
-    // Generate a JWT token for the newly registered user
-
-    // Send a successful response with the user details and token
-    res.status(201).json({ user });
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
-
-// Controller function to log in an existing use
-const loginUser = async (req, res) => {
-  // Extract email and password from the request body
+// Controller function to log in an existing user
+exports.loginUser = async (req, res) => {
   const { email, password } = req.body;
-
   try {
-    // Call the login function to authenticate the user
     const user = await login(email, password);
-    // Generate a JWT token for the authenticated user
     const token = createToken(user._id, user.role);
-    // Send a successful response with the user details and toke
+
     res.status(200).json({ user, token });
   } catch (error) {
     res.status(400).json({ error: error.message });
   }
 };
 
-module.exports = {
-  getUsers,
-  getUserById,
-  patchUser,
-  deleteUserById,
-  registerUser,
-  loginUser,
+exports.updateUser = async (req, res) => {
+  try {
+    await updateWithoutReturn(req.params.id, req.body);
+    return res.status(200).json({ message: 'Updated.' });
+  } catch (err) {
+    return handleError(err, res);
+  }
+};
+
+// TODO: User deactivation, soft-deletion.
+exports.deleteUser = async (req, res) => {
+  try {
+    const writeData = await writeUsers({}, 'deleteOne', { _id: req.params.id });
+    if (!writeData.deletedCount) return res.status(404).json({ type: 'ErrorNotFound', message: 'User not found :/' });
+    return res.status(200).json({ result: writeData, message: 'Deleted.' });
+    // 204 : No Content actually returns no content..
+  } catch (err) {
+    return handleError(err, res);
+  }
 };

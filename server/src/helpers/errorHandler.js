@@ -1,11 +1,15 @@
 // A helper function to avoid duplicate code in controllers,
+// It's mainly experimental since I'm just learning the type of codes models and
 // The typical CRUD erros are enumerable :
 // - E11000 Dupe
 // - CastError: in case validation fails for some reason (ValidObjectId)
 // - ValidationError : same, (ValidBodyData)
 // - Not found : handled using bulkWrite result count! etc...
 
+const { logger } = require('../utils/logger');
+
 function handleError(error, response) {
+  logger.log('error', 'Error caught by handler: ', error);
   if (!Array.isArray(error)) {
     switch (error.name) {
       case 'CastError':
@@ -68,6 +72,14 @@ function handleError(error, response) {
 
       default:
         // Handle unexpected errors
+        if (error.code === 11000) {
+          return response.status(400).json({
+            type: 'DuplicateKeyError',
+            message: 'Duplicate key error: This field must be unique.',
+            error,
+          });
+        }
+
         return response.status(500).json({
           type: 'UnknownError',
           message: 'An unknown error occurred.',

@@ -1,64 +1,51 @@
 const express = require('express');
-const { verifyEmail } = require('../services/emails/emailVerification');
-const { sendNotifEmail, postEmail } = require('../services/emails/email.controller');
+
+const { validateParamsId, validateBodyData } = require('../middlewares/validator');
+const sanitizeBodyData = require('../middlewares/sanitizer');
+const { isAuth } = require('../middlewares/authenticator');
+
 const {
-  registerUser,
-  loginUser,
   getUsers,
   getUserById,
-  patchUser,
-  deleteUserById,
+  deleteUser,
+  updateUser,
+  createUsers,
+  register,
 } = require('../controllers/user.controller');
-const {
-  validateUserId,
-  validateUserName,
-  validatePassword,
-  validateEmail,
-  handleValidationError,
-} = require('../models/express-validator/user.validators');
-const { permission, authenticator } = require('../middlewares/authenticator');
+
+const { verifyEmail } = require('../services/emails/emailVerification');
+const { sendNotifEmail, postEmail } = require('../services/emails/email.controller');
 
 const userRouter = express.Router(); // Create an Express router
 
-// Endpoint GET all users
-userRouter.get('/', authenticator, permission('admin'), getUsers);
-userRouter.post('/notif', sendNotifEmail);
-userRouter.post('/send/:id', validateUserId, postEmail);
-
-// Endpoint GET a user by ID
-userRouter.get('/:id', validateUserId, getUserById);
-
-// Endpoint for registering a new user
-userRouter.post(
-  '/register',
-  [validateUserName(), validateEmail(), validatePassword(), handleValidationError],
-  registerUser,
-);
-
-// Endpoint for Email verification
+// User CRUD ops.
+userRouter.post('/register', sanitizeBodyData, validateBodyData, register);
 userRouter.get('/verify-email/:token', verifyEmail);
-
-// Endpoint for logging in an existing user
-userRouter.post(
-  '/login',
-  [validateEmail(), validatePassword(), handleValidationError],
-  loginUser,
-);
-
-// Endpoint for updating a user by ID
-userRouter.put(
+userRouter.use(isAuth);
+userRouter.post('/', sanitizeBodyData, validateBodyData, createUsers);
+userRouter.get('/', getUsers);
+userRouter.get('/:id', validateParamsId, getUserById);
+userRouter.patch(
   '/:id',
-  [
-    validateUserId,
-    validateUserName(),
-    validateEmail(),
-    validatePassword(),
-    handleValidationError,
-  ],
-  patchUser,
+  validateParamsId,
+  sanitizeBodyData,
+  validateBodyData,
+  updateUser,
 );
+userRouter.delete('/:id', validateParamsId, deleteUser);
 
-// Endpoint DELETE user by ID
-userRouter.delete('/:id', validateUserId, deleteUserById);
+// User mailing
+userRouter.post('/notif', sendNotifEmail);
+userRouter.post('/send/:id', validateParamsId, postEmail);
+
+// // Endpoint GET all users
+// const { permission, authenticator } = require('../middlewares/authenticator');
+// userRouter.get('/', authenticator, permission('admin'), getUsers);
+// Endpoint for logging in an existing user
+// userRouter.post(
+//   '/login',
+//   [validateEmail(), validatePassword(), handleValidationError],
+//   loginUser,
+// );
 
 module.exports = userRouter;
