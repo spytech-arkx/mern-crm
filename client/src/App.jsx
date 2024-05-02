@@ -1,11 +1,11 @@
-import { Button } from './components/ui/button'
+import ContactList from './pages/entities/contacts/contact-list'
 import './styles/index.css'
 
 function App() {
   return (
     <>
-    <text className='text-9xl'>Hello World</text>
-    <Button>Button</Button>
+    <p className='text-9xl'>Hello World</p>
+    <ContactList />
     </>
   )
 }
