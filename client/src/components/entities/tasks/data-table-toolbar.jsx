@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { DataTableViewOptions } from "./data-table-view-options"
 
-import { priorities, statuses } from "@/data/tasks/data"
+import { priorities, statuses, assignees } from "@/components/entities/tasks/data"
+
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
 
 export function DataTableToolbar({
@@ -16,6 +17,7 @@ export function DataTableToolbar({
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
+
           placeholder="Filter tasks..."
           value={(table.getColumn("title")?.getFilterValue()) ?? ""}
           onChange={(event) =>
@@ -37,14 +39,21 @@ export function DataTableToolbar({
             options={priorities}
           />
         )}
+        {table.getColumn("assignee") && (
+          <DataTableFacetedFilter
+            column={table.getColumn("assignee")}
+            title="Assignees"
+            options={assignees}
+          />
+        )}
         {isFiltered && (
           <Button
             variant="ghost"
             onClick={() => table.resetColumnFilters()}
-            className="h-8 px-2 lg:px-3"
+            className="h-8 px-2 lg:px-3 border text-xs rounded-md border-dashed"
           >
             Reset
-            <Cross2Icon className="ml-2 h-4 w-4" />
+            <Cross2Icon className="ml-2 h-3 w-3" />
           </Button>
         )}
       </div>
