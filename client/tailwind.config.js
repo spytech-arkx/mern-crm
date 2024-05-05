@@ -30,6 +30,7 @@ module.exports = {
         'm': '16px',
         's': '14px',
         'xs': '12px',
+        '1xs': '10px',
       },
       fontFamily : {
         'b' : ['Inter', 'sans-serif'], // body
