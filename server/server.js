@@ -1,6 +1,7 @@
 const express = require('express');
 const { urlencoded } = require('body-parser');
 const passport = require('passport');
+const cors = require('cors')
 const session = require('./src/config/session');
 const { run } = require('./src/config/db');
 const { logger, requestLogger } = require('./src/utils/logger');
@@ -24,6 +25,7 @@ const authRouter = require('./src/routes/auth.routes');
 
 const app = express();
 const port = process.env.PORT || 3000; // Use port from environment or default to 3000
+app.use(cors({ credentials: true, origin: 'http://localhost:5173' }));
 app.use(express.json()); // Parse JSON body data
 app.use(urlencoded({ extended: true })); //  Parses urlencoded bodies.
 app.use(requestLogger); // A logger for just about everything.
