@@ -4,7 +4,7 @@ const { readTasks, writeTasks } = require('../services/db/task.service');
 exports.getTasks = async (req, res) => {
   try {
     const tasks = await readTasks({}, { createdAt: 0, modifiedAt: 0 });
-    res.status(200).json({ type: 'read_all', items: tasks.length ? tasks : 'Nothing here :/' });
+    res.status(200).json(tasks);
   } catch (err) {
     handleError(err, res);
   }

@@ -1,7 +1,7 @@
-const Joi = require('joi');
-const schemaSelector = require('../helpers/schemaChoiceHandler');
-const typeHandler = require('../helpers/typeHandler');
-const { logger } = require('../utils/logger');
+const Joi = require("joi");
+const schemaSelector = require("../helpers/schemaChoiceHandler");
+const typeHandler = require("../helpers/typeHandler");
+const { logger } = require("../utils/logger");
 
 // When validate() throws, err contains an object with details about the validation failures.
 // You can access these details using the following properties:
@@ -9,28 +9,37 @@ const { logger } = require('../utils/logger');
 //     error.details[i].message: The specific error message for each validation failure.
 //     error.details[i].path: (e.g., "companyName" or "BillingAddress.Street").
 // eslint-disable-next-line consistent-return
+
+const validateObject = (obj, schema) => {
+  const { error, value } = schema.validate(obj, {
+    abortEarly: true,
+    convert: true,
+  });
+
+  return error ? { error } : value;
+};
+
 const validateBodyData = (req, res, next) => {
   const { method } = req;
   const type = typeHandler(req.originalUrl);
-  const { error, value } = schemaSelector(type, method).validate(req.body, {
-    abortEarly: 'true',
-    convert: 'false',
-  });
-  if (error) {
-    logger.log('error', '400 Bad Request, error(s): ', error);
-    // handle it here and now.
+  const schema = schemaSelector(type, method);
+
+  const arr = Array.isArray(req.body) ? req.body : [req.body];
+  const result = arr.map((obj) => validateObject(obj, schema));
+
+  const validationError = result.find((item) => item.error);
+  if (validationError) {
+    logger.log("error", "Error caught at validation:");
+    logger.log("error", validationError.error);
     return res.status(400).json({
-      type: 'ValidationError',
-      message: 'Validation failed :/',
-      errors: error.details.map((detail) => ({
-        field: detail.path.join('.'),
-        message: detail.message,
-      })),
+      type: "ValidationError",
+      message: "Validation failed :/",
+      error: validationError.error,
     });
   }
-  // Validation successful, continue processing
-  req.body = value;
-  next();
+
+  req.body = result;
+  return next();
 };
 
 const validateParamsId = (req, res, next) => {
@@ -38,8 +47,8 @@ const validateParamsId = (req, res, next) => {
   const { error: invalidIdError } = Joi.string().hex().length(24).validate(req.params.id);
   if (invalidIdError) {
     return res.status(400).json({
-      type: 'ValidationError',
-      message: 'Invalid id format',
+      type: "ValidationError",
+      message: "Invalid id format",
     });
   }
   return next();
@@ -51,4 +60,3 @@ module.exports = {
 };
 
 // TODO: validate the body, headers, cookies, formdata and queries next..
-// TODO : handle bulk documents validations.

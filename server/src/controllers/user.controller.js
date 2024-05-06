@@ -3,7 +3,6 @@ const {
   createToken,
 } = require('../services/db/user.service');
 
-
 // ↑↑ JWT based auth (Nawfel).
 
 const handleError = require('../helpers/errorHandler');
@@ -14,7 +13,7 @@ const { readUsers, writeUsers, updateWithoutReturn } = require('../services/db/u
 exports.getUsers = async (req, res) => {
   try {
     const users = await readUsers({}, { createdAt: 0, modifiedAt: 0 });
-    res.status(200).json(users.length ? users : 'Nothing here :/');
+    res.status(200).json(users);
   } catch (err) {
     handleError(err, res);
   }
@@ -54,7 +53,10 @@ exports.register = async (req, res) => {
       email: req.body.email,
       username: req.body.username,
       password: req.body.password,
-      // role: 'Owner', // TO-DO: on peut mettre une logique pour que si l'email qu'il enregistre === process.env.OWNER_MAIL on lui donne le role "Owner"
+      // role: 'Owner',
+      // TO-DO: on peut mettre une logique pour que
+      // si l'email qu'il enregistre === process.env.OWNER_MAIL
+      // on lui donne le role "Owner"
     });
     const user = await newUser.save();
     res.status(201).json(user);

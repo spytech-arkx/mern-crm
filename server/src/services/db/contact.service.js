@@ -21,13 +21,13 @@ async function writeContacts(docs, operation, filters) {
   try {
     const arr = Array.isArray(docs) ? docs : [docs];
 
-    const bulkOps = arr.reduce((obj, current) => {
-      obj[operation] = {
+    const bulkOps = arr.map((doc) => {
+      doc[operation] = {
         filter: filters,
-        update: operation === 'updateOne' ? current : undefined, // Add update only for updates
-        document: operation === 'insertOne' ? current : undefined, // Add document only for inserts
+        update: operation === 'updateOne' ? doc : undefined, // Add update only for updates
+        document: operation === 'insertOne' ? doc : undefined, // Add document only for inserts
       };
-      return obj;
+      return doc;
     }, {});
 
     return await Contact.bulkWrite([bulkOps], { ordered: true });
@@ -40,5 +40,3 @@ module.exports = {
   readContacts,
   writeContacts,
 };
-
-// TODO : actually make use of bulkWriting, otherwise why not use (findByandOperation..)

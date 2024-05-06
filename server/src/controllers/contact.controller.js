@@ -4,7 +4,7 @@ const { readContacts, writeContacts } = require('../services/db/contact.service'
 exports.getContacts = async (req, res) => {
   try {
     const contacts = await readContacts({}, { createdAt: 0, modifiedAt: 0 });
-    res.status(200).json({ type: 'read_all', items: contacts.length ? contacts : 'Nothing here :/' });
+    res.status(200).json(contacts);
   } catch (err) {
     handleError(err, res);
   }

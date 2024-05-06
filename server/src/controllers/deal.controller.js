@@ -4,7 +4,7 @@ const { readDeals, writeDeals } = require('../services/db/deal.service');
 exports.getDeals = async (req, res) => {
   try {
     const deals = await readDeals({}, { createdAt: 0, modifiedAt: 0 });
-    res.status(200).json({ type: 'read_all', items: deals.length ? deals : 'Nothing here :/' });
+    res.status(200).json(deals);
   } catch (err) {
     handleError(err, res);
   }

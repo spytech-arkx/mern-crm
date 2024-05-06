@@ -1,8 +1,6 @@
 const xss = require('xss');
 
-function sanitizeString(value) {
-  return xss(value);
-}
+const sanitizeString = (value) => xss(value);
 
 const sanitizeObject = (obj) => {
   const sanitizedObj = {};
@@ -20,8 +18,13 @@ const sanitizeObject = (obj) => {
 };
 
 const sanitizeBodyData = (req, res, next) => {
+  if (Array.isArray(req.body)) {
+    const arr = req.body;
+    req.body = arr.map((obj) => sanitizeObject(obj));
+    return next();
+  }
   req.body = sanitizeObject(req.body);
-  next();
+  return next();
 };
 
 module.exports = sanitizeBodyData;

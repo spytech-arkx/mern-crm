@@ -4,7 +4,7 @@ const { readCompanies, writeCompanies } = require('../services/db/company.servic
 exports.getCompanies = async (req, res) => {
   try {
     const companies = await readCompanies({}, { createdAt: 0, modifiedAt: 0 });
-    res.status(200).json({ type: 'read_all', items: companies.length ? companies : 'Nothing here :/' });
+    res.status(200).json(companies);
   } catch (err) {
     handleError(err, res);
   }

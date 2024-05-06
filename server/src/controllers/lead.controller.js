@@ -4,7 +4,7 @@ const { readLeads, writeLeads } = require('../services/db/lead.service');
 exports.getLeads = async (req, res) => {
   try {
     const leads = await readLeads({}, { createdAt: 0, modifiedAt: 0 });
-    res.status(200).json({ type: 'read_all', items: leads.length ? leads : 'Nothing here :/' });
+    res.status(200).json(leads);
   } catch (err) {
     handleError(err, res);
   }
