@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 
 const TaskSchema = new mongoose.Schema({
-  subject: {
+  id: {
     type: String,
-    maxLength: 50,
+  },
+  title: {
+    type: String,
     trim: true,
     required: true,
     unique: true,
@@ -15,22 +17,27 @@ const TaskSchema = new mongoose.Schema({
     ref: 'User',
   }, // Reference to the User model, representing the task's owner
 
+  assignee: {
+    name: String,
+    avatar: String,
+  },
   // Descriptive fields for task details
   status: {
     type: String,
     trim: true,
-    enum: ['To Do', 'In Progress', 'Completed', 'Deferred'],
   },
   priority: {
     type: String,
     trim: true,
-    enum: ['P0', 'P1', 'P2'],
   },
   description: {
     type: String,
     maxLength: 255,
   }, // Additional information about the task
 
+  label: {
+    type: String,
+  },
   // Audit fields for tracking task history
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,

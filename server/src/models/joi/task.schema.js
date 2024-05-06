@@ -1,15 +1,19 @@
 const Joi = require('joi');
 
 const taskSchema = Joi.object({
-  subject: Joi.string().trim().max(50).required(),
-  dueDate: Joi.date(),
+  title: Joi.string().trim().required(),
+  dueDate: Joi.date().allow('DD-MM-YYYY'),
   owner: Joi.string()
     .trim()
     .pattern(/^[0-9a-fA-F]{24}$/)
     .message('Invalid MongoDB Id'),
 
-  status: Joi.string().trim().valid('To Do', 'In Progress', 'Completed', 'Deferred'),
-  priority: Joi.string().trim().valid('P0', 'P1', 'P2'),
+  assignee: {
+    name: Joi.string().trim(),
+    avatar: Joi.string().trim(),
+  },
+  status: Joi.string().trim(),
+  priority: Joi.string().trim(),
   description: Joi.string().trim().max(255),
 
   createdBy: Joi.string()
@@ -22,7 +26,7 @@ const taskSchema = Joi.object({
     .message('Invalid MongoDB Id'),
 
   closedTime: Joi.date(),
-  tags: Joi.array().items(Joi.string().trim().max(16)),
+  label: Joi.string().trim().max(16),
   reminder: Joi.date(),
   relatedTo: Joi.string()
     .trim()
@@ -37,7 +41,7 @@ const taskSchema = Joi.object({
 }).options({ abortEarly: false, stripUnknown: true });
 
 const taskUpdateSchema = taskSchema.fork(
-  ['subject'],
+  ['title'],
   (schema) => schema.optional(),
 );
 
