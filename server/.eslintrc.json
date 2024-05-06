@@ -14,6 +14,8 @@
     "no-useless-catch": "off",
     "newline-per-chained-call": "off",
     "no-return-await": "off",
-    "no-underscore-dangle": "off"
+    "no-underscore-dangle": "off",
+    "no-param-reassign": "off",
+    "quotes" : "off"
   }
 }
