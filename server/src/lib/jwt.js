@@ -19,8 +19,8 @@ exports.extractfromUrlQueryParameter = (request) => {
 
 exports.extractFromAuthHeaderWithScheme = (request) => {
   let token = null;
-  if (request.headers.authentication) {
-    const authParams = this.parse(request.headers.authentication);
+  if (request.headers.authorization) {
+    const authParams = this.parse(request.headers.authorization);
     if (authParams && authParams.scheme.toLowerCase() === "bearer") {
       token = authParams.value;
     }

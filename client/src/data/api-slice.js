@@ -5,7 +5,7 @@ export const snazApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3000/api',
   prepareHeaders(headers) {
     const token = import.meta.env.VITE_API_KEY;
-    if(token) headers.set('Authentication', `Bearer ${token}`);
+    if(token) headers.set('Authorization', `Bearer ${token}`);
     return headers;
   }
 }),
