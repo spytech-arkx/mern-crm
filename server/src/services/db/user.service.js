@@ -1,8 +1,8 @@
 const User = require('../../models/user.model');
 
-async function readUsers(filter, projection, options) {
+async function readUsers(filter, options) {
   try {
-    return await User.find(filter, projection, options);
+    return await User.find(filter, { _id: 0 }, options);
   } catch (err) {
     throw err;
   }
@@ -32,7 +32,7 @@ async function writeUsers(docs, operation, filters) {
       return doc;
     }, {});
 
-    return await User.bulkWrite([bulkOps], { ordered: true });
+    return await User.bulkWrite(bulkOps, { ordered: true });
   } catch (err) {
     throw err;
   }
