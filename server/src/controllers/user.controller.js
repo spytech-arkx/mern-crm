@@ -5,14 +5,14 @@ const {
 
 // ↑↑ JWT based auth (Nawfel).
 
-const handleError = require('../helpers/errorHandler');
+const handleError = require('../lib/errorHandler');
 const User = require('../models/user.model');
 const { readUsers, writeUsers, updateWithoutReturn } = require('../services/db/user.service');
 
 // Admin priv. required
 exports.getUsers = async (req, res) => {
   try {
-    const users = await readUsers({}, { createdAt: 0, modifiedAt: 0 });
+    const users = await readUsers({});
     res.status(200).json(users);
   } catch (err) {
     handleError(err, res);

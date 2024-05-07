@@ -16,6 +16,8 @@
     "no-return-await": "off",
     "no-underscore-dangle": "off",
     "no-param-reassign": "off",
-    "quotes" : "off"
+    "quotes" : "off",
+    "prefer-destructuring": "off",
+    "implicit-arrow-linebreak": "off"
   }
 }

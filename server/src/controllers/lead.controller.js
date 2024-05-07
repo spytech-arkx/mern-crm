@@ -1,9 +1,9 @@
-const handleError = require('../helpers/errorHandler');
+const handleError = require('../lib/errorHandler');
 const { readLeads, writeLeads } = require('../services/db/lead.service');
 
 exports.getLeads = async (req, res) => {
   try {
-    const leads = await readLeads({}, { createdAt: 0, modifiedAt: 0 });
+    const leads = await readLeads({});
     res.status(200).json(leads);
   } catch (err) {
     handleError(err, res);
@@ -12,7 +12,7 @@ exports.getLeads = async (req, res) => {
 
 exports.getLeadById = async (req, res) => {
   try {
-    const leads = await readLeads({ _id: req.params.id }, { createdAt: 0, modifiedAt: 0 });
+    const leads = await readLeads({ _id: req.params.id });
     if (!leads.length) return res.status(404).json({ type: 'ErrorNotFound', message: 'Lead not found :/' });
     return res.status(200).json({ type: 'read_one', item: leads[0] });
   } catch (err) {
