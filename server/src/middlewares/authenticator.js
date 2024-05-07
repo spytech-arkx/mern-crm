@@ -11,6 +11,9 @@
 /* eslint-disable padded-blocks */
 const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
+const { extractFromAuthHeaderWithScheme, verifyToken } = require('../lib/jwt');
+const { logger } = require('../utils/logger');
+const handleError = require('../lib/errorHandler');
 
 const authenticator = async (req, res, next) => {
   try {
@@ -62,6 +65,18 @@ module.exports = { authenticator, permission };
 // ↓↓ Session based auth (Passport)
 
 module.exports.isAuth = (req, res, next) => {
+
+  // User authentication
   if (req.isAuthenticated()) return next();
-  return res.status(403).json({ type: 'Forbidden', msg: 'Invalid credentials.' });
+
+  // App authentication
+  const token = extractFromAuthHeaderWithScheme(req);
+  if (!token) return res.status(401).json({ msg: 'Invalid credentials.' });
+
+  try {
+    const verified = verifyToken(token);
+    req.api = verified && next();
+  } catch (err) {
+    handleError(err, res)
+  }
 };
