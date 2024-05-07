@@ -21,7 +21,6 @@ exports.extractFromAuthHeaderWithScheme = (request) => {
   let token = null;
   if (request.headers.authentication) {
     const authParams = this.parse(request.headers.authentication);
-    console.log(authParams);
     if (authParams && authParams.scheme.toLowerCase() === "bearer") {
       token = authParams.value;
     }
@@ -32,7 +31,6 @@ exports.extractFromAuthHeaderWithScheme = (request) => {
 exports.parse = (authHeader) => {
   if (typeof authHeader !== "string") return null;
   const schemaSpaceToken = authHeader.match(/^(Bearer)\s(\S+\.\S+\.\S+)$/);
-  console.log(schemaSpaceToken)
   return (
     schemaSpaceToken && {
       scheme: schemaSpaceToken[1],
