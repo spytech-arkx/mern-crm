@@ -1,6 +1,6 @@
 const Joi = require("joi");
-const schemaSelector = require("../helpers/schemaChoiceHandler");
-const typeHandler = require("../helpers/typeHandler");
+const schemaSelector = require("../lib/schemaSelector");
+const typeHandler = require("../lib/typeSelector");
 const { logger } = require("../utils/logger");
 
 // When validate() throws, err contains an object with details about the validation failures.
@@ -36,6 +36,11 @@ const validateBodyData = (req, res, next) => {
       message: "Validation failed :/",
       error: validationError.error,
     });
+  }
+
+  if (result.length === 1) {
+    req.body = result[0];
+    return next();
   }
 
   req.body = result;
