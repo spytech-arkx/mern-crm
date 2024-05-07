@@ -6,95 +6,95 @@
 // - ValidationError : same, (ValidBodyData)
 // - Not found : handled using bulkWrite result count! etc...
 
-const { logger } = require('../utils/logger');
+const { logger } = require("../utils/logger");
 
 function handleError(error, response) {
-  logger.log('error', 'Error caught by handler: ', error);
+  logger.log("error", "Error caught by handler: ", error);
   if (!Array.isArray(error)) {
     switch (error.name) {
-      case 'CastError':
+      case "CastError":
         return response.status(400).json({
-          type: 'CastError',
-          message: 'Invalid data format.',
+          type: "CastError",
+          message: "Invalid data format.",
           error,
         });
 
-      case 'ValidationError':
+      case "ValidationError":
         return response.status(400).json({
-          type: 'ValidationError',
-          message: 'Validation failed :/',
+          type: "ValidationError",
+          message: "Validation failed :/",
           error,
         });
 
-      case 'MongoBulkWriteError':
+      case "MongoBulkWriteError":
         if (error.code === 11000) {
           return response.status(400).json({
-            type: 'DuplicateKeyError',
-            message: 'Duplicate key error: This field must be unique.',
+            type: "DuplicateKeyError",
+            message: "Duplicate key error: This field must be unique.",
             error,
           });
         }
         // Handle other MongoWriteError cases (e.g., validation errors on the server)
         return response.status(400).json({
-          type: 'MongoWriteError',
-          message: 'Write operation failed.',
+          type: "MongoWriteError",
+          message: "Write operation failed.",
           error,
         });
 
-      case 'MongoError':
+      case "MongoError":
         if (error.code === 11000) {
           return response.status(400).json({
-            type: 'DuplicateKeyError',
-            message: 'Duplicate key error: This field must be unique.',
+            type: "DuplicateKeyError",
+            message: "Duplicate key error: This field must be unique.",
             error,
           });
         }
         // Handle other MongoWriteError cases (e.g., validation errors on the server)
         return response.status(400).json({
-          type: 'MongoWriteError',
-          message: 'Write operation failed.',
+          type: "MongoWriteError",
+          message: "Write operation failed.",
           error,
         });
 
-      case 'MongoServerSelectionError':
+      case "MongoServerSelectionError":
         return response.status(503).json({
-          type: 'DatabaseError',
-          message: 'Service Unavailable: Database error occurred.',
+          type: "DatabaseError",
+          message: "Service Unavailable: Database error occurred.",
           error,
         });
 
-      case 'TypeError':
+      case "TypeError":
         return response.status(500).json({
-          type: 'TypeError',
-          message: 'Internal Server Error',
+          type: "TypeError",
+          message: "Internal Server Error",
           error,
         });
+
+      case "TokenExpiredError":
+        logger.log("error", "Error verifiying api_key:", error);
+        return response.status(403).json({ msg: "Invalid credentials." });
+
+      case "JsonWebTokenError":
+        logger.log("error", "Error verifiying api_key:", error);
+        return response.status(400).json({ msg: "Invalid credentials." });
 
       default:
         // Handle unexpected errors
-        if (error.code === 11000) {
-          return response.status(400).json({
-            type: 'DuplicateKeyError',
-            message: 'Duplicate key error: This field must be unique.',
-            error,
-          });
-        }
-
         return response.status(500).json({
-          type: 'UnknownError',
-          message: 'An unknown error occurred.',
+          type: "UnknownError",
+          message: "Internal Server Error.",
           error,
         });
     }
   }
 
   const errors = error.details.map((detail) => ({
-    field: detail.path.join('.'),
+    field: detail.path.join("."),
     message: detail.message,
   }));
 
   return response.status(400).json({
-    type: 'ValidationError',
+    type: "ValidationError",
     errors,
   });
 }
