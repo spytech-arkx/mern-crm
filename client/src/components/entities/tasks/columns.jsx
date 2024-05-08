@@ -4,6 +4,9 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { labels, priorities, statuses } from "@/components/entities/tasks/data"
 import { DataTableColumnHeader } from "./data-table-column-header"
 import { DataTableRowActions } from "./data-table-row-actions"
+import { CalendarClock } from "lucide-react"
+
+import { formatter } from "@/lib/utils"
 
 export const columns = [
   {
@@ -83,6 +86,29 @@ export const columns = [
     },
   },
   {
+    accessorKey: "dueDate",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Due Date" />
+    ),
+    cell: ({ row }) => {
+      const date = new Date(row.getValue("dueDate"));
+      if (!date) return null;
+      return (
+        <div className="flex align-middle space-x-2">
+          <div><CalendarClock color="#6d7076" size="16" /></div>
+          <span className="max-w-[500px] truncate text-neutral-80 text-xs">
+            {formatter.format(date)}
+          </span>
+        </div>
+      )
+    },
+    enableSorting: true,
+    enableHiding: true,
+    filterFn: (row, id, value) => {
+      return value.includes(row.getValue(id))
+    },
+  },
+  {
     accessorKey: "status",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="Status" />
@@ -128,7 +154,7 @@ export const columns = [
           {priority.icon && (
             <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />
           )}
-          <span>{priority.label}</span>
+          <span className="text-xs">{priority.label}</span>
         </div>
       )
     },
