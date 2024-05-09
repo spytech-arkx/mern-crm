@@ -1,10 +1,10 @@
-const handleError = require('../helpers/errorHandler');
+const handleError = require('../lib/errorHandler');
 const { readDeals, writeDeals } = require('../services/db/deal.service');
 
 exports.getDeals = async (req, res) => {
   try {
-    const deals = await readDeals({}, { createdAt: 0, modifiedAt: 0 });
-    res.status(200).json({ type: 'read_all', items: deals.length ? deals : 'Nothing here :/' });
+    const deals = await readDeals({});
+    res.status(200).json(deals);
   } catch (err) {
     handleError(err, res);
   }
@@ -12,7 +12,7 @@ exports.getDeals = async (req, res) => {
 
 exports.getDealById = async (req, res) => {
   try {
-    const deals = await readDeals({ _id: req.params.id }, { createdAt: 0, modifiedAt: 0 });
+    const deals = await readDeals({ _id: req.params.id });
     if (!deals.length) return res.status(404).json({ type: 'ErrorNotFound', message: 'Deal not found :/' });
     return res.status(200).json({ type: 'read_one', item: deals[0] });
   } catch (err) {

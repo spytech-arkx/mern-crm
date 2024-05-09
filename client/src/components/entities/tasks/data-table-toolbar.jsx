@@ -4,20 +4,25 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { DataTableViewOptions } from "./data-table-view-options"
 
-import { priorities, statuses, assignees } from "@/components/entities/tasks/data"
+import { priorities, statuses } from "@/components/entities/tasks/data"
 
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
+import { useSelector } from "react-redux"
 
 export function DataTableToolbar({
   table,
 }) {
   const isFiltered = table.getState().columnFilters.length > 0
+  const tasks = useSelector(state => state.tasks);
+  const assignees = [...tasks].map(task => {
+    return { label: task.assignee.name,
+    value: task.assignee.name}
+  })
 
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
-
           placeholder="Filter tasks..."
           value={(table.getColumn("title")?.getFilterValue()) ?? ""}
           onChange={(event) =>

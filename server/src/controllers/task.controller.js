@@ -1,10 +1,10 @@
-const handleError = require('../helpers/errorHandler');
+const handleError = require('../lib/errorHandler');
 const { readTasks, writeTasks } = require('../services/db/task.service');
 
 exports.getTasks = async (req, res) => {
   try {
-    const tasks = await readTasks({}, { createdAt: 0, modifiedAt: 0 });
-    res.status(200).json({ type: 'read_all', items: tasks.length ? tasks : 'Nothing here :/' });
+    const tasks = await readTasks({});
+    res.status(200).json(tasks);
   } catch (err) {
     handleError(err, res);
   }
@@ -12,7 +12,7 @@ exports.getTasks = async (req, res) => {
 
 exports.getTaskById = async (req, res) => {
   try {
-    const tasks = await readTasks({ _id: req.params.id }, { createdAt: 0, modifiedAt: 0 });
+    const tasks = await readTasks({ _id: req.params.id });
     if (!tasks.length) return res.status(404).json({ type: 'ErrorNotFound', message: 'Task not found :/' });
     return res.status(200).json({ type: 'read_one', item: tasks[0] });
   } catch (err) {

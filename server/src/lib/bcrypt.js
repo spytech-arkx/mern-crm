@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt');
-const handleError = require('./errorHandler');
 
 async function hashPassword(next) {
   try {

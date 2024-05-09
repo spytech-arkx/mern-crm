@@ -28,12 +28,11 @@ export function DataTable({
 }) {
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
-    React.useState({})
+    React.useState({ id: false })
   const [columnFilters, setColumnFilters] = React.useState(
     []
   )
   const [sorting, setSorting] = React.useState([])
-
   const table = useReactTable({
     data,
     columns,

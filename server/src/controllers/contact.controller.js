@@ -1,10 +1,10 @@
-const handleError = require('../helpers/errorHandler');
+const handleError = require('../lib/errorHandler');
 const { readContacts, writeContacts } = require('../services/db/contact.service');
 
 exports.getContacts = async (req, res) => {
   try {
-    const contacts = await readContacts({}, { createdAt: 0, modifiedAt: 0 });
-    res.status(200).json({ type: 'read_all', items: contacts.length ? contacts : 'Nothing here :/' });
+    const contacts = await readContacts({});
+    res.status(200).json(contacts);
   } catch (err) {
     handleError(err, res);
   }
@@ -12,7 +12,7 @@ exports.getContacts = async (req, res) => {
 
 exports.getContactById = async (req, res) => {
   try {
-    const contacts = await readContacts({ _id: req.params.id }, { createdAt: 0, modifiedAt: 0 });
+    const contacts = await readContacts({ _id: req.params.id });
     if (!contacts.length) return res.status(404).json({ type: 'ErrorNotFound', message: 'Contact not found :/' });
     return res.status(200).json({ type: 'read_one', item: contacts[0] });
   } catch (err) {

@@ -1,5 +1,5 @@
 /* eslint-disable no-param-reassign */
-const Contact = require('../../models/contact.model');
+const Contact = require("../../models/contact.model");
 
 // mongoDB filters : filter = {_id: id} for example reads by Id
 // options : tailable, limit, skip, allowDiskUse, batchSize, readPreference, hint, comment
@@ -21,16 +21,19 @@ async function writeContacts(docs, operation, filters) {
   try {
     const arr = Array.isArray(docs) ? docs : [docs];
 
-    const bulkOps = arr.reduce((obj, current) => {
-      obj[operation] = {
+    const bulkOps = arr.map((doc) => {
+      doc[operation] = {
         filter: filters,
-        update: operation === 'updateOne' ? current : undefined, // Add update only for updates
-        document: operation === 'insertOne' ? current : undefined, // Add document only for inserts
+        update: operation === "updateOne" ? doc : undefined, // Add update only for updates
+        document:
+          operation === "insertOne"
+            ? { id: `CT${crypto.randomUUID().split("-")[0].toUpperCase()}`, ...doc }
+            : undefined, // Add document only for inserts
       };
-      return obj;
+      return doc;
     }, {});
 
-    return await Contact.bulkWrite([bulkOps], { ordered: true });
+    return await Contact.bulkWrite(bulkOps, { ordered: true });
   } catch (err) {
     throw err; // error-handling fl'controller (res, req)
   }
@@ -40,5 +43,3 @@ module.exports = {
   readContacts,
   writeContacts,
 };
-
-// TODO : actually make use of bulkWriting, otherwise why not use (findByandOperation..)
