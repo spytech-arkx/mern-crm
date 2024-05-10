@@ -7,17 +7,21 @@ import { DataTableViewOptions } from "./data-table-view-options"
 import { priorities, statuses } from "@/components/entities/tasks/data"
 
 import { DataTableFacetedFilter } from "./data-table-faceted-filter"
-import { useSelector } from "react-redux"
+import { useGetTasksListQuery } from "@/features/api/api-slice"
 
 export function DataTableToolbar({
   table,
 }) {
   const isFiltered = table.getState().columnFilters.length > 0
-  const tasks = useSelector(state => state.tasks);
-  const assignees = [...tasks].map(task => {
-    return { label: task.assignee.name,
-    value: task.assignee.name}
-  })
+  const { data: tasks, isSuccess } = useGetTasksListQuery();
+
+  let assignees = [];
+  if (isSuccess) (
+    assignees = [...tasks].map(task => {
+      return { label: task.assignee.name,
+      value: task.assignee.name}
+    })
+  )
 
   return (
     <div className="flex items-center justify-between">
