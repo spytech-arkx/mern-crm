@@ -7,7 +7,7 @@ const tasksSlice = createSlice({
         addTasks(state, action) {
             return state.concat(action.payload);
         }
-    }
+    },
 })
 
 export const { addTasks } = tasksSlice.actions;
