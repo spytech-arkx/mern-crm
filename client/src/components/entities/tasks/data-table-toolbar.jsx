@@ -1,34 +1,30 @@
-import { Cross2Icon } from "@radix-ui/react-icons"
+import { Cross2Icon } from "@radix-ui/react-icons";
 
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { DataTableViewOptions } from "./data-table-view-options"
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { DataTableViewOptions } from "./data-table-view-options";
 
-import { priorities, statuses } from "@/components/entities/tasks/data"
+import { priorities, statuses } from "@/data/tasks";
 
-import { DataTableFacetedFilter } from "./data-table-faceted-filter"
-import { useGetTasksListQuery } from "@/features/api/api-slice"
+import { DataTableFacetedFilter } from "./data-table-faceted-filter";
+import { useGetTasksListQuery } from "@/features/api/api-slice";
 
-export function DataTableToolbar({
-  table,
-}) {
-  const isFiltered = table.getState().columnFilters.length > 0
+export function DataTableToolbar({ table }) {
+  const isFiltered = table.getState().columnFilters.length > 0;
   const { data: tasks, isSuccess } = useGetTasksListQuery();
 
   let assignees = [];
-  if (isSuccess) (
-    assignees = [...tasks].map(task => {
-      return { label: task.assignee.name,
-      value: task.assignee.name}
-    })
-  )
+  if (isSuccess)
+    assignees = [...tasks].map((task) => {
+      return { label: task.assignee.name, value: task.assignee.name };
+    });
 
   return (
     <div className="flex items-center justify-between">
       <div className="flex flex-1 items-center space-x-2">
         <Input
           placeholder="Filter tasks..."
-          value={(table.getColumn("title")?.getFilterValue()) ?? ""}
+          value={table.getColumn("title")?.getFilterValue() ?? ""}
           onChange={(event) =>
             table.getColumn("title")?.setFilterValue(event.target.value)
           }
@@ -59,8 +55,7 @@ export function DataTableToolbar({
           <Button
             variant="ghost"
             onClick={() => table.resetColumnFilters()}
-            className="h-8 px-2 lg:px-3 border text-xs rounded-md border-dashed"
-          >
+            className="h-8 px-2 lg:px-3 border text-xs rounded-md border-dashed">
             Reset
             <Cross2Icon className="ml-2 h-3 w-3" />
           </Button>
@@ -68,5 +63,5 @@ export function DataTableToolbar({
       </div>
       <DataTableViewOptions table={table} />
     </div>
-  )
+  );
 }

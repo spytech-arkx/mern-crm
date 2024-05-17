@@ -22,7 +22,7 @@ const ToggleGroup = React.forwardRef(({ className, variant, size, children, ...p
 
 ToggleGroup.displayName = ToggleGroupPrimitive.Root.displayName
 
-const ToggleGroupItem = React.forwardRef(({ className, children, variant, size, ...props }, ref) => {
+const ToggleGroupItem = React.forwardRef(({ className, children, variant, size, pressed, onPressedChange, ...props }, ref) => {
   const context = React.useContext(ToggleGroupContext)
 
   return (
@@ -32,6 +32,8 @@ const ToggleGroupItem = React.forwardRef(({ className, children, variant, size, 
         variant: context.variant || variant,
         size: context.size || size,
       }), className)}
+      pressed={pressed}
+      onPressedChange={onPressedChange}
       {...props}>
       {children}
     </ToggleGroupPrimitive.Item>)
