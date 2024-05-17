@@ -10,7 +10,9 @@ export const store = configureStore({
     tasks: tasksReducer,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(snazApi.middleware),
+    getDefaultMiddleware({
+      immutableCheck: false,
+    }).concat(snazApi.middleware),
 })
 
 // required for refetchOnFocus/refetchOnReconnect behaviors
