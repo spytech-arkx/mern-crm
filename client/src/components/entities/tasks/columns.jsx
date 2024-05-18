@@ -13,10 +13,10 @@ export const columns = [
     id: "select",
     header: ({ table }) => (
       <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
+      checked={
+        table.getIsAllPageRowsSelected() ||
+        (table.getIsSomePageRowsSelected() && "indeterminate")
+      }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
         className="translate-y-[2px]"
@@ -37,20 +37,20 @@ export const columns = [
     accessorKey: "id",
     header: ({ column }) => (
       <DataTableColumnHeader className="text-xs" column={column} title="Task" />
-    ),
-    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
-    enableSorting: false,
-    enableHiding: true,
-  },
-  {
-    accessorKey: "title",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
-    ),
-    cell: ({ row }) => {
-      const label = labels.find((label) => label.value === row.original.label)
-
-      return (
+      ),
+      cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
+      enableSorting: false,
+      enableHiding: true,
+    },
+    {
+      accessorKey: "title",
+      header: ({ column }) => (
+        <DataTableColumnHeader column={column} title="Title" />
+        ),
+        cell: ({ row }) => {
+          const label = labels.find((label) => label.value === row.original.label)
+          
+          return (
         <div className="flex space-x-2">
           {label && <Badge className={label.style} variant="outline">{label.label}</Badge>}
           <span className="max-w-[500px] truncate font-medium">
@@ -146,7 +146,7 @@ export const columns = [
       )
 
       if (!priority) {
-        return null
+        return "..."
       }
 
       return (

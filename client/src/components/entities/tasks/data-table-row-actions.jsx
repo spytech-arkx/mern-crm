@@ -15,16 +15,18 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { taskSchema, labels } from "@/data/tasks";
+import { labels } from "@/data/tasks";
 import { Badge } from "@/components/ui/badge";
-import { useDeleteTaskMutation, useEditTaskMutation } from "@/features/api/api-slice";
+import { useDeleteTaskMutation } from "@/features/api/api-slice";
 import { toast } from "sonner";
+import { useDispatch } from "react-redux";
+import { focusTaskById, toggleTaskDrawer } from "@/features/tasks/tasks-slice";
 
 export function DataTableRowActions({ row }) {
   // const task = taskSchema.parse(row.original);
   const task = row.original;
+  const dispatch = useDispatch()
   const [deleteTask, { isLoading: pendingDelete }] = useDeleteTaskMutation();
-  // const [editTask, { isLoading: pendingEdit }] = useEditTaskMutation();
 
   const onDeleteTaskSelected = async () => {
     if (!pendingDelete) {
@@ -38,20 +40,11 @@ export function DataTableRowActions({ row }) {
     }
   };
 
-  // const onEditTaskSubmitted = async () => {
-  //   if (!pendingEdit) {
-  //     try {
-  //       await editTask(row.original._id);
-  //       toast.success(`Task ${row.original.id} deletion was successful.`);
-  //     } catch (err) {
-  //       console.log(err);
-  //       toast.error(`Failed deleting task.`);
-  //     }
-  //   }
-  // };
-
   const onViewTaskSelected = () => alert("Clicked!");
-  const onEditTaskSelected = () => alert("Clicked!");
+  const onEditTaskSelected = () => {
+    dispatch(focusTaskById(task.id))
+    dispatch(toggleTaskDrawer());
+  }
 
   return (
     <DropdownMenu>

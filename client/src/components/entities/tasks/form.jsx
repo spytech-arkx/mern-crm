@@ -5,9 +5,9 @@ import { taskSchema } from "@/data/tasks";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
-import { Plus } from "lucide-react";
+import { CalendarIcon, Plus } from "lucide-react";
 import {
+  Avatar,
   Form,
   FormControl,
   FormField,
@@ -31,57 +31,67 @@ import {
 import { useEditTaskMutation, useGetTasksListQuery } from "@/features/api/api-slice";
 import { Spinner } from "@/components/ui/spinner";
 import { useState } from "react";
-import { formatter } from "@/lib/utils";
-import { FormSelect } from "./form-select";
+import { cn, formatter } from "@/lib/utils";
+import { SelectLabel, SelectPriority, SelectStatus } from "./form-select";
+import { CaretSortIcon } from "@radix-ui/react-icons";
+import { Calendar } from "@/components/ui/calendar";
+import { format, formatDistanceToNow } from "date-fns";
+import { toast } from "sonner";
+import { useDispatch } from "react-redux";
+import { toggleTaskDrawer } from "@/features/tasks/tasks-slice";
 
 export function TaskForm({ taskId }) {
+  const [open, setOpen] = useState(false);
+  const form = useForm({
+    resolver: zodResolver(taskSchema),
+    mode: "onSubmit",
+  });
+  const dispatch = useDispatch()
+  const [editTask, { isLoading }] = useEditTaskMutation();
   const { data } = useGetTasksListQuery();
-
   const { task } = useGetTasksListQuery(undefined, {
     selectFromResult: ({ data }) => ({
-      task: data?.find((task) => task.id === "TASK-660A"),
+      task: data?.find((task) => task.id === taskId),
     }),
   });
 
-  const [editTask, { isLoading }] = useEditTaskMutation();
+  if (!task || !data)
+    return (
+      <div className="w-screen h-screen flex justify-center align-middle">
+        <Spinner size="large" />
+      </div>
+    );
 
-  const [open, setOpen] = useState(false);
-  // const [selectedStatus, setSelectedStatus] = useState(null);
-
-  const form = useForm({
-    resolver: zodResolver(taskSchema),
-    mode: "onChange",
+  const assignees = data.map((task) => {
+    return { name: task.assignee?.name, avatar: task.assignee?.avatar };
   });
-
-  async function onAssigneeSelected(assignee) {
-    if (!isLoading) {
-      try {
-        await editTask({ id: task._id, data: assignee });
-      } catch (err) {
-        console.log(err);
-      }
-    }
-  }
 
   async function onSubmit(data) {
     console.log(data);
+    try {
+      await editTask({ id: task._id, data });
+      dispatch(toggleTaskDrawer())
+    } catch (err) {
+      console.log(err);
+      toast.error("Failed Task Update..");
+    }
   }
-
-  if (!task || !data) return <Spinner />;
-
-  const assignees = data.map((task) => {
-    return { name: task.assignee.name, avatar: task.assignee.avatar };
-  });
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)}>
-        <Card className="mx-auto max-w-[700px]">
-          <CardHeader className="">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="mx-auto max-w-[700px] h-screen flex flex-col justify-center">
+        <Card className="border-none bg-none">
+          <CardHeader >
+            {/* Header */}
             <div className="flex justify-between">
-              <span className="text-xs text-gray-400">{task.status.toUpperCase()}</span>
-              <span className="text-xs text-gray-400">DUE-DATE</span>
+              <span className="text-xs text-gray-400">{task.status?.toUpperCase()}</span>
+              <span className="text-xs text-gray-400">
+                {task.dueDate ? "DUE-DATE" : null}
+              </span>
             </div>
+            {/* Title */}
             <div className="flex justify-between">
               <FormField
                 control={form.control}
@@ -91,9 +101,11 @@ export function TaskForm({ taskId }) {
                     <FormControl>
                       <Input
                         id="title"
-                        className="border-none text-xl font-bold focus-visible:ring-opacity-0 shadow-none py-0 pl-0"
-                        placeholder="Title. ex: Send the proposal document"
-                        value={field.value || task.title}
+                        className="border-none text-xl font-bold focus-visible:ring-opacity-0 shadow-none py-0 pl-0 placeholder:text-black focus:placeholder:opacity-50"
+                        placeholder={
+                          task.title ?? "Title: ex. Sell kidney to buy Porshe."
+                        }
+                        value={field.value}
                         onChange={field.onChange}
                       />
                     </FormControl>
@@ -102,29 +114,43 @@ export function TaskForm({ taskId }) {
                 )}
               />
               <span className="text-s font-medium shrink-0">
-                {formatter.format(new Date(task.dueDate))}
+                {task.dueDate ? formatter.format(new Date(task.dueDate)) : null}
               </span>
             </div>
+            {/* User, Created Time */}
             <span className="text-xs">
-              Added by <span className="underline text-violet-900">User</span>, 22 hours
-              ago
+              Added by <span className="underline text-violet-900">User</span>, {formatDistanceToNow(task.createdAt)} ago.
             </span>
           </CardHeader>
           <Separator />
           <CardContent className="py-0">
             <div className="flex flex-wrap flex-col gap-3 py-6">
+              {/* Assignee */}
               <div className="flex items-center gap-1">
                 <span className="text-s font-medium w-28 text-zinc-500">Assignee</span>
                 <Popover open={open} onOpenChange={setOpen}>
                   <PopoverTrigger asChild>
-                    <Button className="rounded-full h-7 px-2" variant="outline">
-                      <img
-                        className="w-4 h-4 rounded-xl"
-                        src={task.assignee.avatar}
-                        alt="user's avatar"
-                      />
-                      <span className="pl-1">{task.assignee.name}</span>
-                    </Button>
+                    <div className="flex justify-center align-middle">
+                      <Button
+                        className="border-none shadow-none h-7 p-0 ml-[3px]"
+                        variant="outline">
+                        <img
+                          className="w-5 h-5 rounded-xl"
+                          src={
+                            form.getValues("assignee")?.avatar ||
+                            task.assignee?.avatar ||
+                            Avatar
+                          }
+                          alt="user's avatar"
+                        />
+                        <span className="mx-2">
+                          {form.getValues("assignee")?.name ||
+                            task.assignee?.name ||
+                            "No one."}
+                        </span>
+                      </Button>
+                      <CaretSortIcon className="h-4 w-4 opacity-50 self-center" />
+                    </div>
                   </PopoverTrigger>
                   <PopoverContent className="w-[200px] p-0" align="start">
                     <Command>
@@ -137,21 +163,17 @@ export function TaskForm({ taskId }) {
                               <CommandItem
                                 key={ass.name}
                                 value={ass.name}
+                                {...form.register}
                                 onSelect={(value) => {
-                                  // setSelectedStatus(
-                                  //   assignees.find(
-                                  //     (ass) => ass.name === value,
-                                  //   ) || null,
-                                  // );
                                   const assignee = assignees.find(
                                     (ass) => ass.name === value,
                                   );
-                                  if (assignee) onAssigneeSelected(assignee);
+                                  if (assignee) form.setValue("assignee", assignee);
                                   setOpen(false);
                                 }}>
                                 <img
                                   alt="user's avatar"
-                                  src={ass.avatar}
+                                  src={ass.avatar ?? Avatar}
                                   className="mr-2 h-4 w-4 rounded-xl"
                                 />
                                 <span>{ass.name}</span>
@@ -164,29 +186,94 @@ export function TaskForm({ taskId }) {
                   </PopoverContent>
                 </Popover>
               </div>
-              <div className="flex items-center gap-1">
-                <span className="text-s font-medium text-zinc-500 w-28">Priority</span>
-                <FormSelect task={task} />
-              </div>
+              {/* Status */}
               <div className="flex items-center gap-1">
                 <span className="text-s font-medium text-zinc-500 w-28">Status</span>
-                <Badge className="rounded-full py-1 px-1" variant="outline">
-                  <Plus size="12" />
-                </Badge>
+                <FormField
+                  control={form.control}
+                  name="status"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <SelectStatus task={task} field={field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
+              {/* Priority */}
+              <div className="flex items-center gap-1">
+                <span className="text-s font-medium text-zinc-500 w-28">Priority</span>
+                <FormField
+                  control={form.control}
+                  name="priority"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormControl>
+                        <SelectPriority task={task} field={field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+              </div>
+              {/* Label */}
               <div className="flex items-center gap-1">
                 <span className="text-s font-medium text-zinc-500 w-28">Label</span>
-                <Badge className="rounded-full py-1 px-1" variant="outline">
-                  <Plus size="12" />
-                </Badge>
+                <FormField
+                  control={form.control}
+                  name="label"
+                  render={({ field }) => (
+                    <FormItem className="flex gap-4">
+                      <FormControl>
+                        <SelectLabel task={task} field={field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
+              {/* Due Date */}
               <div className="flex items-center gap-1">
-                <span className="text-s font-medium text-zinc-500 w-28">Tags</span>
-                <Badge className="rounded-full py-1 px-1" variant="outline">
-                  <Plus size="12" />
-                </Badge>
+                <span className="text-s font-medium text-zinc-500 w-28">Due Date</span>
+                <FormField
+                  control={form.control}
+                  name="dueDate"
+                  render={({ field }) => (
+                    <FormItem className="flex gap-4">
+                      <FormControl>
+                        <Popover>
+                          <PopoverTrigger asChild>
+                            <Button
+                              variant={"outline"}
+                              className={cn(
+                                "w-max justify-start p-0 shadow-none text-left font-normal border-none",
+                                !task.dueDate && "text-muted-foreground",
+                              )}>
+                              <CalendarIcon className="mr-2 h-4 w-4" />
+                              {task.dueDate? format(task.dueDate, "PPP")
+                              : field.value ? format(field.value, "PPP")
+                                : "Pick a date"}
+                            </Button>
+                          </PopoverTrigger>
+                          <PopoverContent className="w-auto p-0">
+                            <Calendar
+                              mode="single"
+                              selected={field.value}
+                              onSelect={field.onChange}
+                              initialFocus
+                            />
+                          </PopoverContent>
+                        </Popover>
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
               </div>
             </div>
+            {/* Description */}
             <div className="py-0">
               <FormField
                 control={form.control}
@@ -199,7 +286,10 @@ export function TaskForm({ taskId }) {
                     <FormControl>
                       <ScrollArea className=" bg-gray-100 rounded-md border ">
                         <div className="p-3 rounded-lg">
-                          <Tiptap description={field.value} onChange={field.onChange} />
+                          <Tiptap
+                            description={field.value ?? task.description}
+                            onChange={field.onChange}
+                          />
                         </div>
                       </ScrollArea>
                     </FormControl>
@@ -208,6 +298,7 @@ export function TaskForm({ taskId }) {
                 )}
               />
             </div>
+            {/* Attachements */}
             <div className="pt-4">
               <FormField
                 control={form.control}
@@ -231,8 +322,11 @@ export function TaskForm({ taskId }) {
             </div>
           </CardContent>
           <CardFooter className="flex justify-end py-3">
-            <Button type="submit" className="text-slate-200">
-              Create Task
+            <FormMessage />
+            <Button
+              type="submit"
+              className="text-slate-200 w-32 flex justify-center align-middle">
+              {isLoading ? <Spinner size="small" /> : "Update Task"}{" "}
             </Button>
           </CardFooter>
         </Card>
