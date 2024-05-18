@@ -14,16 +14,33 @@ async function writeTasks(docs, operation, filters) {
     const arr = Array.isArray(docs) ? docs : [docs];
 
     const bulkOps = arr.map((doc) => {
-      doc[operation] = {
-        filter: filters,
-        update: operation === "updateOne" ? doc : undefined, // Add update only for updates
-        document:
-          operation === "insertOne"
-            ? { id: `TASK-${crypto.randomUUID().split("-")[1].toUpperCase()}`, ...doc }
-            : undefined, // Add document only for inserts
-      };
-      return doc;
-    }, {});
+      if (operation === "updateOne") {
+        return {
+          updateOne: {
+            filter: filters,
+            update: doc,
+          },
+        };
+      }
+      if (operation === "insertOne") {
+        return {
+          insertOne: {
+            document: {
+              id: `TASK-${crypto.randomUUID().split("-")[1].toUpperCase()}`,
+              ...doc,
+            },
+          },
+        };
+      }
+      if (operation === "deleteOne") {
+        return {
+          deleteOne: {
+            filter: filters,
+          },
+        };
+      }
+      throw new Error(`Unsupported operation: ${operation}`);
+    });
 
     return await Task.bulkWrite(bulkOps, { ordered: true });
   } catch (err) {
