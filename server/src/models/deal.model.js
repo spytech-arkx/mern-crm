@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const DealSchema = new mongoose.Schema(
   {
     // Deal Information
-    dealName: {
+    title: {
       type: String,
       unique: true,
       sparse: true,
@@ -89,6 +89,9 @@ const DealSchema = new mongoose.Schema(
     },
 
     // System Information
+    id: {
+      type: String,
+    },
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     modifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     recordId: Number, // Optional (unique ID from original data source)

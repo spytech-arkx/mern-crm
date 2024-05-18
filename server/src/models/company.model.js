@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const CompanySchema = new mongoose.Schema(
   {
     // Main Information
-    companyName: {
+    name: {
       type: String,
       unique: true,
       sparse: true,
@@ -101,7 +101,9 @@ const CompanySchema = new mongoose.Schema(
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     modifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     lastActivityTime: Date,
-    recordId: Number, // Optional (unique ID from original data source)
+    id: {
+      type: String,
+    },
     // Virtuals
     // None for the moment
   },

@@ -7,7 +7,6 @@ const TaskSchema = new mongoose.Schema({
   title: {
     type: String,
     trim: true,
-    required: true,
     unique: true,
     sparse: true,
   }, // Name or title of the task
@@ -25,6 +24,7 @@ const TaskSchema = new mongoose.Schema({
   status: {
     type: String,
     trim: true,
+    default: "backlog",
   },
   priority: {
     type: String,
@@ -55,7 +55,6 @@ const TaskSchema = new mongoose.Schema({
     properties: {
       type: String,
       trim: true,
-      maxLength: 16,
     },
   }, // Comma-separated list of tags for organizing tasks
   reminder: Date, // Date and time for a reminder.

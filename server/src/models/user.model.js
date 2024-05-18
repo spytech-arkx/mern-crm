@@ -1,12 +1,16 @@
 const mongoose = require('mongoose');
-const { hashPassword, hashExistingPassword } = require('../helpers/bcrypt');
+const { hashPassword, hashExistingPassword } = require('../lib/bcrypt');
 const { logger } = require('../utils/logger');
 const { sendVerificationEmail } = require('../services/emails/email.service');
-const {sendConfirmationMail} = require('../services/emails/post');
+const { sendConfirmationMail } = require('../services/emails/post');
 
 const UserSchema = new mongoose.Schema(
   {
     // Main Information
+    uuid: {
+      type: String,
+      default: crypto.randomUUID(),
+    },
     firstName: {
       type: String,
       required: false,

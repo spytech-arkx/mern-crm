@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 const taskSchema = Joi.object({
   title: Joi.string().trim().required(),
-  dueDate: Joi.date().allow('DD-MM-YYYY'),
+  dueDate: Joi.string(),
   owner: Joi.string()
     .trim()
     .pattern(/^[0-9a-fA-F]{24}$/)

@@ -107,18 +107,19 @@ const ContactSchema = new mongoose.Schema(
     skypeId: {
       type: String,
       trim: true,
-      match: [/^live:([a-zA-Z0-9][a-zA-Z0-9-]{5,31})$/, 'Not a Skype ID.'],
     },
 
     // System Information
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     lastModifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     locked: Boolean, // Flag indicating if record is locked for editing
+    id: {
+      type: String,
+    },
   },
   {
     timestamps: true,
-  },
-  {
+    toJSON: { virtuals: true },
     virtuals: {
       fullName: {
         get() {

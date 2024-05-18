@@ -64,7 +64,6 @@ const contactSchema = Joi.object({
   title: Joi.string().trim().max(60),
   skypeId: Joi.string()
     .trim()
-    .regex(/^live:([a-zA-Z0-9][a-zA-Z0-9-]{5,31})$/),
 }).options({ abortEarly: false, stripUnknown: true });
 
 const contactUpdateSchema = contactSchema.fork(
