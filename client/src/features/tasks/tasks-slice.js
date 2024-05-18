@@ -2,13 +2,19 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const tasksSlice = createSlice({
     name: 'tasks',
-    initialState: [],
+    initialState: {
+        drawer: false,
+        id: "",
+    },
     reducers: {
-        addTasks(state, action) {
-            return state.concat(action.payload);
+        toggleTaskDrawer(state) {
+            state.drawer = !state.drawer;
+        },
+        focusTaskById(state, action) {
+            state.id = action.payload;
         }
     },
 })
 
-export const { addTasks } = tasksSlice.actions;
+export const { toggleTaskDrawer, focusTaskById } = tasksSlice.actions;
 export default tasksSlice.reducer;

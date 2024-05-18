@@ -27,7 +27,15 @@ export const snazApi = createApi({
       query: ({id, data}) => ({
         url: `/tasks/${id}`,
         method: "PATCH",
-        body: { assignee: data },
+        body: data,
+      }),
+      invalidatesTags: ["Task"],
+    }),
+    createTask: builder.mutation({
+      query: ({ data }) => ({
+        url: `/tasks`,
+        method: "POST",
+        body: data,
       }),
       invalidatesTags: ["Task"],
     }),
