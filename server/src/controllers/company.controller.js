@@ -14,7 +14,7 @@ exports.getCompanyById = async (req, res) => {
   try {
     const companies = await readCompanies({ _id: req.params.id });
     if (!companies.length) return res.status(404).json({ type: 'ErrorNotFound', message: 'Company not found :/' });
-    return res.status(200).json({ type: 'read_one', item: companies[0] });
+    return res.status(200).json(companies[0]);
   } catch (err) {
     return handleError(err, res);
   }

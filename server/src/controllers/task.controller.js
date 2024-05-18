@@ -14,7 +14,7 @@ exports.getTaskById = async (req, res) => {
   try {
     const tasks = await readTasks({ _id: req.params.id });
     if (!tasks.length) return res.status(404).json({ type: 'ErrorNotFound', message: 'Task not found :/' });
-    return res.status(200).json({ type: 'read_one', item: tasks[0] });
+    return res.status(200).json(tasks[0]);
   } catch (err) {
     return handleError(err, res);
   }
@@ -45,6 +45,16 @@ exports.deleteTask = async (req, res) => {
     if (!writeData.deletedCount) return res.status(404).json({ type: 'ErrorNotFound', message: 'Task not found :/' });
     return res.status(200).json({ type: 'write_delete', result: writeData, message: 'Deleted.' });
     // 204 : No Content actually returns no content..
+  } catch (err) {
+    return handleError(err, res);
+  }
+};
+
+exports.getTaskByTitle = async (req, res) => {
+  try {
+    const tasks = await readTasks({ title: req.query.title });
+    if (!tasks.length) return res.status(404).json({ type: 'ErrorNotFound', message: 'Task not found :/' });
+    return res.status(200).json(tasks[0]);
   } catch (err) {
     return handleError(err, res);
   }

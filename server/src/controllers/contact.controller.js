@@ -14,7 +14,7 @@ exports.getContactById = async (req, res) => {
   try {
     const contacts = await readContacts({ _id: req.params.id });
     if (!contacts.length) return res.status(404).json({ type: 'ErrorNotFound', message: 'Contact not found :/' });
-    return res.status(200).json({ type: 'read_one', item: contacts[0] });
+    return res.status(200).json(contacts[0]);
   } catch (err) {
     return handleError(err, res);
   }

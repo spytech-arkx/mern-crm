@@ -14,7 +14,7 @@ exports.getDealById = async (req, res) => {
   try {
     const deals = await readDeals({ _id: req.params.id });
     if (!deals.length) return res.status(404).json({ type: 'ErrorNotFound', message: 'Deal not found :/' });
-    return res.status(200).json({ type: 'read_one', item: deals[0] });
+    return res.status(200).json(deals[0]);
   } catch (err) {
     return handleError(err, res);
   }

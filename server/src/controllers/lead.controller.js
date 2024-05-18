@@ -14,7 +14,7 @@ exports.getLeadById = async (req, res) => {
   try {
     const leads = await readLeads({ _id: req.params.id });
     if (!leads.length) return res.status(404).json({ type: 'ErrorNotFound', message: 'Lead not found :/' });
-    return res.status(200).json({ type: 'read_one', item: leads[0] });
+    return res.status(200).json(leads[0]);
   } catch (err) {
     return handleError(err, res);
   }
