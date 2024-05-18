@@ -36,9 +36,10 @@ const TableFooter = React.forwardRef(({ className, ...props }, ref) => (
 ))
 TableFooter.displayName = "TableFooter"
 
-const TableRow = React.forwardRef(({ className, ...props }, ref) => (
+const TableRow = React.forwardRef(({ className, onClick, ...props }, ref) => (
   <tr
     ref={ref}
+    onClick={onClick}
     className={cn(
       "border-b transition-colors hover:bg-neutral-30 data-[state=selected]:bg-neutral-100 dark:hover:bg-neutral-800/50 dark:data-[state=selected]:bg-neutral-800",
       className

@@ -121,9 +121,12 @@ const FormMessage = React.forwardRef(({ className, children, ...props }, ref) =>
 })
 FormMessage.displayName = "FormMessage"
 
+const Avatar = "https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fsteamuserimages-a.akamaihd.net%2Fugc%2F1763698601178297990%2F85411061A0BA7F3074DD89FD13F29672DA4C3130%2F%3Fimw%3D512%26%26ima%3Dfit%26impolicy%3DLetterbox%26imcolor%3D%2523000000%26letterbox%3Dfalse&f=1&nofb=1&ipt=8ca592f8065b7125a0651a591beaa63b6beb6a5fe26e5dbfa5bed3523b82563d&ipo=images"
+
 export {
   useFormField,
   Form,
+  Avatar,
   FormItem,
   FormLabel,
   FormControl,
