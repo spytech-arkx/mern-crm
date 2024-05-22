@@ -24,12 +24,13 @@ async function writeUsers(docs, operation, filters) {
     const arr = Array.isArray(docs) ? docs : [docs];
 
     const bulkOps = arr.map((doc) => {
-      doc[operation] = {
+      const bulkOp = {};
+      bulkOp[operation] = {
         filter: filters,
         update: operation === 'updateOne' ? doc : undefined, // Add update only for updates
         document: operation === 'insertOne' ? doc : undefined, // Add document only for inserts
       };
-      return doc;
+      return bulkOp;
     }, {});
 
     return await User.bulkWrite(bulkOps, { ordered: true });

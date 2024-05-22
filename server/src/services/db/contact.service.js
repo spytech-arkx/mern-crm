@@ -22,7 +22,8 @@ async function writeContacts(docs, operation, filters) {
     const arr = Array.isArray(docs) ? docs : [docs];
 
     const bulkOps = arr.map((doc) => {
-      doc[operation] = {
+      const bulkOp = {};
+      bulkOp[operation] = {
         filter: filters,
         update: operation === "updateOne" ? doc : undefined, // Add update only for updates
         document:
@@ -30,7 +31,7 @@ async function writeContacts(docs, operation, filters) {
             ? { id: `CT${crypto.randomUUID().split("-")[0].toUpperCase()}`, ...doc }
             : undefined, // Add document only for inserts
       };
-      return doc;
+      return bulkOp;
     }, {});
 
     return await Contact.bulkWrite(bulkOps, { ordered: true });

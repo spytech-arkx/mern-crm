@@ -3,7 +3,9 @@ const Task = require("../../models/task.model");
 
 async function readTasks(filter, options, projection) {
   try {
-    return await Task.find(filter, projection, options); // Return the response
+    return await Task.find(filter, projection, options).sort({
+      createdAt: -1,
+    }); // Return the response
   } catch (err) {
     throw err;
   }
