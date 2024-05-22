@@ -2,7 +2,7 @@ const Joi = require('joi');
 
 const companySchema = Joi.object({
   // Main Information
-  companyName: Joi.string().trim().min(3).max(50).required(),
+  name: Joi.string().trim().min(3).max(50).required(),
 
   // Address Information
   billingAddress: Joi.object({
@@ -47,7 +47,7 @@ const companySchema = Joi.object({
   // Company Details
   companyType: Joi.string().trim().max(16),
   ownership: Joi.string().trim().max(16),
-  industry: Joi.string().trim().max(30).required(),
+  industry: Joi.string().trim().max(30),
   employees: Joi.number().integer().min(1),
   annualRevenue: Joi.number().precision(2),
 
@@ -58,7 +58,7 @@ const companySchema = Joi.object({
 }).options({ abortEarly: false, stripUnknown: true });
 
 const companyUpdateSchema = companySchema.fork(
-  ['companyName', 'industry'],
+  ['name', 'industry'],
   (schema) => schema.optional(),
 );
 
