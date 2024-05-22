@@ -1,13 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { setupListeners } from '@reduxjs/toolkit/query/react'
-import { snazApi } from '@/features/api/api-slice'
+import { snazApi } from '@/features/api/auth'
 
-import tasksReducer from '@/features/tasks/tasks-slice'
+import tasksReducer from '@/features/tasks/slice'
+import authReducer from '@/features/auth/slice'
 
 export const store = configureStore({
   reducer: {
     [snazApi.reducerPath]: snazApi.reducer,
     tasks: tasksReducer,
+    auth: authReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
