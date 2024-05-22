@@ -14,7 +14,8 @@ async function writeCompanies(docs, operation, filters) {
     const arr = Array.isArray(docs) ? docs : [docs];
 
     const bulkOps = arr.map((doc) => {
-      doc[operation] = {
+      const Op = {};
+      Op[operation] = {
         filter: filters,
         update: operation === "updateOne" ? doc : undefined, // Add update only for updates
         document:
@@ -22,7 +23,7 @@ async function writeCompanies(docs, operation, filters) {
             ? { id: `CP-${crypto.randomUUID().split("-")[1].toUpperCase()}`, ...doc }
             : undefined, // Add document only for inserts
       };
-      return doc;
+      return Op;
     }, {});
 
     return await Company.bulkWrite(bulkOps, { ordered: true });
