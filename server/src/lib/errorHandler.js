@@ -41,9 +41,9 @@ function handleError(error, response) {
           error,
         });
 
-      case "MongoError":
+      case "MongoServerError":
         if (error.code === 11000) {
-          return response.status(400).json({
+          return response.status(409).json({
             type: "DuplicateKeyError",
             message: "Duplicate key error: This field must be unique.",
             error,
