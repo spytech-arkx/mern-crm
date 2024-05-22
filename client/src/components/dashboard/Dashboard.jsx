@@ -1,19 +1,17 @@
-import { Grid, GridItem } from "@chakra-ui/react";
-import CompaniesCard from "./CompaniesCard";
-import ContactCard from "./ContactCard";
-import DealsCard from "./DealsCard";
-import TasksCard from "./TaskCard";
+import { Grid, GridItem, HStack } from "@chakra-ui/react";
+import CompaniesCard from "./companies/CompaniesCard";
+import ContactCard from "./contacts/ContactCard";
+import DealsCard from "./deals/DealsCard";
+import TasksCard from "./tasks/TaskCard";
+import BarChart from "../charts/BarChart";
+import LineChart from "../charts/LineChart";
+import PolarChart from "../charts/PolarChart";
 
 export default function Dashboard() {
   return (
     <>
       <h1>Dashboard</h1>
-      <Grid
-        h="600px"
-        templateRows="repeat(2, 1fr)"
-        templateColumns="repeat(5, 1fr)"
-        gap={4}>
-        <GridItem rowSpan={1} colSpan={1} bg="gray.100" />
+      <Grid templateRows="repeat(1, 1fr)" templateColumns="repeat(4, 1fr)" gap={4}>
         <GridItem colSpan={1} bg="">
           <CompaniesCard />
         </GridItem>
@@ -26,8 +24,13 @@ export default function Dashboard() {
         <GridItem colSpan={1} bg="">
           <TasksCard />
         </GridItem>
-        <GridItem colSpan={5} bg="gray.100">
+        <GridItem colSpan={5} bg="">
           <h2>Charts</h2>
+          <HStack>
+            <BarChart />
+            <LineChart />
+          </HStack>
+          <PolarChart />
         </GridItem>
       </Grid>
     </>
