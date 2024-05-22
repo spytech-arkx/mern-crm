@@ -1,8 +1,8 @@
-const mongoose = require('mongoose');
-const { hashPassword, hashExistingPassword } = require('../helpers/bcrypt');
-const { logger } = require('../utils/logger');
-const { sendVerificationEmail } = require('../services/emails/email.service');
-const {sendConfirmationMail} = require('../services/emails/post');
+const mongoose = require("mongoose");
+const { hashPassword, hashExistingPassword } = require("../lib/bcrypt");
+const { logger } = require("../utils/logger");
+const { sendVerificationEmail } = require("../services/emails/email.service");
+const { sendConfirmationMail } = require("../services/emails/post");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -31,8 +31,9 @@ const UserSchema = new mongoose.Schema(
       sparse: true,
       lowercase: true, // Convert email to lowercase for consistency
       validate: {
-        validator: (email) => /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm.test(email),
-        message: 'Invalid email format',
+        validator: (email) =>
+          /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm.test(email),
+        message: "Invalid email format",
       },
     },
     phone: {
@@ -43,7 +44,7 @@ const UserSchema = new mongoose.Schema(
       match: [
         /* Detects most of the phone numbers all over the world */
         /(?:([+]\d{1,4})[-.\s]?)?(?:[(](\d{1,3})[)][-.\s]?)?(\d{1,4})[-.\s]?(\d{1,4})[-.\s]?(\d{1,9})/g,
-        'Please provide a valid phone number.',
+        "Please provide a valid phone number.",
       ],
     },
 
@@ -66,7 +67,7 @@ const UserSchema = new mongoose.Schema(
       unique: true,
       sparse: true,
       lowercase: true,
-      match: [/[a-z_.0-9]/, 'Invalid username format'],
+      match: [/[a-z_.0-9]/, "Invalid username format"],
     },
     password: {
       type: String,
@@ -81,7 +82,8 @@ const UserSchema = new mongoose.Schema(
       sparse: true,
       trim: true,
       validate: {
-        validator: (url) => /^(https?:\/\/)?([\da-z.-]+)\.([a-z]{2,6})([/\w .-]*)*\/?$/.test(url),
+        validator: (url) =>
+          /^(https?:\/\/)?([\da-z.-]+)\.([a-z]{2,6})([/\w .-]*)*\/?$/.test(url),
         message: (props) => `${props.value} is not a valid website URL.`,
       },
     },
@@ -95,13 +97,13 @@ const UserSchema = new mongoose.Schema(
     timeFormat: { type: String, trim: true },
 
     // Roles and Permissions
-    role: { type: String, enum: ['admin', 'user', 'editor'] }, // Define allowed roles },
+    role: { type: String, enum: ["admin", "user", "editor"] }, // Define allowed roles },
 
     // Account Management
-    addedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    modifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    addedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    modifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     isActive: { type: Boolean, default: true },
-    verified: { type: Boolean, default: false},
+    verified: { type: Boolean, default: false },
 
     // Additional Information and preferences Inshaa'Allah
     alias: { type: String, trim: true },
@@ -118,16 +120,16 @@ const UserSchema = new mongoose.Schema(
 // Before saving the user to the database,
 // Both at regisration, creation and update.
 // Hash the plain password:
-UserSchema.pre('save', hashPassword);
-UserSchema.pre('updateOne', hashExistingPassword);
+UserSchema.pre("save", hashPassword);
+UserSchema.pre("updateOne", hashExistingPassword);
 
 // After saving the new user, i.e. registering,
 // Send a confirmation email...
-UserSchema.post('save', sendConfirmationMail)
-UserSchema.post('save', (doc, next) => {
-  logger.log('info', `User saved with ID: ${doc._id}`);
+UserSchema.post("save", sendConfirmationMail);
+UserSchema.post("save", (doc, next) => {
+  logger.log("info", `User saved with ID: ${doc._id}`);
   next();
 });
 
-const User = mongoose.model('User', UserSchema);
+const User = mongoose.model("User", UserSchema);
 module.exports = User;

@@ -21,10 +21,10 @@ export const fetchCompanies = createAsyncThunk("companies/fetchCompanies", async
 
 export const fetchCompanyById = createAsyncThunk(
   "companies/fetchCompanyById",
-  async (_id) => {
+  async (id) => {
     const token = import.meta.env.VITE_API_KEY;
 
-    const response = await fetch(`http://localhost:3000/api/companies/${_id}`, {
+    const response = await fetch(`http://localhost:3000/api/companies/${id}`, {
       method: "GET",
       headers: {
         authorization: `Bearer ${token}`,
@@ -62,7 +62,9 @@ export const updateCompany = createAsyncThunk(
       console.error("Server error:", errorText); // Log de l'erreur serveur
       throw new Error("Failed to update company");
     }
-    return;
+    const data = await response.json();
+
+    return data;
   },
 );
 
@@ -107,7 +109,7 @@ const companiesSlice = createSlice({
         if (index !== -1) {
           state.items[index] = action.payload;
         }
-        state.items = action.payload;
+        state.selectedCompany = action.payload;
       });
   },
 });
