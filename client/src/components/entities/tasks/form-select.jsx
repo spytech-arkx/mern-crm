@@ -1,10 +1,4 @@
-import * as React from "react";
-import { format } from "date-fns";
-import { Calendar as CalendarIcon, Plus } from "lucide-react";
-
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Plus } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import {
   Select,
@@ -19,11 +13,11 @@ import { SelectValue } from "@radix-ui/react-select";
 
 export function SelectPriority({ task, field }) {
   return (
-    <Select onValueChange={field.onChange} defaultValue={task.priority ?? field.value}>
+    <Select onValueChange={field.onChange} defaultValue={task?.priority ?? field.value}>
       <SelectTrigger
         className="border-none shadow-none h-7 p-0 w-max focus:ring-0 text-s font-medium"
         variant="outline">
-        {task.priority || field.value ? (
+        {task || field.value ? (
           <SelectValue />
         ) : (
           <Badge className="rounded-xl py-1 px-1" variant="outline">
@@ -51,11 +45,11 @@ export function SelectPriority({ task, field }) {
 
 export function SelectStatus({ task, field }) {
   return (
-    <Select onValueChange={field.onChange} defaultValue={task.status ?? field.value}>
+    <Select onValueChange={field.onChange} defaultValue={task?.status ?? field.value}>
       <SelectTrigger
         className="border-none shadow-none h-7 p-0 w-max focus:ring-0 text-s font-medium"
         variant="outline">
-        {task.status || field.value ? (
+        {task || field.value ? (
           <SelectValue />
         ) : (
           <Badge className="rounded-xl py-1 px-1" variant="outline">
@@ -88,11 +82,11 @@ export function SelectStatus({ task, field }) {
 
 export function SelectLabel({ task, field }) {
   return (
-    <Select onValueChange={field.onChange} defaultValue={task.label ?? field.value}>
+    <Select onValueChange={field.onChange} defaultValue={task?.label ?? field.value}>
       <SelectTrigger
         className="border-none shadow-none h-7 p-0 w-max focus:ring-0 text-s font-medium"
         variant="outline">
-        {task.label || field.value ? (
+        {task || field.value ? (
           <SelectValue />
         ) : (
           <Badge className="rounded-xl py-1 px-1" variant="outline">

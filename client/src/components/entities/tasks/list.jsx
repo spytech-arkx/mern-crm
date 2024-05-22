@@ -1,6 +1,6 @@
 // import { z } from "zod"
 
-import { useGetTasksListQuery } from "@/features/api/api-slice"
+import { useGetTasksListQuery } from "@/features/api/tasks"
 import { columns } from "./columns"
 import { DataTable } from "./data-table"
 import { Spinner } from "@/components/ui/spinner"

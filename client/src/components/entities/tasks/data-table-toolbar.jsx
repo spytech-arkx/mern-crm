@@ -7,16 +7,20 @@ import { DataTableViewOptions } from "./data-table-view-options";
 import { priorities, statuses } from "@/data/tasks";
 
 import { DataTableFacetedFilter } from "./data-table-faceted-filter";
-import { useGetTasksListQuery } from "@/features/api/api-slice";
+import { useGetTasksListQuery } from "@/features/api/tasks";
+import { useDispatch } from "react-redux";
+import { focusTaskById, toggleTaskDrawer } from "@/features/tasks/slice";
+import { Plus } from "lucide-react";
 
 export function DataTableToolbar({ table }) {
   const isFiltered = table.getState().columnFilters.length > 0;
+  const dispatch = useDispatch();
   const { data: tasks, isSuccess } = useGetTasksListQuery();
 
   let assignees = [];
   if (isSuccess)
     assignees = [...tasks].map((task) => {
-      return { label: task.assignee.name, value: task.assignee.name };
+      return { label: task.assignee?.name ?? null, value: task.assignee?.name ?? null };
     });
 
   return (
@@ -62,6 +66,15 @@ export function DataTableToolbar({ table }) {
         )}
       </div>
       <DataTableViewOptions table={table} />
+      <Button
+        variant="outline"
+        onClick={() => {
+          dispatch(focusTaskById(""));
+          dispatch(toggleTaskDrawer());
+        }}
+        className="ml-2 h-8 px-2 lg:px-3 border text-xs rounded-md">
+        <Plus size="16"/>
+      </Button>
     </div>
   );
 }

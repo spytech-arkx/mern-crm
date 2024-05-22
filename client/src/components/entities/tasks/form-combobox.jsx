@@ -7,7 +7,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { useEditTaskMutation } from "@/features/api/api-slice";
+import { useEditTaskMutation } from "@/features/api/tasks";
 
 export function FormCombobox({ task, assignees, setOpen }) {
     const [editTask, { isLoading }] = useEditTaskMutation();
@@ -17,7 +17,8 @@ export function FormCombobox({ task, assignees, setOpen }) {
           try {
             await editTask({ id: task._id, data: assignee });
           } catch (err) {
-            console.log(err);
+            console.error(err);
+            throw err;
           }
         }
       }

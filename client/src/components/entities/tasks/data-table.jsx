@@ -22,7 +22,7 @@ import {
 import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { useDispatch } from "react-redux";
-import { focusTaskById, toggleTaskDrawer } from "@/features/tasks/tasks-slice";
+import { focusTaskById, toggleTaskDrawer } from "@/features/tasks/slice";
 
 export function DataTable({ columns, data }) {
   const dispatch = useDispatch();

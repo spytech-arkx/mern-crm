@@ -4,47 +4,43 @@ import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
-  DropdownMenuRadioGroup,
-  DropdownMenuRadioItem,
   DropdownMenuSeparator,
   DropdownMenuShortcut,
-  DropdownMenuSub,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
-import { labels } from "@/data/tasks";
-import { Badge } from "@/components/ui/badge";
-import { useDeleteTaskMutation } from "@/features/api/api-slice";
+import { useDeleteTaskMutation } from "@/features/api/tasks";
 import { toast } from "sonner";
 import { useDispatch } from "react-redux";
-import { focusTaskById, toggleTaskDrawer } from "@/features/tasks/tasks-slice";
+import { focusTaskById, toggleTaskDrawer } from "@/features/tasks/slice";
 
 export function DataTableRowActions({ row }) {
   // const task = taskSchema.parse(row.original);
   const task = row.original;
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [deleteTask, { isLoading: pendingDelete }] = useDeleteTaskMutation();
 
-  const onDeleteTaskSelected = async () => {
+  const handleClickDelete = async () => {
     if (!pendingDelete) {
       try {
         await deleteTask(row.original._id);
         toast.success(`Task ${row.original.id} deletion was successful.`);
       } catch (err) {
-        console.log(err);
+        console.error(err);
         toast.error(`Failed deleting task.`);
       }
     }
   };
 
-  const onViewTaskSelected = () => alert("Clicked!");
-  const onEditTaskSelected = () => {
-    dispatch(focusTaskById(task.id))
-    dispatch(toggleTaskDrawer());
+  const handleClickView = () => {
+    alert("Clicked!");
   }
+  const handleClickEdit = () => {
+    dispatch(focusTaskById(task.id));
+    dispatch(toggleTaskDrawer());
+  };
 
   return (
     <DropdownMenu>
@@ -55,28 +51,16 @@ export function DataTableRowActions({ row }) {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
-        <DropdownMenuItem onSelect={onViewTaskSelected}>View</DropdownMenuItem>
-        <DropdownMenuItem onSelect={onEditTaskSelected}>Edit</DropdownMenuItem>
-        <DropdownMenuSeparator />
-        <DropdownMenuSub>
-          <DropdownMenuSubTrigger>Labels</DropdownMenuSubTrigger>
-          <DropdownMenuSubContent>
-            <DropdownMenuRadioGroup value={task.label}>
-              {labels.map((label) => (
-                <DropdownMenuRadioItem key={label.value} value={label.value}>
-                  <Badge className={label.style} variant="outline">
-                    {label.label}
-                  </Badge>
-                </DropdownMenuRadioItem>
-              ))}
-            </DropdownMenuRadioGroup>
-          </DropdownMenuSubContent>
-        </DropdownMenuSub>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem onSelect={onDeleteTaskSelected}>
-          Delete
-          <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
-        </DropdownMenuItem>
+        <DropdownMenuGroup>
+          <DropdownMenuItem onClick={(e) => e.stopPropagation()} onSelect={handleClickView}>View</DropdownMenuItem>
+          <DropdownMenuItem onClick={(e) => e.stopPropagation()} onSelect={handleClickEdit}>Edit</DropdownMenuItem>
+          <DropdownMenuSeparator />
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={(e) => e.stopPropagation()} onSelect={handleClickDelete}>
+            Delete
+            <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
+          </DropdownMenuItem>
+        </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
   );

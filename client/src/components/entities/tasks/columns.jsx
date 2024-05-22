@@ -13,10 +13,10 @@ export const columns = [
     id: "select",
     header: ({ table }) => (
       <Checkbox
-      checked={
-        table.getIsAllPageRowsSelected() ||
-        (table.getIsSomePageRowsSelected() && "indeterminate")
-      }
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
         className="translate-y-[2px]"
@@ -31,34 +31,35 @@ export const columns = [
       />
     ),
     enableSorting: false,
-    enableHiding: true,
+    enableHiding: false,
   },
   {
     accessorKey: "id",
     header: ({ column }) => (
       <DataTableColumnHeader className="text-xs" column={column} title="Task" />
-      ),
-      cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
-      enableSorting: false,
-      enableHiding: true,
-    },
-    {
-      accessorKey: "title",
-      header: ({ column }) => (
-        <DataTableColumnHeader column={column} title="Title" />
-        ),
-        cell: ({ row }) => {
-          const label = labels.find((label) => label.value === row.original.label)
-          
-          return (
-        <div className="flex space-x-2">
+    ),
+    cell: ({ row }) => <div className="w-[80px]">{row.getValue("id")}</div>,
+    enableSorting: false,
+    enableHiding: true,
+  },
+  {
+    accessorKey: "title",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="Title" />
+    ),
+    cell: ({ row }) => {
+      const label = labels.find((label) => label.value === row.original.label);
+      return (
+        <div className="flex space-x-2 overflow-hidden">
           {label && <Badge className={label.style} variant="outline">{label.label}</Badge>}
-          <span className="max-w-[500px] truncate font-medium">
+          <span className="truncate font-medium max-w-full sm:max-w-[150px] md:max-w-[300px] lg:max-w-[600px]">
             {row.getValue("title")}
           </span>
         </div>
-      )
+      );
     },
+    enableSorting: true,
+    enableHiding: false,
   },
   {
     accessorKey: "assignee",
@@ -66,24 +67,21 @@ export const columns = [
       <DataTableColumnHeader column={column} title="Assignee(s)" />
     ),
     cell: ({ row }) => {
-      const assignee =  row.getValue("assignee");
+      const assignee = row.getValue("assignee");
       if (!assignee) return null;
       return (
         <div className="flex align-middle space-x-2">
           {assignee.avatar && (
             <img className="w-6 h-6 rounded-full" src={assignee.avatar} alt="user's avatar"/>
           )}
-          <span className="max-w-[500px] truncate text-neutral-80">
+          <span className="max-w-[200px] truncate text-neutral-80">
             {assignee.name}
           </span>
         </div>
-      )
+      );
     },
     enableSorting: true,
     enableHiding: true,
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id).name)
-    },
   },
   {
     accessorKey: "dueDate",
@@ -96,17 +94,14 @@ export const columns = [
       return (
         <div className="flex align-middle space-x-2">
           <div><CalendarClock color="#6d7076" size="16" /></div>
-          <span className="max-w-[500px] truncate text-neutral-80 text-xs">
+          <span className="max-w-[200px] truncate text-neutral-80 text-xs">
             {formatter.format(date)}
           </span>
         </div>
-      )
+      );
     },
     enableSorting: true,
     enableHiding: true,
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
-    },
   },
   {
     accessorKey: "status",
@@ -116,10 +111,10 @@ export const columns = [
     cell: ({ row }) => {
       const status = statuses.find(
         (status) => status.value === row.getValue("status")
-      )
+      );
 
       if (!status) {
-        return null
+        return null;
       }
 
       return (
@@ -129,11 +124,9 @@ export const columns = [
           )}
           <span className="text-xs font-medium mx-1 pr-1">{status.label}</span>
         </div>
-      )
+      );
     },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
-    },
+    enableHiding: true,
   },
   {
     accessorKey: "priority",
@@ -143,10 +136,10 @@ export const columns = [
     cell: ({ row }) => {
       const priority = priorities.find(
         (priority) => priority.value === row.getValue("priority")
-      )
+      );
 
       if (!priority) {
-        return "..."
+        return "...";
       }
 
       return (
@@ -156,14 +149,13 @@ export const columns = [
           )}
           <span className="text-xs">{priority.label}</span>
         </div>
-      )
+      );
     },
-    filterFn: (row, id, value) => {
-      return value.includes(row.getValue(id))
-    },
+    enableHiding: true,
   },
   {
     id: "actions",
     cell: ({ row }) => <DataTableRowActions row={row} />,
+    enableHiding: false,
   },
-]
+];

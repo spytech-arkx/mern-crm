@@ -1,10 +1,8 @@
-import {
-  Drawer,
-  DrawerContent,
-} from "@/components/ui/drawer";
-import { toggleTaskDrawer } from "@/features/tasks/tasks-slice";
+import { Drawer, DrawerContent } from "@/components/ui/drawer";
+import { toggleTaskDrawer } from "@/features/tasks/slice";
 import { useDispatch, useSelector } from "react-redux";
-import { TaskForm } from "./form";
+import { TaskForm } from "./form-edit";
+import { TaskForm2 } from "./form-create";
 
 export function TaskFormDrawer() {
   const openDrawer = useSelector((state) => state.tasks.drawer);
@@ -20,9 +18,9 @@ export function TaskFormDrawer() {
   return (
     <Drawer direction="right" open={openDrawer} onOpenChange={handleOpenChange}>
       <div className="border-none">
-      <DrawerContent className="w-max h-screen ml-auto border-none">
-        <TaskForm taskId={id}/>
-      </DrawerContent>
+        <DrawerContent className="w-max h-screen ml-auto border-none">
+          {id ? <TaskForm taskId={id} /> : <TaskForm2 />}
+        </DrawerContent>
       </div>
     </Drawer>
   );

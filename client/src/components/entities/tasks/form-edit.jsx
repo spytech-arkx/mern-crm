@@ -28,7 +28,7 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { useEditTaskMutation, useGetTasksListQuery } from "@/features/api/api-slice";
+import { useDeleteTaskMutation, useEditTaskMutation, useGetTasksListQuery } from "@/features/api/tasks";
 import { Spinner } from "@/components/ui/spinner";
 import { useState } from "react";
 import { cn, formatter } from "@/lib/utils";
@@ -38,7 +38,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { format, formatDistanceToNow } from "date-fns";
 import { toast } from "sonner";
 import { useDispatch } from "react-redux";
-import { toggleTaskDrawer } from "@/features/tasks/tasks-slice";
+import { toggleTaskDrawer } from "@/features/tasks/slice";
 
 export function TaskForm({ taskId }) {
   const [open, setOpen] = useState(false);
@@ -48,6 +48,7 @@ export function TaskForm({ taskId }) {
   });
   const dispatch = useDispatch()
   const [editTask, { isLoading }] = useEditTaskMutation();
+  const [deleteTask, { isLoading: pendingDelete }] = useDeleteTaskMutation();
   const { data } = useGetTasksListQuery();
   const { task } = useGetTasksListQuery(undefined, {
     selectFromResult: ({ data }) => ({
@@ -66,13 +67,26 @@ export function TaskForm({ taskId }) {
     return { name: task.assignee?.name, avatar: task.assignee?.avatar };
   });
 
+
+  const handleClickDelete = async () => {
+    if (!pendingDelete) {
+      try {
+        await deleteTask(task._id);
+        dispatch(toggleTaskDrawer())
+        toast.success(`Task ${taskId} deletion was successful.`);
+      } catch (err) {
+        console.error(err);
+        toast.error(`Failed deleting task.`);
+      }
+    }
+  };
+
   async function onSubmit(data) {
-    console.log(data);
     try {
       await editTask({ id: task._id, data });
       dispatch(toggleTaskDrawer())
     } catch (err) {
-      console.log(err);
+      console.error(err);
       toast.error("Failed Task Update..");
     }
   }
@@ -81,8 +95,8 @@ export function TaskForm({ taskId }) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto max-w-[700px] h-screen flex flex-col justify-center">
-        <Card className="border-none bg-none">
+        className="mx-auto max-w-[700px] h-auto flex flex-col justify-center">
+        <Card className="border-none bg-none h-auto flex flex-col">
           <CardHeader >
             {/* Header */}
             <div className="flex justify-between">
@@ -123,7 +137,7 @@ export function TaskForm({ taskId }) {
             </span>
           </CardHeader>
           <Separator />
-          <CardContent className="py-0">
+          <CardContent className="py-0 grow">
             <div className="flex flex-wrap flex-col gap-3 py-6">
               {/* Assignee */}
               <div className="flex items-center gap-1">
@@ -133,6 +147,7 @@ export function TaskForm({ taskId }) {
                     <div className="flex justify-center align-middle">
                       <Button
                         className="border-none shadow-none h-7 p-0 ml-[3px]"
+                        type="button"
                         variant="outline">
                         <img
                           className="w-5 h-5 rounded-xl"
@@ -252,8 +267,8 @@ export function TaskForm({ taskId }) {
                                 !task.dueDate && "text-muted-foreground",
                               )}>
                               <CalendarIcon className="mr-2 h-4 w-4" />
-                              {task.dueDate? format(task.dueDate, "PPP")
-                              : field.value ? format(field.value, "PPP")
+                              { field.value ? format(field.value, "PPP")
+                              : task.dueDate? format(task.dueDate, "PPP")
                                 : "Pick a date"}
                             </Button>
                           </PopoverTrigger>
@@ -321,12 +336,20 @@ export function TaskForm({ taskId }) {
               />
             </div>
           </CardContent>
-          <CardFooter className="flex justify-end py-3">
+          <CardFooter className="justify-end self-end py-3 gap-2">
             <FormMessage />
             <Button
+              type="button"
+              disabled={isLoading}
+              onClick={() => handleClickDelete()}
+              className="text-slate-300 bg-red-700 w-max flex justify-center align-end">
+              {isLoading ? <Spinner size="small" /> : "Delete"}{" "}
+            </Button>
+            <Button
               type="submit"
-              className="text-slate-200 w-32 flex justify-center align-middle">
-              {isLoading ? <Spinner size="small" /> : "Update Task"}{" "}
+              disabled={isLoading}
+              className="text-slate-200 w-max flex justify-center align-end hover:bg-lime-40">
+              {isLoading ? <Spinner size="small" /> : "Update"}{" "}
             </Button>
           </CardFooter>
         </Card>

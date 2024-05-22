@@ -3,6 +3,7 @@ import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
 import Heading from "@tiptap/extension-heading";
 import { EditorView } from "prosemirror-view";
+// import { Toolbar } from "./form-toolbar";
 
 EditorView.prototype.updateState = function updateState(state) {
   if (!this.docView) return; // This prevents the matchesNode error on hot reloads
