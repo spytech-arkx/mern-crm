@@ -4,20 +4,49 @@ import SignUpPage from "./pages/auth/signup-page.jsx";
 import GeneralError from "./pages/errors/500.jsx";
 import NotFoundError from "./pages/errors/404.jsx";
 
-import TaskList from "./components/entities/tasks/list.jsx";
 
+import TaskList from "./components/entities/tasks/list.jsx";
 import { TaskFormDrawer } from "./components/entities/tasks/form-drawer.jsx";
 import { TaskForm } from "./components/entities/tasks/form-edit.jsx";
 import { TaskForm2 } from "./components/entities/tasks/form-create.jsx";
-import { CompaniesList } from "./components/entities/companies/list.jsx";
-import { CompanyForm } from "./components/entities/companies/form-create.jsx";
-import { CompanyFormEdit } from "./components/entities/companies/form-edit.jsx";
+import Dashboard from "./components/dashboard/Dashboard.jsx";
 
 import { createBrowserRouter } from "react-router-dom";
 import { AuthenticatedRoute, UnauthenticatedRoute } from "./features/auth/videur.jsx";
 import "./styles/index.css";
+import KanbanBoard from "./components/dashboard/kanban.jsx";
+import ProfilePage from "./components/profile/ProfilePage.jsx";
+import CompanyDetails from "./components/dashboard/companies/CompanyDetails.jsx";
+import CompaniesList from "./components/dashboard/companies/CompaniesList.jsx";
 
 export const router = createBrowserRouter([
+  {
+    errorElement: <GeneralError />,
+    path: "/profile",
+    element: (
+      <AuthenticatedRoute>
+        <ProfilePage />
+      </AuthenticatedRoute>
+    ),
+  },
+  {
+    errorElement: <GeneralError />,
+    path: "/kanban",
+    element: (
+      <AuthenticatedRoute>
+        <KanbanBoard />
+      </AuthenticatedRoute>
+    ),
+  },
+  {
+    errorElement: <GeneralError />,
+    path: "/dashboard",
+    element: (
+      <AuthenticatedRoute>
+        <Dashboard />
+      </AuthenticatedRoute>
+    ),
+  },
   {
     errorElement: <GeneralError />,
     path: "/login",
@@ -59,19 +88,18 @@ export const router = createBrowserRouter([
   {
     path: "/companies",
     element: (
-      <div>
+      <AuthenticatedRoute>
         <CompaniesList />
-        <CompanyForm />
-      </div>
+      </AuthenticatedRoute>
     ),
     errorElement: <GeneralError />,
   },
   {
-    path: "/companies/:id",
+    path: "/companies/:companyId",
     element: (
-      <div>
-        <CompanyFormEdit />
-      </div>
+      <AuthenticatedRoute>
+        <CompanyDetails />
+      </AuthenticatedRoute>
     ),
     errorElement: <GeneralError />,
   },
