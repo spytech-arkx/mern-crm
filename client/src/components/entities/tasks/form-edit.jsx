@@ -71,7 +71,7 @@ export function TaskForm({ taskId }) {
   const handleClickDelete = async () => {
     if (!pendingDelete) {
       try {
-        await deleteTask(task._id);
+        await deleteTask(task._id).unwrap();
         dispatch(toggleTaskDrawer())
         toast.success(`Task ${taskId} deletion was successful.`);
       } catch (err) {
@@ -83,7 +83,7 @@ export function TaskForm({ taskId }) {
 
   async function onSubmit(data) {
     try {
-      await editTask({ id: task._id, data });
+      await editTask({ id: task._id, data }).unwrap();
       dispatch(toggleTaskDrawer())
     } catch (err) {
       console.error(err);

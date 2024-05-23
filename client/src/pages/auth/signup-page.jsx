@@ -33,9 +33,12 @@ export default function SignUpPage() {
   const navigate = useNavigate();
   const [signup, { isLoading }] = useSignupMutation();
   const onSubmit = async (data) => {
+    // went the long road, in order to access the error immediatly.
+    // You have to chain `unwrap()`
     await signup(data).then((value) => {
       if (value.error && value.error.status === 409) setError("email", { type: 409, message: "Email already exists."})
       if (value.error && value.error.status !== 409 ) toast.error("Registration failed. Please try again or contact support.")
+      toast.info("Registered successfully, Please login.")
       navigate("/login");
     });
   };

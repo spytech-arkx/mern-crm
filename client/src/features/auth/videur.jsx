@@ -1,27 +1,40 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, useLocation } from "react-router-dom";
+import { useSessionQuery } from "../api/auth";
+import { userHasAuthenticated } from "./slice";
+import { useEffect } from "react";
 
 export const UnauthenticatedRoute = ({ children }) => {
-  const { isAuthenticated } = useSelector(state => state.auth);
   const redirect = querystring("redirect");
+  const { isAuthenticated } = useSelector((state) => state.auth);
 
   if (isAuthenticated) {
-    return <Navigate to={redirect || "/dashboard"} />;
+    return <Navigate to={redirect || "/tasks"} />;
   }
 
   return children;
-}
+};
 
 export const AuthenticatedRoute = ({ children }) => {
   const { pathname, search } = useLocation();
-  const {isAuthenticated} = useSelector((state) => state.auth);
+  const { data: user, error, isLoading } = useSessionQuery();
+  const { isAuthenticated } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
-  if (!isAuthenticated) {
-    return <Navigate to={`/login?redirect=${pathname}${search}`} />;
+  useEffect(() => {
+    if (user && !isAuthenticated) {
+      dispatch(userHasAuthenticated(user));
+    }
+  }, [user, isAuthenticated, dispatch]); 
+
+  if (!isLoading) {
+    if (error) { // if the server whoami throws
+      return <Navigate to={`/login?redirect=${pathname}${search}`} />;
+    }
+
+    return children;
   }
-
-  return children;
-}
+};
 
 function querystring(name, url = window.location.href) {
   const parsedName = name.replace(/[[]]/g, "\\$&");

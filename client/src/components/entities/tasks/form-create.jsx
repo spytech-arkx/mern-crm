@@ -66,7 +66,7 @@ export function TaskForm2() {
 
   async function onSubmit(data) {
     try {
-      await createTask(data);
+      await createTask(data).unwrap();
       dispatch(toggleTaskDrawer());
     } catch (err) {
       console.error(err);

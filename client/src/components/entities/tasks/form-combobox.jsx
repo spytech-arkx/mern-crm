@@ -1,4 +1,3 @@
-import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import {
   Command,
   CommandEmpty,
@@ -8,6 +7,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { useEditTaskMutation } from "@/features/api/tasks";
+import { toast } from "sonner";
 
 export function FormCombobox({ task, assignees, setOpen }) {
     const [editTask, { isLoading }] = useEditTaskMutation();
@@ -15,10 +15,10 @@ export function FormCombobox({ task, assignees, setOpen }) {
     async function onAssigneeSelected(assignee) {
         if (!isLoading) {
           try {
-            await editTask({ id: task._id, data: assignee });
+            await editTask({ id: task._id, data: assignee }).unwrap();
           } catch (err) {
             console.error(err);
-            throw err;
+            toast.error(`Failed updating task.`);;
           }
         }
       }

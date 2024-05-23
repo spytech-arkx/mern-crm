@@ -25,7 +25,7 @@ export function DataTableRowActions({ row }) {
   const handleClickDelete = async () => {
     if (!pendingDelete) {
       try {
-        await deleteTask(row.original._id);
+        await deleteTask(row.original._id).unwrap();
         toast.success(`Task ${row.original.id} deletion was successful.`);
       } catch (err) {
         console.error(err);
