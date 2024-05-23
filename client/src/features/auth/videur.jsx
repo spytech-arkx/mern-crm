@@ -6,13 +6,15 @@ import { useEffect } from "react";
 
 export const UnauthenticatedRoute = ({ children }) => {
   const redirect = querystring("redirect");
-  const { isAuthenticated } = useSelector((state) => state.auth);
+  const { data: user, isLoading } = useSessionQuery();
+  
+  if (!isLoading) {
+    if (user) { // if the server whoami throws
+      return <Navigate to={redirect || "/tasks"} />;
+    }
 
-  if (isAuthenticated) {
-    return <Navigate to={redirect || "/tasks"} />;
+    return children;
   }
-
-  return children;
 };
 
 export const AuthenticatedRoute = ({ children }) => {
