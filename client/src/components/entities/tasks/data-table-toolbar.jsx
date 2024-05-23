@@ -15,8 +15,8 @@ export function DataTableToolbar({
   const isFiltered = table.getState().columnFilters.length > 0
   const tasks = useSelector(state => state.tasks);
   const assignees = [...tasks].map(task => {
-    return { label: task.assignee.name,
-    value: task.assignee.name}
+    return { label: task.assignee?.name ?? null,
+    value: task.assignee?.name ?? null}
   })
 
   return (
