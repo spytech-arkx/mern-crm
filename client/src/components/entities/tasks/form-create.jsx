@@ -78,7 +78,7 @@ export function TaskForm2() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto max-w-[700px] h-screen flex flex-col justify-center">
+        className="mx-auto max-w-[600px] h-screen flex flex-col justify-center">
         <Card className="border-none bg-none h-full flex flex-col">
           <CardHeader>
                         {/* Header */}
@@ -98,13 +98,13 @@ export function TaskForm2() {
                     <FormControl>
                       <Input
                         id="title"
-                        className="border-none text-xl font-bold focus-visible:ring-opacity-0 shadow-none py-0 pl-0"
-                        placeholder="Title: ex. Sell kidney to buy Porshe."
-                        value={field.value}
+                        className={cn("border-none text-xl font-bold focus-visible:ring-opacity-0 shadow-none py-0 pl-0",
+                        form.formState.errors.title ? "placeholder:text-red-500" : "")}
+                        placeholder={form.formState.errors.title ? "Title is required." : "Title: ex. Sell kidney to buy Porshe."}
+                        value={field.value || ''}
                         onChange={field.onChange}
                       />
                     </FormControl>
-                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -144,7 +144,7 @@ export function TaskForm2() {
                           {assignees.map((ass) => {
                             return (
                               <CommandItem
-                                key={ass.name}
+                                key={crypto.randomUUID()}
                                 value={ass.name}
                                 {...form.register}
                                 onSelect={(value) => {
@@ -277,7 +277,7 @@ export function TaskForm2() {
               />
             </div>
             {/* Attachements */}
-            <div className="pt-4">
+            <div className="pt-2">
               <FormField
                 control={form.control}
                 name="attachements"
@@ -304,8 +304,8 @@ export function TaskForm2() {
             <Button
               type="submit"
               disabled={pendingCreation}
-              className="text-slate-200 w-32 flex justify-center align-end">
-              {pendingCreation ? <Spinner size="small" /> : "Create Task"}{" "}
+              className="text-slate-200 w-max flex justify-center align-end">
+              {pendingCreation ? <Spinner size="small" /> : "Create"}{" "}
             </Button>
           </CardFooter>
         </Card>

@@ -5,7 +5,7 @@ import { taskSchema } from "@/data/tasks";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { CalendarIcon, Plus } from "lucide-react";
+import { CalendarIcon, Plus, Trash2 } from "lucide-react";
 import {
   Avatar,
   Form,
@@ -28,7 +28,11 @@ import {
   CommandItem,
   CommandList,
 } from "@/components/ui/command";
-import { useDeleteTaskMutation, useEditTaskMutation, useGetTasksListQuery } from "@/features/api/tasks";
+import {
+  useDeleteTaskMutation,
+  useEditTaskMutation,
+  useGetTasksListQuery,
+} from "@/features/api/tasks";
 import { Spinner } from "@/components/ui/spinner";
 import { useState } from "react";
 import { cn, formatter } from "@/lib/utils";
@@ -43,10 +47,10 @@ import { toggleTaskDrawer } from "@/features/tasks/slice";
 export function TaskForm({ taskId }) {
   const [open, setOpen] = useState(false);
   const form = useForm({
-    resolver: zodResolver(taskSchema),
+    resolver: zodResolver(taskSchema.omit({ title: true })),
     mode: "onSubmit",
   });
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [editTask, { isLoading }] = useEditTaskMutation();
   const [deleteTask, { isLoading: pendingDelete }] = useDeleteTaskMutation();
   const { data } = useGetTasksListQuery();
@@ -67,12 +71,11 @@ export function TaskForm({ taskId }) {
     return { name: task.assignee?.name, avatar: task.assignee?.avatar };
   });
 
-
   const handleClickDelete = async () => {
     if (!pendingDelete) {
       try {
         await deleteTask(task._id).unwrap();
-        dispatch(toggleTaskDrawer())
+        dispatch(toggleTaskDrawer());
         toast.success(`Task ${taskId} deletion was successful.`);
       } catch (err) {
         console.error(err);
@@ -84,7 +87,7 @@ export function TaskForm({ taskId }) {
   async function onSubmit(data) {
     try {
       await editTask({ id: task._id, data }).unwrap();
-      dispatch(toggleTaskDrawer())
+      dispatch(toggleTaskDrawer());
     } catch (err) {
       console.error(err);
       toast.error("Failed Task Update..");
@@ -95,9 +98,9 @@ export function TaskForm({ taskId }) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto max-w-[700px] h-auto flex flex-col justify-center">
-        <Card className="border-none bg-none h-auto flex flex-col">
-          <CardHeader >
+        className="mx-auto max-w-[600px] h-full flex flex-col justify-center">
+        <Card className="border-none bg-none h-full flex flex-col">
+          <CardHeader>
             {/* Header */}
             <div className="flex justify-between">
               <span className="text-xs text-gray-400">{task.status?.toUpperCase()}</span>
@@ -119,7 +122,7 @@ export function TaskForm({ taskId }) {
                         placeholder={
                           task.title ?? "Title: ex. Sell kidney to buy Porshe."
                         }
-                        value={field.value}
+                        value={field.value || task.title}
                         onChange={field.onChange}
                       />
                     </FormControl>
@@ -133,7 +136,8 @@ export function TaskForm({ taskId }) {
             </div>
             {/* User, Created Time */}
             <span className="text-xs">
-              Added by <span className="underline text-violet-900">User</span>, {formatDistanceToNow(task.createdAt)} ago.
+              Added by <span className="underline text-violet-900">User</span>,{" "}
+              {formatDistanceToNow(task.createdAt)} ago.
             </span>
           </CardHeader>
           <Separator />
@@ -176,7 +180,7 @@ export function TaskForm({ taskId }) {
                           {assignees.map((ass) => {
                             return (
                               <CommandItem
-                                key={ass.name}
+                                key={crypto.randomUUID()}
                                 value={ass.name}
                                 {...form.register}
                                 onSelect={(value) => {
@@ -186,12 +190,12 @@ export function TaskForm({ taskId }) {
                                   if (assignee) form.setValue("assignee", assignee);
                                   setOpen(false);
                                 }}>
-                                <img
-                                  alt="user's avatar"
-                                  src={ass.avatar ?? Avatar}
-                                  className="mr-2 h-4 w-4 rounded-xl"
-                                />
-                                <span>{ass.name}</span>
+                                    <img
+                                      alt="user's avatar"
+                                      src={ass.avatar ?? Avatar}
+                                      className="mr-2 h-4 w-4 rounded-xl"
+                                    />
+                                    <span>{ass.name}</span>
                               </CommandItem>
                             );
                           })}
@@ -267,8 +271,10 @@ export function TaskForm({ taskId }) {
                                 !task.dueDate && "text-muted-foreground",
                               )}>
                               <CalendarIcon className="mr-2 h-4 w-4" />
-                              { field.value ? format(field.value, "PPP")
-                              : task.dueDate? format(task.dueDate, "PPP")
+                              {field.value
+                                ? format(field.value, "PPP")
+                                : task.dueDate
+                                ? format(task.dueDate, "PPP")
                                 : "Pick a date"}
                             </Button>
                           </PopoverTrigger>
@@ -314,7 +320,7 @@ export function TaskForm({ taskId }) {
               />
             </div>
             {/* Attachements */}
-            <div className="pt-4">
+            <div className="pt-2">
               <FormField
                 control={form.control}
                 name="attachements"
@@ -336,14 +342,15 @@ export function TaskForm({ taskId }) {
               />
             </div>
           </CardContent>
-          <CardFooter className="justify-end self-end py-3 gap-2">
+          <CardFooter className="justify-end self-end p-3 gap-2">
             <FormMessage />
             <Button
               type="button"
               disabled={isLoading}
+              variant="ghost"
               onClick={() => handleClickDelete()}
-              className="text-slate-300 bg-red-700 w-max flex justify-center align-end">
-              {isLoading ? <Spinner size="small" /> : "Delete"}{" "}
+              className="text-red-500 w-max flex justify-center align-end">
+              {isLoading ? <Spinner size="small" /> : <Trash2 />}{" "}
             </Button>
             <Button
               type="submit"

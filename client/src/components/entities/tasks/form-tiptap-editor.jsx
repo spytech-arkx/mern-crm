@@ -1,7 +1,6 @@
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
-import Heading from "@tiptap/extension-heading";
 import { EditorView } from "prosemirror-view";
 // import { Toolbar } from "./form-toolbar";
 
@@ -13,9 +12,10 @@ EditorView.prototype.updateState = function updateState(state) {
 const Tiptap = ({ description, onChange }) => {
   const editor = useEditor({
     extensions: [
-      StarterKit.configure(),
-      Heading.configure({
-        levels: [1, 2, 3]
+      StarterKit.configure({
+        heading: {
+          levels: [1, 2, 3]
+        }
       }),
       Placeholder.configure({
         placeholder: "Write here...",

@@ -1,12 +1,12 @@
-import { Badge } from "@/components/ui/badge"
-import { Checkbox } from "@/components/ui/checkbox"
+import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 
-import { labels, priorities, statuses } from "@/data/tasks"
-import { DataTableColumnHeader } from "./data-table-column-header"
-import { DataTableRowActions } from "./data-table-row-actions"
-import { CalendarClock } from "lucide-react"
+import { labels, priorities, statuses } from "@/data/tasks";
+import { DataTableColumnHeader } from "./data-table-column-header";
+import { DataTableRowActions } from "./data-table-row-actions";
+import { CalendarClock, Plus } from "lucide-react";
 
-import { formatter } from "@/lib/utils"
+import { format } from "date-fns";
 
 export const columns = [
   {
@@ -44,14 +44,16 @@ export const columns = [
   },
   {
     accessorKey: "title",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Title" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Title" />,
     cell: ({ row }) => {
       const label = labels.find((label) => label.value === row.original.label);
       return (
         <div className="flex space-x-2 overflow-hidden">
-          {label && <Badge className={label.style} variant="outline">{label.label}</Badge>}
+          {label && (
+            <Badge className={label.style} variant="outline">
+              {label.label}
+            </Badge>
+          )}
           <span className="truncate font-medium max-w-full sm:max-w-[150px] md:max-w-[300px] lg:max-w-[600px]">
             {row.getValue("title")}
           </span>
@@ -63,20 +65,25 @@ export const columns = [
   },
   {
     accessorKey: "assignee",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Assignee(s)" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Assignee(s)" />,
     cell: ({ row }) => {
       const assignee = row.getValue("assignee");
-      if (!assignee) return null;
+      if (!assignee)
+        return (
+          <span className="max-w-[200px] truncate text-neutral-70 text-xs">
+            <Plus size="16" />
+          </span>
+        );
       return (
         <div className="flex align-middle space-x-2">
           {assignee.avatar && (
-            <img className="w-6 h-6 rounded-full" src={assignee.avatar} alt="user's avatar"/>
+            <img
+              className="w-6 h-6 rounded-full"
+              src={assignee.avatar}
+              alt="user's avatar"
+            />
           )}
-          <span className="max-w-[200px] truncate text-neutral-80">
-            {assignee.name}
-          </span>
+          <span className="max-w-[200px] truncate text-neutral-80">{assignee.name}</span>
         </div>
       );
     },
@@ -85,17 +92,22 @@ export const columns = [
   },
   {
     accessorKey: "dueDate",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Due Date" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Due Date" />,
     cell: ({ row }) => {
       const date = new Date(row.getValue("dueDate"));
-      if (!date) return null;
+      if (date == "Invalid Date")
+        return (
+          <div className="flex items-center space-x-2">
+              <Plus size="16" className="max-w-[200px] truncate text-neutral-70 text-xs"/>
+          </div>
+        );
       return (
         <div className="flex align-middle space-x-2">
-          <div><CalendarClock color="#6d7076" size="16" /></div>
+          <div>
+            <CalendarClock color="#6d7076" size="16" />
+          </div>
           <span className="max-w-[200px] truncate text-neutral-80 text-xs">
-            {formatter.format(date)}
+            {format(date, "PPP")}
           </span>
         </div>
       );
@@ -105,23 +117,21 @@ export const columns = [
   },
   {
     accessorKey: "status",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Status" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
     cell: ({ row }) => {
-      const status = statuses.find(
-        (status) => status.value === row.getValue("status")
-      );
+      const status = statuses.find((status) => status.value === row.getValue("status"));
 
       if (!status) {
-        return null;
+        return (
+          <span className="max-w-[200px] truncate text-neutral-80 text-xs">
+            <Plus size="16" />
+          </span>
+        );
       }
 
       return (
         <div className={"flex w-max py-[2px] rounded-[37px] items-center " + status.bg}>
-          {status.icon && (
-            <status.icon/>
-          )}
+          {status.icon && <status.icon />}
           <span className="text-xs font-medium mx-1 pr-1">{status.label}</span>
         </div>
       );
@@ -130,16 +140,18 @@ export const columns = [
   },
   {
     accessorKey: "priority",
-    header: ({ column }) => (
-      <DataTableColumnHeader column={column} title="Priority" />
-    ),
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Priority" />,
     cell: ({ row }) => {
       const priority = priorities.find(
-        (priority) => priority.value === row.getValue("priority")
+        (priority) => priority.value === row.getValue("priority"),
       );
 
       if (!priority) {
-        return "...";
+        return (
+          <span className="max-w-[200px] truncate text-neutral-70 text-xs">
+            <Plus size="16" />
+          </span>
+        );
       }
 
       return (
@@ -147,7 +159,7 @@ export const columns = [
           {priority.icon && (
             <priority.icon className="mr-2 h-4 w-4 text-muted-foreground" />
           )}
-          <span className="text-xs">{priority.label}</span>
+          <span className="text-xs ml-2 font-medium">{priority.label}</span>
         </div>
       );
     },

@@ -4,7 +4,7 @@ import {
   CheckIcon,
   ChevronRightIcon,
 } from "@radix-ui/react-icons"
-import { GreyCircle } from "@/assets/small-circle"
+import { GrayCircle } from "@/assets/small-circle"
 
 import { cn } from "@/lib/utils"
 
@@ -106,7 +106,7 @@ const DropdownMenuRadioItem = React.forwardRef(({ className, children, ...props 
     {...props}>
     <span className="absolute left-2 flex h-3.5 w-3.5 items-center justify-center">
       <DropdownMenuPrimitive.ItemIndicator>
-        <GreyCircle/>
+        <GrayCircle/>
       </DropdownMenuPrimitive.ItemIndicator>
     </span>
     {children}

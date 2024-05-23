@@ -17,7 +17,7 @@ export function SelectPriority({ task, field }) {
       <SelectTrigger
         className="border-none shadow-none h-7 p-0 w-max focus:ring-0 text-s font-medium"
         variant="outline">
-        {task || field.value ? (
+        {task?.priority || field.value ? (
           <SelectValue />
         ) : (
           <Badge className="rounded-xl py-1 px-1" variant="outline">
@@ -31,8 +31,8 @@ export function SelectPriority({ task, field }) {
             return (
               <SelectItem key={e.value} value={e.value}>
                 <div className="flex w-max py-[2px] rounded-[37px] items-center bg-white border shadow-sm">
-                  <e.icon />
-                  <span className="ml-1 mr-2 text-s">{e.label}</span>
+                  <div className="ml-1"><e.icon /></div>
+                  <span className="ml-2 mr-2 text-s">{e.label}</span>
                 </div>
               </SelectItem>
             );
@@ -49,7 +49,7 @@ export function SelectStatus({ task, field }) {
       <SelectTrigger
         className="border-none shadow-none h-7 p-0 w-max focus:ring-0 text-s font-medium"
         variant="outline">
-        {task || field.value ? (
+        {task?.status || field.value ? (
           <SelectValue />
         ) : (
           <Badge className="rounded-xl py-1 px-1" variant="outline">
@@ -66,9 +66,7 @@ export function SelectStatus({ task, field }) {
                   className={
                     "flex w-max py-[2px] rounded-[37px] items-center shadow-sm" + e.bg
                   }>
-                  <div className="px-1">
                     <e.icon />
-                  </div>
                   <span className="text-s font-medium ml-1 mr-2">{e.label}</span>
                 </div>
               </SelectItem>
@@ -86,7 +84,7 @@ export function SelectLabel({ task, field }) {
       <SelectTrigger
         className="border-none shadow-none h-7 p-0 w-max focus:ring-0 text-s font-medium"
         variant="outline">
-        {task || field.value ? (
+        {task?.label || field.value ? (
           <SelectValue />
         ) : (
           <Badge className="rounded-xl py-1 px-1" variant="outline">

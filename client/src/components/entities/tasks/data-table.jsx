@@ -91,8 +91,8 @@ export function DataTable({ columns, data }) {
               ))
             ) : (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                  No results.
+                <TableCell onClick={() => dispatch(toggleTaskDrawer())}  colSpan={columns.length} className="h-24 cursor-pointer text-center">
+                + Click to add a new entry.
                 </TableCell>
               </TableRow>
             )}
