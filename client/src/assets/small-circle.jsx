@@ -68,7 +68,7 @@ export function PurpleCircle() {
   );
 }
 
-export function GreyCircle() {
+export function GrayCircle() {
   return (
     <svg
       width="8"

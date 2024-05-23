@@ -1,6 +1,4 @@
 import {
-  BlackBadge,
-  BlueBadge,
   GreenBadge,
   OrangeBadge,
   RedBadge,
@@ -9,12 +7,11 @@ import {
 import {
   BlueCircle,
   GreenCircle,
-  GreyCircle,
   OrangeCircle,
   RedCircle,
+  GrayCircle,
   YellowCircle,
 } from "@/assets/small-circle";
-import { ArrowDownIcon, ArrowRightIcon, ArrowUpIcon } from "@radix-ui/react-icons";
 
 import { z } from "zod";
 
@@ -23,8 +20,7 @@ export const taskSchema = z.object({
     .string()
     .max(46, {
       message: "Title too long.",
-    })
-    .optional(),
+    }),
   dueDate: z.date().optional().transform((str) => str?.toISOString()),
   status: z.string().trim().optional(),
   priority: z.string().trim().optional(),
@@ -94,7 +90,7 @@ export const statuses = [
   {
     value: "canceled",
     label: "Canceled",
-    icon: GreyCircle,
+    icon: GrayCircle,
     bg: "bg-white border rounded-xl shadow",
   },
   {
@@ -109,17 +105,17 @@ export const priorities = [
   {
     label: "Low",
     value: "low",
-    icon: ArrowDownIcon,
+    icon: GreenBadge,
   },
   {
     label: "Medium",
     value: "medium",
-    icon: ArrowRightIcon,
+    icon: YellowBadge,
   },
   {
     label: "High",
     value: "high",
-    icon: ArrowUpIcon,
+    icon: RedBadge,
   },
 ];
 
@@ -127,22 +123,22 @@ export const formPriorities = [
   {
     label: "Low",
     value: "low",
-    icon: GreenCircle,
+    icon: GreenBadge,
   },
   {
     label: "Medium",
     value: "medium",
-    icon: YellowCircle,
+    icon: YellowBadge,
   },
   {
     label: "High",
     value: "high",
-    icon: OrangeCircle,
+    icon: OrangeBadge,
   },
   {
     label: "Critical",
     value: "critical",
-    icon: RedCircle,
+    icon: RedBadge,
   },
 ];
 
@@ -150,37 +146,37 @@ export const formStatuses = [
   {
     value: "backlog",
     label: "Backlog",
-    icon: BlueBadge,
+    icon: BlueCircle,
     bg: "bg-white border rounded-xl",
   },
   {
     value: "todo",
     label: "To-do",
-    icon: GreenBadge,
+    icon: GreenCircle,
     bg: "bg-white border rounded-xl",
   },
   {
     value: "in progress",
     label: "In Progress",
-    icon: OrangeBadge,
+    icon: OrangeCircle,
     bg: "bg-white border rounded-xl",
   },
   {
     value: "done",
     label: "Done",
-    icon: YellowBadge,
+    icon: YellowCircle,
     bg: "bg-white border rounded-xl",
   },
   {
     value: "canceled",
     label: "Canceled",
-    icon: BlackBadge,
+    icon: GrayCircle,
     bg: "bg-white border rounded-xl",
   },
   {
     value: "impeded",
     label: "Impeded",
-    icon: RedBadge,
+    icon: RedCircle,
     bg: "bg-white border rounded-xl",
   },
 ];
