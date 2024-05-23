@@ -91,8 +91,16 @@ export function DataTable({ columns, data }) {
               ))
             ) : (
               <TableRow>
-                <TableCell onClick={() => dispatch(toggleTaskDrawer())}  colSpan={columns.length} className="h-24 cursor-pointer text-center">
-                + Click to add a new entry.
+                <TableCell
+                  onClick={() => dispatch(toggleTaskDrawer())}
+                  colSpan={columns.length}
+                  className="h-56 cursor-pointer text-center">
+                  <h3 className="text-lg font-bold tracking-tight">
+                    You have no tasks
+                  </h3>
+                  <p className="text-sm text-muted-foreground">
+                    Click here to add your first 😃.
+                  </p>
                 </TableCell>
               </TableRow>
             )}

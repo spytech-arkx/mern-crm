@@ -1,11 +1,11 @@
 const session = require("express-session");
-const { createClient } = require("redis");
 const MongoStore = require("connect-mongo");
-const { default: RedisStore } = require("connect-redis");
 const connection = require('./db');
-const { logger } = require("../utils/logger");
 require("dotenv").config();
 
+// const { createClient } = require("redis");
+// const { default: RedisStore } = require("connect-redis");
+// const { logger } = require("../utils/logger");
 // const redisClient = createClient();
 // redisClient
 //   .connect()
@@ -32,7 +32,7 @@ module.exports = session({
   store: mongoStore,
   cookie: {
     httpOnly: true,
-    maxAge: 1000 * 60 * 10,
+    // maxAge: 1000 * 60 * 10,
   },
 });
 
