@@ -66,7 +66,6 @@ module.exports = { authenticator, permission };
 
 module.exports.isAuth = (req, res, next) => {
   if (req.isAuthenticated()) {
-    console.debug(req.session);
     return next();
   }
   return res.status(401).json({ type: "Forbidden", message: "Invalid credentials." });

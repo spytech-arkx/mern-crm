@@ -23,7 +23,7 @@ export const router = createBrowserRouter([
     path: "/login",
     element: (
       <UnauthenticatedRoute>
-        <LogInPage />,
+        <LogInPage />
       </UnauthenticatedRoute>
     ),
   },
@@ -50,10 +50,8 @@ export const router = createBrowserRouter([
     path: "/tasks",
     element: (
       <AuthenticatedRoute>
-        <div>
           <TaskList />
           <TaskFormDrawer />
-        </div>
       </AuthenticatedRoute>
     ),
     errorElement: <GeneralError />,
