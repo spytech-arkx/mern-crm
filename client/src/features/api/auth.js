@@ -19,6 +19,14 @@ export const snazApi = createApi({
         method: "POST",
         body: credentials,
       }),
+      invalidatesTags: ["Auth"],
+    }),
+    logout: builder.mutation({
+      query: () => ({
+        url: "/auth/logout",
+        method: "POST",
+      }),
+      invalidatesTags: ["Auth"],
     }),
     signup: builder.mutation({
       query: (data) => ({
@@ -27,6 +35,10 @@ export const snazApi = createApi({
         body: data,
       }),
     }),
+    session: builder.query({
+      query: () => '/auth/whoami',
+      providesTags: ["Auth"],
+    })
   }),
 });
 
@@ -34,5 +46,7 @@ export const snazApi = createApi({
 // auto-generated based on the defined endpoints
 export const {
   useLoginMutation,
+  useLogoutMutation,
   useSignupMutation,
+  useSessionQuery,
 } = snazApi;
