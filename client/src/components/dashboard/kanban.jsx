@@ -28,7 +28,7 @@ const KanbanBoard = () => {
   };
 
   return (
-    <Grid templateColumns="repeat(5, 1fr)" gap={4}>
+    <Grid templateColumns="repeat(5, 1fr)" gap={4} className="mx-4">
       {/* Bouclez sur les différentes colonnes */}
       {["todo", "in progress", "done", "canceled", "impeded"].map((status) => (
         <GridItem key={status} colSpan={1}>

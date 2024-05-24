@@ -9,7 +9,7 @@ import PolarChart from "../charts/PolarChart";
 
 export default function Dashboard() {
   return (
-    <div className="p-4">
+    <div className="px-4">
       <h1>Dashboard</h1>
       <Grid templateRows="repeat(1, 1fr)" templateColumns="repeat(4, 1fr)" gap={4}>
         <GridItem colSpan={1} bg="">

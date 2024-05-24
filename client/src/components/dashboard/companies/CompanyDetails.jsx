@@ -50,7 +50,7 @@ const CompanyDetails = () => {
   }
 
   return (
-    <div className="p-4">
+    <div className="px-4">
       {selectedCompany ? (
         <>
           <Heading>{selectedCompany.companyName}</Heading>

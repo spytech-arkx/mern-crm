@@ -28,11 +28,11 @@ const CompaniesList = () => {
     return <div>loading...</div>;
   }
   if (status === "failed") {
-    return <div>{error}</div>;
+    return <div className="px-4">{error}</div>;
   }
 
   return (
-    <div className="p-4">
+    <div className="px-4">
       <Text>Companies </Text>
       <SimpleGrid spacing={4} templateColumns="repeat(auto-fill, minmax(200px, 1fr))">
         {items.map((company, index) => (

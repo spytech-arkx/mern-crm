@@ -32,7 +32,7 @@ module.exports = session({
   store: mongoStore,
   cookie: {
     httpOnly: true,
-    maxAge: 1000 * 60 * 10,
+    // maxAge: 1000 * 60 * 10,
   },
 });
 
