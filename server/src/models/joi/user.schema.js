@@ -1,4 +1,4 @@
-const Joi = require('joi');
+const Joi = require("joi");
 
 const userSchema = Joi.object({
   firstName: Joi.string().required().trim().min(1).max(50),
@@ -16,12 +16,15 @@ const userSchema = Joi.object({
     country: Joi.string().trim(),
     zipCode: Joi.string().trim(),
   }),
+  bio: Joi.string().trim(),
   username: Joi.string().trim().alphanum().lowercase(),
   password: Joi.string().required(),
   dateOfBirth: Joi.date(),
-  website: Joi.string()
-    .trim()
-    .regex(/^(https?:\/\/)?([\da-z.-]+)\.([a-z]{2,6})([/\w .-]*)*\/?$/),
+  urls: Joi.array().items(
+    Joi.string()
+      .trim()
+      .regex(/^(https?:\/\/)?([\da-z.-]+)\.([a-z]{2,6})([/\w .-]*)*\/?$/),
+  ),
   avatar: Joi.string().trim(),
   language: Joi.string().trim(),
   countryLocale: Joi.string().trim(),
@@ -29,14 +32,14 @@ const userSchema = Joi.object({
   dateFormat: Joi.string().trim(),
   timeFormat: Joi.string().trim(),
 
-  role: Joi.string().valid('admin', 'user', 'editor'),
+  role: Joi.string().valid("admin", "user", "editor"),
 
   confirm: Joi.boolean(),
   notes: Joi.string().trim().max(255),
 }).options({ abortEarly: false, stripUnknown: true });
 
 const userUpdateSchema = userSchema.fork(
-  ['firstName', 'lastName', 'email', 'password'],
+  ["firstName", "lastName", "email", "password"],
   (schema) => schema.optional(),
 );
 

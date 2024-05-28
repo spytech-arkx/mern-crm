@@ -1,30 +1,35 @@
-const xss = require('xss');
+const xss = require("xss");
 
 const sanitizeString = (value) => xss(value);
 
-const sanitizeObject = (obj) => {
-  const sanitizedObj = {};
-  Object.keys(obj).forEach((key) => {
-    if (Object.prototype.hasOwnProperty.call(obj, key)) {
-      const value = obj[key];
-      if (typeof value === 'object' && value !== null) {
-        sanitizedObj[key] = sanitizeObject(value);
-      } else {
-        sanitizedObj[key] = sanitizeString(value);
-      }
-    }
-  });
-  return sanitizedObj;
-};
-
-const sanitizeBodyData = (req, res, next) => {
-  if (Array.isArray(req.body)) {
-    const arr = req.body;
-    req.body = arr.map((obj) => sanitizeObject(obj));
-    return next();
+const sanitizeValue = (value) => {
+  if (typeof value === "string") {
+    return sanitizeString(value);
+    // eslint-disable-next-line no-else-return
+  } else if (Array.isArray(value)) {
+    // Deeply sanitize array elements
+    return value.map(sanitizeValue);
+  } else if (value !== null && typeof value === "object") {
+    // Recursively sanitize object properties
+    const sanitizedObj = {};
+    Object.keys(value).forEach((key) => {
+      sanitizedObj[key] = sanitizeValue(value[key]);
+    });
+    return sanitizedObj;
   }
-  req.body = sanitizeObject(req.body);
-  return next();
+  // Handle other data types or return as-is (optional customization)
+  return value;
+};
+/**
+ * Basic sanitazion for the req.body, powered by xss
+ * Handles nested objects, arrays..
+ * @param {*} req
+ * @param {*} res
+ * @param {*} next
+ */
+const sanitizeBodyData = (req, res, next) => {
+  req.body = sanitizeValue(req.body);
+  next();
 };
 
 module.exports = sanitizeBodyData;

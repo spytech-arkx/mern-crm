@@ -24,6 +24,7 @@ const UserSchema = new mongoose.Schema(
       minlength: 1,
       maxlength: 50,
     },
+    bio: String,
 
     // Contact Information
     email: {
@@ -79,7 +80,7 @@ const UserSchema = new mongoose.Schema(
 
     // User Details
     dateOfBirth: { type: Date },
-    website: {
+    urls: [{
       type: String,
       unique: true,
       sparse: true,
@@ -89,7 +90,7 @@ const UserSchema = new mongoose.Schema(
           /^(https?:\/\/)?([\da-z.-]+)\.([a-z]{2,6})([/\w .-]*)*\/?$/.test(url),
         message: (props) => `${props.value} is not a valid website URL.`,
       },
-    },
+    }],
     avatar: { type: String, trim: true }, // Store the path to the avatar image,
 
     // Preferences
