@@ -2,6 +2,8 @@ const express = require("express");
 const { urlencoded } = require("body-parser");
 const passport = require("passport");
 const cors = require("cors");
+const { createRouteHandler } = require("uploadthing/express");
+
 const session = require("./src/config/session");
 const { run } = require("./src/config/db");
 const { logger, requestLogger } = require("./src/utils/logger");
@@ -22,6 +24,7 @@ const userRouter = require("./src/routes/user.routes");
 // RBAC, auth middleware. (naw, fshl)
 const { authenticator, permission } = require("./src/middlewares/authenticator");
 const authRouter = require("./src/routes/auth.routes");
+const uploadRouter = require("./src/middlewares/uploadthing");
 
 const app = express();
 const port = process.env.PORT || 3000; // Use port from environment or default to 3000
@@ -30,7 +33,7 @@ app.use(
     credentials: true,
     origin: ["http://localhost:5173", "http://localhost:4173"],
     methods: ["GET", "POST", "PATCH", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
+    // allowedHeaders: ["Content-Type", "Authorization", "x-uploadthing-version"],
     optionsSuccessStatus: 204,
   }),
 );
@@ -52,6 +55,14 @@ app.use("/api/leads", leadRouter);
 app.use("/api/tasks", taskRouter);
 app.use("/api/users", userRouter);
 app.use("/api/auth", authRouter);
+app.use(
+  "/api/uploadthing",
+  passport.authenticate("session"),
+  createRouteHandler({
+    router: uploadRouter,
+    config: {},
+  }),
+);
 
 app.listen(port, () => {
   logger.log("info", `Server listening on port ${port}`);
