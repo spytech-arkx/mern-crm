@@ -29,6 +29,7 @@
     "passport-local": "^1.0.0",
     "redis": "^4.6.14",
     "snappy": "^7.2.2",
+    "uploadthing": "^6.12.0",
     "winston": "^3.13.0",
     "xss": "^1.0.15"
   },
