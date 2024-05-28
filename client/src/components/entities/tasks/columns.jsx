@@ -48,7 +48,7 @@ export const columns = [
     cell: ({ row }) => {
       const label = labels.find((label) => label.value === row.original.label);
       return (
-        <div className="flex space-x-2 overflow-hidden">
+        <div className="flex space-x-2 items-center overflow-hidden">
           {label && (
             <Badge className={label.style} variant="outline">
               {label.label}

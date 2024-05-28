@@ -190,12 +190,12 @@ export function TaskForm({ taskId }) {
                                   if (assignee) form.setValue("assignee", assignee);
                                   setOpen(false);
                                 }}>
-                                    <img
-                                      alt="user's avatar"
-                                      src={ass.avatar ?? Avatar}
-                                      className="mr-2 h-4 w-4 rounded-xl"
-                                    />
-                                    <span>{ass.name}</span>
+                                <img
+                                  alt="user's avatar"
+                                  src={ass.avatar ?? Avatar}
+                                  className="mr-2 h-4 w-4 rounded-xl"
+                                />
+                                <span>{ass.name}</span>
                               </CommandItem>
                             );
                           })}
@@ -281,8 +281,9 @@ export function TaskForm({ taskId }) {
                           <PopoverContent className="w-auto p-0">
                             <Calendar
                               mode="single"
-                              selected={field.value}
+                              selected={new Date(task.dueDate) || field.value }
                               onSelect={field.onChange}
+                              disabled={{ before: new Date() }}
                               initialFocus
                             />
                           </PopoverContent>
@@ -350,7 +351,7 @@ export function TaskForm({ taskId }) {
               variant="ghost"
               onClick={() => handleClickDelete()}
               className="text-red-500 w-max flex justify-center align-end">
-              {isLoading ? <Spinner size="small" /> : <Trash2 />}{" "}
+              {isLoading ? <Spinner size="small" /> : <Trash2 size="18" />}{" "}
             </Button>
             <Button
               type="submit"
