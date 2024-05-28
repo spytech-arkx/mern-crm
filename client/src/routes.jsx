@@ -1,8 +1,8 @@
-import LogInPage from "./pages/auth/login-page.jsx";
-import SignUpPage from "./pages/auth/signup-page.jsx";
+import LogInPage from "./pages/login-page.jsx";
+import SignUpPage from "./pages/signup-page.jsx";
 
-import GeneralError from "./pages/errors/500.jsx";
-import NotFoundError from "./pages/errors/404.jsx";
+import GeneralError from "./pages/500.jsx";
+import NotFoundError from "./pages/404.jsx";
 
 import TaskList from "./components/entities/tasks/list.jsx";
 import { TaskFormDrawer } from "./components/entities/tasks/form-drawer.jsx";
@@ -10,7 +10,6 @@ import { TaskForm } from "./components/entities/tasks/form-edit.jsx";
 import { TaskForm2 } from "./components/entities/tasks/form-create.jsx";
 import Dashboard from "./components/dashboard/Dashboard.jsx";
 import KanbanBoard from "./components/dashboard/kanban.jsx";
-import ProfilePage from "./components/profile/ProfilePage.jsx";
 import CompanyDetails from "./components/dashboard/companies/CompanyDetails.jsx";
 import CompaniesList from "./components/dashboard/companies/CompaniesList.jsx";
 
@@ -20,11 +19,16 @@ import { AuthenticatedRoute, UnauthenticatedRoute } from "./features/auth/videur
 import "./styles/index.css";
 import Root from "./root.jsx";
 import Index from "./components/shared/Index.jsx";
+import SettingsProfilePage from "./pages/profile-page.jsx";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: (
+      <AuthenticatedRoute>
+        <Root />
+      </AuthenticatedRoute>
+    ),
     errorElement: <GeneralError />,
     children: [
       {
@@ -51,7 +55,7 @@ export const router = createBrowserRouter([
             path: "/profile",
             element: (
               <AuthenticatedRoute>
-                <ProfilePage />
+                <SettingsProfilePage />
               </AuthenticatedRoute>
             ),
           },
