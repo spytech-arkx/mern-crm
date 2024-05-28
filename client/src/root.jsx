@@ -23,25 +23,21 @@ export default function Root() {
           "nav footer"`}
         gridTemplateRows={"100px auto 60px"}
         gridTemplateColumns={isSidebarOpen ? "250px 1fr" : "60px 1fr"}
-        gap="1"
         color="blackAlpha.700">
         <GridItem
-          p="2"
           pos="relative"
-          bg="RGBA(0, 0, 0, 0.02)"
           w="100%"
-          ml={1}
-          mt={2}
+          mt={1}
           area={"header"}>
           <Navbar />
         </GridItem>
-        <GridItem pl="2" ml={1} bg="RGBA(0, 0, 0, 0.02)" position="fixed" area={"nav"}>
+        <GridItem position="fixed" area={"nav"}>
           <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
         </GridItem>
         <GridItem area={"main"}>
           <Outlet />
         </GridItem>
-        <GridItem bg="RGBA(0, 0, 0, 0.02)" area={"footer"}>
+        <GridItem area={"footer"}>
           <Footer />
         </GridItem>
       </Grid>

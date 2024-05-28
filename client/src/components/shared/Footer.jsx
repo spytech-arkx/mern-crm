@@ -2,7 +2,7 @@ import { Box } from "@chakra-ui/react";
 
 const Footer = () => {
   return (
-    <Box p="10" textAlign="center">
+    <Box p="10" textAlign="center" className="text-xs">
       © 2024 Mon Application. Tous droits réservés.
     </Box>
   );
