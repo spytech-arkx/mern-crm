@@ -1,4 +1,5 @@
 import { ProfileForm } from "@/components/profile/profile-form";
+import Index from "@/components/shared/Index";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { tabs } from "@/data/profile";
 import { useState } from "react";
@@ -27,7 +28,10 @@ export default function SettingsProfilePage() {
           ))}
         </TabsList>
         <TabsContent value="profile"><ProfileForm /></TabsContent>
-        <TabsContent value="password">Change your password here.</TabsContent>
+        <TabsContent value="preferences"><Index /></TabsContent>
+        <TabsContent value="security"><Index /></TabsContent>
+        <TabsContent value="data"><Index /></TabsContent>
+        <TabsContent value="socials"><Index /></TabsContent>
       </Tabs>
     </div>
   );
