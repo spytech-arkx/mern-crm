@@ -65,7 +65,6 @@ export function ProfileForm() {
   });
 
   async function onSubmit(data) {
-    console.log(data);
     try {
       await editUser({ id: user._id, data}).unwrap()
     } catch (error) {
