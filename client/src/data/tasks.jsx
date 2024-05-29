@@ -16,6 +16,7 @@ import {
 import { z } from "zod";
 
 export const taskSchema = z.object({
+  owner: z.string().trim().optional(),
   title: z
     .string()
     .max(46, {

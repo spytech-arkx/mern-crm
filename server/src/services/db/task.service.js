@@ -5,7 +5,7 @@ async function readTasks(filter, options, projection) {
   try {
     return await Task.find(filter, projection, options).sort({
       createdAt: -1,
-    }); // Return the response
+    }).populate("owner"); // Return the response
   } catch (err) {
     throw err;
   }

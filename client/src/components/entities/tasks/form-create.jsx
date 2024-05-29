@@ -1,12 +1,12 @@
 import "@uploadthing/react/styles.css";
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { taskSchema } from "@/data/tasks";
 
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { CalendarIcon, Plus} from "lucide-react";
+import { CalendarIcon, Plus } from "lucide-react";
 import {
   Avatar,
   Form,
@@ -40,20 +40,50 @@ import { format } from "date-fns";
 import { toast } from "sonner";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTaskDrawer } from "@/features/tasks/slice";
-import { UploadButton } from "@/lib/uploadthing";
+import { useUploadThing } from "@/lib/uploadthing";
+import { Label } from "@/components/ui/label";
+import { fileTypeIcons } from "@/data/file-types";
 
 export function TaskForm2() {
   const [open, setOpen] = useState(false);
+  const { user } = useSelector((state) => state.auth);
+
   const form = useForm({
     resolver: zodResolver(taskSchema),
+    defaultValues: {
+      owner: user?._id,
+    },
     mode: "onSubmit",
   });
-  const dispatch = useDispatch();
-  const { data, isLoading: pendingHydration } = useGetTasksListQuery();
 
-  const { user } = useSelector((state) => state.auth);
+  const { fields, append } = useFieldArray({
+    control: form.control,
+    name: "attachements",
+  });
+
+  // That thing for uploads
+  const { startUpload, isUploading } = useUploadThing("multiUploader", {
+    skipPolling: true,
+    onClientUploadComplete: (res) => {
+      append(
+        { name: res[0].name, size: res[0].size, type: res[0].type, url: res[0].url },
+        { shouldValidate: true },
+      );
+    },
+    onUploadError: (error) => {
+      console.error(error);
+      toast.error("Error occurred while uploading");
+    },
+    onUploadBegin: () => {
+      // May need it later.
+      // alert("upload has begun");
+    },
+  });
+
+  const dispatch = useDispatch();
   const [createTask, { isLoading: pendingCreation }] = useCreateTaskMutation();
 
+  const { data, isLoading: pendingHydration } = useGetTasksListQuery();
   if (pendingHydration) {
     return (
       <div className="w-screen h-screen flex justify-center align-middle">
@@ -286,58 +316,74 @@ export function TaskForm2() {
             </div>
             {/* Attachements */}
             <div className="pt-2">
-              <FormField
-                control={form.control}
-                name="attachements"
-                render={() => (
-                  <FormItem>
-                    <FormLabel className="text-xs font-semibold text-zinc-500">
-                      ATTACHEMENTS
-                    </FormLabel>
-                    <FormControl>
-                      <div className="flex justify-start">
-                        <UploadButton
-                          endpoint="imageUploader"
-                          appearance={{
-                            container: "flex-row gap-2",
-                            allowedContent: "text-neutral-950",
-                            button:
-                              "border border-neutral-200 bg-white text-neutral-950 shadow-sm hover:bg-neutral-100 hover:text-neutral-900 w-9 h-9",
-                          }}
-                          content={{
-                            button({ isUploading}) {
-                              if (isUploading) return <Spinner size="12"/>;
-                              return <Plus size="16"/>;
-                            },
-                            allowedContent() {
-                              return "Files up to 4MB, max 5";
-                            },
-                          }}
-                          onClientUploadComplete={(res) => {
-                            console.log("Files: ", res);
-                          }}
-                          onUploadError={(error) => {
-                            console.error(error);
-                            toast.error(`Couldn't upload file, please try again.`);
-                          }}
-                          onBeforeUploadBegin={(files) => {
-                            return files.map(
-                              (f) =>
-                                new File([f], `${user.email.split("@")[0]}-${f.name}`, {
-                                  type: f.type,
-                                }),
-                            );
-                          }}
-                          onUploadBegin={(name) => {
-                            console.log("Uploading: ", name);
-                          }}
-                        />
-                      </div>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="flex items-center gap-2 mt-2">
+                <Label className="text-xs font-semibold text-zinc-500">
+                  ATTACHEMENTS
+                </Label>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                  Up to 3 attachements (image, text, pdf, docx..)
+                </p>
+              </div>
+              <section className="flex gap-2 items-center mt-2">
+                {fields.map((field, index) => (
+                  <FormField
+                    control={form.control}
+                    key={field.id}
+                    name={`attachements.${index}`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Button
+                            variant="outline"
+                            type="button"
+                            className="px-3 h-12 grid grid-cols-[30%_1fr]"
+                            onClick={() => {
+                              const url = field.value.url;
+                              window.open(url, "_blank", "noopener,noreferrer");
+                            }}>
+                            <img
+                              src={
+                                fileTypeIcons.find((e) => e.mime === field.value.type)
+                                  .icon
+                              }
+                              alt="FileTypeIcon"
+                            />
+                            <div className="flex flex-col text-left">
+                              <span className="text-xs">{field.value.name}</span>
+                              <span className="text-xs text-neutral-80">
+                                {
+                                  fileTypeIcons.find((e) => e.mime === field.value.type)
+                                    .name
+                                }{" "}
+                                &bull; Download
+                              </span>
+                            </div>
+                          </Button>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                ))}
+                <Input
+                  hidden
+                  type="file"
+                  id="attachements"
+                  onChange={(event) => {
+                    startUpload([event.target.files[0]]);
+                  }}
+                />
+                <Button
+                  variant="outline"
+                  type="button"
+                  className="h-12 w-12"
+                  onClick={() => {
+                    // Imma do the forbidden, ,-,
+                    document.getElementById("attachements").click();
+                  }}>
+                  {isUploading ? <Spinner size="12" /> : <Plus size="16" />}
+                </Button>
+              </section>
             </div>
           </CardContent>
           <CardFooter className="justify-end self-end py-3">

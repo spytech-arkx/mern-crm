@@ -46,10 +46,12 @@ import { toggleTaskDrawer } from "@/features/tasks/slice";
 import { useUploadThing } from "@/lib/uploadthing";
 import { Label } from "@/components/ui/label";
 import { fileTypeIcons } from "@/data/file-types";
+import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu";
 
 export function TaskForm({ task }) {
   // some state
   const [open, setOpen] = useState(false);
+  
   // react-hook-form
   const form = useForm({
     resolver: zodResolver(taskSchema.omit({ title: true })),
@@ -59,7 +61,7 @@ export function TaskForm({ task }) {
     mode: "onSubmit",
   });
 
-  const { fields, append } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control: form.control,
     name: "attachements",
   });
@@ -168,7 +170,7 @@ export function TaskForm({ task }) {
             </div>
             {/* User, Created Time */}
             <span className="text-xs">
-              Added by <span className="underline text-violet-900">User</span>,{" "}
+              Added by <span className="underline text-violet-900">{`${task.owner?.firstName ?? "Unknown"} ${task.owner?.lastName ?? "User"}`}</span>,{" "}
               {formatDistanceToNow(task.createdAt)} ago.
             </span>
           </CardHeader>
@@ -371,10 +373,13 @@ export function TaskForm({ task }) {
                     render={({ field }) => (
                       <FormItem>
                         <FormControl>
+                        <ContextMenu>
+                         <ContextMenuTrigger>
                           <Button
                             variant="outline"
                             type="button"
-                            className="px-3 h-12 grid grid-cols-[30%_1fr]"
+                            id={`attachements-button-${index}`}
+                            className="pl-1 pr-3 h-12 flex gap-2"
                             onClick={() => {
                               const url = field.value.url;
                               window.open(url, '_blank', 'noopener,noreferrer');
@@ -385,6 +390,14 @@ export function TaskForm({ task }) {
                               <span className="text-xs text-neutral-80">{fileTypeIcons.find((e) => e.mime === field.value.type).name} &bull; Download</span>
                             </div>
                           </Button>
+                            </ContextMenuTrigger>
+                        <ContextMenuContent>
+                          <ContextMenuItem className="text-[0.8rem] text-justify" onSelect={() => document.getElementById(`attachements-button-${index}`).click()}>View in a new tab</ContextMenuItem>
+                          <ContextMenuItem disabled className="text-[0.8rem] text-justify">Replace</ContextMenuItem>
+                          <Separator />
+                          <ContextMenuItem className="text-[0.8rem] text-red-500 text-justify" onSelect={() => remove(index)}>Delete</ContextMenuItem>
+                         </ContextMenuContent>
+                            </ContextMenu>
                         </FormControl>
                         <FormMessage />
                       </FormItem>
