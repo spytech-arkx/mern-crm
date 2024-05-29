@@ -1,4 +1,4 @@
-import { useForm } from "react-hook-form";
+import { useFieldArray, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { taskSchema } from "@/data/tasks";
 
@@ -43,40 +43,72 @@ import { format, formatDistanceToNow } from "date-fns";
 import { toast } from "sonner";
 import { useDispatch } from "react-redux";
 import { toggleTaskDrawer } from "@/features/tasks/slice";
+import { useUploadThing } from "@/lib/uploadthing";
+import { Label } from "@/components/ui/label";
+import { fileTypeIcons } from "@/data/file-types";
 
-export function TaskForm({ taskId }) {
+export function TaskForm({ task }) {
+  // some state
   const [open, setOpen] = useState(false);
+  // react-hook-form
   const form = useForm({
     resolver: zodResolver(taskSchema.omit({ title: true })),
+    defaultValues: {
+      attachements: task.attachements,
+    },
     mode: "onSubmit",
   });
+
+  const { fields, append } = useFieldArray({
+    control: form.control,
+    name: "attachements",
+  });
+
+  // Redux, Did we really need to use it?
   const dispatch = useDispatch();
   const [editTask, { isLoading }] = useEditTaskMutation();
   const [deleteTask, { isLoading: pendingDelete }] = useDeleteTaskMutation();
   const { data } = useGetTasksListQuery();
-  const { task } = useGetTasksListQuery(undefined, {
-    selectFromResult: ({ data }) => ({
-      task: data?.find((task) => task.id === taskId),
-    }),
-  });
 
-  if (!task || !data)
+  // That thing for uploads
+  const { startUpload, isUploading } = useUploadThing("multiUploader", {
+    skipPolling: true,
+    onClientUploadComplete: (res) => {
+      append(
+        { name: res[0].name, size: res[0].size, type: res[0].type, url: res[0].url },
+        { shouldValidate: true },
+      );
+    },
+    onUploadError: (error) => {
+      console.error(error);
+      toast.error("Error occurred while uploading");
+    },
+    onUploadBegin: () => {
+      // May need it later.
+      // alert("upload has begun");
+    },
+  });
+  
+  // It is what it is. Gotta learn SSC.
+  if (!data)
     return (
       <div className="w-screen h-screen flex justify-center align-middle">
         <Spinner size="large" />
       </div>
     );
 
+  // This will be removed.
   const assignees = data.map((task) => {
     return { name: task.assignee?.name, avatar: task.assignee?.avatar };
   });
 
+  // Handlers
   const handleClickDelete = async () => {
     if (!pendingDelete) {
       try {
         await deleteTask(task._id).unwrap();
         dispatch(toggleTaskDrawer());
-        toast.success(`Task ${taskId} deletion was successful.`);
+        toast.success(`Task ${task.id} deletion was successful.`);
       } catch (err) {
         console.error(err);
         toast.error(`Failed deleting task.`);
@@ -141,7 +173,7 @@ export function TaskForm({ taskId }) {
             </span>
           </CardHeader>
           <Separator />
-          <CardContent className="py-0 grow">
+          <CardContent className="py-0 mb-0 grow">
             <div className="flex flex-wrap flex-col gap-3 py-6">
               {/* Assignee */}
               <div className="flex items-center gap-1">
@@ -266,6 +298,7 @@ export function TaskForm({ taskId }) {
                           <PopoverTrigger asChild>
                             <Button
                               variant={"outline"}
+                              type="button"
                               className={cn(
                                 "w-max justify-start p-0 shadow-none text-left font-normal border-none",
                                 !task.dueDate && "text-muted-foreground",
@@ -281,7 +314,7 @@ export function TaskForm({ taskId }) {
                           <PopoverContent className="w-auto p-0">
                             <Calendar
                               mode="single"
-                              selected={new Date(task.dueDate) || field.value }
+                              selected={new Date(task.dueDate) || field.value}
                               onSelect={field.onChange}
                               disabled={{ before: new Date() }}
                               initialFocus
@@ -309,6 +342,7 @@ export function TaskForm({ taskId }) {
                       <ScrollArea className=" bg-gray-100 rounded-md border ">
                         <div className="p-3 rounded-lg">
                           <Tiptap
+                            data-vaul-no-drag
                             description={field.value ?? task.description}
                             onChange={field.onChange}
                           />
@@ -322,25 +356,60 @@ export function TaskForm({ taskId }) {
             </div>
             {/* Attachements */}
             <div className="pt-2">
-              <FormField
-                control={form.control}
-                name="attachements"
-                render={() => (
-                  <FormItem>
-                    <FormLabel className="text-xs font-semibold text-zinc-500">
-                      ATTACHEMENTS
-                    </FormLabel>
-                    <FormControl>
-                      <section>
-                        <Button variant="outline" type="button" size="icon">
-                          <Plus size="12" />
-                        </Button>
-                      </section>
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+              <div className="flex items-center gap-2 mt-2">
+              <Label className="text-xs font-semibold text-zinc-500">ATTACHEMENTS</Label>
+                <p className="text-xs text-neutral-500 dark:text-neutral-400">
+                  Up to 3 attachements (image, text, pdf, docx..)
+                </p>
+              </div>
+              <section className="flex gap-2 items-center mt-2">
+                {fields.map((field, index) => (
+                  <FormField
+                    control={form.control}
+                    key={field.id}
+                    name={`attachements.${index}`}
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Button
+                            variant="outline"
+                            type="button"
+                            className="px-3 h-12 grid grid-cols-[30%_1fr]"
+                            onClick={() => {
+                              const url = field.value.url;
+                              window.open(url, '_blank', 'noopener,noreferrer');
+                            }}>
+                            <img src={fileTypeIcons.find((e) => e.mime === field.value.type).icon} alt="FileTypeIcon" />
+                            <div className="flex flex-col text-left">
+                              <span className="text-xs">{field.value.name}</span>
+                              <span className="text-xs text-neutral-80">{fileTypeIcons.find((e) => e.mime === field.value.type).name} &bull; Download</span>
+                            </div>
+                          </Button>
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                ))}
+                <Input
+                  hidden
+                  type="file"
+                  id="attachements"
+                  onChange={(event) => {
+                    startUpload([event.target.files[0]]);
+                  }}
+                />
+                <Button
+                  variant="outline"
+                  type="button"
+                  className="h-12 w-12"
+                  onClick={() => {
+                    // Imma do the forbidden, ,-,
+                    document.getElementById("attachements").click();
+                  }}>
+                  {isUploading ? <Spinner size="12" /> : <Plus size="16" />}
+                </Button>
+              </section>
             </div>
           </CardContent>
           <CardFooter className="justify-end self-end p-3 gap-2">

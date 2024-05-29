@@ -14,8 +14,8 @@ const Tiptap = ({ description, onChange }) => {
     extensions: [
       StarterKit.configure({
         heading: {
-          levels: [1, 2, 3]
-        }
+          levels: [1, 2, 3],
+        },
       }),
       Placeholder.configure({
         placeholder: "Write here...",
@@ -26,7 +26,8 @@ const Tiptap = ({ description, onChange }) => {
     content: description,
     editorProps: {
       attributes: {
-        class: "border-none rounded-lg min-h-20 max-h-60 w-[620px] shadow-none py-0 pl-0 text-s break-words",
+        class:
+          "border-none rounded-lg min-h-20 max-h-60 w-[620px] shadow-none py-0 pl-0 text-s break-words",
       },
     },
     onUpdate({ editor }) {
@@ -34,10 +35,10 @@ const Tiptap = ({ description, onChange }) => {
     },
   });
   return (
-    <>
+    <div data-vaul-no-drag>
       {/* <Toolbar editor={editor} /> */}
-      <EditorContent editor={editor} />
-    </>
+      <EditorContent data-vaul-no-drag editor={editor} />
+    </div>
   );
 };
 

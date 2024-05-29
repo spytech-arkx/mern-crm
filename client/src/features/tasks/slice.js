@@ -4,14 +4,14 @@ const tasksSlice = createSlice({
     name: 'tasks',
     initialState: {
         drawer: false,
-        id: "",
+        task: null,
     },
     reducers: {
         toggleTaskDrawer(state) {
             state.drawer = !state.drawer;
         },
         focusTaskById(state, action) {
-            state.id = action.payload;
+            state.task = action.payload;
         }
     },
 })

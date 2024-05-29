@@ -29,7 +29,13 @@ export const taskSchema = z.object({
   assignee: z.object({
     name: z.string().trim(),
     avatar: z.string().trim(),
-  }).optional()
+  }).optional(),
+  attachements: z.array(z.object({
+    name: z.string().trim(),
+    type: z.string().trim(),
+    size: z.number(),
+    url: z.string().url(),
+  }).optional()).max(3, "3 Attachements max.").optional(),
 });
 
 export const taskUpdateSchema = taskSchema.omit({ title: true });

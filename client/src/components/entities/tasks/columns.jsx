@@ -7,6 +7,7 @@ import { DataTableRowActions } from "./data-table-row-actions";
 import { CalendarClock, Plus } from "lucide-react";
 
 import { format } from "date-fns";
+import { cn } from "@/lib/utils";
 
 export const columns = [
   {
@@ -54,7 +55,11 @@ export const columns = [
               {label.label}
             </Badge>
           )}
-          <span className="truncate font-medium max-w-full sm:max-w-[150px] md:max-w-[300px] lg:max-w-[600px]">
+          <span
+            className={cn(
+              "truncate font-medium max-w-full sm:max-w-[150px] md:max-w-[300px] lg:max-w-[600px]",
+              row.getValue("status") === "done" ? "line-through" : "",
+            )}>
             {row.getValue("title")}
           </span>
         </div>
@@ -98,7 +103,7 @@ export const columns = [
       if (date == "Invalid Date")
         return (
           <div className="flex items-center space-x-2">
-              <Plus size="16" className="max-w-[200px] truncate text-neutral-70 text-xs"/>
+            <Plus size="16" className="max-w-[200px] truncate text-neutral-70 text-xs" />
           </div>
         );
       return (
