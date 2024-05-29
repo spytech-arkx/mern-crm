@@ -38,7 +38,7 @@ export function DataTableRowActions({ row }) {
     alert("Clicked!");
   }
   const handleClickEdit = () => {
-    dispatch(focusTaskById(task.id));
+    dispatch(focusTaskById(task));
     dispatch(toggleTaskDrawer());
   };
 

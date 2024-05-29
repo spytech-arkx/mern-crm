@@ -78,7 +78,7 @@ export function DataTable({ columns, data }) {
                   key={row.id}
                   className="cursor-pointer"
                   onClick={() => {
-                    dispatch(focusTaskById(row.original.id));
+                    dispatch(focusTaskById(row.original));
                     dispatch(toggleTaskDrawer());
                   }}
                   data-state={row.getIsSelected() && "selected"}>

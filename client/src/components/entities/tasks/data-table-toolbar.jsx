@@ -69,7 +69,7 @@ export function DataTableToolbar({ table }) {
       <Button
         variant="outline"
         onClick={() => {
-          dispatch(focusTaskById(""));
+          dispatch(focusTaskById(null));
           dispatch(toggleTaskDrawer());
         }}
         className="ml-2 h-8 px-2 lg:px-3 border text-xs rounded-md">

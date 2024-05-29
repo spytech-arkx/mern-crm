@@ -1,3 +1,4 @@
+import "@uploadthing/react/styles.css";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { taskSchema } from "@/data/tasks";
@@ -5,7 +6,7 @@ import { taskSchema } from "@/data/tasks";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import { CalendarIcon, Plus } from "lucide-react";
+import { CalendarIcon, Plus} from "lucide-react";
 import {
   Avatar,
   Form,
@@ -37,8 +38,9 @@ import { CaretSortIcon } from "@radix-ui/react-icons";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { toast } from "sonner";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { toggleTaskDrawer } from "@/features/tasks/slice";
+import { UploadButton } from "@/lib/uploadthing";
 
 export function TaskForm2() {
   const [open, setOpen] = useState(false);
@@ -49,7 +51,7 @@ export function TaskForm2() {
   const dispatch = useDispatch();
   const { data, isLoading: pendingHydration } = useGetTasksListQuery();
 
-
+  const { user } = useSelector((state) => state.auth);
   const [createTask, { isLoading: pendingCreation }] = useCreateTaskMutation();
 
   if (pendingHydration) {
@@ -81,8 +83,8 @@ export function TaskForm2() {
         className="mx-auto max-w-[600px] h-screen flex flex-col justify-center">
         <Card className="border-none bg-none h-full flex flex-col">
           <CardHeader>
-                        {/* Header */}
-                        <div className="flex justify-between">
+            {/* Header */}
+            <div className="flex justify-between">
               <span className="text-xs text-gray-400">
                 {formatter.format(new Date())}
               </span>
@@ -98,10 +100,16 @@ export function TaskForm2() {
                     <FormControl>
                       <Input
                         id="title"
-                        className={cn("border-none text-xl font-bold focus-visible:ring-opacity-0 shadow-none py-0 pl-0",
-                        form.formState.errors.title ? "placeholder:text-red-500" : "")}
-                        placeholder={form.formState.errors.title ? "Title is required." : "Title: ex. Sell kidney to buy Porshe."}
-                        value={field.value || ''}
+                        className={cn(
+                          "border-none text-xl font-bold focus-visible:ring-opacity-0 shadow-none py-0 pl-0",
+                          form.formState.errors.title ? "placeholder:text-red-500" : "",
+                        )}
+                        placeholder={
+                          form.formState.errors.title
+                            ? "Title is required."
+                            : "Title: ex. Sell kidney to buy Porshe."
+                        }
+                        value={field.value || ""}
                         onChange={field.onChange}
                       />
                     </FormControl>
@@ -287,11 +295,44 @@ export function TaskForm2() {
                       ATTACHEMENTS
                     </FormLabel>
                     <FormControl>
-                      <section>
-                        <Button variant="outline" type="button" size="icon">
-                          <Plus size="12" />
-                        </Button>
-                      </section>
+                      <div className="flex justify-start">
+                        <UploadButton
+                          endpoint="imageUploader"
+                          appearance={{
+                            container: "flex-row gap-2",
+                            allowedContent: "text-neutral-950",
+                            button:
+                              "border border-neutral-200 bg-white text-neutral-950 shadow-sm hover:bg-neutral-100 hover:text-neutral-900 w-9 h-9",
+                          }}
+                          content={{
+                            button({ isUploading}) {
+                              if (isUploading) return <Spinner size="12"/>;
+                              return <Plus size="16"/>;
+                            },
+                            allowedContent() {
+                              return "Files up to 4MB, max 5";
+                            },
+                          }}
+                          onClientUploadComplete={(res) => {
+                            console.log("Files: ", res);
+                          }}
+                          onUploadError={(error) => {
+                            console.error(error);
+                            toast.error(`Couldn't upload file, please try again.`);
+                          }}
+                          onBeforeUploadBegin={(files) => {
+                            return files.map(
+                              (f) =>
+                                new File([f], `${user.email.split("@")[0]}-${f.name}`, {
+                                  type: f.type,
+                                }),
+                            );
+                          }}
+                          onUploadBegin={(name) => {
+                            console.log("Uploading: ", name);
+                          }}
+                        />
+                      </div>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

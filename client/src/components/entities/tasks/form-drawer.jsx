@@ -6,7 +6,7 @@ import { TaskForm2 } from "./form-create";
 
 export function TaskFormDrawer() {
   const openDrawer = useSelector((state) => state.tasks.drawer);
-  const id = useSelector((state) => state.tasks.id);
+  const task = useSelector((state) => state.tasks.task);
   const dispatch = useDispatch();
 
   const handleOpenChange = (isOpen) => {
@@ -19,7 +19,7 @@ export function TaskFormDrawer() {
     <Drawer direction="right" open={openDrawer} onOpenChange={handleOpenChange}>
       <div className="border-none">
         <DrawerContent className="w-max h-screen ml-auto border-none">
-          {id ? <TaskForm taskId={id} /> : <TaskForm2 />}
+          {task ? <TaskForm task={task} /> : <TaskForm2 />}
         </DrawerContent>
       </div>
     </Drawer>
