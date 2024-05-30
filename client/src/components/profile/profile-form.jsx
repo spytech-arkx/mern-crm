@@ -23,11 +23,11 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { useUploadThing } from "@/lib/uploadthing";
 import { Spinner } from "../ui/spinner";
-import { useSelector } from "react-redux";
+import { useState } from "react";
 
-export function ProfileForm() {
-  const { user } = useSelector((state) => state.auth);
-  const [editUser, { isLoading }] = useEditUserMutation()
+export function ProfileForm({ user }) {
+  const [editUser, { isLoading }] = useEditUserMutation();
+  const [imageKey, setImageKey] = useState("");
 
   const form = useForm({
     resolver: zodResolver(profileFormSchema),
@@ -39,7 +39,9 @@ export function ProfileForm() {
       username: user?.username || "",
       phone: user?.phone,
       bio: user?.bio || "",
-      urls: user?.urls.map((url) => ({ value: url })) || [{ value: "https://twitter.com/fashyl_"}],
+      urls: user?.urls.map((url) => ({ value: url })) || [
+        { value: "" },
+      ],
     },
     mode: "onChange",
   });
@@ -53,22 +55,20 @@ export function ProfileForm() {
     skipPolling: true,
     onClientUploadComplete: (res) => {
       form.setValue("avatar", res[0].url, { shouldValidate: true });
+      setTimeout(() => setImageKey(Date.now()), 1500); // 👀
     },
     onUploadError: (error) => {
       console.error(error);
       toast.error("Error occurred while uploading");
-    },
-    onUploadBegin: () => {
-      // May need it later.
-      // alert("upload has begun");
-    },
+    }
   });
 
   async function onSubmit(data) {
     try {
-      await editUser({ id: user._id, data}).unwrap()
+      await editUser({ id: user._id, data }).unwrap();
+      toast.info("Profile updated! 👌")
     } catch (error) {
-      console.error(error)
+      console.error(error);
       toast.error("Couldn't update profile, please try again");
     }
   }
@@ -81,45 +81,45 @@ export function ProfileForm() {
             <Card className="bg-white dark:bg-gray-950 rounded-none">
               <CardContent className="space-y-4 pt-6">
                 <div className="flex items-center gap-4 pt-2">
-                  <Avatar className="h-20 w-20">
-                    <AvatarImage alt="avatar" src={form.getValues("avatar")} />
-                    <AvatarFallback className="bg-lime-20 text-neutral-500 text-xs font-medium">
-                      None.
-                    </AvatarFallback>
-                  </Avatar>
+                  <FormField
+                    name="avatar"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormControl>
+                          <Avatar className="h-20 w-20">
+                            <AvatarImage alt="avatar" src={field.value} key={imageKey} />
+                            <AvatarFallback className="bg-lime-20 text-neutral-500 font-medium">
+                              {`${user?.firstName[0]} ${user?.lastName[0]}`}
+                            </AvatarFallback>
+                          </Avatar>
+                        </FormControl>
+                      </FormItem>
+                    )}
+                  />
                   <div className="grid gap-2">
-                    <FormField
-                      name="avatar"
-                      render={() => (
-                        <FormItem>
-                          <FormControl>
-                            <div>
-                              <Button
-                                type="button"
-                                variant="outline"
-                                className="text-neutral-90 dark:hover:bg-lime-900 w-max"
-                                onClick={() => {
-                                  // Imma do the forbidden, ,-,
-                                  document.getElementById("avatar").click();
-                                }}>
-                                {isUploading ? <Spinner /> : "Change Avatar"}
-                              </Button>
-                              <Input
-                                hidden
-                                type="file"
-                                id="avatar"
-                                onChange={(event) => {
-                                  startUpload([event.target.files[0]]);
-                                }}
-                              />
-                            </div>
-                          </FormControl>
-                          <FormDescription>
-                            Update your profile picture (4MB max..).
-                          </FormDescription>
-                        </FormItem>
-                      )}
-                    />
+                    <div>
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="text-neutral-90 dark:hover:bg-lime-900 w-max"
+                        onClick={() => {
+                          // Imma do the forbidden, ,-,
+                          document.getElementById("avatar").click();
+                        }}>
+                        {isUploading ? <Spinner /> : "Change Avatar"}
+                      </Button>
+                      <Input
+                        hidden
+                        type="file"
+                        id="avatar"
+                        onChange={(event) => {
+                          startUpload([event.target.files[0]]);
+                        }}
+                      />
+                    </div>
+                    <p className="text-[0.8rem] text-neutral-500 dark:text-neutral-400">
+                      Update your profile picture (4MB max..).
+                    </p>
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">

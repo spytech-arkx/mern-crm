@@ -19,6 +19,7 @@ export const taskSchema = z.object({
   owner: z.string().trim().optional(),
   title: z
     .string()
+    .min(2, "Tile is required.")
     .max(46, {
       message: "Title too long.",
     }),

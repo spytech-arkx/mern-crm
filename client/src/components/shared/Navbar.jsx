@@ -22,8 +22,11 @@ import {
   RepeatIcon,
   EditIcon,
 } from "@chakra-ui/icons";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
+  const { user } = useSelector((state) => state.auth);
+
   return (
     <Flex mt={2}>
       {/* Logo */}
@@ -73,18 +76,18 @@ const Navbar = () => {
         />
 
         <Box as="span" mr={4} fontWeight="bold">
-          Welcome back user!
+          Welcome back {user?.firstName ?? "User"}!
         </Box>
         <Menu>
           <MenuButton
             as={Avatar}
-            p={2}
             bg="black"
-            name="New User"
+            src={user?.avatar}
+            name={`${user?.firstName ?? "Unknown"} ${user?.lastName ?? "User"}`}
             boxSize="40px"
             aria-label="Options"
             variant="outline">
-            <AvatarBadge boxSize="0.9em" bg="green.500" />
+            <AvatarBadge boxSize="0.9em" bg="green.500"/>
           </MenuButton>
           <MenuList>
             <Link

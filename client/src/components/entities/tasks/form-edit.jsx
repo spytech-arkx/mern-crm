@@ -57,6 +57,8 @@ export function TaskForm({ task }) {
     resolver: zodResolver(taskSchema.omit({ title: true })),
     defaultValues: {
       attachements: task.attachements,
+      title: task.title,
+      description: task.description,
     },
     mode: "onSubmit",
   });
@@ -156,7 +158,7 @@ export function TaskForm({ task }) {
                         placeholder={
                           task.title ?? "Title: ex. Sell kidney to buy Porshe."
                         }
-                        value={field.value || task.title}
+                        value={field.value}
                         onChange={field.onChange}
                       />
                     </FormControl>
@@ -345,7 +347,7 @@ export function TaskForm({ task }) {
                         <div className="p-3 rounded-lg">
                           <Tiptap
                             data-vaul-no-drag
-                            description={field.value ?? task.description}
+                            description={field.value}
                             onChange={field.onChange}
                           />
                         </div>

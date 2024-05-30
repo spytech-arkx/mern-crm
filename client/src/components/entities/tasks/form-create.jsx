@@ -101,8 +101,8 @@ export function TaskForm2() {
       await createTask(data).unwrap();
       dispatch(toggleTaskDrawer());
     } catch (err) {
-      console.error(err);
-      toast.error("Failed Task Creation..");
+      console.error(err.data);
+      toast.error(`Failed Task Creation`);
     }
   }
 
@@ -386,8 +386,8 @@ export function TaskForm2() {
               </section>
             </div>
           </CardContent>
-          <CardFooter className="justify-end self-end py-3">
-            <FormMessage />
+          <CardFooter className="justify-between py-3">
+            {form.formState.errors ? console.log(form.formState.errors) && <p className="text-[0.8rem] dark:text-neutral-400 text-red-500">{JSON.stringify(form.formState.errors)}</p> : ""}
             <Button
               type="submit"
               disabled={pendingCreation}
