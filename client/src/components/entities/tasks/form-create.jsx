@@ -324,7 +324,7 @@ export function TaskForm2() {
                   Up to 3 attachements (image, text, pdf, docx..)
                 </p>
               </div>
-              <section className="flex gap-2 items-center mt-2">
+              <section className="flex gap-2 items-center mt-3 flex-wrap whitespace-normal">
                 {fields.map((field, index) => (
                   <FormField
                     control={form.control}

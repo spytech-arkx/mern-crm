@@ -134,7 +134,7 @@ export function TaskForm({ task }) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto max-w-[600px] h-full flex flex-col justify-center">
+        className="mx-auto w-max h-full flex flex-col justify-center">
         <Card className="border-none bg-none h-full flex flex-col">
           <CardHeader>
             {/* Header */}
@@ -366,7 +366,7 @@ export function TaskForm({ task }) {
                   Up to 3 attachements (image, text, pdf, docx..)
                 </p>
               </div>
-              <section className="flex gap-2 items-center mt-2">
+              <section className="flex gap-2 items-center mt-3 flex-wrap whitespace-normal">
                 {fields.map((field, index) => (
                   <FormField
                     control={form.control}

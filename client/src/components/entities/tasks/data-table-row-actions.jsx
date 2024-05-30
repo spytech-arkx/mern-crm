@@ -35,8 +35,9 @@ export function DataTableRowActions({ row }) {
   };
 
   const handleClickView = () => {
-    alert("Clicked!");
-  }
+    dispatch(focusTaskById(task));
+    dispatch(toggleTaskDrawer());
+  };
   const handleClickEdit = () => {
     dispatch(focusTaskById(task));
     dispatch(toggleTaskDrawer());
@@ -52,11 +53,22 @@ export function DataTableRowActions({ row }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-[160px]">
         <DropdownMenuGroup>
-          <DropdownMenuItem onClick={(e) => e.stopPropagation()} onSelect={handleClickView}>View</DropdownMenuItem>
-          <DropdownMenuItem onClick={(e) => e.stopPropagation()} onSelect={handleClickEdit}>Edit</DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={(e) => e.stopPropagation()}
+            onSelect={handleClickView}>
+            View
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={(e) => e.stopPropagation()}
+            onSelect={handleClickEdit}>
+            Edit
+          </DropdownMenuItem>
           <DropdownMenuSeparator />
           <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={(e) => e.stopPropagation()} onSelect={handleClickDelete}>
+          <DropdownMenuItem
+            onClick={(e) => e.stopPropagation()}
+            onSelect={handleClickDelete}
+            className="focus:text-red-500">
             Delete
             <DropdownMenuShortcut>⌘⌫</DropdownMenuShortcut>
           </DropdownMenuItem>

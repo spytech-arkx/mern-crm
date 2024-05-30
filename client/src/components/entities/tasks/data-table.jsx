@@ -23,6 +23,16 @@ import { DataTablePagination } from "./data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { useDispatch } from "react-redux";
 import { focusTaskById, toggleTaskDrawer } from "@/features/tasks/slice";
+import {
+  ContextMenu,
+  ContextMenuContent,
+  ContextMenuItem,
+  ContextMenuSeparator,
+  ContextMenuShortcut,
+  ContextMenuTrigger,
+} from "@/components/ui/context-menu";
+import { toast } from "sonner";
+import { useDeleteTaskMutation } from "@/features/api/tasks";
 
 export function DataTable({ columns, data }) {
   const dispatch = useDispatch();
@@ -30,6 +40,7 @@ export function DataTable({ columns, data }) {
   const [columnVisibility, setColumnVisibility] = React.useState({ id: false });
   const [columnFilters, setColumnFilters] = React.useState([]);
   const [sorting, setSorting] = React.useState([]);
+  const [deleteTask, { isLoading: pendingDelete }] = useDeleteTaskMutation();
   const table = useReactTable({
     data,
     columns,
@@ -51,6 +62,29 @@ export function DataTable({ columns, data }) {
     getFacetedRowModel: getFacetedRowModel(),
     getFacetedUniqueValues: getFacetedUniqueValues(),
   });
+
+  const handleClickDelete = async (task) => {
+    if (!pendingDelete) {
+      try {
+        await deleteTask(task._id).unwrap();
+        toast.success(`Task ${task.id} deletion was successful.`);
+      } catch (err) {
+        console.error(err);
+        toast.error(`Failed deleting task.`);
+      }
+    }
+  };
+
+  const handleClickView = (task) => {
+    dispatch(focusTaskById(task));
+    dispatch(toggleTaskDrawer());
+  };
+
+  const handleClickEdit = (task) => {
+    dispatch(focusTaskById(task));
+    dispatch(toggleTaskDrawer());
+  };
+
   return (
     <div className="space-y-4">
       <DataTableToolbar table={table} />
@@ -74,20 +108,44 @@ export function DataTable({ columns, data }) {
           <TableBody>
             {table.getRowModel().rows?.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  className="cursor-pointer"
-                  onClick={() => {
-                    dispatch(focusTaskById(row.original));
-                    dispatch(toggleTaskDrawer());
-                  }}
-                  data-state={row.getIsSelected() && "selected"}>
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </TableCell>
-                  ))}
-                </TableRow>
+                <ContextMenu key={row.id}>
+                  <ContextMenuTrigger asChild>
+                    <TableRow
+                      className="cursor-pointer"
+                      onClick={() => {
+                        dispatch(focusTaskById(row.original));
+                        dispatch(toggleTaskDrawer());
+                      }}
+                      data-state={row.getIsSelected() && "selected"}>
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>
+                          {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  </ContextMenuTrigger>
+                  <ContextMenuContent>
+                    <ContextMenuItem
+                      onClick={(e) => e.stopPropagation()}
+                      onSelect={() => handleClickView(row.original)}>
+                      View
+                    </ContextMenuItem>
+                    <ContextMenuItem
+                      onClick={(e) => e.stopPropagation()}
+                      onSelect={() => handleClickEdit(row.original)}>
+                      Edit
+                    </ContextMenuItem>
+                    <ContextMenuSeparator />
+                    <ContextMenuSeparator />
+                    <ContextMenuItem
+                      onClick={(e) => e.stopPropagation()}
+                      onSelect={() => handleClickDelete(row.original)}
+                      className="focus:text-red-500">
+                      Delete
+                      <ContextMenuShortcut>⌘⌫</ContextMenuShortcut>
+                    </ContextMenuItem>
+                  </ContextMenuContent>
+                </ContextMenu>
               ))
             ) : (
               <TableRow>
@@ -95,9 +153,7 @@ export function DataTable({ columns, data }) {
                   onClick={() => dispatch(toggleTaskDrawer())}
                   colSpan={columns.length}
                   className="h-56 cursor-pointer text-center">
-                  <h3 className="text-lg font-bold tracking-tight">
-                    You have no tasks
-                  </h3>
+                  <h3 className="text-lg font-bold tracking-tight">You have no tasks</h3>
                   <p className="text-sm text-muted-foreground">
                     Click here to add your first 😃.
                   </p>
