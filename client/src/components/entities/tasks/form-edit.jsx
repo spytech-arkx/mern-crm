@@ -54,7 +54,7 @@ export function TaskForm({ task }) {
   
   // react-hook-form
   const form = useForm({
-    resolver: zodResolver(taskSchema.omit({ title: true })),
+    resolver: zodResolver(taskSchema),
     defaultValues: {
       attachements: task.attachements,
       title: task.title,

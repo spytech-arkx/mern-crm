@@ -387,7 +387,6 @@ export function TaskForm2() {
             </div>
           </CardContent>
           <CardFooter className="justify-between py-3">
-            {form.formState.errors ? console.log(form.formState.errors) && <p className="text-[0.8rem] dark:text-neutral-400 text-red-500">{JSON.stringify(form.formState.errors)}</p> : ""}
             <Button
               type="submit"
               disabled={pendingCreation}
