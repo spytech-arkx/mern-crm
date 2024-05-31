@@ -16,8 +16,8 @@ import { TaskForm2 } from "./components/entities/tasks/form-create.jsx";
 import Dashboard from "./components/dashboard/Dashboard.jsx";
 import KanbanBoard from "./components/dashboard/kanban.jsx";
 import ProfilePage from "./components/profile/ProfilePage.jsx";
-import CompanyDetails from "./components/dashboard/companies/CompanyDetails.jsx";
-import CompaniesList from "./components/dashboard/companies/CompaniesList.jsx";
+import CompanyDetails from "./components/entities/companies/CompanyDetails.jsx";
+import CompaniesList from "./components/entities/companies/CompaniesList.jsx";
 
 import { BrowserRouter, Route, Routes } from "react-router-dom/dist";
 import { useState } from "react";
@@ -38,32 +38,18 @@ export default function App() {
       <BrowserRouter>
         <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
           <Grid
-            templateAreas={`"nav header"
-          "nav main"
-          "nav footer"`}
-            gridTemplateRows={"100px auto 60px"}
-            gridTemplateColumns={isSidebarOpen ? "250px 1fr" : "60px 1fr"}
+            templateColumns={isSidebarOpen ? "250px 1fr" : "60px 1fr"}
+            templateRows="100px auto 60px"
             gap="1"
-            color="blackAlpha.700">
-            <GridItem
-              p="2"
-              pos="relative"
-              bg="RGBA(0, 0, 0, 0.02)"
-              w="100%"
-              ml={1}
-              mt={2}
-              area={"header"}>
+            color="blackAlpha.700"
+            minH="100vh">
+            <GridItem bg="RGBA(0, 0, 0, 0.02)" area="header">
               <Navbar />
             </GridItem>
-            <GridItem
-              pl="2"
-              ml={1}
-              bg="RGBA(0, 0, 0, 0.02)"
-              position="fixed"
-              area={"nav"}>
+            <GridItem bg="RGBA(0, 0, 0, 0.02)" area="nav">
               <Sidebar toggleSidebar={toggleSidebar} isSidebarOpen={isSidebarOpen} />
             </GridItem>
-            <GridItem area={"main"}>
+            <GridItem area="main" overflow="auto">
               <Routes>
                 <Route
                   path="/profile"

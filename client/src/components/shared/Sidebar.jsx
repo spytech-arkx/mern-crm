@@ -1,3 +1,4 @@
+import { useGetCompaniesListQuery } from "@/features/api/companies";
 import { ArrowRightIcon } from "@chakra-ui/icons";
 import {
   VStack,
@@ -6,10 +7,15 @@ import {
   Link,
   Center,
   Button,
-  Flex,
-  Image,
   Text,
+  Accordion,
+  AccordionItem,
+  AccordionButton,
+  AccordionPanel,
+  AccordionIcon,
+  Tooltip,
 } from "@chakra-ui/react";
+import React, { useState } from "react";
 import {
   FaHome,
   FaBuilding,
@@ -20,200 +26,171 @@ import {
   FaBars,
 } from "react-icons/fa";
 import { PiKanbanBold } from "react-icons/pi";
-
 import { Link as RouterLink } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
-import { fetchCompanies } from "@/features/companies/companies-slice";
+import Logo from "./Logo";
 
 const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
-  const dispatch = useDispatch();
-  const companies = useSelector((state) => state.companies.items);
-  const status = useSelector((state) => state.companies.status);
-  const error = useSelector((state) => state.companies.error);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const { data: companies = [], error, isLoading } = useGetCompaniesListQuery();
 
-  useEffect(() => {
-    if (status === "idle") {
-      dispatch(fetchCompanies());
-    }
-  }, [status, dispatch]);
+  const toggleExpansion = () => {
+    setIsExpanded(!isExpanded);
+  };
 
   return (
     <VStack
-      spacing={0}
+      className="custom-scrollbar"
+      spacing={2}
       align="stretch"
       fontSize="14px"
       overflowY="auto"
       mt={2}
       fontWeight="normal"
-      w={isSidebarOpen ? "250px" : "50px"}
-      transition="width 0.3s ease">
-      {isSidebarOpen ? (
-        <Center>
-          <Image
-            src="https://img.freepik.com/premium-vector/crm-icons-customer-relationship-management-vector-infographics-template_116137-3703.jpg"
-            alt="CRM Logo"
-            boxSize="70px"
-            borderRadius="50%"
-          />
-          <span>SANZ CRM</span>
-        </Center>
-      ) : (
-        <Image
-          src="https://img.freepik.com/premium-vector/crm-icons-customer-relationship-management-vector-infographics-template_116137-3703.jpg"
-          alt="CRM Logo"
-          boxSize="40px"
-          borderRadius="50%"
-        />
-      )}
-
-      <Divider mb={2} mt={2} />
-
-      {isSidebarOpen ? (
-        <Button mr={2} onClick={toggleSidebar} style={{ alignSelf: "flex-end" }}>
-          <FaBars />
-        </Button>
-      ) : (
-        <Center>
-          <Button onClick={toggleSidebar}>
-            <ArrowRightIcon />
-          </Button>
-        </Center>
-      )}
-
-      <Link
-        as={RouterLink}
-        to="/dashboard"
-        ml={4}
-        mt={6}
-        _hover={{ textDecoration: "none", bg: "blue.50" }}>
-        {isSidebarOpen ? (
-          <Flex align="center">
-            <FaHome />
-            <Box ml={4}>Dashboard</Box>
-          </Flex>
-        ) : (
-          <FaHome />
-        )}
-      </Link>
-
-      <Center>
-        <Divider mb={2} mt={2} />
+      w={isSidebarOpen ? { base: "200px", md: "250px" } : { base: "70px", md: "70px" }}
+      transition="width 0.3s ease"
+      boxShadow="md"
+      bg="white"
+      minH="100vh"
+      maxH="100vh"
+      ml={isSidebarOpen ? 0 : -4} // Reduced margin-left when sidebar is closed
+      display="flex"
+      flexDirection="column"
+      alignItems={isSidebarOpen ? "stretch" : "center"} // Center elements when sidebar is closed
+    >
+      <Center flexDirection="column" py={4}>
+        <Logo />
       </Center>
-      <Box _hover={{ bg: "blue.50" }}>
-        <Link as={RouterLink} to="/companies" ml={4} _hover={{ textDecoration: "none" }}>
-          {isSidebarOpen ? (
-            <Flex ml={4} mb={4} h="3px" align="center">
-              <FaBuilding />
-              <Box ml={4}>Companies</Box>
-            </Flex>
-          ) : (
-            <Center>
-              <FaBuilding />
-            </Center>
-          )}
-        </Link>
-      </Box>
-      <VStack>
-        {status === "loading" && <Text>Loading...</Text>}
-        {status === "failed" && <Text>Error: {error}</Text>}
-        {companies.map((company) => (
-          <Link
-            as={RouterLink}
-            to={`/companies/${company._id}`}
-            key={company._id}
-            _hover={{ textDecoration: "none" }}>
-            <Text>{company.companyName}</Text>
-          </Link>
-        ))}
-      </VStack>
-      <Box _hover={{ bg: "blue.50" }}>
-        <Link as={RouterLink} to="/stats" ml={4} _hover={{ textDecoration: "none" }}>
-          {isSidebarOpen ? (
-            <Flex ml={4} mb={4} h="3px" align="center">
-              <FaChartBar /> <Box ml={4}>Stats</Box>
-            </Flex>
-          ) : (
-            <Center>
-              <FaChartBar />
-            </Center>
-          )}
-        </Link>
-      </Box>
-      <Box _hover={{ bg: "blue.50" }}>
-        <Link as={RouterLink} to="/contacts" ml={4} _hover={{ textDecoration: "none" }}>
-          {isSidebarOpen ? (
-            <Flex ml={4} mb={4} h="3px" align="center">
-              <FaUsers />
-              <Box ml={4}>Contacts</Box>
-            </Flex>
-          ) : (
-            <Center>
-              <FaUsers />
-            </Center>
-          )}
-        </Link>
-      </Box>
-      <Box _hover={{ bg: "blue.50" }}>
-        <Link as={RouterLink} to="/deals" ml={4} _hover={{ textDecoration: "none" }}>
-          {isSidebarOpen ? (
-            <Flex ml={4} mb={4} h="3px" align="center">
-              <FaMoneyBillWave /> <Box ml={4}>Deals</Box>
-            </Flex>
-          ) : (
-            <Center>
-              <FaMoneyBillWave />
-            </Center>
-          )}
-        </Link>
-      </Box>
-      <Box _hover={{ bg: "blue.50" }}>
-        <Link as={RouterLink} to="/tasks" ml={4} _hover={{ textDecoration: "none" }}>
-          {isSidebarOpen ? (
-            <Flex ml={4} mb={4} h="3px" align="center">
-              <FaListUl /> <Box ml={4}>Tasks</Box>
-            </Flex>
-          ) : (
-            <Center>
-              <FaListUl />
-            </Center>
-          )}
-        </Link>
-      </Box>
-      <Box _hover={{ bg: "blue.50" }}>
-        <Link as={RouterLink} to="/kanban" ml={4} _hover={{ textDecoration: "none" }}>
-          {isSidebarOpen ? (
-            <Flex align="center" h="3px" mb={4} ml={4}>
-              <PiKanbanBold />
-              <Box ml={4}>Kanban</Box>
-            </Flex>
-          ) : (
-            <Center>
-              <PiKanbanBold />
-            </Center>
-          )}
-        </Link>
-      </Box>
+
+      <Divider mb={2} mt={6} />
+
+      <Button
+        position="fixed"
+        top={100}
+        mr={-4}
+        onClick={toggleSidebar}
+        bg="none"
+        _hover={{ bg: "gray.50" }}
+        style={{ alignSelf: isSidebarOpen ? "flex-end" : "center" }} // Center button when sidebar is closed
+        display={isSidebarOpen ? "block" : "none"}>
+        <FaBars size={20} />
+      </Button>
+
+      <Center display={isSidebarOpen ? "none" : "flex"}>
+        <Button bg="none" _hover={{ bg: "gray.50" }} onClick={toggleSidebar}>
+          <ArrowRightIcon />
+        </Button>
+      </Center>
+
+      <NavItem
+        icon={FaHome}
+        label="Dashboard"
+        to="/dashboard"
+        isSidebarOpen={isSidebarOpen}
+      />
+      <Divider mb={2} mt={2} />
+      <NavItem
+        icon={FaBuilding}
+        label="Companies"
+        to="/companies"
+        isSidebarOpen={isSidebarOpen}
+      />
+
+      {isSidebarOpen && (
+        <Accordion allowMultiple>
+          <AccordionItem>
+            <h2>
+              <AccordionButton
+                _expanded={{ bg: "gray.100", color: "black" }}
+                onClick={toggleExpansion}>
+                <Box as="span" flex="1" textAlign="left">
+                  {isExpanded ? "Less" : "More"}
+                </Box>
+                <AccordionIcon />
+              </AccordionButton>
+            </h2>
+            <AccordionPanel>
+              {isLoading && <Text>Loading...</Text>}
+              {error && <Text>Error: {error.message}</Text>}
+              {companies.map((company) => (
+                <Link
+                  as={RouterLink}
+                  to={`/companies/${company._id}`}
+                  key={company._id}
+                  py={1}
+                  _hover={{ textDecoration: "none", bg: "blue.50" }}
+                  display="flex"
+                  justifyContent={isSidebarOpen ? "start" : "center"}>
+                  <Text ml={isSidebarOpen ? 4 : 0}>{company.name}</Text>
+                </Link>
+              ))}
+            </AccordionPanel>
+          </AccordionItem>
+        </Accordion>
+      )}
+
+      <NavItem
+        icon={FaChartBar}
+        label="Stats"
+        to="/stats"
+        isSidebarOpen={isSidebarOpen}
+      />
+      <NavItem
+        icon={FaUsers}
+        label="Contacts"
+        to="/contacts"
+        isSidebarOpen={isSidebarOpen}
+      />
+      <NavItem
+        icon={FaMoneyBillWave}
+        label="Deals"
+        to="/deals"
+        isSidebarOpen={isSidebarOpen}
+      />
+      <NavItem icon={FaListUl} label="Tasks" to="/tasks" isSidebarOpen={isSidebarOpen} />
+      <NavItem
+        icon={PiKanbanBold}
+        label="Kanban"
+        to="/kanban"
+        isSidebarOpen={isSidebarOpen}
+      />
 
       <Divider m={4} />
 
-      <Box ml={4} _hover={{ textDecoration: "none", bg: "blue.50" }}>
-        Emails
-      </Box>
-      <Box ml={4} _hover={{ textDecoration: "none", bg: "blue.50" }}>
-        Chat
-      </Box>
-      <Box ml={4} _hover={{ textDecoration: "none", bg: "blue.50" }}>
-        Calendar
-      </Box>
-      <Box ml={4} _hover={{ textDecoration: "none", bg: "blue.50" }}>
-        More...
-      </Box>
-      <Box ml={4} mt="60%" _hover={{ textDecoration: "none", bg: "blue.50" }}>
+      <NavItem label="Emails" isSidebarOpen={isSidebarOpen} />
+      <NavItem label="Chat" isSidebarOpen={isSidebarOpen} />
+      <NavItem label="Calendar" isSidebarOpen={isSidebarOpen} />
+      <NavItem label="More..." isSidebarOpen={isSidebarOpen} />
+
+      <Box
+        as="span"
+        py={2}
+        px={isSidebarOpen ? 4 : 2}
+        mt="auto"
+        _hover={{ textDecoration: "none", bg: "blue.50" }}
+        display="flex"
+        alignItems="center"
+        justifyContent={isSidebarOpen ? "start" : "center"}>
         Settings
       </Box>
     </VStack>
   );
 };
+
+const NavItem = ({ icon, label, to, isSidebarOpen }) => (
+  <Tooltip label={label} placement="right" isDisabled={isSidebarOpen}>
+    <Link
+      as={RouterLink}
+      to={to}
+      py={2}
+      px={isSidebarOpen ? 4 : 2}
+      _hover={{ textDecoration: "none", bg: "blue.50" }}
+      display="flex"
+      alignItems="center"
+      justifyContent={isSidebarOpen ? "start" : "center"}>
+      {icon && React.createElement(icon)}
+      {isSidebarOpen && <Box ml={4}>{label}</Box>}
+    </Link>
+  </Tooltip>
+);
 
 export default Sidebar;

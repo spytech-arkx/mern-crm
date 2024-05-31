@@ -9,7 +9,6 @@ import {
   MenuList,
   MenuItem,
   AvatarBadge,
-  Link,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import {
@@ -25,80 +24,100 @@ import {
 
 const Navbar = () => {
   return (
-    <Flex mt={2}>
-      {/* Logo */}
-
-      {/* Barre de recherche */}
-      <IconButton
-        borderRadius="50%"
-        aria-label="Search"
-        icon={<SearchIcon />}
-        colorScheme="gray"
-      />
-      <Box flex="4" ml={4}>
+    <Flex
+      align="center"
+      justify="space-between"
+      wrap="wrap"
+      px={4}
+      py={3}
+      bg="white"
+      borderBottom="1px solid"
+      borderColor="gray.200">
+      {/* Search bar */}
+      <Flex alignItems="center">
+        <Box display={{ base: "none", md: "block" }} mr={4}>
+          <IconButton
+            ml={40}
+            aria-label="Search"
+            icon={<SearchIcon />}
+            colorScheme="gray"
+            borderRadius="50%"
+            bg="transparent"
+            _hover={{ bg: "gray.100" }}
+          />
+        </Box>
         <Input
-          placeholder="Rechercher..."
+          placeholder="Search..."
           bg="gray.100"
           color="black"
-          border="1px groove #ccc"
-          borderRadius="50px"
-          width="500px"
-          _hover={{ borderColor: "gray.400" }}
-          _focus={{ borderColor: "gray.100" }}
+          border="1px solid"
+          borderColor="gray.200"
+          borderRadius="md"
+          width={{ base: "full", md: "250px" }}
+          _hover={{ borderColor: "gray.300" }}
+          _focus={{ borderColor: "blue.400" }}
         />
-      </Box>
+      </Flex>
 
-      {/* Icônes de notification, messages et profil */}
-      <Box mr="20px">
+      {/* Right side */}
+      <Flex alignItems="center" mr={10}>
+        {/* Notification icons */}
         <IconButton
           aria-label="Notifications"
           icon={<BellIcon />}
           colorScheme="gray"
           borderRadius="50%"
-          mr={4}
+          mr={2}
+          bg="transparent"
+          _hover={{ bg: "gray.100" }}
         />
         <IconButton
           aria-label="Messages"
           icon={<EmailIcon />}
           colorScheme="gray"
           borderRadius="50%"
-          mr={4}
+          mr={2}
+          bg="transparent"
+          _hover={{ bg: "gray.100" }}
         />
         <IconButton
-          aria-label="info"
+          aria-label="Info"
           icon={<InfoOutlineIcon />}
           colorScheme="gray"
           borderRadius="50%"
-          mr={4}
+          mr={2}
+          bg="transparent"
+          _hover={{ bg: "gray.100" }}
         />
-
-        <Box as="span" mr={4} fontWeight="bold">
+        <Box as="span" mr={4} fontWeight="bold" display={{ base: "none", md: "inline" }}>
           Welcome back user!
         </Box>
+
+        {/* User profile */}
         <Menu>
           <MenuButton
             as={Avatar}
-            p={2}
             bg="black"
+            p={1}
             name="New User"
-            boxSize="40px"
-            aria-label="Options"
-            variant="outline">
+            size="md"
+            cursor="pointer">
             <AvatarBadge boxSize="0.9em" bg="green.500" />
           </MenuButton>
           <MenuList>
-            <Link
+            <MenuItem
               as={RouterLink}
               to="/profile"
-              _hover={{ textDecoration: "none", bg: "gray.50" }}>
-              <MenuItem icon={<AddIcon />}> Profile</MenuItem>
-            </Link>
+              icon={<AddIcon />}
+              _hover={{ bg: "gray.100" }}>
+              Profile
+            </MenuItem>
             <MenuItem icon={<ExternalLinkIcon />}>New Window</MenuItem>
             <MenuItem icon={<RepeatIcon />}>Open Closed Tab</MenuItem>
             <MenuItem icon={<EditIcon />}>Open File...</MenuItem>
           </MenuList>
         </Menu>
-      </Box>
+      </Flex>
     </Flex>
   );
 };

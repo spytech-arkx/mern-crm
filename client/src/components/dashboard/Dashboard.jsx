@@ -1,5 +1,5 @@
 import { Grid, GridItem, HStack } from "@chakra-ui/react";
-import CompaniesCard from "./companies/CompaniesCard";
+import CompaniesCard from "../entities/companies/CompaniesCard";
 import ContactCard from "./contacts/ContactCard";
 import DealsCard from "./deals/DealsCard";
 import TasksCard from "./tasks/TaskCard";

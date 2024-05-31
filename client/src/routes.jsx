@@ -11,8 +11,8 @@ import { TaskForm2 } from "./components/entities/tasks/form-create.jsx";
 import Dashboard from "./components/dashboard/Dashboard.jsx";
 import KanbanBoard from "./components/dashboard/kanban.jsx";
 import ProfilePage from "./components/profile/ProfilePage.jsx";
-import CompanyDetails from "./components/dashboard/companies/CompanyDetails.jsx";
-import CompaniesList from "./components/dashboard/companies/CompaniesList.jsx";
+import CompanyDetails from "./components/entities/companies/CompanyDetails.jsx";
+import CompaniesList from "./components/entities/companies/CompaniesList.jsx";
 
 import { createBrowserRouter } from "react-router-dom";
 import { AuthenticatedRoute, UnauthenticatedRoute } from "./features/auth/videur.jsx";
@@ -24,7 +24,11 @@ import Index from "./components/shared/Index.jsx";
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Root />,
+    element: (
+      <AuthenticatedRoute>
+        <Root />
+      </AuthenticatedRoute>
+    ),
     errorElement: <GeneralError />,
     children: [
       {
