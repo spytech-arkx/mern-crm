@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const CompanySchema = new mongoose.Schema(
   {
@@ -7,7 +7,7 @@ const CompanySchema = new mongoose.Schema(
       type: String,
       unique: true,
       sparse: true,
-      required: [true, 'Company Name is required.'],
+      required: [true, "Company Name is required."],
       trim: true,
       minlength: 3,
       maxlength: 50,
@@ -27,7 +27,7 @@ const CompanySchema = new mongoose.Schema(
         trim: true,
         validate: {
           validator: (postalCode) => /^\d{5}(-\d{4})?$/.test(postalCode),
-          message: 'Please enter a valid postal code.',
+          message: "Please enter a valid postal code.",
         },
       },
     },
@@ -41,21 +41,21 @@ const CompanySchema = new mongoose.Schema(
         trim: true,
         validate: {
           validator: (postalCode) => /^\d{5}(-\d{4})?$/.test(postalCode),
-          message: 'Please enter a valid postal code.',
+          message: "Please enter a valid postal code.",
         },
       },
     },
 
     // Company Relationships
-    owner: { type: mongoose.Types.ObjectId, ref: 'User' }, // User lookup
-    parentCompany: { type: mongoose.Types.ObjectId, ref: 'Company' }, // Optional lookup for parent company
+    owner: { type: mongoose.Types.ObjectId, ref: "User" }, // User lookup
+    parentCompany: { type: mongoose.Types.ObjectId, ref: "Company" }, // Optional lookup for parent company
 
     // Descriptive Information
     description: { type: String, trim: true, maxlength: 255 },
     rating: {
       type: String,
       trim: true,
-      enum: ['Aqcuired', 'Active', 'Market Failed', 'Project Cancelled', 'Shut Down'],
+      enum: ["Aqcuired", "Active", "Market Failed", "Project Cancelled", "Shut Down"],
     },
     website: {
       type: String,
@@ -63,7 +63,8 @@ const CompanySchema = new mongoose.Schema(
       sparse: true,
       trim: true,
       validate: {
-        validator: (url) => /^(https?:\/\/)?([\da-z.-]+)\.([a-z]{2,6})([/\w .-]*)*\/?$/.test(url),
+        validator: (url) =>
+          /^(https?:\/\/)?([\da-z.-]+)\.([a-z]{2,6})([/\w .-]*)*\/?$/.test(url),
         message: (props) => `${props.value} is not a valid website URL.`,
       },
     },
@@ -92,14 +93,14 @@ const CompanySchema = new mongoose.Schema(
       // enum: ['Technology', 'Finance', 'Education','Real Estate'...], // synci l'front!
     },
     employees: { type: Number, min: 1 }, // Set a minimum for employee count
-    annualRevenue: { type: mongoose.Types.Decimal128 },
+    annualRevenue: { type: Number, min: 1000 },
 
     // Optional Information
     tag: { type: String, trim: true },
 
     // System Information
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    modifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    modifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     lastActivityTime: Date,
     id: {
       type: String,
@@ -112,4 +113,4 @@ const CompanySchema = new mongoose.Schema(
   },
 );
 
-module.exports = mongoose.model('Company', CompanySchema);
+module.exports = mongoose.model("Company", CompanySchema);

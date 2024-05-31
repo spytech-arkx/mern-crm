@@ -1,9 +1,9 @@
 // import { z } from "zod"
 
-import { useGetTasksListQuery } from "@/features/api/tasks"
-import { columns } from "./columns"
-import { DataTable } from "./data-table"
-import { Spinner } from "@/components/ui/spinner"
+import { useGetTasksListQuery } from "@/features/api/tasks";
+import { columns } from "./columns";
+import { DataTable } from "./data-table";
+import { Spinner } from "@/components/ui/spinner";
 
 // async function getTasks() {
 //   return z.array(taskSchema).parse(data)

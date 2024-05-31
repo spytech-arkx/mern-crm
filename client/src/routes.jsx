@@ -6,12 +6,10 @@ import NotFoundError from "./pages/404.jsx";
 
 import TaskList from "./components/entities/tasks/list.jsx";
 import { TaskFormDrawer } from "./components/entities/tasks/form-drawer.jsx";
-import { TaskForm } from "./components/entities/tasks/form-edit.jsx";
-import { TaskForm2 } from "./components/entities/tasks/form-create.jsx";
 import Dashboard from "./components/dashboard/Dashboard.jsx";
 import KanbanBoard from "./components/dashboard/kanban.jsx";
-import CompanyDetails from "./components/dashboard/companies/CompanyDetails.jsx";
-import CompaniesList from "./components/dashboard/companies/CompaniesList.jsx";
+import CompanyDetails from "./components/entities/companies/CompanyDetails.jsx";
+import CompaniesList from "./components/entities/companies/CompaniesList.jsx";
 
 import { createBrowserRouter } from "react-router-dom";
 import { AuthenticatedRoute, UnauthenticatedRoute } from "./features/auth/videur.jsx";
@@ -20,9 +18,8 @@ import "./styles/index.css";
 import Root from "./root.jsx";
 import Index from "./components/shared/Index.jsx";
 import SettingsProfilePage from "./pages/profile-page.jsx";
-import HomePage from "./pages/home-page.jsx";
 
-export const routerNT = createBrowserRouter([
+const routerNT = createBrowserRouter([
   {
     path: "/",
     element: (
@@ -61,23 +58,6 @@ export const routerNT = createBrowserRouter([
             ),
           },
           {
-            path: "/tasks/create",
-            element: <TaskForm2 />,
-          },
-          {
-            path: "/tasks/edit",
-            element: <TaskForm />,
-          },
-          {
-            path: "/tasks",
-            element: (
-              <AuthenticatedRoute>
-                <TaskList />
-                <TaskFormDrawer />
-              </AuthenticatedRoute>
-            ),
-          },
-          {
             path: "/companies",
             element: (
               <AuthenticatedRoute>
@@ -90,6 +70,63 @@ export const routerNT = createBrowserRouter([
             element: (
               <AuthenticatedRoute>
                 <CompanyDetails />
+              </AuthenticatedRoute>
+            ),
+          },
+          {
+            path: "/users",
+            element: (
+              <AuthenticatedRoute>
+                <Index />
+              </AuthenticatedRoute>
+            ),
+          },
+          {
+            path: "/contacts",
+            element: (
+              <AuthenticatedRoute>
+                <Index />
+              </AuthenticatedRoute>
+            ),
+          },
+          {
+            path: "/tasks",
+            element: (
+              <AuthenticatedRoute>
+                <TaskList />
+                <TaskFormDrawer />
+              </AuthenticatedRoute>
+            ),
+          },
+          {
+            path: "/deals",
+            element: (
+              <AuthenticatedRoute>
+                <Index />
+              </AuthenticatedRoute>
+            ),
+          },
+          {
+            path: "/archive",
+            element: (
+              <AuthenticatedRoute>
+                <Index />
+              </AuthenticatedRoute>
+            ),
+          },
+          {
+            path: "/analytics",
+            element: (
+              <AuthenticatedRoute>
+                <Index />
+              </AuthenticatedRoute>
+            ),
+          },
+          {
+            path: "/integrations",
+            element: (
+              <AuthenticatedRoute>
+                <Index />
               </AuthenticatedRoute>
             ),
           },
@@ -111,15 +148,6 @@ export const routerNT = createBrowserRouter([
     ),
   },
   {
-    errorElement: <GeneralError />,
-    path: "/test",
-    element: (
-      <AuthenticatedRoute>
-        <HomePage />
-      </AuthenticatedRoute>
-    ),
-  },
-  {
     path: "/signup",
     element: (
       <UnauthenticatedRoute>
@@ -133,3 +161,5 @@ export const routerNT = createBrowserRouter([
     element: <NotFoundError />,
   },
 ]);
+
+export default routerNT;

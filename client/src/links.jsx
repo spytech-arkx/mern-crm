@@ -12,10 +12,12 @@ import { AuthenticatedRoute, UnauthenticatedRoute } from "./features/auth/videur
 
 import "./styles/index.css";
 import Index from "./components/shared/Index.jsx";
-// import SettingsProfilePage from "./pages/profile-page.jsx";
 import HomePage from "./pages/home-page.jsx";
+import CompaniesList from "./components/entities/companies/CompaniesList.jsx";
+import SettingsProfilePage from "./pages/profile-page.jsx";
+import CompanyDetails from "./components/entities/companies/CompanyDetails.jsx";
 
-const router = createBrowserRouter([
+const routerSF = createBrowserRouter([
   {
     path: "/",
     element: (
@@ -41,7 +43,15 @@ const router = createBrowserRouter([
             path: "/companies",
             element: (
               <AuthenticatedRoute>
-                <Index />
+                <CompaniesList />
+              </AuthenticatedRoute>
+            ),
+          },
+          {
+            path: "/companies/:companyId",
+            element: (
+              <AuthenticatedRoute>
+                <CompanyDetails />
               </AuthenticatedRoute>
             ),
           },
@@ -50,6 +60,14 @@ const router = createBrowserRouter([
             element: (
               <AuthenticatedRoute>
                 <Index />
+              </AuthenticatedRoute>
+            ),
+          },
+          {
+            path: "/profile",
+            element: (
+              <AuthenticatedRoute>
+                <SettingsProfilePage />
               </AuthenticatedRoute>
             ),
           },
@@ -134,4 +152,4 @@ const router = createBrowserRouter([
   },
 ]);
 
-export default router;
+export default routerSF;

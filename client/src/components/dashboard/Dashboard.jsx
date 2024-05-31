@@ -1,11 +1,8 @@
 import { Grid, GridItem, HStack } from "@chakra-ui/react";
-import CompaniesCard from "./companies/CompaniesCard";
-import ContactCard from "./contacts/ContactCard";
-import DealsCard from "./deals/DealsCard";
-import TasksCard from "./tasks/TaskCard";
 import BarChart from "../charts/BarChart";
 import LineChart from "../charts/LineChart";
 import PolarChart from "../charts/PolarChart";
+import Index from "../shared/Index";
 
 export default function Dashboard() {
   return (
@@ -13,16 +10,16 @@ export default function Dashboard() {
       <h1>Dashboard</h1>
       <Grid templateRows="repeat(1, 1fr)" templateColumns="repeat(4, 1fr)" gap={4}>
         <GridItem colSpan={1} bg="">
-          <CompaniesCard />
+          <Index />
         </GridItem>
         <GridItem colSpan={1} bg="">
-          <ContactCard />
+          <Index />
         </GridItem>
         <GridItem colSpan={1} bg="">
-          <DealsCard />
+          <Index />
         </GridItem>
         <GridItem colSpan={1} bg="">
-          <TasksCard />
+          <Index />
         </GridItem>
         <GridItem colSpan={5} bg="">
           <h2>Charts</h2>

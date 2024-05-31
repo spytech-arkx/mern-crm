@@ -43,7 +43,7 @@ const BarChart = () => {
   };
 
   return (
-    <Box w="40%" mx="auto" mt={8} p={4} boxShadow="base" borderRadius="md" bg="white">
+    <Box w="40%" mx="auto" mt={4} p={4} boxShadow="base" borderRadius="md" bg="white">
       <Bar data={data} />
     </Box>
   );

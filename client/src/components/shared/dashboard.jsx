@@ -48,8 +48,8 @@ export function Dash({
           defaultSize={defaultLayout[0]}
           collapsedSize={navCollapsedSize}
           collapsible={true}
-          minSize={16}
-          maxSize={20}
+          minSize={14}
+          maxSize={16}
           onExpand={() => {
             setIsCollapsed(false);
             Cookies.set("react-resizable-panels:layout", JSON.stringify(false));
