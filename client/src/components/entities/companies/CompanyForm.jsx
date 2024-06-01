@@ -64,7 +64,7 @@ const CompanyForm = ({ company }) => {
         isClosable: true,
       });
     } catch (err) {
-      console.log(err);
+      console.error(err);
       toast({
         title: "Company updating failed.",
         status: "error",

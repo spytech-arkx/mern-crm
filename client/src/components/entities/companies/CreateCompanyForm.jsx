@@ -77,7 +77,6 @@ const CreateCompanyForm = ({ isOpen, onClose }) => {
         owner: user._id,
         rating: selectedRating,
       }).unwrap();
-      console.log(user._id);
       toast({
         title: "Company created.",
         description: "The company has been successfully created.",
@@ -85,7 +84,6 @@ const CreateCompanyForm = ({ isOpen, onClose }) => {
         duration: 5000,
         isClosable: true,
       });
-      console.log(response);
       setErrors({});
       setFormCompany({});
       onClose();
@@ -108,7 +106,7 @@ const CreateCompanyForm = ({ isOpen, onClose }) => {
         }, {});
         setErrors(validationError);
       } else {
-        console.log(err);
+        console.error(err);
       }
     }
   };
