@@ -10,7 +10,7 @@ export const UnauthenticatedRoute = ({ children }) => {
   
   if (!isLoading) {
     if (user) { // if the server whoami throws
-      return <Navigate to={redirect || "/tasks"} />;
+      return <Navigate to={redirect || "/"} />;
     }
 
     return children;
