@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
@@ -14,40 +14,39 @@ export function Nav({ links, isCollapsed }) {
         isCollapsed ? (
             <Tooltip key={index} delayDuration={0}>
               <TooltipTrigger asChild>
-                <Link
-                  to={link.href}
-                  className={cn(
-                    buttonVariants({ variant: link.variant, size: "icon" }),
-                    "h-9 w-9",
-                    "hover:bg-[#d0d0bb]",
-                    link.variant === "default" &&
-                      "bg-[#393e3f] dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white",
-                  )}>
-                  <link.icon className="h-4 w-4" />
-                  <span className="sr-only">{link.title}</span>
-                </Link>
+                <div>
+                  <NavLink
+                    to={link.href}
+                    className={({ isActive }) => {
+                    return cn(
+                      buttonVariants({ variant: isActive ? "default" : "ghost", size: "icon" }),
+                      isActive && "bg-[#393e3f] dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
+                      )}}>
+                    <link.icon className="h-4 w-4" />
+                    <span className="sr-only">{link.title}</span>
+                  </NavLink>
+                </div>
               </TooltipTrigger>
               <TooltipContent side="right" className="flex items-center gap-4">
                 {link.title}
-                {link.label && (
+                {/* {link.label && (
                   <span className="ml-auto text-muted-foreground">{link.label}</span>
-                )}
+                )} */}
               </TooltipContent>
             </Tooltip>
           ) : (
-            <Link
+            <NavLink
               key={index}
               to={link.href}
-              className={cn(
-                buttonVariants({ variant: link.variant, size: "sm" }),
-                "hover:bg-[#d0d0bb]",
-                link.variant === "default" &&
-                  "bg-[#393e3f] dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
+              className={({ isActive }) => {
+                return cn(
+                buttonVariants({ variant: isActive ? "default" : "ghost", size: "sm" }),
+                isActive && "bg-[#393e3f] dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white",
                 "justify-start",
-              )}>
+              )}}>
               <link.icon className="mr-2 h-4 w-4" />
               {link.title}
-            </Link>
+            </NavLink>
           ),
         )}
       </nav>
