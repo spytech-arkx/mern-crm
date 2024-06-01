@@ -123,24 +123,6 @@ export const priorities = [
   {
     label: "High",
     value: "high",
-    icon: RedBadge,
-  },
-];
-
-export const formPriorities = [
-  {
-    label: "Low",
-    value: "low",
-    icon: GreenBadge,
-  },
-  {
-    label: "Medium",
-    value: "medium",
-    icon: YellowBadge,
-  },
-  {
-    label: "High",
-    value: "high",
     icon: OrangeBadge,
   },
   {

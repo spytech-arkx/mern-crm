@@ -7,7 +7,7 @@ import {
   SelectItem,
   SelectTrigger,
 } from "@/components/ui/select";
-import { formPriorities, formStatuses, labels } from "@/data/tasks";
+import { priorities, formStatuses, labels } from "@/data/tasks";
 import { cn } from "@/lib/utils";
 import { SelectValue } from "@radix-ui/react-select";
 
@@ -27,7 +27,7 @@ export function SelectPriority({ task, field }) {
       </SelectTrigger>
       <SelectContent>
         <SelectGroup>
-          {formPriorities.map((e) => {
+          {priorities.map((e) => {
             return (
               <SelectItem key={e.value} value={e.value}>
                 <div className="flex w-max py-[2px] rounded-[37px] items-center bg-white border shadow-sm">

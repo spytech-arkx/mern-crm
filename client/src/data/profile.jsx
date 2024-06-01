@@ -4,31 +4,31 @@ export const tabs = [
   {
     title: "Profile",
     value: "profile",
-    href: "/profile",
+    href: "/me",
     description: "Update your personal information and account details.",
   },
   {
     title: "Preferences",
     value: "preferences",
-    href: "/preferences",
+    href: "/me/preferences",
     description: "Customize notifications, themes, and default views.",
   },
   {
     title: "Security",
     value: "security",
-    href: "/security",
+    href: "/me/security",
     description: "Manage your account security and access controls.",
   },
   {
     title: "Data",
     value: "data",
-    href: "/data",
+    href: "/me/data",
     description: "Import/export data.",
   },
   {
     title: "Socials",
     value: "socials",
-    href: "/socials",
+    href: "/me/socials",
     description: "Link and manage social media accounts.",
   },
 ];
