@@ -24,11 +24,13 @@ import { Textarea } from "@/components/ui/textarea";
 import { useUploadThing } from "@/lib/uploadthing";
 import { Spinner } from "../ui/spinner";
 import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 
-export function ProfileForm({ user }) {
+export function ProfileForm() {
+  const user = useOutletContext()
   const [editUser, { isLoading }] = useEditUserMutation();
   const [imageKey, setImageKey] = useState("");
-
+  
   const form = useForm({
     resolver: zodResolver(profileFormSchema),
     defaultValues: {
@@ -72,12 +74,12 @@ export function ProfileForm({ user }) {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <div className="flex flex-col w-full min-h-screen">
+      <form onSubmit={form.handleSubmit(onSubmit)}>
+        <div className="flex flex-col w-auto min-h-screen">
           <div className="grid gap-6">
-            <Card className="bg-white dark:bg-gray-950 rounded-none">
-              <CardContent className="space-y-4 pt-6">
-                <div className="flex items-center gap-4 pt-2">
+            <Card className="bg-white dark:bg-gray-950 rounded-none border-none shadow-none">
+              <CardContent className="space-y-4 p-0">
+                <div className="flex items-center gap-4">
                   <FormField
                     name="avatar"
                     render={({ field }) => (

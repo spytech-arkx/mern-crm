@@ -34,7 +34,7 @@ function CompanyDelete({ isOpen, onClose, company, companyName }) {
       });
       onClose(); // Ferme le modal après suppression
     } catch (err) {
-      console.log(err);
+      console.error(err);
       toast({
         title: "An error occurred.",
         description: "Failed to delete the company.",

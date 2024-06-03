@@ -1,50 +1,52 @@
-import { ProfileForm } from "@/components/profile/profile-form";
-import Index from "@/components/shared/Index";
 import { Spinner } from "@/components/ui/spinner";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { tabs } from "@/data/profile";
+import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { useSelector } from "react-redux";
+import { NavLink, Outlet } from "react-router-dom";
 
-export default function SettingsProfilePage() {
+export default function ProfilePage() {
   const [tab, setTab] = useState(tabs[0]);
-  const { user } = useSelector(state => state.auth);
+  const { user } = useSelector((state) => state.auth);
 
-  if(!user) {
-      return (
-        <div className="flex-1 flex-col space-y-8 p-8 md:flex">
-          <Spinner size="large" />
-        </div>
-      );
+  if (!user) {
+    return (
+      <div className="flex-1 flex-col space-y-8 p-8 md:flex">
+        <Spinner size="large" />
+      </div>
+    );
   }
-  
+
   return (
-    <div className="p-6">
-      <div className="flex flex-col gap-1 py-3">
-        <h2 className="text-2xl font-bold">{tab.title}</h2>
+    <main className="flex min-h-screen flex-col p-6 gap-8">
+      <div className="max-w-6xl w-full grid gap-1 mx-auto">
+        <h1 className="text-2xl font-bold">{tab.title}</h1>
         <p className="text-m font-medium opacity-50 text-muted-foreground">
           {tab.description}
         </p>
       </div>
-      <Tabs defaultValue="profile" className="w-max">
-        <TabsList>
+      <div className="grid items-start max-w-6xl w-full md:grid-cols-[120px_1fr] lg:grid-cols-[160px_1fr] mx-auto">
+        <nav className="text-s text-gray-500 grid gap-2">
           {tabs.map((tab) => (
-            <TabsTrigger
+            <NavLink
               key={tab.value}
-              value={tab.value}
-              onClick={() => {
-                setTab(tab);
-              }}>
+              to={tab.href}
+              end
+              onClick={() => setTab(tab)}
+              className={({ isActive }) =>
+                cn(
+                  "hover:text-black hover:font-semibold",
+                  isActive ? "text-black font-semibold" : "",
+                )
+              }>
               {tab.title}
-            </TabsTrigger>
+            </NavLink>
           ))}
-        </TabsList>
-        <TabsContent value="profile"><ProfileForm user={user} /></TabsContent>
-        <TabsContent value="preferences"><Index /></TabsContent>
-        <TabsContent value="security"><Index /></TabsContent>
-        <TabsContent value="data"><Index /></TabsContent>
-        <TabsContent value="socials"><Index /></TabsContent>
-      </Tabs>
-    </div>
+        </nav>
+        <div>
+          <Outlet context={user} />
+        </div>
+      </div>
+    </main>
   );
 }
