@@ -22,13 +22,11 @@ import {
 } from "@chakra-ui/react";
 import { useUploadThing } from "@/lib/uploadthing";
 
-import { useSelector } from "react-redux";
 import { Spinner } from "@/components/ui/spinner";
 
 const CreateContactForm = ({ isOpen, onClose }) => {
   const [imageKey, setImageKey] = useState("");
 
-  const user = useSelector((state) => state.auth.user);
   const [createContact, { isLoading }] = useCreateContactMutation();
   const [formContact, setFormContact] = useState({});
   const [errors, setErrors] = useState({});
@@ -75,14 +73,12 @@ const CreateContactForm = ({ isOpen, onClose }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const [selectedSalutation, setSelectedSalutation] = useState("Shut Down"); // État pour stocker la valeur sélectionnée
+  const [selectedSalutation, setSelectedSalutation] = useState("Shut Down");
 
-  // Fonction de gestion de changement de sélection
   const handleStatusChange = (event) => {
     setSelectedSalutation(event.target.value);
   };
 
-  // Options disponibles
   const statusOptions = ["Mr.", "Mrs.", "Ms.", "Dr.", "Prof."];
 
   const handleSubmit = async (e) => {
@@ -92,7 +88,6 @@ const CreateContactForm = ({ isOpen, onClose }) => {
     try {
       const response = await createContact({
         ...formContact,
-        //createdBy: user._id,
         salutation: selectedSalutation,
       }).unwrap();
       toast({
@@ -144,7 +139,6 @@ const CreateContactForm = ({ isOpen, onClose }) => {
               <Button
                 variant="outline"
                 onClick={() => {
-                  // Imma do the forbidden, ,-,
                   document.getElementById("logo").click();
                 }}>
                 {isUploading ? <Spinner /> : "Change logo"}

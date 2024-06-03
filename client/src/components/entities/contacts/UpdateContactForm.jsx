@@ -1,6 +1,5 @@
 import { useEditContactMutation } from "@/features/api/contacts";
 import { useUploadThing } from "@/lib/uploadthing";
-import { useSelector } from "react-redux";
 
 import {
   Avatar,
@@ -19,7 +18,6 @@ import { useState, useEffect, useRef } from "react";
 
 const UpdateContactForm = ({ contact }) => {
   const [imageKey, setImageKey] = useState("");
-  const user = useSelector((state) => state.auth.user);
 
   const [formContact, setFormContact] = useState(
     contact || {
@@ -49,7 +47,6 @@ const UpdateContactForm = ({ contact }) => {
     },
   });
 
-  // Synchroniser l'état local avec les props entrantes
   useEffect(() => {
     setFormContact(contact);
   }, [contact]);
@@ -58,9 +55,7 @@ const UpdateContactForm = ({ contact }) => {
     const { name, value } = e.target;
 
     if (name.startsWith("address.")) {
-      // Divise le nom du champ pour obtenir le champ spécifique de l'adresse
       const addressField = name.split(".")[1];
-      // Met à jour l'adresse avec la nouvelle valeur pour le champ spécifique
       setFormContact((prev) => ({
         ...prev,
         address: {
@@ -70,7 +65,6 @@ const UpdateContactForm = ({ contact }) => {
       }));
     } else if (name.startsWith("socials.")) {
       const socialsField = name.split(".")[1];
-      // Met à jour l'adresse avec la nouvelle valeur pour le champ spécifique
       setFormContact((prev) => ({
         ...prev,
         socials: {
@@ -79,8 +73,7 @@ const UpdateContactForm = ({ contact }) => {
         },
       }));
     } else {
-      // Si le champ modifié n'est pas dans l'adresse, met simplement à jour formContact
-      setFormContact((prev) => ({ ...prev, lastModifiedBy: user._id, [name]: value }));
+      setFormContact((prev) => ({ ...prev, [name]: value }));
     }
   };
 
@@ -208,34 +201,34 @@ const UpdateContactForm = ({ contact }) => {
             <FormLabel>Address</FormLabel>
             <Input
               placeholder="Street"
-              value={formContact.address ? formContact.address.street : ""} // Accédez à street avec formContact.address.street
+              value={formContact.address ? formContact.address.street : ""}
               name="address.street"
               onChange={handleChange}
             />
             <Input
               placeholder="City"
-              value={formContact.address ? formContact.address.city : ""} // Accédez à city avec formContact.address.city
+              value={formContact.address ? formContact.address.city : ""}
               name="address.city"
               onChange={handleChange}
               mt={2}
             />
             <Input
               placeholder="State"
-              value={formContact.address ? formContact.address.state : ""} // Accédez à state avec formContact.address.state
+              value={formContact.address ? formContact.address.state : ""}
               name="address.state"
               onChange={handleChange}
               mt={2}
             />
             <Input
               placeholder="Country"
-              value={formContact.address ? formContact.address.country : ""} // Accédez à country avec formContact.address.country
+              value={formContact.address ? formContact.address.country : ""}
               name="address.country"
               onChange={handleChange}
               mt={2}
             />
             <Input
               placeholder="Postal Code"
-              value={formContact.address ? formContact.address.zipCode : ""} // Accédez à zipCode avec formContact.address.zipCode
+              value={formContact.address ? formContact.address.zipCode : ""}
               name="address.zipCode"
               onChange={handleChange}
               mt={2}
