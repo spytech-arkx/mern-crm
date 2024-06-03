@@ -17,6 +17,7 @@ import {
   Spinner,
   Input,
   Avatar,
+  VStack,
 } from "@chakra-ui/react";
 import { useGetContactsListQuery } from "@/features/api/contacts";
 import { AddIcon, DeleteIcon, EditIcon, EmailIcon, PhoneIcon } from "@chakra-ui/icons";
@@ -79,7 +80,13 @@ const ContactsList = () => {
   return (
     <Box className="px-4">
       <Heading as="h1" size="xl" mb={6}>
-        Contacts
+        <HStack justify="space-between">
+          <Text>Contacts</Text>
+          <Button leftIcon={<AddIcon />} onClick={onOpAddMod}>
+            Add ocntact
+          </Button>
+        </HStack>
+        <CreateContactForm isOpen={isOpAddMod} onClose={closeAddMod} />
       </Heading>
       <Input
         placeholder="Search by name or industry"
@@ -99,7 +106,7 @@ const ContactsList = () => {
               _hover={{ boxShadow: "xl" }}
               p={2}>
               <CardBody p={2}>
-                <vStack>
+                <VStack>
                   <Center>
                     {contact.logo ? (
                       <Avatar src={contact.logo} size="sm" />
@@ -119,12 +126,27 @@ const ContactsList = () => {
                       {contact.firstName} {contact.lastName}
                     </Text>
                   </Center>
-                </vStack>
-                <HStack spacing={2} h={10} mt={2} ml={8} p={4}>
-                  <SocialIcon url="https://twitter.com" style={{ width: "30px" }} />
-                  <SocialIcon url="https://facebook.com" style={{ width: "30px" }} />
-                  <SocialIcon url="https://x.com" style={{ width: "30px" }} />
-                </HStack>
+                </VStack>
+                <Center>
+                  <HStack spacing={2} h={10} mt={2} p={4}>
+                    {contact.socials && (
+                      <Box>
+                        <SocialIcon
+                          url={contact.socials.LinkedIn}
+                          style={{ width: "20px", height: "20px" }}
+                        />
+                        <SocialIcon
+                          url="https://facebook.com"
+                          style={{ width: "20px", height: "20px" }}
+                        />
+                        <SocialIcon
+                          url="https://x.com"
+                          style={{ width: "20px", height: "20px" }}
+                        />
+                      </Box>
+                    )}
+                  </HStack>
+                </Center>
               </CardBody>
               <CardFooter h={30} justifyContent="flex-end" flexWrap="wrap">
                 <HStack spacing={1}>
@@ -160,30 +182,7 @@ const ContactsList = () => {
             </Card>
           );
         })}
-
-        <Box
-          as="button"
-          bgGradient="linear(to-t, RGBA(0, 0, 0, 0.06), #FFFFFF)"
-          boxShadow="md"
-          rounded="md"
-          _hover={{ bg: "RGBA(0, 0, 0, 0.04)", boxShadow: "2xl" }}
-          onClick={onOpAddMod}
-          p={4}>
-          <Center height="100%">
-            <Box
-              alignContent="center"
-              justifyContent="center"
-              borderRadius="50%"
-              w={20}
-              h={20}
-              borderWidth={3}
-              borderColor="gray.500">
-              <AddIcon color="gray.500" w={10} h={10} />
-            </Box>
-          </Center>
-        </Box>
       </SimpleGrid>
-      <CreateContactForm isOpen={isOpAddMod} onClose={closeAddMod} />
       <ContactDelete
         contactName={deleteContactName}
         contact={deleteContact}

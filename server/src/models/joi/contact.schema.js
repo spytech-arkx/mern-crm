@@ -63,6 +63,15 @@ const contactSchema = Joi.object({
     "Cold Call",
     "Chat",
   ),
+  createdBy: Joi.string()
+    .trim()
+    .pattern(/^[0-9a-fA-F]{24}$/)
+    .message("Invalid Mongo Id"),
+
+  lastModifiedBy: Joi.string()
+    .trim()
+    .pattern(/^[0-9a-fA-F]{24}$/)
+    .message("Invalid Mongo Id"),
 
   // Association Information
   title: Joi.string().trim().max(60),

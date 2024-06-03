@@ -92,11 +92,9 @@ const CreateContactForm = ({ isOpen, onClose }) => {
     try {
       const response = await createContact({
         ...formContact,
-        ownership: user.firstName,
-        owner: user._id,
+        //createdBy: user._id,
         salutation: selectedSalutation,
       }).unwrap();
-      console.log(user._id);
       toast({
         title: "Contact created.",
         description: "The Contact has been successfully created.",
@@ -208,7 +206,18 @@ const CreateContactForm = ({ isOpen, onClose }) => {
 
                 <FormControl>
                   <FormLabel>socials</FormLabel>
-                  <Input name="socials" onChange={handleChange} />
+                  <Input name="socials.X" placeholder="X link" onChange={handleChange} />
+                  <Input
+                    name="socials.LinkedIn"
+                    placeholder="LinkedIn link"
+                    onChange={handleChange}
+                  />
+                  <Input
+                    name="socials.Facebook"
+                    placeholder="Facebook link"
+                    onChange={handleChange}
+                  />
+
                   {errors.socials && <Text color="red.500">{errors.socials}</Text>}
                 </FormControl>
                 <FormControl>

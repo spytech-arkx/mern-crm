@@ -1,10 +1,14 @@
+import { useEffect, useState } from "react";
 import {
   Box,
   Card,
   CardBody,
+  CardHeader,
   Divider,
   HStack,
   Heading,
+  Image,
+  Avatar,
   Spinner,
   Stack,
   Text,
@@ -13,18 +17,39 @@ import {
   TabPanels,
   Tab,
   TabPanel,
-  Image,
-  Avatar,
-  Flex,
 } from "@chakra-ui/react";
+import { SocialIcon } from "react-social-icons";
 import { useParams } from "react-router-dom";
 import UpdateContactForm from "./UpdateContactForm";
 import { useGetContactByIdQuery } from "@/features/api/contacts";
+import { useGetUserByIdQuery } from "@/features/api/user";
 
 const ContactDetails = () => {
   const { contactId } = useParams();
   const { data: contact, error, isLoading } = useGetContactByIdQuery(contactId);
-  console.log(contact);
+
+  const [createdByUser, setCreatedByUser] = useState(null);
+  const [modifiedByUser, setModifiedByUser] = useState(null);
+
+  const { data: createdByData } = useGetUserByIdQuery(contact?.createdBy, {
+    skip: !contact?.createdBy,
+  });
+  const { data: modifiedByData } = useGetUserByIdQuery(contact?.lastModifiedBy, {
+    skip: !contact?.lastModifiedBy,
+  });
+
+  useEffect(() => {
+    if (createdByData) {
+      setCreatedByUser(createdByData);
+    }
+  }, [createdByData]);
+
+  useEffect(() => {
+    if (modifiedByData) {
+      setModifiedByUser(modifiedByData);
+    }
+  }, [modifiedByData]);
+
   if (isLoading) {
     return (
       <Box display="flex" justifyContent="center" alignItems="center" height="100vh">
@@ -48,6 +73,7 @@ const ContactDetails = () => {
       </Box>
     );
   }
+
   return (
     <Box p={{ base: 4, md: 8 }}>
       <Heading mb={4} textAlign="center">
@@ -65,61 +91,116 @@ const ContactDetails = () => {
 
         <TabPanels>
           <TabPanel>
-            <Flex align="center" justify="center" height="100vh">
-              <Card p={2} maxW="lg" mx="auto">
-                <CardBody>
-                  <Stack spacing={4}>
-                    <Heading display="flex" size="md">
-                      <Image
-                        as={Avatar}
-                        src={contact.logo}
-                        alt="Contact Logo"
-                        boxSize="50px"
-                      />
-                      <Text p={2} alignContent="end">
-                        {contact.salutation} {contact.firstName} {contact.lastName}
+            <Card maxW="lg" mx="auto">
+              <CardHeader>
+                <HStack justify="space-between">
+                  <Box fontSize="xs" fontWeight="medium">
+                    Created by:{" "}
+                    {createdByUser ? (
+                      <Text color="blue">
+                        {" "}
+                        {createdByUser.firstName} {createdByUser.lastName}
                       </Text>
-                    </Heading>
-                    <Text>email: {contact.email}</Text>
-                    <Divider />
-                    <Text color="gray.600">description: {contact.description}</Text>
-                    <Divider />
-                    <HStack>
-                      <Box bg="blue.400" borderRadius="50px" p={2}></Box>
-                      <Heading fontSize="lg">phone number</Heading>
-                    </HStack>
-                    <Text textAlign="center">{contact.phone}</Text>
-                    <Divider />
-                    <HStack>
-                      <Box bg="red.400" borderRadius="50px" p={2}></Box>
-                      <Heading fontSize="lg">birthday</Heading>
-                    </HStack>
-                    <Text textAlign="center">{contact.birthday}</Text>
-                    <Divider />
-                    <Heading fontSize="lg">Address</Heading>
-                    <HStack spacing="24px">
-                      <Box bg="yellow.200">
-                        <Text textAlign="center">{contact.address?.street}</Text>
-                      </Box>
+                    ) : (
+                      "NA"
+                    )}
+                  </Box>
+                  <Box fontSize="xs" fontWeight="medium">
+                    Last update by:{" "}
+                    {modifiedByUser ? (
+                      <Text color="blue">
+                        {" "}
+                        {modifiedByUser.firstName} {modifiedByUser.lastName}
+                      </Text>
+                    ) : (
+                      "NA"
+                    )}
+                  </Box>
+                </HStack>
+              </CardHeader>
+              <CardBody>
+                <Stack spacing={4}>
+                  <HStack>
+                    <Image
+                      as={Avatar}
+                      src={contact.logo}
+                      alt="Contact Logo"
+                      boxSize="50px"
+                    />
+                    <Text fontWeight="bold" p={2} alignContent="end">
+                      {contact.salutation} {contact.firstName} {contact.lastName}
+                    </Text>
+                  </HStack>
+                  <Text>Email: {contact.email}</Text>
+                  <Divider />
+                  <Text color="gray.600">Description: {contact.description}</Text>
+                  <Divider />
+
+                  {contact.socials && (
+                    <Stack spacing={2}>
                       <Box>
-                        <Text textAlign="center">{contact.address?.city}</Text>
+                        <Box p={2}>
+                          <SocialIcon
+                            url={contact.socials.LinkedIn}
+                            style={{ width: "20px", marginRight: "10px", height: "20px" }}
+                          />
+                          {contact.socials.LinkedIn}
+                        </Box>
+                        <Box p={2}>
+                          <SocialIcon
+                            url="https://facebook.com"
+                            style={{ width: "20px", marginRight: "10px", height: "20px" }}
+                          />
+                          {contact.socials.Facebook}
+                        </Box>
+                        <Box p={2}>
+                          <SocialIcon
+                            url="https://x.com"
+                            style={{ width: "20px", marginRight: "10px", height: "20px" }}
+                          />
+                          {contact.socials.X}
+                        </Box>
                       </Box>
-                    </HStack>
-                    <HStack>
-                      <Box bg="tomato">
-                        <Text textAlign="center"> {contact.address?.state}</Text>
-                      </Box>
-                      <Box bg="pink.100">
-                        <Text textAlign="center"> {contact.address?.country}</Text>
-                      </Box>
-                      <Box bg="pink.100">
-                        <Text textAlign="center"> {contact.address?.zipCode}</Text>
-                      </Box>
-                    </HStack>
-                  </Stack>
-                </CardBody>
-              </Card>
-            </Flex>
+                    </Stack>
+                  )}
+
+                  <Divider />
+
+                  <HStack>
+                    <Box bg="blue.400" borderRadius="50px" p={2}></Box>
+                    <Heading fontSize="lg">Phone Number</Heading>
+                  </HStack>
+                  <Text textAlign="center">{contact.phone}</Text>
+                  <Divider />
+                  <HStack>
+                    <Box bg="red.400" borderRadius="50px" p={2}></Box>
+                    <Heading fontSize="lg">Birthday</Heading>
+                  </HStack>
+                  <Text textAlign="center">{contact.birthday}</Text>
+                  <Divider />
+                  <Heading fontSize="lg">Address</Heading>
+                  <HStack spacing="24px">
+                    <Box bg="yellow.200">
+                      <Text textAlign="center">{contact.address?.street}</Text>
+                    </Box>
+                    <Box>
+                      <Text textAlign="center">{contact.address?.city}</Text>
+                    </Box>
+                  </HStack>
+                  <HStack>
+                    <Box bg="tomato">
+                      <Text textAlign="center"> {contact.address?.state}</Text>
+                    </Box>
+                    <Box bg="pink.100">
+                      <Text textAlign="center"> {contact.address?.country}</Text>
+                    </Box>
+                    <Box bg="pink.100">
+                      <Text textAlign="center"> {contact.address?.zipCode}</Text>
+                    </Box>
+                  </HStack>
+                </Stack>
+              </CardBody>
+            </Card>
           </TabPanel>
           <TabPanel>
             <UpdateContactForm contact={contact} />

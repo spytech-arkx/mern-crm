@@ -1,5 +1,6 @@
 import { useEditContactMutation } from "@/features/api/contacts";
 import { useUploadThing } from "@/lib/uploadthing";
+import { useSelector } from "react-redux";
 
 import {
   Avatar,
@@ -18,9 +19,12 @@ import { useState, useEffect, useRef } from "react";
 
 const UpdateContactForm = ({ contact }) => {
   const [imageKey, setImageKey] = useState("");
+  const user = useSelector((state) => state.auth.user);
+
   const [formContact, setFormContact] = useState(
     contact || {
       address: {},
+      socials: {},
     },
   );
   const [editContact, { isLoading }] = useEditContactMutation();
@@ -64,9 +68,19 @@ const UpdateContactForm = ({ contact }) => {
           [addressField]: value,
         },
       }));
+    } else if (name.startsWith("socials.")) {
+      const socialsField = name.split(".")[1];
+      // Met à jour l'adresse avec la nouvelle valeur pour le champ spécifique
+      setFormContact((prev) => ({
+        ...prev,
+        socials: {
+          ...prev.socials,
+          [socialsField]: value,
+        },
+      }));
     } else {
       // Si le champ modifié n'est pas dans l'adresse, met simplement à jour formContact
-      setFormContact((prev) => ({ ...prev, [name]: value }));
+      setFormContact((prev) => ({ ...prev, lastModifiedBy: user._id, [name]: value }));
     }
   };
 
@@ -91,6 +105,7 @@ const UpdateContactForm = ({ contact }) => {
         id: contact._id,
         contact: formContact,
       }).unwrap();
+
       toast({
         title: "Contact updated.",
         status: "success",
@@ -166,6 +181,27 @@ const UpdateContactForm = ({ contact }) => {
             <FormLabel>phone</FormLabel>
             <Input name="phone" value={formContact.phone} onChange={handleChange} />
             {errors.phone && <Text color="red.500">{errors.phone}</Text>}
+          </FormControl>
+          <FormControl>
+            <FormLabel>socials</FormLabel>
+            <Input
+              name="socials.X"
+              value={formContact.socials?.X}
+              placeholder="X link"
+              onChange={handleChange}
+            />
+            <Input
+              value={formContact.socials?.LinkedIn}
+              name="socials.LinkedIn"
+              placeholder="LinkedIn link"
+              onChange={handleChange}
+            />
+            <Input
+              name="socials.Facebook"
+              value={formContact.socials?.Facebook}
+              placeholder="Facebook link"
+              onChange={handleChange}
+            />
           </FormControl>
 
           <FormControl>

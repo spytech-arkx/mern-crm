@@ -122,6 +122,8 @@ const ContactSchema = new mongoose.Schema(
 
     // System Information
     createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    deletedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+
     lastModifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     locked: Boolean, // Flag indicating if record is locked for editing
     id: {
