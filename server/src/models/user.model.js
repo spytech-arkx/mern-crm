@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const { hashPassword, hashExistingPassword } = require('../lib/bcrypt');
-const { logger } = require('../utils/logger');
-const { sendConfirmationMail } = require('../services/emails/post');
+const mongoose = require("mongoose");
+const { hashPassword, hashExistingPassword } = require("../lib/bcrypt");
+const { logger } = require("../utils/logger");
+const { sendConfirmationMail } = require("../services/emails/post");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -80,17 +80,7 @@ const UserSchema = new mongoose.Schema(
 
     // User Details
     dateOfBirth: { type: Date },
-    urls: [{
-      type: String,
-      unique: true,
-      sparse: true,
-      trim: true,
-      validate: {
-        validator: (url) =>
-          /^(https?:\/\/)?([\da-z.-]+)\.([a-z]{2,6})([/\w .-]*)*\/?$/.test(url),
-        message: (props) => `${props.value} is not a valid website URL.`,
-      },
-    }],
+
     avatar: { type: String, trim: true }, // Store the path to the avatar image,
 
     // Preferences

@@ -25,10 +25,6 @@ const CompanySchema = new mongoose.Schema(
       PostalCode: {
         type: String,
         trim: true,
-        validate: {
-          validator: (postalCode) => /^\d{5}(-\d{4})?$/.test(postalCode),
-          message: "Please enter a valid postal code.",
-        },
       },
     },
 
@@ -46,6 +42,8 @@ const CompanySchema = new mongoose.Schema(
       },
     },
 
+    logo: { type: String, trim: true }, // URL of the company's logo
+
     // Company Relationships
     owner: { type: mongoose.Types.ObjectId, ref: "User" }, // User lookup
     parentCompany: { type: mongoose.Types.ObjectId, ref: "Company" }, // Optional lookup for parent company
@@ -55,7 +53,7 @@ const CompanySchema = new mongoose.Schema(
     rating: {
       type: String,
       trim: true,
-      enum: ["Aqcuired", "Active", "Market Failed", "Project Cancelled", "Shut Down"],
+      enum: ["Acquired", "Active", "Market Failed", "Project Cancelled", "Shut Down"],
     },
     website: {
       type: String,

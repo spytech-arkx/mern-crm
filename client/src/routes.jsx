@@ -18,6 +18,8 @@ import "./styles/index.css";
 import Root from "./root.jsx";
 import Index from "./components/shared/Index.jsx";
 import SettingsProfilePage from "./pages/profile-page.jsx";
+import ContactsList from "./components/entities/contacts/ContactsList.jsx";
+import ContactDetails from "./components/entities/contacts/ContactDetails.jsx";
 
 const routerNT = createBrowserRouter([
   {
@@ -70,6 +72,22 @@ const routerNT = createBrowserRouter([
             element: (
               <AuthenticatedRoute>
                 <CompanyDetails />
+              </AuthenticatedRoute>
+            ),
+          },
+          {
+            path: "/contacts",
+            element: (
+              <AuthenticatedRoute>
+                <ContactsList />
+              </AuthenticatedRoute>
+            ),
+          },
+          {
+            path: "/contacts/:contactId",
+            element: (
+              <AuthenticatedRoute>
+                <ContactDetails />
               </AuthenticatedRoute>
             ),
           },

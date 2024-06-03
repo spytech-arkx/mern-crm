@@ -14,6 +14,7 @@ import {
   AccordionPanel,
   AccordionIcon,
   Tooltip,
+  Avatar,
 } from "@chakra-ui/react";
 import React, { useState } from "react";
 import {
@@ -65,11 +66,11 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
 
       <Button
         position="fixed"
-        top={100}
+        top={120}
         mr={-4}
         onClick={toggleSidebar}
         bg="none"
-        _hover={{ bg: "gray.50" }}
+        _hover={{ color: "gray" }}
         style={{ alignSelf: isSidebarOpen ? "flex-end" : "center" }} // Center button when sidebar is closed
         display={isSidebarOpen ? "block" : "none"}>
         <FaBars size={20} />
@@ -120,6 +121,11 @@ const Sidebar = ({ isSidebarOpen, toggleSidebar }) => {
                   _hover={{ textDecoration: "none", bg: "blue.50" }}
                   display="flex"
                   justifyContent={isSidebarOpen ? "start" : "center"}>
+                  <Avatar
+                    size="sm"
+                    name={company.name}
+                    src={company.logo ? company.logo : ""}
+                  />
                   <Text ml={isSidebarOpen ? 4 : 0}>{company.name}</Text>
                 </Link>
               ))}

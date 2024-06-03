@@ -20,11 +20,7 @@ const userSchema = Joi.object({
   username: Joi.string().trim().alphanum().lowercase(),
   password: Joi.string().required(),
   dateOfBirth: Joi.date(),
-  urls: Joi.array().items(
-    Joi.string()
-      .trim()
-      .regex(/^(https?:\/\/)?([\da-z.-]+)\.([a-z]{2,6})([/\w .-]*)*\/?$/),
-  ),
+
   avatar: Joi.string().trim(),
   language: Joi.string().trim(),
   countryLocale: Joi.string().trim(),

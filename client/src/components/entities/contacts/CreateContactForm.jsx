@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useCreateCompanyMutation } from "@/features/api/companies";
+import { useCreateContactMutation } from "@/features/api/contacts";
 import {
   Button,
   Modal,
@@ -25,19 +25,19 @@ import { useUploadThing } from "@/lib/uploadthing";
 import { useSelector } from "react-redux";
 import { Spinner } from "@/components/ui/spinner";
 
-const CreateCompanyForm = ({ isOpen, onClose }) => {
+const CreateContactForm = ({ isOpen, onClose }) => {
   const [imageKey, setImageKey] = useState("");
 
   const user = useSelector((state) => state.auth.user);
-  const [createCompany, { isLoading }] = useCreateCompanyMutation();
-  const [formCompany, setFormCompany] = useState({});
+  const [createContact, { isLoading }] = useCreateContactMutation();
+  const [formContact, setFormContact] = useState({});
   const [errors, setErrors] = useState({});
   const toast = useToast();
 
   const { startUpload, isUploading } = useUploadThing("imageUploader", {
     skipPolling: true,
     onClientUploadComplete: (res) => {
-      setFormCompany((prev) => ({ ...prev, logo: res[0].url }));
+      setFormContact((prev) => ({ ...prev, logo: res[0].url }));
 
       setTimeout(() => setImageKey(Date.now()), 1500);
     },
@@ -56,67 +56,57 @@ const CreateCompanyForm = ({ isOpen, onClose }) => {
     const { name, value } = e.target;
     const keys = name.split(".");
     if (keys.length > 1) {
-      setFormCompany((prev) => ({
+      setFormContact((prev) => ({
         ...prev,
         [keys[0]]: { ...prev[keys[0]], [keys[1]]: value },
       }));
-    } else if (name === "website" && !value.includes("https://")) {
-      setFormCompany((prev) => ({
-        ...prev,
-        website: `https://${value}`,
-      }));
     } else {
-      setFormCompany((prev) => ({ ...prev, [name]: value }));
+      setFormContact((prev) => ({ ...prev, [name]: value }));
     }
   };
 
   const validate = () => {
     const newErrors = {};
-    if (!formCompany.name) newErrors.name = "Company Name is required";
-    if (!formCompany.industry) newErrors.industry = "Industry is required";
+    if (!formContact.firstName) newErrors.firstName = "Contact firstName is required";
+    if (!formContact.lastName) newErrors.lastName = "lastName is required";
+    if (!formContact.birthday) newErrors.birthday = "birthday is required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const [selectedRating, setSelectedRating] = useState("Shut Down"); // État pour stocker la valeur sélectionnée
+  const [selectedSalutation, setSelectedSalutation] = useState("Shut Down"); // État pour stocker la valeur sélectionnée
 
   // Fonction de gestion de changement de sélection
   const handleStatusChange = (event) => {
-    setSelectedRating(event.target.value);
+    setSelectedSalutation(event.target.value);
   };
 
   // Options disponibles
-  const statusOptions = [
-    "Acquired",
-    "Active",
-    "Market Failed",
-    "Project Cancelled",
-    "Shut Down",
-  ];
+  const statusOptions = ["Mr.", "Mrs.", "Ms.", "Dr.", "Prof."];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
 
     try {
-      const response = await createCompany({
-        ...formCompany,
+      const response = await createContact({
+        ...formContact,
         ownership: user.firstName,
         owner: user._id,
-        rating: selectedRating,
+        salutation: selectedSalutation,
       }).unwrap();
       console.log(user._id);
       toast({
-        title: "Company created.",
-        description: "The company has been successfully created.",
+        title: "Contact created.",
+        description: "The Contact has been successfully created.",
         status: "success",
         duration: 5000,
         isClosable: true,
       });
       console.log(response);
       setErrors({});
-      setFormCompany({});
+      setFormContact({});
       onClose();
     } catch (err) {
       toast({
@@ -146,13 +136,13 @@ const CreateCompanyForm = ({ isOpen, onClose }) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent maxW="80%" w="70%">
-        <ModalHeader>Create New Company</ModalHeader>
+        <ModalHeader>Create New Contact</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
           <form onSubmit={handleSubmit}>
             <FormControl>
               <FormLabel>Avatar</FormLabel>
-              <Image as={Avatar} src={formCompany.logo} key={imageKey} />
+              <Image as={Avatar} src={formContact.logo} key={imageKey} />
               <Button
                 variant="outline"
                 onClick={() => {
@@ -173,22 +163,22 @@ const CreateCompanyForm = ({ isOpen, onClose }) => {
             </FormControl>
             <VStack spacing={4}>
               <SimpleGrid columns={2} spacing={4} w="full">
-                <FormControl isInvalid={errors.name} isRequired>
-                  <FormLabel>Company Name</FormLabel>
-                  <Input name="name" onChange={handleChange} />
-                  {errors.name && <Text color="red.500">{errors.name}</Text>}
+                <FormControl isInvalid={errors.firstName} isRequired>
+                  <FormLabel>Contact Name</FormLabel>
+                  <Input name="firstName" onChange={handleChange} />
+                  {errors.firstName && <Text color="red.500">{errors.firstName}</Text>}
+                  <Input name="lastName" onChange={handleChange} />
+                  {errors.lastName && <Text color="red.500">{errors.lastName}</Text>}
                 </FormControl>
                 <FormControl>
-                  <FormLabel>Company Type</FormLabel>
-                  <Input name="companyType" onChange={handleChange} />
-                  {errors.companyType && (
-                    <Text color="red.500">{errors.companyType}</Text>
-                  )}
+                  <FormLabel>Email</FormLabel>
+                  <Input name="email" onChange={handleChange} />
+                  {errors.email && <Text color="red.500">{errors.email}</Text>}
                 </FormControl>
-                <FormControl isInvalid={errors.industry} isRequired>
-                  <FormLabel>Industry</FormLabel>
-                  <Input name="industry" onChange={handleChange} />
-                  {errors.industry && <Text color="red.500">{errors.industry}</Text>}
+                <FormControl isInvalid={errors.phone} isRequired>
+                  <FormLabel>phone</FormLabel>
+                  <Input name="phone" onChange={handleChange} />
+                  {errors.phone && <Text color="red.500">{errors.phone}</Text>}
                 </FormControl>
                 <FormControl>
                   <FormLabel>Description</FormLabel>
@@ -198,14 +188,14 @@ const CreateCompanyForm = ({ isOpen, onClose }) => {
                   )}
                 </FormControl>
                 <FormControl>
-                  <FormLabel>Website</FormLabel>
-                  <Input name="website" onChange={handleChange} />
-                  {errors.website && <Text color="red.500">{errors.website}</Text>}
+                  <FormLabel>birthday</FormLabel>
+                  <Input name="birthday" onChange={handleChange} />
+                  {errors.birthday && <Text color="red.500">{errors.birthday}</Text>}
                 </FormControl>
                 <FormControl>
-                  <FormLabel>Rating</FormLabel>
+                  <FormLabel>Salutation</FormLabel>
                   <Select
-                    value={selectedRating}
+                    value={selectedSalutation}
                     onChange={handleStatusChange}
                     placeholder="Select Status">
                     {statusOptions.map((option) => (
@@ -213,80 +203,66 @@ const CreateCompanyForm = ({ isOpen, onClose }) => {
                         {option}
                       </option>
                     ))}
-                  </Select>{" "}
+                  </Select>
                 </FormControl>
 
                 <FormControl>
-                  <FormLabel>Ticker Symbol</FormLabel>
-                  <Input name="tickerSymbol" onChange={handleChange} />
-                  {errors.tickerSymbol && (
-                    <Text color="red.500">{errors.tickerSymbol}</Text>
-                  )}
+                  <FormLabel>socials</FormLabel>
+                  <Input name="socials" onChange={handleChange} />
+                  {errors.socials && <Text color="red.500">{errors.socials}</Text>}
                 </FormControl>
                 <FormControl>
-                  <FormLabel>Employees</FormLabel>
-                  <Input type="number" name="employees" onChange={handleChange} />
-                  {errors.employees && <Text color="red.500">{errors.employees}</Text>}
-                </FormControl>
-                <FormControl>
-                  <FormLabel>Annual Revenue</FormLabel>
-                  <Input type="number" name="annualRevenue" onChange={handleChange} />
-                  {errors.annualRevenue && (
-                    <Text color="red.500">{errors.annualRevenue}</Text>
-                  )}
-                </FormControl>
-                <FormControl>
-                  <FormLabel>Tag</FormLabel>
-                  <Input name="tag" onChange={handleChange} />
-                  {errors.tag && <Text color="red.500">{errors.tag}</Text>}
+                  <FormLabel>leadSource</FormLabel>
+                  <Input type="number" name="leadSource" onChange={handleChange} />
+                  {errors.leadSource && <Text color="red.500">{errors.leadSource}</Text>}
                 </FormControl>
               </SimpleGrid>
               <SimpleGrid columns={2} spacing={4} w="full">
                 <FormControl>
-                  <FormLabel>Billing Address</FormLabel>
+                  <FormLabel> Address</FormLabel>
                   <Input
                     placeholder="Street"
-                    name="billingAddress.Street"
+                    name="address.Street"
                     onChange={handleChange}
                   />
-                  {errors["billingAddress.Street"] && (
-                    <Text color="red.500">{errors["billingAddress.Street"]}</Text>
+                  {errors["address.Street"] && (
+                    <Text color="red.500">{errors["address.Street"]}</Text>
                   )}
                   <Input
                     placeholder="City"
-                    name="billingAddress.City"
+                    name="address.City"
                     onChange={handleChange}
                     mt={2}
                   />
-                  {errors["billingAddress.City"] && (
-                    <Text color="red.500">{errors["billingAddress.City"]}</Text>
+                  {errors["address.City"] && (
+                    <Text color="red.500">{errors["address.City"]}</Text>
                   )}
                   <Input
                     placeholder="State"
-                    name="billingAddress.State"
+                    name="address.State"
                     onChange={handleChange}
                     mt={2}
                   />
-                  {errors["billingAddress.State"] && (
-                    <Text color="red.500">{errors["billingAddress.State"]}</Text>
+                  {errors["address.State"] && (
+                    <Text color="red.500">{errors["address.State"]}</Text>
                   )}
                   <Input
-                    placeholder="Billing Code"
-                    name="billingAddress.BillingCode"
+                    placeholder="country"
+                    name="address.country"
                     onChange={handleChange}
                     mt={2}
                   />
-                  {errors["billingAddress.BillingCode"] && (
-                    <Text color="red.500">{errors["billingAddress.BillingCode"]}</Text>
+                  {errors["address.BillingCode"] && (
+                    <Text color="red.500">{errors["address.BillingCode"]}</Text>
                   )}
                   <Input
-                    placeholder="Postal Code"
-                    name="billingAddress.PostalCode"
+                    placeholder="zipCode"
+                    name="address.zipCode"
                     onChange={handleChange}
                     mt={2}
                   />
-                  {errors["billingAddress.PostalCode"] && (
-                    <Text color="red.500">{errors["billingAddress.PostalCode"]}</Text>
+                  {errors["address.PostalCode"] && (
+                    <Text color="red.500">{errors["address.PostalCode"]}</Text>
                   )}
                 </FormControl>
                 <FormControl>
@@ -350,4 +326,4 @@ const CreateCompanyForm = ({ isOpen, onClose }) => {
   );
 };
 
-export default CreateCompanyForm;
+export default CreateContactForm;

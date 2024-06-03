@@ -1,5 +1,7 @@
 import { useEditCompanyMutation } from "@/features/api/companies";
+import { useUploadThing } from "@/lib/uploadthing";
 import {
+  Avatar,
   Button,
   FormLabel,
   FormControl,
@@ -9,28 +11,107 @@ import {
   useToast,
   VStack,
   SimpleGrid,
+  Image,
+  Spinner,
 } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 
 const CompanyForm = ({ company }) => {
+  const [imageKey, setImageKey] = useState("");
+
   const [formCompany, setFormCompany] = useState(
     company || {
-      billingAddress: {},
-      shippingAddress: {},
+      billingAddress: {
+        Street: "",
+        City: "",
+        State: "",
+        BillingCode: "",
+        PostalCode: "",
+      },
+      shippingAddress: {
+        Street: "",
+        City: "",
+        ShippingCode: "",
+        PostalCode: "",
+      },
     },
   );
   const [editCompany, { isLoading }] = useEditCompanyMutation();
   const [errors, setErrors] = useState({});
   const toast = useToast();
 
+  const fileInputRef = useRef(null);
+
+  const { startUpload, isUploading } = useUploadThing("imageUploader", {
+    skipPolling: true,
+    onClientUploadComplete: (res) => {
+      setFormCompany((prev) => ({ ...prev, logo: res[0].url }));
+      setTimeout(() => setImageKey(Date.now()), 2000);
+    },
+    onUploadError: (error) => {
+      console.error(error);
+      toast({
+        title: "Error occurred while uploading",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    },
+  });
+
   // Synchroniser l'état local avec les props entrantes
   useEffect(() => {
-    setFormCompany(company);
+    setFormCompany(
+      company || {
+        billingAddress: {
+          Street: "",
+          City: "",
+          State: "",
+          BillingCode: "",
+          PostalCode: "",
+        },
+        shippingAddress: {
+          Street: "",
+          City: "",
+          ShippingCode: "",
+          PostalCode: "",
+        },
+      },
+    );
   }, [company]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormCompany((prev) => ({ ...prev, [name]: value }));
+    if (name.startsWith("billingAddress.")) {
+      // Divise le nom du champ pour obtenir le champ spécifique de l'adresse
+      const addressField = name.split(".")[1];
+      // Met à jour l'adresse avec la nouvelle valeur pour le champ spécifique
+      setFormCompany((prev) => ({
+        ...prev,
+        billingAddress: {
+          ...prev.billingAddress,
+          [addressField]: value,
+        },
+      }));
+    } else if (name.startsWith("shippingAddress.")) {
+      const addressField = name.split(".")[1];
+      setFormCompany((prev) => ({
+        ...prev,
+        shippingAddress: {
+          ...prev.shippingAddress,
+          [addressField]: value,
+        },
+      }));
+    } else {
+      setFormCompany((prev) => ({ ...prev, [name]: value }));
+    }
+
+    if (name === "website" && !value.includes("https://")) {
+      setFormCompany((prev) => ({
+        ...prev,
+        website: `https://${value}`,
+      }));
+    }
   };
 
   const validate = () => {
@@ -52,6 +133,7 @@ const CompanyForm = ({ company }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!validate()) return;
+
     try {
       await editCompany({
         id: company._id,
@@ -77,6 +159,28 @@ const CompanyForm = ({ company }) => {
   return (
     <form onSubmit={handleSubmit}>
       <VStack spacing={4}>
+        <FormControl>
+          <FormLabel>Avatar</FormLabel>
+          <Image as={Avatar} src={formCompany.logo} key={imageKey} />
+          <Button
+            variant="outline"
+            onClick={() => {
+              fileInputRef.current.click();
+            }}>
+            {isUploading ? <Spinner /> : "Change logo"}
+          </Button>{" "}
+          <Input
+            hidden
+            name="logo"
+            type="file"
+            id="logo"
+            ref={fileInputRef}
+            onChange={(event) => {
+              startUpload([event.target.files[0]]);
+            }}
+          />
+        </FormControl>
+
         <SimpleGrid columns={2} spacing={4} w="full">
           <FormControl isRequired isInvalid={errors.name}>
             <FormLabel>Company Name</FormLabel>
@@ -201,7 +305,7 @@ const CompanyForm = ({ company }) => {
           </FormControl>
         </SimpleGrid>
       </VStack>
-      <Button colorScheme="blue" type="submit" isLoading={isLoading} w="100%">
+      <Button bg="black" color="white" type="submit" isLoading={isLoading} w="80%">
         Save
       </Button>
     </form>

@@ -1,13 +1,14 @@
-const {
-  login,
-  createToken,
-} = require('../services/db/user.service');
+const { login, createToken } = require("../services/db/user.service");
 
 // ↑↑ JWT based auth (Nawfel).
 
-const handleError = require('../lib/errorHandler');
-const User = require('../models/user.model');
-const { readUsers, writeUsers, updateWithoutReturn } = require('../services/db/user.service');
+const handleError = require("../lib/errorHandler");
+const User = require("../models/user.model");
+const {
+  readUsers,
+  writeUsers,
+  updateWithoutReturn,
+} = require("../services/db/user.service");
 
 // Admin priv. required
 exports.getUsers = async (req, res) => {
@@ -23,7 +24,11 @@ exports.getUsers = async (req, res) => {
 exports.getUserById = async (req, res) => {
   try {
     const users = await readUsers({ _id: req.params.id });
-    if (!users.length) return res.status(404).json({ type: 'ErrorNotFound', message: 'User not found :/' });
+    if (!users.length) {
+      return res
+        .status(404)
+        .json({ type: "ErrorNotFound", message: "User not found :/" });
+    }
     return res.status(200).json(users[0]);
   } catch (err) {
     return handleError(err, res);
@@ -33,8 +38,8 @@ exports.getUserById = async (req, res) => {
 // Admin priv. required
 exports.createUsers = async (req, res) => {
   try {
-    const writeData = await writeUsers(req.body, 'insertOne');
-    res.status(201).json({ result: writeData, message: 'Created.' });
+    const writeData = await writeUsers(req.body, "insertOne");
+    res.status(201).json({ result: writeData, message: "Created." });
   } catch (err) {
     handleError(err, res);
   }
@@ -82,7 +87,7 @@ exports.loginUser = async (req, res) => {
 exports.updateUser = async (req, res) => {
   try {
     await updateWithoutReturn(req.params.id, req.body);
-    return res.status(200).json({ message: 'Updated.' });
+    return res.status(200).json({ message: "Updated." });
   } catch (err) {
     return handleError(err, res);
   }
@@ -91,9 +96,13 @@ exports.updateUser = async (req, res) => {
 // TODO: User deactivation, soft-deletion.
 exports.deleteUser = async (req, res) => {
   try {
-    const writeData = await writeUsers({}, 'deleteOne', { _id: req.params.id });
-    if (!writeData.deletedCount) return res.status(404).json({ type: 'ErrorNotFound', message: 'User not found :/' });
-    return res.status(200).json({ result: writeData, message: 'Deleted.' });
+    const writeData = await writeUsers({}, "deleteOne", { _id: req.params.id });
+    if (!writeData.deletedCount) {
+      return res
+        .status(404)
+        .json({ type: "ErrorNotFound", message: "User not found :/" });
+    }
+    return res.status(200).json({ result: writeData, message: "Deleted." });
     // 204 : No Content actually returns no content..
   } catch (err) {
     return handleError(err, res);

@@ -10,7 +10,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@babel/core": "^7.24.5",
+    "@babel/core": "^7.24.6",
+    "@babel/plugin-transform-private-methods": "^7.24.6",
+    "@babel/preset-env": "^7.24.6",
     "@babel/preset-react": "^7.24.1",
     "@chakra-ui/icons": "^2.1.1",
     "@chakra-ui/react": "^2.8.2",
@@ -77,6 +79,7 @@
     "react-redux": "^9.1.2",
     "react-resizable-panels": "^2.0.19",
     "react-router-dom": "^6.23.1",
+    "react-social-icons": "^6.16.0",
     "sonner": "^1.4.41",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",

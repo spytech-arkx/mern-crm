@@ -1,23 +1,27 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const ContactSchema = new mongoose.Schema(
   {
     // Main Information
     salutation: {
       type: String,
-      enum: ['Mr.', 'Mrs.', 'Ms.', 'Dr.', 'Prof.', ''],
+      enum: ["Mr.", "Mrs.", "Ms.", "Dr.", "Prof.", ""],
     },
     firstName: {
       type: String,
-      required: [true, 'First name is required.'],
+      required: [true, "First name is required."],
       trim: true,
-      match: [/^[a-zA-Z\s]+$/, 'Please provide a valide name.'],
+      match: [/^[a-zA-Z\s]+$/, "Please provide a valide name."],
+    },
+    logo: {
+      type: String,
+      trim: true,
     },
     lastName: {
       type: String,
-      required: [true, 'Last name is required.'],
+      required: [true, "Last name is required."],
       trim: true,
-      match: [/^[a-zA-Z\s]+$/, 'Please provide a valide name.'],
+      match: [/^[a-zA-Z\s]+$/, "Please provide a valide name."],
     },
     // Contact Information
     email: {
@@ -27,7 +31,7 @@ const ContactSchema = new mongoose.Schema(
       sparse: true,
       match: [
         /^((?!\.)[\w\-_.]*[^.])(@\w+)(\.\w+(\.\w+)?[^.\W])$/gm,
-        'Please provide a valid email address.',
+        "Please provide a valid email address.",
       ],
     },
     phone: {
@@ -38,11 +42,11 @@ const ContactSchema = new mongoose.Schema(
       match: [
         /* Detects most of the phone numbers all over the world */
         /(?:([+]\d{1,4})[-.\s]?)?(?:[(](\d{1,3})[)][-.\s]?)?(\d{1,4})[-.\s]?(\d{1,4})[-.\s]?(\d{1,9})/g,
-        'Please provide a valid phone number.',
+        "Please provide a valid phone number.",
       ],
     },
     birthday: {
-      type: Date,
+      type: String,
       required: false,
     },
     address: {
@@ -75,30 +79,37 @@ const ContactSchema = new mongoose.Schema(
         sparse: true,
         match: /linkedin/g, // l3gz
       }, // Add more.. la bghiti
+      Facebook: {
+        type: String,
+        trim: true,
+        unique: true,
+        sparse: true,
+        match: /facebook/g, // l3gz
+      }, // Add more.. la bghiti
     },
 
     // Sales pipeline specific infos
     leadSource: {
       type: String,
       enum: [
-        'None',
-        'Advertisement',
-        'Employee Referral',
-        'Facebook',
-        'Twitter',
-        'Google+',
-        'External Referral',
-        'Public Relations',
-        'Web Download',
-        'Web Research',
-        'Cold Call',
-        'Chat',
-        '',
+        "None",
+        "Advertisement",
+        "Employee Referral",
+        "Facebook",
+        "Twitter",
+        "Google+",
+        "External Referral",
+        "Public Relations",
+        "Web Download",
+        "Web Research",
+        "Cold Call",
+        "Chat",
+        "",
       ],
     },
 
     // Association Information
-    companyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
+    companyId: { type: mongoose.Schema.Types.ObjectId, ref: "Company" },
     title: {
       type: String,
       trim: true,
@@ -110,8 +121,8 @@ const ContactSchema = new mongoose.Schema(
     },
 
     // System Information
-    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    lastModifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    createdBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    lastModifiedBy: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
     locked: Boolean, // Flag indicating if record is locked for editing
     id: {
       type: String,
@@ -130,4 +141,4 @@ const ContactSchema = new mongoose.Schema(
   },
 );
 
-module.exports = mongoose.model('Contact', ContactSchema);
+module.exports = mongoose.model("Contact", ContactSchema);
