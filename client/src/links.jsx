@@ -14,8 +14,9 @@ import "./styles/index.css";
 import Index from "./components/shared/Index.jsx";
 import HomePage from "./pages/home-page.jsx";
 import CompaniesList from "./components/entities/companies/CompaniesList.jsx";
-import SettingsProfilePage from "./pages/profile-page.jsx";
+import ProfilePage from "./pages/profile-page.jsx";
 import CompanyDetails from "./components/entities/companies/CompanyDetails.jsx";
+import { ProfileForm } from "./components/profile/profile-form.jsx";
 
 const routerSF = createBrowserRouter([
   {
@@ -64,12 +65,19 @@ const routerSF = createBrowserRouter([
             ),
           },
           {
-            path: "/profile",
+            path: "/me",
             element: (
               <AuthenticatedRoute>
-                <SettingsProfilePage />
+                <ProfilePage />
               </AuthenticatedRoute>
             ),
+            children: [
+              { index: true, element: <ProfileForm />, },
+              { path: "/me/preferences", element: <Index /> },
+              { path: "/me/socials", element: <Index /> },
+              { path: "/me/data", element: <Index /> },
+              { path: "/me/security", element: <Index /> },
+            ],
           },
           {
             path: "/contacts",

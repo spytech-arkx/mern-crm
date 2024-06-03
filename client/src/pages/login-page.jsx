@@ -55,7 +55,7 @@ export default function LogInPage() {
   };
 
   return (
-    <div className="container relative h-screen w-screen mx-0 grid items-center justify-center max-w-none lg:grid-cols-[1fr_1fr_1fr] lg:px-0 bg-gradient-to-r from-slate-900 to-lime-100">
+    <div className="container relative h-screen w-screen mx-0 grid items-center justify-center max-w-none lg:grid-cols-[1fr_1fr_1fr] lg:px-0 bg-gradient-to-l from-lime-30 to-stone-500">
       <div className="relative hidden h-full flex-col self-start bg-muted p-10 text-white dark:border-r lg:flex">
         <div className="absolute inset-0" />
         <div className="relative z-20 flex items-center text-lg font-medium gap-2">

@@ -32,8 +32,6 @@ export const fetchCompanyById = createAsyncThunk(
 export const updateCompany = createAsyncThunk(
   "companies/updateCompany",
   async (updatedCompany) => {
-    console.log("Updated Company:", updatedCompany); // Ajouté pour debugging
-
     const response = await fetch(
       `http://localhost:3000/api/companies/${updatedCompany._id}`,
       {

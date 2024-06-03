@@ -15,26 +15,34 @@ import {
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { Input } from "@/components/ui/input";
 import {
   ResizableHandle,
   ResizablePanel,
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import { Separator } from "@/components/ui/separator";
-import { TooltipProvider } from "@/components/ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 // import { CompanySwitcher } from "./company-switch";
 import { Nav } from "./nav-bar";
 import Cookies from "js-cookie";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { Input } from "../ui/input";
+import { UserNav } from "./user-nav";
 
 export function Dash({
+  user,
   //   companies,
   defaultLayout = [265, 440, 655],
   defaultCollapsed = false,
   navCollapsedSize,
 }) {
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
+  const navigate = useNavigate();
 
   return (
     <TooltipProvider delayDuration={0}>
@@ -45,18 +53,18 @@ export function Dash({
         }}
         className="min-h-screen w-full flex-col bg-muted/40 items-stretch">
         <ResizablePanel
-          defaultSize={defaultLayout[0]}
+          defaultSize={10}
           collapsedSize={navCollapsedSize}
           collapsible={true}
-          minSize={14}
+          minSize={10}
           maxSize={16}
           onExpand={() => {
             setIsCollapsed(false);
-            Cookies.set("react-resizable-panels:layout", JSON.stringify(false));
+            Cookies.set("react-resizable-panels:collapsed", JSON.stringify(false));
           }}
           onCollapse={() => {
             setIsCollapsed(true);
-            Cookies.set("react-resizable-panels:layout", JSON.stringify(true));
+            Cookies.set("react-resizable-panels:collapsed", JSON.stringify(true));
           }}
           className={cn(
             isCollapsed && "min-w-[50px] transition-all duration-300 ease-in-out",
@@ -67,11 +75,20 @@ export function Dash({
               isCollapsed ? "h-[52px]" : "px-2",
             )}>
             <div
+              onClick={() => navigate("/")}
               className={cn(
                 "relative z-20 flex items-center text-normal font-bold gap-1",
                 "bg-gradient-to-bl from-gray-900 to-lime-30 bg-clip-text text-transparent",
+                "cursor-pointer",
               )}>
-              {isCollapsed ? "💼" : "snazCRM 💼"}
+              {isCollapsed ? (
+                <Tooltip>
+                  <TooltipTrigger>💼</TooltipTrigger>
+                  <TooltipContent side="right">snazCRM</TooltipContent>
+                </Tooltip>
+              ) : (
+                "snazCRM 💼"
+              )}
             </div>
           </div>
           <Separator />
@@ -83,7 +100,7 @@ export function Dash({
                 label: "",
                 href: "/overview",
                 icon: GanttChart,
-                variant: "default",
+                variant: "ghost",
               },
               {
                 title: "Companies",
@@ -156,7 +173,7 @@ export function Dash({
             ]}
           />
         </ResizablePanel>
-        <ResizableHandle withHandle/>
+        <ResizableHandle withHandle />
         <ResizablePanel defaultSize={defaultLayout[1]} minSize={30}>
           <div className="flex justify-between items-center px-4 py-2">
             <div className="bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -167,8 +184,9 @@ export function Dash({
                 </div>
               </form>
             </div>
-            <h1 className="font-bold">Hola.</h1>
-            {/* TODO: Search, Profile. */}
+            <div className="flex justify-between items-center gap-2 px-2">
+              <UserNav user={user} />
+            </div>
           </div>
           <Separator />
           <Outlet />

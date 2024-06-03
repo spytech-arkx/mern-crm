@@ -8,14 +8,6 @@ require("dotenv").config();
 
 const authRouter = express.Router();
 
-authRouter.post("/logout", (req, res) => {
-  req.session.destroy((err) => {
-    if (err) return handleError(err);
-    res.clearCookie("snaz_0ozQd8310");
-    return res.json({ type: "success", message: "Logged out." });
-  });
-});
-
 authRouter.get("/whoami", passport.authenticate("session"), (req, res) => {
   if (!req.user) return res.status(401).json({ type: "Unauthorized", message: "Session timeout." });
   return res.json(req.user);
@@ -29,7 +21,7 @@ authRouter.post(
   }),
   (req, res) => {
     req.login(req.user, (err) => {
-      if (err) return handleError(err);
+      if (err) return handleError(err, res);
       return res.status(200).json({
         session: req.sessionID,
         user: req.user,
@@ -57,6 +49,15 @@ authRouter.post("/app", (req, res) => {
   } catch (err) {
     return handleError(err, res);
   }
+});
+
+authRouter.post("/logout", (req, res) => {
+  req.logout((err) => handleError(err, res));
+  req.session.destroy((err) => {
+    if (err) return handleError(err, res);
+    res.clearCookie("snaz_0ozQd8310");
+    return res.json({ type: "success", message: "Logged out." });
+  });
 });
 
 module.exports = authRouter;
