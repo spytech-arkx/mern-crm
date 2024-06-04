@@ -2,7 +2,7 @@ import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 
 import { labels, priorities, statuses } from "@/data/tasks";
-import { DataTableColumnHeader } from "./data-table-column-header";
+import { DataTableColumnHeader } from "../data-table-column-header";
 import { DataTableRowActions } from "./data-table-row-actions";
 import { CalendarClock, Plus } from "lucide-react";
 
@@ -67,9 +67,13 @@ export const columns = [
     },
     enableSorting: true,
     enableHiding: false,
+    enableResizing: true,
   },
   {
     accessorKey: "assignee",
+    filterFn: (row, assignee, value) => {
+      return value.includes(row.getValue(assignee));
+    },
     header: ({ column }) => <DataTableColumnHeader column={column} title="Assignee(s)" />,
     cell: ({ row }) => {
       const assignee = row.getValue("assignee");
@@ -88,7 +92,9 @@ export const columns = [
               alt="user's avatar"
             />
           )}
-          <span className="max-w-[200px] truncate text-neutral-80">{assignee.name}</span>
+          <span className="max-w-[200px] truncate text-neutral-80">{`${
+            assignee.name.split(" ")[1][0]
+          }. ${assignee.name.split(" ")[0]}`}</span>
         </div>
       );
     },
@@ -122,6 +128,9 @@ export const columns = [
   },
   {
     accessorKey: "status",
+    filterFn: (row, status, value) => {
+      return value.includes(row.getValue(status));
+    },
     header: ({ column }) => <DataTableColumnHeader column={column} title="Status" />,
     cell: ({ row }) => {
       const status = statuses.find((status) => status.value === row.getValue("status"));
@@ -145,6 +154,9 @@ export const columns = [
   },
   {
     accessorKey: "priority",
+    filterFn: (row, priority, value) => {
+      return value.includes(row.getValue(priority));
+    },
     header: ({ column }) => <DataTableColumnHeader column={column} title="Priority" />,
     cell: ({ row }) => {
       const priority = priorities.find(

@@ -17,9 +17,9 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "@/components/ui/table";
+} from "@/components/ui/new-york/table";
 
-import { DataTablePagination } from "./data-table-pagination";
+import { DataTablePagination } from "../data-table-pagination";
 import { DataTableToolbar } from "./data-table-toolbar";
 import { useDispatch } from "react-redux";
 import { focusTaskById, toggleTaskDrawer } from "@/features/tasks/slice";
@@ -33,6 +33,7 @@ import {
 } from "@/components/ui/context-menu";
 import { toast } from "sonner";
 import { useDeleteTaskMutation } from "@/features/api/tasks";
+import { format } from "date-fns";
 
 export function DataTable({ columns, data }) {
   const dispatch = useDispatch();
@@ -86,7 +87,8 @@ export function DataTable({ columns, data }) {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-3">
+      <h2 className="text-xl font-bold">Tasks - {format(new Date(), "PPP")}</h2>
       <DataTableToolbar table={table} />
       <div className="rounded-md border">
         <Table>
@@ -135,7 +137,6 @@ export function DataTable({ columns, data }) {
                       onSelect={() => handleClickEdit(row.original)}>
                       Edit
                     </ContextMenuItem>
-                    <ContextMenuSeparator />
                     <ContextMenuSeparator />
                     <ContextMenuItem
                       onClick={(e) => e.stopPropagation()}

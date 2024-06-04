@@ -2,11 +2,11 @@ import { Cross2Icon } from "@radix-ui/react-icons";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { DataTableViewOptions } from "./data-table-view-options";
+import { DataTableViewOptions } from "../data-table-view-options";
 
 import { priorities, statuses } from "@/data/tasks";
 
-import { DataTableFacetedFilter } from "./data-table-faceted-filter";
+import { DataTableFacetedFilter } from "../data-table-faceted-filter";
 import { useGetTasksListQuery } from "@/features/api/tasks";
 import { useDispatch } from "react-redux";
 import { focusTaskById, toggleTaskDrawer } from "@/features/tasks/slice";
@@ -17,6 +17,7 @@ export function DataTableToolbar({ table }) {
   const dispatch = useDispatch();
   const { data: tasks, isSuccess } = useGetTasksListQuery();
 
+  // TODO: replace assignees mock data 
   let assignees = [];
   if (isSuccess)
     assignees = [...tasks].map((task) => {
