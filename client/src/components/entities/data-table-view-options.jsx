@@ -10,6 +10,7 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu"
 
+// INDEPENDANT
 export function DataTableViewOptions({ table } ) {
   return (
     <DropdownMenu>

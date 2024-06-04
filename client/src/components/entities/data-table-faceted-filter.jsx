@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/popover"
 import { Separator } from "@/components/ui/separator"
 
-
+// INDEPENDENT
 export function DataTableFacetedFilter({
   column,
   title,
