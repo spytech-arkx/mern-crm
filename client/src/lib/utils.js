@@ -11,3 +11,10 @@ export const formatter = new Intl.DateTimeFormat('en-GB', {
   month: 'short',
   weekday: 'short',
 });
+
+export const moneyFormatter = new Intl.NumberFormat('en-US', {
+  style: "currency",
+  currency: "USD",
+})
+
+export const parser = new DOMParser();
