@@ -1,41 +1,42 @@
-import { faker } from "@faker-js/faker";
+/* eslint-disable camelcase */
+const fs = require("fs");
+const path = require("path");
+const { faker } = require("@faker-js/faker");
+const icons = require("simple-icons");
 
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const stageOptions = ['Qualification', 'Proposal', 'Negotiation', 'Closed Won', 'Closed Lost'];
-const reasonForLossOptions = ['Competitor', 'Budget Constraints', 'No Decision', 'Other'];
-const leadSourceOptions = [
-  'None', 'Advertisement', 'Employee Referral', 'Facebook', 'Twitter', 
-  'Google+', 'External Referral', 'Public Relations', 'Web Download', 
-  'Web Research', 'Cold Call', 'Chat'
+const stages = [
+  "New Lead",
+  "Qualified Lead",
+  "In Draft",
+  "Proposal Sent",
+  "Negotiation",
+  "Deal Won",
+  "Deal Lost",
 ];
 
-const deals = Array.from({ length: 100 }, () => ({
-  title: faker.lorem.words(3),
+const deals = Array.from({ length: 40 }, () => ({
+  title: faker.word.words({ count: { min: 4, max: 6 } }),
   description: faker.lorem.sentence(),
   amount: faker.finance.amount(),
   closingDate: faker.date.future(),
+  contact: {
+    firstName: faker.person.firstName(),
+    lastName: faker.person.lastName(),
+    fullName: faker.person.fullName(),
+    avatar: faker.image.avatar(),
+    email: faker.internet.email(),
+  },
+  company: {
+    name: faker.company.name(),
+  },
+  assignee: {
+    name: faker.person.fullName(),
+    avatar: faker.image.urlLoremFlickr({ category: "people" }),
+  },
   expectedRevenue: faker.finance.amount(),
-  companyId: `CP-${crypto.randomUUID().split("-")[1].toUpperCase()}`,
-  contactId: `CT-${crypto.randomUUID().split("-")[0].toUpperCase()}`,
-  stage: faker.helpers.arrayElement(stageOptions),
-  type: faker.lorem.word(),
-  reasonForLoss: faker.helpers.arrayElement(reasonForLossOptions),
-  nextStep: faker.lorem.words(3),
-  probability: faker.datatype.number({ min: 0, max: 100 }),
-  leadSource: faker.helpers.arrayElement(leadSourceOptions),
-  tag: faker.lorem.word(),
-  id: `DL-${crypto.randomUUID().split('-')[1].toUpperCase()}`,
+  stage: faker.helpers.arrayElement(stages),
 }));
 
-fs.writeFileSync(
-    path.join(__dirname, "deals.json"),
-    JSON.stringify(deals, null, 2),
-  );
-  
-  console.log("✅ deals data generated.");
+fs.writeFileSync(path.join(__dirname, "deals.json"), JSON.stringify(deals, null, 2));
+
+console.log("✅ deals data generated.");

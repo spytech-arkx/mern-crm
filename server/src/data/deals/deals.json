@@ -1,1702 +1,882 @@
 [
   {
-    "title": "cultura ulciscor quos",
-    "description": "Caute ducimus deorsum ventosus speculum.",
-    "amount": "982.15",
-    "closingDate": "2024-05-22T02:27:30.772Z",
-    "expectedRevenue": "345.03",
-    "companyId": "CP-C0AC",
-    "contactId": "CT-E30854C5",
-    "stage": "Closed Lost",
-    "type": "acervus",
-    "reasonForLoss": "Competitor",
-    "nextStep": "arcus cogo dedecor",
-    "probability": 63,
-    "leadSource": "Twitter",
-    "tag": "peior",
-    "id": "DL-B312"
-  },
-  {
-    "title": "angulus earum tabernus",
-    "description": "Adamo aggero ceno ex.",
-    "amount": "396.99",
-    "closingDate": "2024-07-27T19:31:18.172Z",
-    "expectedRevenue": "500.65",
-    "companyId": "CP-4879",
-    "contactId": "CT-6EF36205",
-    "stage": "Qualification",
-    "type": "tantum",
-    "reasonForLoss": "Budget Constraints",
-    "nextStep": "solitudo timor balbus",
-    "probability": 31,
-    "leadSource": "Advertisement",
-    "tag": "acceptus",
-    "id": "DL-BB3E"
-  },
-  {
-    "title": "supra cresco autus",
-    "description": "Color sol barba delectatio commodo.",
-    "amount": "157.22",
-    "closingDate": "2025-02-18T23:49:36.700Z",
-    "expectedRevenue": "121.20",
-    "companyId": "CP-7F17",
-    "contactId": "CT-E5A337B6",
-    "stage": "Proposal",
-    "type": "subito",
-    "reasonForLoss": "Budget Constraints",
-    "nextStep": "corroboro synagoga repellendus",
-    "probability": 31,
-    "leadSource": "Employee Referral",
-    "tag": "stabilis",
-    "id": "DL-9398"
-  },
-  {
-    "title": "theca desino tener",
-    "description": "Ambitus amaritudo sto contra ambitus degusto recusandae amoveo.",
-    "amount": "330.87",
-    "closingDate": "2024-05-27T15:43:34.669Z",
-    "expectedRevenue": "645.19",
-    "companyId": "CP-F788",
-    "contactId": "CT-070D1589",
-    "stage": "Negotiation",
-    "type": "tam",
-    "reasonForLoss": "Other",
-    "nextStep": "vilis modi contego",
-    "probability": 53,
-    "leadSource": "Employee Referral",
-    "tag": "contra",
-    "id": "DL-0428"
-  },
-  {
-    "title": "degenero coniecto arma",
-    "description": "Cattus supra degero.",
-    "amount": "685.52",
-    "closingDate": "2024-12-04T09:57:10.147Z",
-    "expectedRevenue": "236.25",
-    "companyId": "CP-4673",
-    "contactId": "CT-D7AC9B14",
-    "stage": "Closed Lost",
-    "type": "repellat",
-    "reasonForLoss": "Budget Constraints",
-    "nextStep": "sodalitas defaeco fugit",
-    "probability": 99,
-    "leadSource": "Chat",
-    "tag": "vesco",
-    "id": "DL-3772"
-  },
-  {
-    "title": "capillus quaerat ustilo",
-    "description": "Undique crux virgo tergeo iure.",
-    "amount": "440.38",
-    "closingDate": "2024-06-28T07:30:27.180Z",
-    "expectedRevenue": "185.64",
-    "companyId": "CP-9A5B",
-    "contactId": "CT-41E38267",
-    "stage": "Proposal",
-    "type": "viscus",
-    "reasonForLoss": "No Decision",
-    "nextStep": "angustus stultus quia",
-    "probability": 65,
-    "leadSource": "None",
-    "tag": "maxime",
-    "id": "DL-591E"
-  },
-  {
-    "title": "admiratio viduo aurum",
-    "description": "Subiungo coniuratio sophismata tum.",
-    "amount": "506.49",
-    "closingDate": "2024-11-03T03:11:41.308Z",
-    "expectedRevenue": "469.09",
-    "companyId": "CP-C666",
-    "contactId": "CT-6C3D4AEC",
-    "stage": "Negotiation",
-    "type": "curso",
-    "reasonForLoss": "No Decision",
-    "nextStep": "tergiversatio verus aptus",
-    "probability": 22,
-    "leadSource": "Cold Call",
-    "tag": "terra",
-    "id": "DL-0BB4"
-  },
-  {
-    "title": "exercitationem ubi depereo",
-    "description": "Conatus capitulus volva.",
-    "amount": "36.34",
-    "closingDate": "2024-07-17T08:26:21.050Z",
-    "expectedRevenue": "386.71",
-    "companyId": "CP-5F27",
-    "contactId": "CT-166EA214",
-    "stage": "Closed Won",
-    "type": "conspergo",
-    "reasonForLoss": "Other",
-    "nextStep": "eos vaco pauper",
-    "probability": 46,
-    "leadSource": "Google+",
-    "tag": "conventus",
-    "id": "DL-BB1E"
-  },
-  {
-    "title": "velociter stipes tolero",
-    "description": "Circumvenio maiores arbustum consectetur correptius temeritas aliquam convoco delinquo.",
-    "amount": "115.30",
-    "closingDate": "2024-05-29T13:41:46.230Z",
-    "expectedRevenue": "869.24",
-    "companyId": "CP-260B",
-    "contactId": "CT-C6FF2A19",
-    "stage": "Negotiation",
-    "type": "quos",
-    "reasonForLoss": "No Decision",
-    "nextStep": "tener vivo antiquus",
-    "probability": 97,
-    "leadSource": "Public Relations",
-    "tag": "tubineus",
-    "id": "DL-B08E"
-  },
-  {
-    "title": "colligo sponte careo",
-    "description": "Voluptate defessus copiose atque rerum clam creptio amet pel conservo.",
-    "amount": "741.59",
-    "closingDate": "2024-07-21T11:14:30.797Z",
-    "expectedRevenue": "147.58",
-    "companyId": "CP-11BB",
-    "contactId": "CT-55537048",
-    "stage": "Qualification",
-    "type": "suscipio",
-    "reasonForLoss": "No Decision",
-    "nextStep": "cubicularis altus contigo",
-    "probability": 73,
-    "leadSource": "Chat",
-    "tag": "bis",
-    "id": "DL-FB15"
-  },
-  {
-    "title": "turpis contabesco terebro",
-    "description": "Demitto calculus cimentarius balbus.",
-    "amount": "8.01",
-    "closingDate": "2025-04-14T21:14:53.103Z",
-    "expectedRevenue": "634.70",
-    "companyId": "CP-FBB3",
-    "contactId": "CT-E20282E0",
-    "stage": "Negotiation",
-    "type": "defero",
-    "reasonForLoss": "No Decision",
-    "nextStep": "est blandior audacia",
-    "probability": 23,
-    "leadSource": "Public Relations",
-    "tag": "capitulus",
-    "id": "DL-BBDE"
-  },
-  {
-    "title": "adficio adipisci aggredior",
-    "description": "Degusto theatrum apud curto cupio textilis.",
-    "amount": "94.55",
-    "closingDate": "2024-11-01T20:56:34.886Z",
-    "expectedRevenue": "408.40",
-    "companyId": "CP-076B",
-    "contactId": "CT-F6F75A21",
-    "stage": "Qualification",
-    "type": "volo",
-    "reasonForLoss": "Competitor",
-    "nextStep": "velociter caritas terebro",
-    "probability": 45,
-    "leadSource": "Advertisement",
-    "tag": "terminatio",
-    "id": "DL-156F"
-  },
-  {
-    "title": "deputo corona caput",
-    "description": "Curto sordeo carmen soleo totidem creber impedit carmen.",
-    "amount": "782.16",
-    "closingDate": "2024-07-21T10:33:28.740Z",
-    "expectedRevenue": "112.45",
-    "companyId": "CP-42F1",
-    "contactId": "CT-B74A9AFE",
-    "stage": "Proposal",
-    "type": "patrocinor",
-    "reasonForLoss": "Other",
-    "nextStep": "repellat tener denego",
-    "probability": 23,
-    "leadSource": "None",
-    "tag": "demulceo",
-    "id": "DL-0273"
-  },
-  {
-    "title": "bis inventore virtus",
-    "description": "Tardus usque caput arbitro cubicularis caritas.",
-    "amount": "337.16",
-    "closingDate": "2025-03-29T08:23:06.666Z",
-    "expectedRevenue": "41.55",
-    "companyId": "CP-85F6",
-    "contactId": "CT-1EA701F1",
-    "stage": "Proposal",
-    "type": "astrum",
-    "reasonForLoss": "Competitor",
-    "nextStep": "depromo asper uxor",
-    "probability": 36,
-    "leadSource": "Public Relations",
-    "tag": "tergum",
-    "id": "DL-3582"
-  },
-  {
-    "title": "conqueror claudeo terebro",
-    "description": "Universe aranea adiuvo dedecor enim cibo aqua vaco.",
-    "amount": "719.59",
-    "closingDate": "2025-01-29T02:28:53.817Z",
-    "expectedRevenue": "440.32",
-    "companyId": "CP-F6EF",
-    "contactId": "CT-AAA5F0F0",
-    "stage": "Proposal",
-    "type": "defluo",
-    "reasonForLoss": "Budget Constraints",
-    "nextStep": "cilicium deludo copia",
-    "probability": 8,
-    "leadSource": "Web Research",
-    "tag": "delectus",
-    "id": "DL-B507"
-  },
-  {
-    "title": "verbera auctus patruus",
-    "description": "Subito commodi labore amo vigilo.",
-    "amount": "56.73",
-    "closingDate": "2024-11-01T03:22:50.929Z",
-    "expectedRevenue": "222.72",
-    "companyId": "CP-01F9",
-    "contactId": "CT-75032E59",
-    "stage": "Closed Lost",
-    "type": "coerceo",
-    "reasonForLoss": "No Decision",
-    "nextStep": "defetiscor comes defungo",
-    "probability": 66,
-    "leadSource": "Cold Call",
-    "tag": "tabesco",
-    "id": "DL-7778"
-  },
-  {
-    "title": "a tum apparatus",
-    "description": "Aperio vesper earum sollicito.",
-    "amount": "100.23",
-    "closingDate": "2025-04-07T21:39:20.147Z",
-    "expectedRevenue": "886.62",
-    "companyId": "CP-FA29",
-    "contactId": "CT-DDF562C0",
-    "stage": "Proposal",
-    "type": "usus",
-    "reasonForLoss": "Other",
-    "nextStep": "termes complectus curia",
-    "probability": 84,
-    "leadSource": "External Referral",
-    "tag": "demoror",
-    "id": "DL-ABC9"
-  },
-  {
-    "title": "voluptatem vel demergo",
-    "description": "Similique aequitas conitor corrumpo vero.",
-    "amount": "423.83",
-    "closingDate": "2024-11-22T21:04:59.501Z",
-    "expectedRevenue": "280.97",
-    "companyId": "CP-31B2",
-    "contactId": "CT-C098A618",
-    "stage": "Qualification",
-    "type": "velociter",
-    "reasonForLoss": "Other",
-    "nextStep": "collum uterque ver",
-    "probability": 60,
-    "leadSource": "None",
-    "tag": "trans",
-    "id": "DL-2E0F"
-  },
-  {
-    "title": "audentia aperte cultellus",
-    "description": "Velut depromo trepide cervus volaticus.",
-    "amount": "457.02",
-    "closingDate": "2025-04-03T14:09:29.309Z",
-    "expectedRevenue": "645.26",
-    "companyId": "CP-BC6B",
-    "contactId": "CT-0CE71B07",
-    "stage": "Closed Lost",
-    "type": "absorbeo",
-    "reasonForLoss": "No Decision",
-    "nextStep": "tardus demum cerno",
-    "probability": 6,
-    "leadSource": "Advertisement",
-    "tag": "vinitor",
-    "id": "DL-197E"
-  },
-  {
-    "title": "trucido modi tumultus",
-    "description": "Temperantia tamquam curiositas contigo vigor.",
-    "amount": "112.01",
-    "closingDate": "2024-12-19T23:36:59.684Z",
-    "expectedRevenue": "935.74",
-    "companyId": "CP-7EAD",
-    "contactId": "CT-EDB53B3D",
-    "stage": "Qualification",
-    "type": "aperio",
-    "reasonForLoss": "No Decision",
-    "nextStep": "crustulum communis despecto",
-    "probability": 100,
-    "leadSource": "Web Download",
-    "tag": "ex",
-    "id": "DL-76D8"
-  },
-  {
-    "title": "amo harum vito",
-    "description": "Depereo trepide eligendi trepide vacuus deorsum aperio cuius damnatio statua.",
-    "amount": "700.44",
-    "closingDate": "2025-05-06T21:02:26.721Z",
-    "expectedRevenue": "479.66",
-    "companyId": "CP-AF6B",
-    "contactId": "CT-1C56DA6C",
-    "stage": "Negotiation",
-    "type": "suscipio",
-    "reasonForLoss": "Budget Constraints",
-    "nextStep": "suggero campana corrigo",
-    "probability": 33,
-    "leadSource": "Twitter",
-    "tag": "quae",
-    "id": "DL-76CF"
-  },
-  {
-    "title": "commodo veniam amor",
-    "description": "Causa terra itaque aegrus bene victoria videlicet cicuta.",
-    "amount": "85.42",
-    "closingDate": "2024-12-28T02:28:25.541Z",
-    "expectedRevenue": "973.27",
-    "companyId": "CP-D254",
-    "contactId": "CT-6F35E4D8",
-    "stage": "Negotiation",
-    "type": "suffragium",
-    "reasonForLoss": "Budget Constraints",
-    "nextStep": "contabesco vobis vivo",
-    "probability": 86,
-    "leadSource": "Web Research",
-    "tag": "audax",
-    "id": "DL-38E5"
-  },
-  {
-    "title": "provident ea crur",
-    "description": "Deprimo conculco color amita demulceo ventus arcesso.",
-    "amount": "402.06",
-    "closingDate": "2025-03-22T11:37:27.070Z",
-    "expectedRevenue": "964.82",
-    "companyId": "CP-90C4",
-    "contactId": "CT-2DBB78BE",
-    "stage": "Closed Won",
-    "type": "quibusdam",
-    "reasonForLoss": "No Decision",
-    "nextStep": "volutabrum adipiscor sequi",
-    "probability": 15,
-    "leadSource": "Employee Referral",
-    "tag": "capillus",
-    "id": "DL-FC9F"
-  },
-  {
-    "title": "delibero caveo cogito",
-    "description": "Tui repellendus vitiosus venustas solus contra ustulo abduco annus.",
-    "amount": "265.42",
-    "closingDate": "2024-12-13T11:10:52.860Z",
-    "expectedRevenue": "542.78",
-    "companyId": "CP-6254",
-    "contactId": "CT-72B14836",
-    "stage": "Closed Won",
-    "type": "decimus",
-    "reasonForLoss": "Other",
-    "nextStep": "est curriculum calculus",
-    "probability": 16,
-    "leadSource": "Advertisement",
-    "tag": "comptus",
-    "id": "DL-5219"
-  },
-  {
-    "title": "strenuus absens vorago",
-    "description": "Solutio laboriosam adsidue.",
-    "amount": "736.06",
-    "closingDate": "2024-06-01T08:46:39.687Z",
-    "expectedRevenue": "507.26",
-    "companyId": "CP-EFAC",
-    "contactId": "CT-0D7AB1F1",
-    "stage": "Closed Lost",
-    "type": "traho",
-    "reasonForLoss": "Competitor",
-    "nextStep": "tero sono articulus",
-    "probability": 16,
-    "leadSource": "Web Research",
-    "tag": "patria",
-    "id": "DL-A6F2"
-  },
-  {
-    "title": "crudelis deprimo desparatus",
-    "description": "Fuga comminor adicio spectaculum clamo tendo vox.",
-    "amount": "160.94",
-    "closingDate": "2024-06-04T13:05:17.839Z",
-    "expectedRevenue": "401.88",
-    "companyId": "CP-BD78",
-    "contactId": "CT-E9CAA778",
-    "stage": "Closed Lost",
-    "type": "vesica",
-    "reasonForLoss": "Other",
-    "nextStep": "currus impedit caste",
-    "probability": 55,
-    "leadSource": "Facebook",
-    "tag": "beatae",
-    "id": "DL-6240"
-  },
-  {
-    "title": "demo argentum degusto",
-    "description": "Vilicus clementia cervus articulus.",
-    "amount": "637.63",
-    "closingDate": "2025-03-31T00:26:18.608Z",
-    "expectedRevenue": "261.71",
-    "companyId": "CP-966D",
-    "contactId": "CT-831C8F43",
-    "stage": "Negotiation",
-    "type": "custodia",
-    "reasonForLoss": "Other",
-    "nextStep": "ambitus acsi tenus",
-    "probability": 36,
-    "leadSource": "Web Research",
-    "tag": "astrum",
-    "id": "DL-3776"
-  },
-  {
-    "title": "decumbo decens acceptus",
-    "description": "Cum subito canonicus confero denuo vorax vinum praesentium cruciamentum sollers.",
-    "amount": "383.70",
-    "closingDate": "2024-06-26T15:13:51.013Z",
-    "expectedRevenue": "407.97",
-    "companyId": "CP-EAEE",
-    "contactId": "CT-42530826",
-    "stage": "Qualification",
-    "type": "valetudo",
-    "reasonForLoss": "No Decision",
-    "nextStep": "capitulus synagoga acerbitas",
-    "probability": 53,
-    "leadSource": "Facebook",
-    "tag": "amicitia",
-    "id": "DL-9789"
-  },
-  {
-    "title": "cur perspiciatis placeat",
-    "description": "Victus victus pectus stips amitto artificiose vero.",
-    "amount": "697.61",
-    "closingDate": "2024-09-02T23:08:36.331Z",
-    "expectedRevenue": "898.64",
-    "companyId": "CP-EE12",
-    "contactId": "CT-E2CA77DB",
-    "stage": "Proposal",
-    "type": "vespillo",
-    "reasonForLoss": "Other",
-    "nextStep": "subiungo aufero pecco",
-    "probability": 54,
-    "leadSource": "Web Research",
-    "tag": "amaritudo",
-    "id": "DL-6DFE"
-  },
-  {
-    "title": "subseco tempore tergiversatio",
-    "description": "Alo non confugo cogo utique varius.",
-    "amount": "668.05",
-    "closingDate": "2024-05-18T01:54:00.062Z",
-    "expectedRevenue": "811.37",
-    "companyId": "CP-751D",
-    "contactId": "CT-2F6D46A5",
-    "stage": "Qualification",
-    "type": "atrocitas",
-    "reasonForLoss": "Competitor",
-    "nextStep": "pax vir valde",
-    "probability": 54,
-    "leadSource": "Chat",
-    "tag": "adhuc",
-    "id": "DL-FBA4"
-  },
-  {
-    "title": "delibero nulla teres",
-    "description": "Inventore beatus auxilium comprehendo colligo valens.",
-    "amount": "702.13",
-    "closingDate": "2024-07-12T18:10:27.809Z",
-    "expectedRevenue": "136.19",
-    "companyId": "CP-91BE",
-    "contactId": "CT-9AE60B14",
-    "stage": "Closed Lost",
-    "type": "toties",
-    "reasonForLoss": "Other",
-    "nextStep": "sperno ascisco nobis",
-    "probability": 80,
-    "leadSource": "Public Relations",
-    "tag": "totam",
-    "id": "DL-A009"
-  },
-  {
-    "title": "suspendo decipio crur",
-    "description": "Tenetur aveho attero ubi velum victoria.",
-    "amount": "879.94",
-    "closingDate": "2024-09-02T01:14:39.667Z",
-    "expectedRevenue": "939.40",
-    "companyId": "CP-65DB",
-    "contactId": "CT-336A8689",
-    "stage": "Closed Won",
-    "type": "annus",
-    "reasonForLoss": "Budget Constraints",
-    "nextStep": "comparo aut vestigium",
-    "probability": 89,
-    "leadSource": "Cold Call",
-    "tag": "casus",
-    "id": "DL-69C6"
-  },
-  {
-    "title": "alias creber antea",
-    "description": "Sono adhuc atque sapiente tui adipisci vero depopulo.",
-    "amount": "882.04",
-    "closingDate": "2024-05-25T00:14:18.328Z",
-    "expectedRevenue": "294.62",
-    "companyId": "CP-E214",
-    "contactId": "CT-CA3FD497",
-    "stage": "Negotiation",
-    "type": "alioqui",
-    "reasonForLoss": "Other",
-    "nextStep": "alioqui delinquo autus",
-    "probability": 55,
-    "leadSource": "Web Research",
-    "tag": "causa",
-    "id": "DL-E8CA"
-  },
-  {
-    "title": "adhuc desolo vorax",
-    "description": "Alienus aufero sublime tabula vero.",
-    "amount": "146.07",
-    "closingDate": "2024-11-02T11:00:32.777Z",
-    "expectedRevenue": "125.34",
-    "companyId": "CP-5A2F",
-    "contactId": "CT-98BD9EF5",
-    "stage": "Closed Lost",
-    "type": "caute",
-    "reasonForLoss": "Other",
-    "nextStep": "utrum umerus amor",
-    "probability": 44,
-    "leadSource": "None",
-    "tag": "caritas",
-    "id": "DL-D125"
-  },
-  {
-    "title": "quaerat demonstro pectus",
-    "description": "Cado caecus vos bibo despecto quidem crudelis.",
-    "amount": "853.53",
-    "closingDate": "2025-01-30T23:25:46.099Z",
-    "expectedRevenue": "535.43",
-    "companyId": "CP-B826",
-    "contactId": "CT-89708059",
-    "stage": "Closed Won",
-    "type": "alii",
-    "reasonForLoss": "No Decision",
-    "nextStep": "aliquam studio suasoria",
-    "probability": 29,
-    "leadSource": "Public Relations",
-    "tag": "vobis",
-    "id": "DL-9652"
-  },
-  {
-    "title": "tui comptus umbra",
-    "description": "Amplexus illo admoneo quisquam audeo vacuus terreo causa accusantium.",
-    "amount": "875.17",
-    "closingDate": "2024-07-18T08:12:20.212Z",
-    "expectedRevenue": "447.24",
-    "companyId": "CP-3220",
-    "contactId": "CT-99487799",
-    "stage": "Negotiation",
-    "type": "cunctatio",
-    "reasonForLoss": "No Decision",
-    "nextStep": "quisquam succurro corpus",
-    "probability": 64,
-    "leadSource": "Web Research",
-    "tag": "arbustum",
-    "id": "DL-6761"
-  },
-  {
-    "title": "peccatus odio decimus",
-    "description": "Quam trans eaque deinde ustulo.",
-    "amount": "235.46",
-    "closingDate": "2024-12-11T07:54:44.015Z",
-    "expectedRevenue": "2.24",
-    "companyId": "CP-DD17",
-    "contactId": "CT-1990CB1A",
-    "stage": "Closed Lost",
-    "type": "casso",
-    "reasonForLoss": "Budget Constraints",
-    "nextStep": "tot arx tabula",
-    "probability": 42,
-    "leadSource": "Web Research",
-    "tag": "cunctatio",
-    "id": "DL-C579"
-  },
-  {
-    "title": "caute calamitas nesciunt",
-    "description": "Ut dens quos abduco.",
-    "amount": "971.44",
-    "closingDate": "2025-03-13T03:13:45.819Z",
-    "expectedRevenue": "674.38",
-    "companyId": "CP-4214",
-    "contactId": "CT-9C9D0609",
-    "stage": "Closed Won",
-    "type": "cavus",
-    "reasonForLoss": "No Decision",
-    "nextStep": "cultura accedo cornu",
-    "probability": 59,
-    "leadSource": "Public Relations",
-    "tag": "vilicus",
-    "id": "DL-D56D"
-  },
-  {
-    "title": "ante ancilla tricesimus",
-    "description": "Tres benevolentia paulatim deprecator.",
-    "amount": "831.22",
-    "closingDate": "2024-11-22T03:12:54.883Z",
-    "expectedRevenue": "680.39",
-    "companyId": "CP-8326",
-    "contactId": "CT-8C955BAF",
-    "stage": "Qualification",
-    "type": "argumentum",
-    "reasonForLoss": "No Decision",
-    "nextStep": "praesentium centum delinquo",
-    "probability": 47,
-    "leadSource": "Google+",
-    "tag": "ultra",
-    "id": "DL-7729"
-  },
-  {
-    "title": "uterque optio depromo",
-    "description": "Eaque aufero defluo.",
-    "amount": "632.67",
-    "closingDate": "2025-02-12T01:10:11.573Z",
-    "expectedRevenue": "693.46",
-    "companyId": "CP-E594",
-    "contactId": "CT-56271658",
-    "stage": "Negotiation",
-    "type": "theca",
-    "reasonForLoss": "Budget Constraints",
-    "nextStep": "aggredior ago tot",
-    "probability": 12,
-    "leadSource": "Web Download",
-    "tag": "sumptus",
-    "id": "DL-FAE7"
-  },
-  {
-    "title": "deleo arceo est",
-    "description": "Tutamen pauper subvenio dignissimos sumptus sursum cibo perspiciatis ceno.",
-    "amount": "56.09",
-    "closingDate": "2025-02-26T02:41:07.939Z",
-    "expectedRevenue": "408.72",
-    "companyId": "CP-B490",
-    "contactId": "CT-C648CA8F",
-    "stage": "Qualification",
-    "type": "derideo",
-    "reasonForLoss": "Budget Constraints",
-    "nextStep": "cui suffragium celebrer",
-    "probability": 80,
-    "leadSource": "Twitter",
-    "tag": "demergo",
-    "id": "DL-FE74"
-  },
-  {
-    "title": "curo quae ter",
-    "description": "Usque annus amoveo vix aer officia.",
-    "amount": "113.11",
-    "closingDate": "2025-03-23T13:09:26.997Z",
-    "expectedRevenue": "286.66",
-    "companyId": "CP-EC5B",
-    "contactId": "CT-CC0D38F1",
-    "stage": "Proposal",
-    "type": "compello",
-    "reasonForLoss": "Competitor",
-    "nextStep": "advoco cursim traho",
-    "probability": 71,
-    "leadSource": "Facebook",
-    "tag": "animadverto",
-    "id": "DL-7A65"
-  },
-  {
-    "title": "ducimus spoliatio vomer",
-    "description": "Calco cibo velum.",
-    "amount": "553.89",
-    "closingDate": "2024-09-03T21:52:40.955Z",
-    "expectedRevenue": "870.00",
-    "companyId": "CP-4F68",
-    "contactId": "CT-B28467FD",
-    "stage": "Negotiation",
-    "type": "solium",
-    "reasonForLoss": "Other",
-    "nextStep": "cattus trans sumo",
-    "probability": 52,
-    "leadSource": "Employee Referral",
-    "tag": "audeo",
-    "id": "DL-45B8"
-  },
-  {
-    "title": "vindico depono sophismata",
-    "description": "Illo accedo suadeo vehemens cribro sperno comptus iure victoria.",
-    "amount": "380.97",
-    "closingDate": "2024-12-14T03:44:44.113Z",
-    "expectedRevenue": "818.16",
-    "companyId": "CP-15ED",
-    "contactId": "CT-B73683CA",
-    "stage": "Closed Lost",
-    "type": "adaugeo",
-    "reasonForLoss": "Other",
-    "nextStep": "quaerat sequi corrupti",
-    "probability": 14,
-    "leadSource": "Public Relations",
-    "tag": "tergo",
-    "id": "DL-451E"
-  },
-  {
-    "title": "acsi sono voluntarius",
-    "description": "Tribuo stabilis aequus speciosus recusandae claustrum voluptatum.",
-    "amount": "963.77",
-    "closingDate": "2025-03-29T20:36:58.164Z",
-    "expectedRevenue": "724.17",
-    "companyId": "CP-13EB",
-    "contactId": "CT-E87E9E15",
-    "stage": "Qualification",
-    "type": "est",
-    "reasonForLoss": "No Decision",
-    "nextStep": "collum confugo amiculum",
-    "probability": 66,
-    "leadSource": "Facebook",
-    "tag": "cognomen",
-    "id": "DL-B519"
-  },
-  {
-    "title": "tenax coadunatio careo",
-    "description": "Rerum defungo tamen suffoco.",
-    "amount": "144.24",
-    "closingDate": "2025-02-16T21:43:52.541Z",
-    "expectedRevenue": "580.44",
-    "companyId": "CP-C824",
-    "contactId": "CT-CE0C00DC",
-    "stage": "Proposal",
-    "type": "iusto",
-    "reasonForLoss": "Competitor",
-    "nextStep": "ipsum modi laboriosam",
-    "probability": 25,
-    "leadSource": "Employee Referral",
-    "tag": "decumbo",
-    "id": "DL-6F97"
-  },
-  {
-    "title": "spiritus vulgivagus arcesso",
-    "description": "Benevolentia sophismata vinum vacuus balbus.",
-    "amount": "135.51",
-    "closingDate": "2024-07-29T21:50:51.281Z",
-    "expectedRevenue": "591.79",
-    "companyId": "CP-A5C1",
-    "contactId": "CT-1709DECC",
-    "stage": "Qualification",
-    "type": "desparatus",
-    "reasonForLoss": "No Decision",
-    "nextStep": "conitor crur amicitia",
-    "probability": 86,
-    "leadSource": "Cold Call",
-    "tag": "tenax",
-    "id": "DL-068A"
-  },
-  {
-    "title": "utilis confido testimonium",
-    "description": "Depromo pauci degero ademptio beneficium defaeco patruus tepidus.",
-    "amount": "605.18",
-    "closingDate": "2025-02-28T10:35:47.231Z",
-    "expectedRevenue": "599.66",
-    "companyId": "CP-E146",
-    "contactId": "CT-BF0F2161",
-    "stage": "Closed Won",
-    "type": "complectus",
-    "reasonForLoss": "No Decision",
-    "nextStep": "sopor utrum confido",
-    "probability": 94,
-    "leadSource": "Public Relations",
-    "tag": "demergo",
-    "id": "DL-6201"
-  },
-  {
-    "title": "varius concedo repudiandae",
-    "description": "Numquam vulticulus quos trucido tredecim abduco pecus usitas.",
-    "amount": "548.11",
-    "closingDate": "2025-02-16T22:06:57.907Z",
-    "expectedRevenue": "47.59",
-    "companyId": "CP-5CB1",
-    "contactId": "CT-D32BD039",
-    "stage": "Proposal",
-    "type": "ultio",
-    "reasonForLoss": "Other",
-    "nextStep": "tunc succedo spiculum",
-    "probability": 41,
-    "leadSource": "Facebook",
-    "tag": "textilis",
-    "id": "DL-CC35"
-  },
-  {
-    "title": "tenuis ademptio adamo",
-    "description": "Abduco provident depraedor agnosco.",
-    "amount": "172.51",
-    "closingDate": "2025-04-09T23:49:00.256Z",
-    "expectedRevenue": "42.42",
-    "companyId": "CP-8BEA",
-    "contactId": "CT-5DD4957D",
-    "stage": "Qualification",
-    "type": "cinis",
-    "reasonForLoss": "Other",
-    "nextStep": "amo talis sit",
-    "probability": 47,
-    "leadSource": "Chat",
-    "tag": "claustrum",
-    "id": "DL-0439"
-  },
-  {
-    "title": "ambitus verecundia abeo",
-    "description": "Facilis certus peccatus articulus.",
-    "amount": "26.74",
-    "closingDate": "2024-06-20T08:22:06.366Z",
-    "expectedRevenue": "640.05",
-    "companyId": "CP-F2C5",
-    "contactId": "CT-9CC2B260",
-    "stage": "Negotiation",
-    "type": "vociferor",
-    "reasonForLoss": "Competitor",
-    "nextStep": "delicate vir nam",
-    "probability": 58,
-    "leadSource": "Google+",
-    "tag": "occaecati",
-    "id": "DL-83C7"
-  },
-  {
-    "title": "umbra sursum eum",
-    "description": "Debitis alii voluntarius tergeo.",
-    "amount": "476.69",
-    "closingDate": "2024-07-06T09:04:54.859Z",
-    "expectedRevenue": "7.93",
-    "companyId": "CP-7853",
-    "contactId": "CT-B714AB46",
-    "stage": "Proposal",
-    "type": "certus",
-    "reasonForLoss": "Budget Constraints",
-    "nextStep": "sulum speciosus conspergo",
-    "probability": 66,
-    "leadSource": "Facebook",
-    "tag": "consequuntur",
-    "id": "DL-ECFD"
-  },
-  {
-    "title": "tot tracto incidunt",
-    "description": "Varietas voluptatum administratio cimentarius.",
-    "amount": "76.80",
-    "closingDate": "2024-06-01T16:36:03.018Z",
-    "expectedRevenue": "530.90",
-    "companyId": "CP-6AD4",
-    "contactId": "CT-DA859020",
-    "stage": "Qualification",
-    "type": "suadeo",
-    "reasonForLoss": "No Decision",
-    "nextStep": "blanditiis tersus adaugeo",
-    "probability": 11,
-    "leadSource": "Google+",
-    "tag": "avaritia",
-    "id": "DL-0AA5"
-  },
-  {
-    "title": "dedico tredecim arbitro",
-    "description": "Adeptio compello quos taedium quos socius coruscus subnecto officia.",
-    "amount": "954.03",
-    "closingDate": "2024-06-23T01:35:29.524Z",
-    "expectedRevenue": "777.62",
-    "companyId": "CP-B000",
-    "contactId": "CT-569DB4D0",
-    "stage": "Proposal",
-    "type": "vobis",
-    "reasonForLoss": "Budget Constraints",
-    "nextStep": "vulgus statim victoria",
-    "probability": 15,
-    "leadSource": "Employee Referral",
-    "tag": "esse",
-    "id": "DL-5E8D"
-  },
-  {
-    "title": "reiciendis venio corpus",
-    "description": "Aspicio abscido deputo agnitio titulus contigo.",
-    "amount": "389.85",
-    "closingDate": "2025-01-05T20:25:01.684Z",
-    "expectedRevenue": "984.67",
-    "companyId": "CP-05E1",
-    "contactId": "CT-738C973F",
-    "stage": "Negotiation",
-    "type": "aranea",
-    "reasonForLoss": "No Decision",
-    "nextStep": "vitium ulciscor taceo",
-    "probability": 51,
-    "leadSource": "None",
-    "tag": "defetiscor",
-    "id": "DL-2714"
-  },
-  {
-    "title": "delibero usus terminatio",
-    "description": "Concedo defleo audax verumtamen aequus conventus tenus.",
-    "amount": "633.29",
-    "closingDate": "2024-09-17T16:01:20.587Z",
-    "expectedRevenue": "954.37",
-    "companyId": "CP-A1C1",
-    "contactId": "CT-90A25C05",
-    "stage": "Qualification",
-    "type": "universe",
-    "reasonForLoss": "Competitor",
-    "nextStep": "complectus iste utilis",
-    "probability": 4,
-    "leadSource": "Cold Call",
-    "tag": "tres",
-    "id": "DL-E4BB"
-  },
-  {
-    "title": "volutabrum volo tactus",
-    "description": "Id virgo urbanus tamdiu.",
-    "amount": "674.16",
-    "closingDate": "2025-01-12T05:21:35.298Z",
-    "expectedRevenue": "181.42",
-    "companyId": "CP-5FBD",
-    "contactId": "CT-B7456F0A",
-    "stage": "Negotiation",
-    "type": "earum",
-    "reasonForLoss": "Other",
-    "nextStep": "cur celer absens",
-    "probability": 64,
-    "leadSource": "None",
-    "tag": "commodo",
-    "id": "DL-F850"
-  },
-  {
-    "title": "subito tot vigilo",
-    "description": "Crastinus decens cibo considero tersus decet.",
-    "amount": "828.27",
-    "closingDate": "2024-09-21T20:39:13.655Z",
-    "expectedRevenue": "128.60",
-    "companyId": "CP-5BC6",
-    "contactId": "CT-00DF3090",
-    "stage": "Proposal",
-    "type": "verecundia",
-    "reasonForLoss": "Competitor",
-    "nextStep": "somniculosus clam vulnus",
-    "probability": 97,
-    "leadSource": "Google+",
-    "tag": "valeo",
-    "id": "DL-5883"
-  },
-  {
-    "title": "suffoco abeo depono",
-    "description": "Coadunatio cervus sulum sto sum vaco verumtamen tempore.",
-    "amount": "53.86",
-    "closingDate": "2025-04-16T01:16:38.913Z",
-    "expectedRevenue": "300.00",
-    "companyId": "CP-CCF1",
-    "contactId": "CT-07A034B1",
-    "stage": "Closed Lost",
-    "type": "corrumpo",
-    "reasonForLoss": "No Decision",
-    "nextStep": "nisi quisquam demitto",
-    "probability": 100,
-    "leadSource": "Web Download",
-    "tag": "defungo",
-    "id": "DL-E8E5"
-  },
-  {
-    "title": "amoveo iure civis",
-    "description": "Paens cur agnitio surgo.",
-    "amount": "767.43",
-    "closingDate": "2024-09-19T22:31:46.518Z",
-    "expectedRevenue": "26.08",
-    "companyId": "CP-C434",
-    "contactId": "CT-E5B0EDC0",
-    "stage": "Qualification",
-    "type": "tego",
-    "reasonForLoss": "Budget Constraints",
-    "nextStep": "video vetus brevis",
-    "probability": 80,
-    "leadSource": "Web Download",
-    "tag": "vulticulus",
-    "id": "DL-C03E"
-  },
-  {
-    "title": "vulariter aegre cuppedia",
-    "description": "Temperantia vulpes unus vado tergiversatio tutis adamo necessitatibus.",
-    "amount": "61.78",
-    "closingDate": "2025-03-19T01:14:47.366Z",
-    "expectedRevenue": "906.40",
-    "companyId": "CP-BD2A",
-    "contactId": "CT-4661774E",
-    "stage": "Closed Won",
-    "type": "desipio",
-    "reasonForLoss": "No Decision",
-    "nextStep": "autem surculus adsidue",
-    "probability": 83,
-    "leadSource": "External Referral",
-    "tag": "complectus",
-    "id": "DL-9CB9"
-  },
-  {
-    "title": "similique tero cras",
-    "description": "Defendo tres comburo admoneo alter vulticulus arbustum ea.",
-    "amount": "782.45",
-    "closingDate": "2025-03-03T19:17:39.486Z",
-    "expectedRevenue": "331.06",
-    "companyId": "CP-346C",
-    "contactId": "CT-2D069604",
-    "stage": "Closed Won",
-    "type": "deorsum",
-    "reasonForLoss": "Budget Constraints",
-    "nextStep": "averto solus vapulus",
-    "probability": 46,
-    "leadSource": "Chat",
-    "tag": "cimentarius",
-    "id": "DL-1ACB"
-  },
-  {
-    "title": "eveniet venustas vomer",
-    "description": "Clibanus audentia ultio torrens vix colo armarium alias fugiat.",
-    "amount": "50.67",
-    "closingDate": "2024-11-07T12:51:40.332Z",
-    "expectedRevenue": "266.40",
-    "companyId": "CP-749E",
-    "contactId": "CT-0351FC6F",
-    "stage": "Closed Lost",
-    "type": "astrum",
-    "reasonForLoss": "Competitor",
-    "nextStep": "cariosus curtus eveniet",
-    "probability": 96,
-    "leadSource": "Public Relations",
-    "tag": "sopor",
-    "id": "DL-6855"
-  },
-  {
-    "title": "aeternus vorago turbo",
-    "description": "Delibero absens aer unde subito.",
-    "amount": "230.72",
-    "closingDate": "2024-12-25T21:28:46.902Z",
-    "expectedRevenue": "119.89",
-    "companyId": "CP-7396",
-    "contactId": "CT-785FD674",
-    "stage": "Closed Lost",
-    "type": "architecto",
-    "reasonForLoss": "Competitor",
-    "nextStep": "vestrum thalassinus aestivus",
-    "probability": 23,
-    "leadSource": "Public Relations",
-    "tag": "possimus",
-    "id": "DL-E6AF"
-  },
-  {
-    "title": "adipisci dicta strenuus",
-    "description": "Volo cilicium corrigo cohors deripio abbas talis at ullam.",
-    "amount": "504.81",
-    "closingDate": "2025-01-14T09:21:15.938Z",
-    "expectedRevenue": "391.35",
-    "companyId": "CP-22B7",
-    "contactId": "CT-57144A80",
-    "stage": "Proposal",
-    "type": "speculum",
-    "reasonForLoss": "Competitor",
-    "nextStep": "aggero termes deorsum",
-    "probability": 48,
-    "leadSource": "None",
-    "tag": "stipes",
-    "id": "DL-1A74"
-  },
-  {
-    "title": "ocer aut compono",
-    "description": "Subvenio vomito uxor.",
-    "amount": "233.26",
-    "closingDate": "2024-08-27T20:51:25.022Z",
-    "expectedRevenue": "827.10",
-    "companyId": "CP-953C",
-    "contactId": "CT-6E804BA9",
-    "stage": "Proposal",
-    "type": "curvo",
-    "reasonForLoss": "Budget Constraints",
-    "nextStep": "curriculum stella tergeo",
-    "probability": 22,
-    "leadSource": "Web Download",
-    "tag": "certus",
-    "id": "DL-13D5"
-  },
-  {
-    "title": "deduco curvo cubitum",
-    "description": "Tabernus aliqua versus alter.",
-    "amount": "78.56",
-    "closingDate": "2024-10-02T08:00:14.361Z",
-    "expectedRevenue": "331.54",
-    "companyId": "CP-A1D7",
-    "contactId": "CT-60236816",
-    "stage": "Closed Lost",
-    "type": "utroque",
-    "reasonForLoss": "No Decision",
-    "nextStep": "necessitatibus non velit",
-    "probability": 70,
-    "leadSource": "None",
-    "tag": "attonbitus",
-    "id": "DL-0F40"
-  },
-  {
-    "title": "suasoria carmen rem",
-    "description": "Theologus supra credo tamquam traho vigor creator.",
-    "amount": "650.53",
-    "closingDate": "2024-08-06T21:00:43.060Z",
-    "expectedRevenue": "883.54",
-    "companyId": "CP-AE98",
-    "contactId": "CT-D6F5573B",
-    "stage": "Closed Lost",
-    "type": "angulus",
-    "reasonForLoss": "Other",
-    "nextStep": "ante acies apud",
-    "probability": 66,
-    "leadSource": "Twitter",
-    "tag": "sufficio",
-    "id": "DL-0956"
-  },
-  {
-    "title": "ars attollo votum",
-    "description": "Decumbo calculus patria calco quo itaque comptus villa censura cariosus.",
-    "amount": "222.35",
-    "closingDate": "2024-09-13T03:44:39.420Z",
-    "expectedRevenue": "433.43",
-    "companyId": "CP-F61F",
-    "contactId": "CT-9A554EF4",
-    "stage": "Closed Lost",
-    "type": "explicabo",
-    "reasonForLoss": "Other",
-    "nextStep": "convoco allatus voluptatum",
-    "probability": 58,
-    "leadSource": "Cold Call",
-    "tag": "adsum",
-    "id": "DL-D3A6"
-  },
-  {
-    "title": "verbum rerum cariosus",
-    "description": "Tabgo esse templum stips voco creber natus benigne.",
-    "amount": "863.28",
-    "closingDate": "2025-05-10T02:44:53.921Z",
-    "expectedRevenue": "164.53",
-    "companyId": "CP-4C48",
-    "contactId": "CT-CC3771C6",
-    "stage": "Proposal",
-    "type": "timor",
-    "reasonForLoss": "Other",
-    "nextStep": "quia tempore allatus",
-    "probability": 58,
-    "leadSource": "Google+",
-    "tag": "suadeo",
-    "id": "DL-4E49"
-  },
-  {
-    "title": "bis atrox cur",
-    "description": "Cruentus dedecor similique eveniet tersus conscendo quaerat tempore.",
-    "amount": "667.76",
-    "closingDate": "2025-05-13T06:27:31.696Z",
-    "expectedRevenue": "630.22",
-    "companyId": "CP-2065",
-    "contactId": "CT-3E13C32D",
-    "stage": "Qualification",
-    "type": "adversus",
-    "reasonForLoss": "No Decision",
-    "nextStep": "corrupti eius facere",
-    "probability": 91,
-    "leadSource": "External Referral",
-    "tag": "undique",
-    "id": "DL-CD20"
-  },
-  {
-    "title": "altus tripudio laboriosam",
-    "description": "Valde doloribus cuius.",
-    "amount": "204.55",
-    "closingDate": "2024-05-20T17:25:16.445Z",
-    "expectedRevenue": "396.90",
-    "companyId": "CP-AFBE",
-    "contactId": "CT-9B05B9C9",
-    "stage": "Closed Won",
-    "type": "adduco",
-    "reasonForLoss": "No Decision",
-    "nextStep": "carpo dolorum undique",
-    "probability": 65,
-    "leadSource": "Google+",
-    "tag": "id",
-    "id": "DL-1BAE"
-  },
-  {
-    "title": "suus cibus soleo",
-    "description": "Solutio crinis conicio conicio vilis strenuus volo utor.",
-    "amount": "464.77",
-    "closingDate": "2024-07-18T22:20:04.830Z",
-    "expectedRevenue": "590.07",
-    "companyId": "CP-5FA0",
-    "contactId": "CT-AAF090B7",
-    "stage": "Qualification",
-    "type": "aedificium",
-    "reasonForLoss": "Budget Constraints",
-    "nextStep": "circumvenio ver audentia",
-    "probability": 92,
-    "leadSource": "Twitter",
-    "tag": "aeneus",
-    "id": "DL-A75E"
-  },
-  {
-    "title": "praesentium averto tam",
-    "description": "Crapula varius vomer solium admoneo.",
-    "amount": "599.23",
-    "closingDate": "2024-05-17T22:45:29.452Z",
-    "expectedRevenue": "547.68",
-    "companyId": "CP-97FB",
-    "contactId": "CT-4A975C73",
-    "stage": "Qualification",
-    "type": "attollo",
-    "reasonForLoss": "Competitor",
-    "nextStep": "aegrotatio turba demum",
-    "probability": 61,
-    "leadSource": "Web Download",
-    "tag": "ipsum",
-    "id": "DL-A787"
-  },
-  {
-    "title": "volaticus aspernatur tutamen",
-    "description": "Surculus aeneus cohibeo tibi comitatus rem quas.",
-    "amount": "526.95",
-    "closingDate": "2025-01-29T06:51:08.651Z",
-    "expectedRevenue": "969.34",
-    "companyId": "CP-1437",
-    "contactId": "CT-84749022",
-    "stage": "Proposal",
-    "type": "defendo",
-    "reasonForLoss": "Budget Constraints",
-    "nextStep": "temeritas decimus clam",
-    "probability": 5,
-    "leadSource": "Google+",
-    "tag": "verecundia",
-    "id": "DL-AEA4"
-  },
-  {
-    "title": "titulus deleniti tondeo",
-    "description": "Tabula verto tardus dolorum reiciendis adduco adopto.",
-    "amount": "645.20",
-    "closingDate": "2025-04-07T14:21:26.089Z",
-    "expectedRevenue": "848.80",
-    "companyId": "CP-6309",
-    "contactId": "CT-84168E27",
-    "stage": "Negotiation",
-    "type": "tui",
-    "reasonForLoss": "Budget Constraints",
-    "nextStep": "apud spiculum assumenda",
-    "probability": 64,
-    "leadSource": "Employee Referral",
-    "tag": "vaco",
-    "id": "DL-433E"
-  },
-  {
-    "title": "omnis tergeo ventito",
-    "description": "Tener sortitus comburo libero eveniet creo consequatur venia supra arbor.",
-    "amount": "180.20",
-    "closingDate": "2024-09-21T10:06:37.945Z",
-    "expectedRevenue": "844.38",
-    "companyId": "CP-8F0D",
-    "contactId": "CT-BE5D13A7",
-    "stage": "Closed Lost",
-    "type": "tepidus",
-    "reasonForLoss": "No Decision",
-    "nextStep": "theologus convoco talus",
-    "probability": 62,
-    "leadSource": "Google+",
-    "tag": "ambitus",
-    "id": "DL-94EA"
-  },
-  {
-    "title": "altus aggero substantia",
-    "description": "Substantia sequi victus sumo creptio termes tantillus capillus.",
-    "amount": "258.86",
-    "closingDate": "2024-10-28T01:13:50.487Z",
-    "expectedRevenue": "924.42",
-    "companyId": "CP-65AF",
-    "contactId": "CT-0DA5A554",
-    "stage": "Closed Lost",
-    "type": "explicabo",
-    "reasonForLoss": "No Decision",
-    "nextStep": "clarus arbustum uredo",
-    "probability": 52,
-    "leadSource": "Employee Referral",
-    "tag": "omnis",
-    "id": "DL-1133"
-  },
-  {
-    "title": "vociferor conservo convoco",
-    "description": "Tantillus temeritas denuncio cribro virgo sunt angustus.",
-    "amount": "172.03",
-    "closingDate": "2025-04-07T12:29:43.480Z",
-    "expectedRevenue": "116.47",
-    "companyId": "CP-631A",
-    "contactId": "CT-E3C8FDEC",
-    "stage": "Qualification",
-    "type": "cresco",
-    "reasonForLoss": "Other",
-    "nextStep": "sunt numquam aut",
-    "probability": 93,
-    "leadSource": "Advertisement",
-    "tag": "soluta",
-    "id": "DL-3F18"
-  },
-  {
-    "title": "alias spargo torqueo",
-    "description": "Natus civis ater vix nihil.",
-    "amount": "352.74",
-    "closingDate": "2024-05-25T02:43:15.807Z",
-    "expectedRevenue": "618.47",
-    "companyId": "CP-855B",
-    "contactId": "CT-F6A89C39",
-    "stage": "Closed Won",
-    "type": "abscido",
-    "reasonForLoss": "No Decision",
-    "nextStep": "cogo architecto decipio",
-    "probability": 60,
-    "leadSource": "Web Research",
-    "tag": "communis",
-    "id": "DL-256D"
-  },
-  {
-    "title": "laboriosam sequi aduro",
-    "description": "Eligendi aspernatur via volutabrum.",
-    "amount": "441.38",
-    "closingDate": "2024-10-16T09:03:18.815Z",
-    "expectedRevenue": "407.19",
-    "companyId": "CP-E124",
-    "contactId": "CT-AC1B4B1F",
-    "stage": "Negotiation",
-    "type": "universe",
-    "reasonForLoss": "Other",
-    "nextStep": "tantum cras bibo",
-    "probability": 89,
-    "leadSource": "Chat",
-    "tag": "auxilium",
-    "id": "DL-6034"
-  },
-  {
-    "title": "ad celer dens",
-    "description": "Clibanus tonsor id angelus traho.",
-    "amount": "483.89",
-    "closingDate": "2024-08-21T11:21:27.203Z",
-    "expectedRevenue": "742.58",
-    "companyId": "CP-7854",
-    "contactId": "CT-5477C07F",
-    "stage": "Negotiation",
-    "type": "arx",
-    "reasonForLoss": "No Decision",
-    "nextStep": "congregatio demergo arca",
-    "probability": 40,
-    "leadSource": "Cold Call",
-    "tag": "asperiores",
-    "id": "DL-CE1A"
-  },
-  {
-    "title": "caute adamo conventus",
-    "description": "Adicio synagoga ex.",
-    "amount": "340.94",
-    "closingDate": "2024-07-26T23:01:12.228Z",
-    "expectedRevenue": "999.47",
-    "companyId": "CP-B4A8",
-    "contactId": "CT-2908B617",
-    "stage": "Qualification",
-    "type": "adicio",
-    "reasonForLoss": "Other",
-    "nextStep": "subseco beatus vere",
-    "probability": 90,
-    "leadSource": "Employee Referral",
-    "tag": "torqueo",
-    "id": "DL-0C90"
-  },
-  {
-    "title": "certus suggero vesper",
-    "description": "Vinitor non eius attollo denuo alii volup tollo repellat tolero.",
-    "amount": "113.23",
-    "closingDate": "2024-05-22T23:15:11.072Z",
-    "expectedRevenue": "106.60",
-    "companyId": "CP-454D",
-    "contactId": "CT-C0449A6E",
-    "stage": "Closed Lost",
-    "type": "enim",
-    "reasonForLoss": "No Decision",
-    "nextStep": "tepesco decor suspendo",
-    "probability": 39,
-    "leadSource": "Web Research",
-    "tag": "cunabula",
-    "id": "DL-2C95"
-  },
-  {
-    "title": "utpote depraedor tenetur",
-    "description": "Peccatus admoveo somniculosus.",
-    "amount": "61.01",
-    "closingDate": "2024-09-28T06:31:13.699Z",
-    "expectedRevenue": "240.70",
-    "companyId": "CP-FA40",
-    "contactId": "CT-8A40CCDC",
-    "stage": "Qualification",
-    "type": "corrupti",
-    "reasonForLoss": "No Decision",
-    "nextStep": "similique dolor timidus",
-    "probability": 26,
-    "leadSource": "None",
-    "tag": "adfectus",
-    "id": "DL-1D2C"
-  },
-  {
-    "title": "cruentus conitor adicio",
-    "description": "Adhaero curso voluptate testimonium vergo volaticus victoria.",
-    "amount": "972.79",
-    "closingDate": "2024-10-02T21:53:54.538Z",
-    "expectedRevenue": "761.12",
-    "companyId": "CP-3984",
-    "contactId": "CT-97C6C1B3",
-    "stage": "Closed Won",
-    "type": "deduco",
-    "reasonForLoss": "Other",
-    "nextStep": "valens itaque vilis",
-    "probability": 56,
-    "leadSource": "Google+",
-    "tag": "tabernus",
-    "id": "DL-20DA"
-  },
-  {
-    "title": "viriliter amitto succedo",
-    "description": "Cattus crepusculum delinquo verumtamen voluptate.",
-    "amount": "300.37",
-    "closingDate": "2024-06-23T07:05:39.638Z",
-    "expectedRevenue": "74.16",
-    "companyId": "CP-3AE3",
-    "contactId": "CT-4F6733DB",
-    "stage": "Closed Lost",
-    "type": "abutor",
-    "reasonForLoss": "Other",
-    "nextStep": "sol conscendo amita",
-    "probability": 47,
-    "leadSource": "Web Download",
-    "tag": "uterque",
-    "id": "DL-F46D"
-  },
-  {
-    "title": "collum pariatur tersus",
-    "description": "Demitto quas acquiro.",
-    "amount": "651.67",
-    "closingDate": "2024-08-09T07:19:50.171Z",
-    "expectedRevenue": "261.49",
-    "companyId": "CP-41F5",
-    "contactId": "CT-F3326CB8",
-    "stage": "Closed Won",
-    "type": "debilito",
-    "reasonForLoss": "Other",
-    "nextStep": "consuasor arbustum usitas",
-    "probability": 54,
-    "leadSource": "Cold Call",
-    "tag": "voluptas",
-    "id": "DL-4161"
-  },
-  {
-    "title": "expedita spiritus socius",
-    "description": "Molestias tabula tero summopere adinventitias conspergo universe.",
-    "amount": "870.03",
-    "closingDate": "2025-05-07T02:06:04.986Z",
-    "expectedRevenue": "165.38",
-    "companyId": "CP-CFF0",
-    "contactId": "CT-95F9CAAF",
-    "stage": "Proposal",
-    "type": "demonstro",
-    "reasonForLoss": "Competitor",
-    "nextStep": "suus super tubineus",
-    "probability": 20,
-    "leadSource": "Web Download",
-    "tag": "clementia",
-    "id": "DL-0805"
-  },
-  {
-    "title": "dolorem delectatio copia",
-    "description": "Fuga careo reiciendis.",
-    "amount": "63.07",
-    "closingDate": "2025-02-14T12:32:28.594Z",
-    "expectedRevenue": "942.18",
-    "companyId": "CP-AFBC",
-    "contactId": "CT-7E8E2879",
-    "stage": "Qualification",
-    "type": "cursus",
-    "reasonForLoss": "Other",
-    "nextStep": "causa votum alo",
-    "probability": 16,
-    "leadSource": "Facebook",
-    "tag": "clam",
-    "id": "DL-010F"
-  },
-  {
-    "title": "aqua aiunt stipes",
-    "description": "Crudelis crustulum amor et audentia vetus.",
-    "amount": "609.67",
-    "closingDate": "2025-01-23T17:45:45.475Z",
-    "expectedRevenue": "638.82",
-    "companyId": "CP-D466",
-    "contactId": "CT-9321B873",
-    "stage": "Proposal",
-    "type": "adopto",
-    "reasonForLoss": "No Decision",
-    "nextStep": "saepe aeternus caste",
-    "probability": 26,
-    "leadSource": "Public Relations",
-    "tag": "strenuus",
-    "id": "DL-00F3"
-  },
-  {
-    "title": "molestiae defessus comminor",
-    "description": "Alius cunae praesentium.",
-    "amount": "169.02",
-    "closingDate": "2024-12-04T09:16:39.388Z",
-    "expectedRevenue": "830.23",
-    "companyId": "CP-113A",
-    "contactId": "CT-70030A2C",
-    "stage": "Proposal",
-    "type": "infit",
-    "reasonForLoss": "Other",
-    "nextStep": "caritas decet excepturi",
-    "probability": 23,
-    "leadSource": "Cold Call",
-    "tag": "altus",
-    "id": "DL-1D4B"
-  },
-  {
-    "title": "degenero caput adhuc",
-    "description": "Velut cum ullus uxor desolo aduro colligo.",
-    "amount": "348.07",
-    "closingDate": "2024-07-17T23:21:19.876Z",
-    "expectedRevenue": "435.34",
-    "companyId": "CP-505A",
-    "contactId": "CT-DA3169F5",
-    "stage": "Closed Won",
-    "type": "vesica",
-    "reasonForLoss": "Budget Constraints",
-    "nextStep": "crux aptus asper",
-    "probability": 3,
-    "leadSource": "Public Relations",
-    "tag": "advenio",
-    "id": "DL-61A6"
-  },
-  {
-    "title": "cauda supplanto strenuus",
-    "description": "Utrimque colligo casso assentator amicitia alter validus aveho succedo.",
-    "amount": "793.03",
-    "closingDate": "2024-06-05T07:29:55.845Z",
-    "expectedRevenue": "254.60",
-    "companyId": "CP-655B",
-    "contactId": "CT-079BEDC4",
-    "stage": "Negotiation",
-    "type": "adsidue",
-    "reasonForLoss": "Competitor",
-    "nextStep": "curso vulgivagus conitor",
-    "probability": 31,
-    "leadSource": "Employee Referral",
-    "tag": "voro",
-    "id": "DL-EEDB"
-  },
-  {
-    "title": "doloremque quaerat stipes",
-    "description": "Vicinus in coaegresco bis conscendo laboriosam absens vesper volutabrum dedecor.",
-    "amount": "181.11",
-    "closingDate": "2024-12-27T20:09:30.929Z",
-    "expectedRevenue": "304.50",
-    "companyId": "CP-D561",
-    "contactId": "CT-9B9E9708",
-    "stage": "Proposal",
-    "type": "non",
-    "reasonForLoss": "Other",
-    "nextStep": "demum substantia tutis",
-    "probability": 79,
-    "leadSource": "Public Relations",
-    "tag": "aestivus",
-    "id": "DL-9076"
-  },
-  {
-    "title": "bibo vos allatus",
-    "description": "Amissio vox clam vel quo.",
-    "amount": "606.60",
-    "closingDate": "2025-04-27T08:42:12.990Z",
-    "expectedRevenue": "386.38",
-    "companyId": "CP-50CB",
-    "contactId": "CT-7FDBAE9D",
-    "stage": "Closed Lost",
-    "type": "solium",
-    "reasonForLoss": "No Decision",
-    "nextStep": "ante timidus demo",
-    "probability": 50,
-    "leadSource": "Cold Call",
-    "tag": "considero",
-    "id": "DL-2C7B"
-  },
-  {
-    "title": "ceno cui suasoria",
-    "description": "Sunt advoco sustineo tubineus tam claustrum utor.",
-    "amount": "959.17",
-    "closingDate": "2024-09-13T04:05:33.575Z",
-    "expectedRevenue": "446.73",
-    "companyId": "CP-6F28",
-    "contactId": "CT-2D272257",
-    "stage": "Closed Lost",
-    "type": "antepono",
-    "reasonForLoss": "Other",
-    "nextStep": "callide theatrum vir",
-    "probability": 11,
-    "leadSource": "Facebook",
-    "tag": "viscus",
-    "id": "DL-B2F6"
-  },
-  {
-    "title": "utor subito denego",
-    "description": "Acervus adnuo teres ventosus adulatio.",
-    "amount": "951.34",
-    "closingDate": "2024-11-19T20:15:35.801Z",
-    "expectedRevenue": "731.59",
-    "companyId": "CP-53F1",
-    "contactId": "CT-559F3EAF",
-    "stage": "Qualification",
-    "type": "advoco",
-    "reasonForLoss": "Competitor",
-    "nextStep": "damno repellat aperiam",
-    "probability": 34,
-    "leadSource": "Cold Call",
-    "tag": "vobis",
-    "id": "DL-A7B5"
-  },
-  {
-    "title": "custodia asporto adfero",
-    "description": "Demitto abduco aspernatur repudiandae vallum.",
-    "amount": "134.48",
-    "closingDate": "2024-07-23T07:41:58.669Z",
-    "expectedRevenue": "960.06",
-    "companyId": "CP-0592",
-    "contactId": "CT-1435B57B",
-    "stage": "Closed Won",
-    "type": "quae",
-    "reasonForLoss": "Other",
-    "nextStep": "saepe tergo virtus",
-    "probability": 49,
-    "leadSource": "Cold Call",
-    "tag": "cohors",
-    "id": "DL-D928"
-  },
-  {
-    "title": "vulnero optio capio",
-    "description": "Agnitio aliqua umerus textus usus tabgo caput vestrum.",
-    "amount": "803.76",
-    "closingDate": "2024-08-31T01:33:55.531Z",
-    "expectedRevenue": "574.55",
-    "companyId": "CP-C0E2",
-    "contactId": "CT-B0CB97DA",
-    "stage": "Proposal",
-    "type": "tricesimus",
-    "reasonForLoss": "No Decision",
-    "nextStep": "bis succurro videlicet",
-    "probability": 99,
-    "leadSource": "Cold Call",
-    "tag": "tutamen",
-    "id": "DL-02C7"
+    "title": "trainer grate out bustling",
+    "description": "Balbus spiculum demo traho deporto cibus turbo sustineo aro vita.",
+    "amount": "835.78",
+    "closingDate": "2024-08-26T18:13:19.752Z",
+    "contact": {
+      "firstName": "Ivory",
+      "lastName": "Braun",
+      "fullName": "Dr. Natasha Ondricka",
+      "avatar": "https://avatars.githubusercontent.com/u/70467252",
+      "email": "Manuel.Stracke37@gmail.com"
+    },
+    "company": {
+      "name": "Kautzer, Anderson and Emmerich"
+    },
+    "assignee": {
+      "name": "Ada Paucek",
+      "avatar": "https://loremflickr.com/640/480/people?lock=1215694305755136"
+    },
+    "expectedRevenue": "118.61",
+    "stage": "Deal Lost"
+  },
+  {
+    "title": "astride solemnly anenst whoa whereas",
+    "description": "Alias bonus voluptatem cenaculum adsum tergeo decumbo casso cinis.",
+    "amount": "17.35",
+    "closingDate": "2024-08-15T12:59:29.035Z",
+    "contact": {
+      "firstName": "Clint",
+      "lastName": "Wiza",
+      "fullName": "Tracey Brown MD",
+      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/49.jpg",
+      "email": "Easton_Moore@hotmail.com"
+    },
+    "company": {
+      "name": "Reynolds, Hills and Frami"
+    },
+    "assignee": {
+      "name": "Ellen Dibbert IV",
+      "avatar": "https://loremflickr.com/640/480/people?lock=2006699955191808"
+    },
+    "expectedRevenue": "684.77",
+    "stage": "Deal Lost"
+  },
+  {
+    "title": "wherever falter baste lest cute",
+    "description": "Decimus adsuesco voro decretum caterva administratio bonus.",
+    "amount": "452.85",
+    "closingDate": "2025-05-04T04:25:27.291Z",
+    "contact": {
+      "firstName": "Hilario",
+      "lastName": "Willms",
+      "fullName": "Doyle Pfannerstill",
+      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/10.jpg",
+      "email": "Tyson.Boyer59@hotmail.com"
+    },
+    "company": {
+      "name": "Connelly Inc"
+    },
+    "assignee": {
+      "name": "Mrs. Shari Heller",
+      "avatar": "https://loremflickr.com/640/480/people?lock=1188713407184896"
+    },
+    "expectedRevenue": "119.67",
+    "stage": "Proposal Sent"
+  },
+  {
+    "title": "gratefully colorful besides ah",
+    "description": "Crapula sustineo pauper atque abeo.",
+    "amount": "547.31",
+    "closingDate": "2024-11-10T00:42:15.489Z",
+    "contact": {
+      "firstName": "Trystan",
+      "lastName": "Lang",
+      "fullName": "Elvira Conroy-Adams",
+      "avatar": "https://avatars.githubusercontent.com/u/8235661",
+      "email": "Efrain_Fahey8@yahoo.com"
+    },
+    "company": {
+      "name": "Carroll, Yundt and Feil"
+    },
+    "assignee": {
+      "name": "Delia Pouros-Carroll",
+      "avatar": "https://loremflickr.com/640/480/people?lock=506709334294528"
+    },
+    "expectedRevenue": "181.07",
+    "stage": "In Draft"
+  },
+  {
+    "title": "brazen while veil forthright",
+    "description": "Ultio voluptatibus condico acidus conspergo consectetur sursum vox.",
+    "amount": "646.55",
+    "closingDate": "2025-04-20T19:21:30.433Z",
+    "contact": {
+      "firstName": "Ryann",
+      "lastName": "Rogahn",
+      "fullName": "Tracy Veum",
+      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/358.jpg",
+      "email": "Arlie_Koepp77@yahoo.com"
+    },
+    "company": {
+      "name": "Gleason, Wolff and Jakubowski"
+    },
+    "assignee": {
+      "name": "Lucia Haley",
+      "avatar": "https://loremflickr.com/640/480/people?lock=2989598036721664"
+    },
+    "expectedRevenue": "119.53",
+    "stage": "New Lead"
+  },
+  {
+    "title": "aha in cellar amongst over transfer",
+    "description": "Adamo voluptatum utilis aequitas vilitas iusto.",
+    "amount": "120.73",
+    "closingDate": "2025-02-19T14:01:59.334Z",
+    "contact": {
+      "firstName": "Howell",
+      "lastName": "Kutch",
+      "fullName": "Freddie Homenick DVM",
+      "avatar": "https://avatars.githubusercontent.com/u/90200825",
+      "email": "Mozell_Kihn@hotmail.com"
+    },
+    "company": {
+      "name": "Hammes, Dicki and Anderson"
+    },
+    "assignee": {
+      "name": "Phillip Roob",
+      "avatar": "https://loremflickr.com/640/480/people?lock=2280866363473920"
+    },
+    "expectedRevenue": "521.14",
+    "stage": "Deal Lost"
+  },
+  {
+    "title": "quizzical joyfully even ick er pfft",
+    "description": "Cupiditas comis compello.",
+    "amount": "968.65",
+    "closingDate": "2024-06-26T12:27:13.496Z",
+    "contact": {
+      "firstName": "Rasheed",
+      "lastName": "Moen",
+      "fullName": "Felix Dickinson V",
+      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/360.jpg",
+      "email": "August_Buckridge@gmail.com"
+    },
+    "company": {
+      "name": "Weber Inc"
+    },
+    "assignee": {
+      "name": "Diana McDermott",
+      "avatar": "https://loremflickr.com/640/480/people?lock=8308716008898560"
+    },
+    "expectedRevenue": "185.04",
+    "stage": "Deal Won"
+  },
+  {
+    "title": "bid truant silly daily along",
+    "description": "Beatae vulariter laboriosam aeger videlicet consequatur cum curatio curtus.",
+    "amount": "487.18",
+    "closingDate": "2025-05-15T20:00:17.820Z",
+    "contact": {
+      "firstName": "Addie",
+      "lastName": "Lakin-Hackett",
+      "fullName": "Darin Gutkowski",
+      "avatar": "https://avatars.githubusercontent.com/u/64247076",
+      "email": "Gabrielle_MacGyver@hotmail.com"
+    },
+    "company": {
+      "name": "Hickle - Turcotte"
+    },
+    "assignee": {
+      "name": "Marion Jaskolski",
+      "avatar": "https://loremflickr.com/640/480/people?lock=4326611897810944"
+    },
+    "expectedRevenue": "69.79",
+    "stage": "New Lead"
+  },
+  {
+    "title": "cow within whenever hm joyful",
+    "description": "Ustilo crudelis creptio tollo quos contego accusamus.",
+    "amount": "919.44",
+    "closingDate": "2025-05-05T22:52:44.728Z",
+    "contact": {
+      "firstName": "Gabe",
+      "lastName": "Satterfield",
+      "fullName": "Krista Friesen",
+      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1108.jpg",
+      "email": "Dedric81@gmail.com"
+    },
+    "company": {
+      "name": "Greenholt, Schmitt and Watsica"
+    },
+    "assignee": {
+      "name": "Larry D'Amore",
+      "avatar": "https://loremflickr.com/640/480/people?lock=6933721387106304"
+    },
+    "expectedRevenue": "668.46",
+    "stage": "Qualified Lead"
+  },
+  {
+    "title": "represent however during untimely canter venerated",
+    "description": "Sumptus inventore suppono summa.",
+    "amount": "879.27",
+    "closingDate": "2025-03-07T12:57:13.821Z",
+    "contact": {
+      "firstName": "Noemy",
+      "lastName": "Hauck",
+      "fullName": "Mario Moore",
+      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/214.jpg",
+      "email": "Cameron_Lang@yahoo.com"
+    },
+    "company": {
+      "name": "Franey, Hauck and Hamill"
+    },
+    "assignee": {
+      "name": "Arthur Marvin",
+      "avatar": "https://loremflickr.com/640/480/people?lock=8998202848051200"
+    },
+    "expectedRevenue": "317.65",
+    "stage": "New Lead"
+  },
+  {
+    "title": "blah than pace mostly",
+    "description": "Crudelis capillus demoror campana vehemens valeo arbustum.",
+    "amount": "465.42",
+    "closingDate": "2025-02-16T13:21:57.231Z",
+    "contact": {
+      "firstName": "Geoffrey",
+      "lastName": "Bode",
+      "fullName": "Mr. Mack Douglas",
+      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/259.jpg",
+      "email": "Frederik71@hotmail.com"
+    },
+    "company": {
+      "name": "Farrell - Dare"
+    },
+    "assignee": {
+      "name": "Rudy Towne",
+      "avatar": "https://loremflickr.com/640/480/people?lock=7156830629265408"
+    },
+    "expectedRevenue": "912.10",
+    "stage": "Deal Lost"
+  },
+  {
+    "title": "boo inexperienced enjoy beneath",
+    "description": "Comedo terebro curia solium vester vespillo sodalitas maiores.",
+    "amount": "541.74",
+    "closingDate": "2024-11-13T03:00:19.601Z",
+    "contact": {
+      "firstName": "Darrell",
+      "lastName": "Hayes",
+      "fullName": "Luz Langosh",
+      "avatar": "https://avatars.githubusercontent.com/u/67299321",
+      "email": "Nat_Rodriguez74@hotmail.com"
+    },
+    "company": {
+      "name": "Littel, Abshire and Haley"
+    },
+    "assignee": {
+      "name": "Dr. Daryl Heathcote",
+      "avatar": "https://loremflickr.com/640/480/people?lock=773566115086336"
+    },
+    "expectedRevenue": "888.40",
+    "stage": "Proposal Sent"
+  },
+  {
+    "title": "draft plow duh sheepishly",
+    "description": "Uterque defessus tabula virgo.",
+    "amount": "775.88",
+    "closingDate": "2024-11-18T07:58:22.578Z",
+    "contact": {
+      "firstName": "Muriel",
+      "lastName": "McClure",
+      "fullName": "Lynda Pacocha",
+      "avatar": "https://avatars.githubusercontent.com/u/77162664",
+      "email": "Willis_Hickle@hotmail.com"
+    },
+    "company": {
+      "name": "Stanton and Sons"
+    },
+    "assignee": {
+      "name": "Gregory Rolfson",
+      "avatar": "https://loremflickr.com/640/480/people?lock=8602476955566080"
+    },
+    "expectedRevenue": "518.19",
+    "stage": "In Draft"
+  },
+  {
+    "title": "clinking likewise whoa tenderly occasional",
+    "description": "Acervus atque tenax officia vesco.",
+    "amount": "21.61",
+    "closingDate": "2024-08-17T06:45:22.966Z",
+    "contact": {
+      "firstName": "Salma",
+      "lastName": "Schinner",
+      "fullName": "Edmond King",
+      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/728.jpg",
+      "email": "Germaine19@yahoo.com"
+    },
+    "company": {
+      "name": "Nicolas - Hessel"
+    },
+    "assignee": {
+      "name": "Christopher Muller",
+      "avatar": "https://loremflickr.com/640/480/people?lock=3150720027066368"
+    },
+    "expectedRevenue": "411.97",
+    "stage": "New Lead"
+  },
+  {
+    "title": "meantime that hmph cadet frigate",
+    "description": "Aqua artificiose verbum temperantia quasi surgo.",
+    "amount": "312.71",
+    "closingDate": "2024-11-19T06:06:47.305Z",
+    "contact": {
+      "firstName": "Bonnie",
+      "lastName": "Labadie",
+      "fullName": "Ignacio Braun",
+      "avatar": "https://avatars.githubusercontent.com/u/12040888",
+      "email": "Earline.Buckridge47@hotmail.com"
+    },
+    "company": {
+      "name": "Cruickshank - Witting"
+    },
+    "assignee": {
+      "name": "Winston Barton",
+      "avatar": "https://loremflickr.com/640/480/people?lock=537458718539776"
+    },
+    "expectedRevenue": "515.65",
+    "stage": "Proposal Sent"
+  },
+  {
+    "title": "homonym for a strict",
+    "description": "Adsidue vomer depopulo trucido.",
+    "amount": "314.97",
+    "closingDate": "2025-04-11T01:24:32.465Z",
+    "contact": {
+      "firstName": "Nayeli",
+      "lastName": "Tremblay",
+      "fullName": "Ms. Tina Welch",
+      "avatar": "https://avatars.githubusercontent.com/u/39234848",
+      "email": "Sofia_Becker@gmail.com"
+    },
+    "company": {
+      "name": "Gerlach - Carroll"
+    },
+    "assignee": {
+      "name": "Sheri Thompson",
+      "avatar": "https://loremflickr.com/640/480/people?lock=2156785194500096"
+    },
+    "expectedRevenue": "915.36",
+    "stage": "Qualified Lead"
+  },
+  {
+    "title": "bare around aha far",
+    "description": "Avarus verto acerbitas.",
+    "amount": "566.77",
+    "closingDate": "2024-11-04T02:03:19.859Z",
+    "contact": {
+      "firstName": "Shea",
+      "lastName": "Mills",
+      "fullName": "Dr. Casey Koelpin",
+      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1200.jpg",
+      "email": "Leopold.Baumbach@hotmail.com"
+    },
+    "company": {
+      "name": "Cummings Group"
+    },
+    "assignee": {
+      "name": "Kelvin Pouros-Mills",
+      "avatar": "https://loremflickr.com/640/480/people?lock=5759861950251008"
+    },
+    "expectedRevenue": "347.62",
+    "stage": "New Lead"
+  },
+  {
+    "title": "aw after validate oof thunderhead seldom",
+    "description": "Strenuus tempore curiositas.",
+    "amount": "295.12",
+    "closingDate": "2025-02-21T12:09:21.601Z",
+    "contact": {
+      "firstName": "Kennith",
+      "lastName": "Glover",
+      "fullName": "Virginia Keeling",
+      "avatar": "https://avatars.githubusercontent.com/u/64001846",
+      "email": "Felix_Wilkinson80@yahoo.com"
+    },
+    "company": {
+      "name": "Goldner - Gutmann"
+    },
+    "assignee": {
+      "name": "Roxanne Schuster",
+      "avatar": "https://loremflickr.com/640/480/people?lock=3344910113570816"
+    },
+    "expectedRevenue": "681.85",
+    "stage": "In Draft"
+  },
+  {
+    "title": "spatter peaceful ash delightfully",
+    "description": "Stultus curis trans.",
+    "amount": "584.57",
+    "closingDate": "2025-04-12T15:54:59.194Z",
+    "contact": {
+      "firstName": "Judd",
+      "lastName": "Witting",
+      "fullName": "Madeline Murphy",
+      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/1143.jpg",
+      "email": "Silas13@yahoo.com"
+    },
+    "company": {
+      "name": "Thiel LLC"
+    },
+    "assignee": {
+      "name": "Ora Renner",
+      "avatar": "https://loremflickr.com/640/480/people?lock=894861507035136"
+    },
+    "expectedRevenue": "723.20",
+    "stage": "Deal Won"
+  },
+  {
+    "title": "modification incidentally smoothly absent exhale",
+    "description": "Ante certe animi quia conventus.",
+    "amount": "984.27",
+    "closingDate": "2024-08-25T03:17:30.260Z",
+    "contact": {
+      "firstName": "Darrion",
+      "lastName": "Glover",
+      "fullName": "Josefina Cremin",
+      "avatar": "https://avatars.githubusercontent.com/u/75028662",
+      "email": "Jaylon11@yahoo.com"
+    },
+    "company": {
+      "name": "Hartmann - Crooks"
+    },
+    "assignee": {
+      "name": "Todd Kuhic",
+      "avatar": "https://loremflickr.com/640/480/people?lock=3720109895974912"
+    },
+    "expectedRevenue": "350.85",
+    "stage": "New Lead"
+  },
+  {
+    "title": "so about physics coat because incidentally",
+    "description": "Antiquus amplus aperiam ver.",
+    "amount": "922.42",
+    "closingDate": "2024-06-26T00:03:54.525Z",
+    "contact": {
+      "firstName": "Arvid",
+      "lastName": "Deckow",
+      "fullName": "Helen Ebert",
+      "avatar": "https://avatars.githubusercontent.com/u/15635684",
+      "email": "Nat_Goyette-Harber@hotmail.com"
+    },
+    "company": {
+      "name": "Rath Group"
+    },
+    "assignee": {
+      "name": "Angel Marks",
+      "avatar": "https://loremflickr.com/640/480/people?lock=6905576290254848"
+    },
+    "expectedRevenue": "527.85",
+    "stage": "Deal Won"
+  },
+  {
+    "title": "disloyal showcase peer proselytise whoa",
+    "description": "Temporibus agnitio adsidue adulescens copia sapiente vulgus.",
+    "amount": "612.89",
+    "closingDate": "2025-05-17T16:57:27.396Z",
+    "contact": {
+      "firstName": "Rita",
+      "lastName": "Crist",
+      "fullName": "Rita Williamson",
+      "avatar": "https://avatars.githubusercontent.com/u/1301115",
+      "email": "Christ45@yahoo.com"
+    },
+    "company": {
+      "name": "Gorczany, Zboncak and Shields"
+    },
+    "assignee": {
+      "name": "Alexander Kuhlman",
+      "avatar": "https://loremflickr.com/640/480/people?lock=6618428381069312"
+    },
+    "expectedRevenue": "715.68",
+    "stage": "In Draft"
+  },
+  {
+    "title": "minus kindly pish yearningly upon cranberry",
+    "description": "Tristis ea deleo conventus optio claro demitto.",
+    "amount": "618.14",
+    "closingDate": "2025-04-02T01:00:51.916Z",
+    "contact": {
+      "firstName": "Presley",
+      "lastName": "Stanton",
+      "fullName": "Arturo Hoppe",
+      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/150.jpg",
+      "email": "Murl89@yahoo.com"
+    },
+    "company": {
+      "name": "Nicolas, Hilll and Huels"
+    },
+    "assignee": {
+      "name": "Myron Satterfield",
+      "avatar": "https://loremflickr.com/640/480/people?lock=3588647628570624"
+    },
+    "expectedRevenue": "294.90",
+    "stage": "Proposal Sent"
+  },
+  {
+    "title": "duh man toward ick e-reader",
+    "description": "Perspiciatis quo talio ustilo iste clam aestivus temperantia vesco.",
+    "amount": "547.57",
+    "closingDate": "2024-09-18T02:45:49.426Z",
+    "contact": {
+      "firstName": "Phyllis",
+      "lastName": "Brekke",
+      "fullName": "Meredith Little",
+      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/830.jpg",
+      "email": "Gussie8@hotmail.com"
+    },
+    "company": {
+      "name": "Zieme - Russel"
+    },
+    "assignee": {
+      "name": "Dr. Angel Cummings",
+      "avatar": "https://loremflickr.com/640/480/people?lock=1486852810866688"
+    },
+    "expectedRevenue": "495.27",
+    "stage": "Qualified Lead"
+  },
+  {
+    "title": "because adaptation worriedly equally boo tenderly",
+    "description": "Cunabula attero vix suppono thymum conqueror unus ventus vesper arcesso.",
+    "amount": "499.55",
+    "closingDate": "2025-02-25T22:34:33.123Z",
+    "contact": {
+      "firstName": "William",
+      "lastName": "Stracke",
+      "fullName": "Clarence Zieme",
+      "avatar": "https://avatars.githubusercontent.com/u/96419454",
+      "email": "Maximillian78@yahoo.com"
+    },
+    "company": {
+      "name": "Kris, Grant and Harris"
+    },
+    "assignee": {
+      "name": "Lynn Kovacek",
+      "avatar": "https://loremflickr.com/640/480/people?lock=8093835448025088"
+    },
+    "expectedRevenue": "459.87",
+    "stage": "Deal Won"
+  },
+  {
+    "title": "meh what ouch amongst",
+    "description": "Usus sodalitas tribuo tredecim cohibeo super alias appono.",
+    "amount": "920.71",
+    "closingDate": "2024-08-04T02:43:00.237Z",
+    "contact": {
+      "firstName": "Jarrod",
+      "lastName": "Kub",
+      "fullName": "Sylvia Muller",
+      "avatar": "https://avatars.githubusercontent.com/u/47932318",
+      "email": "Dock_Hintz@gmail.com"
+    },
+    "company": {
+      "name": "Hackett and Sons"
+    },
+    "assignee": {
+      "name": "Fredrick Rutherford",
+      "avatar": "https://loremflickr.com/640/480/people?lock=2086177142210560"
+    },
+    "expectedRevenue": "917.98",
+    "stage": "New Lead"
+  },
+  {
+    "title": "evenly scarcely playful nearly embalm yum",
+    "description": "Carmen sodalitas cubo combibo.",
+    "amount": "158.91",
+    "closingDate": "2025-05-02T11:47:42.345Z",
+    "contact": {
+      "firstName": "Mabel",
+      "lastName": "Nicolas",
+      "fullName": "Antoinette Gibson",
+      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/387.jpg",
+      "email": "Maximus.Moore15@hotmail.com"
+    },
+    "company": {
+      "name": "Keeling LLC"
+    },
+    "assignee": {
+      "name": "Freddie Lakin",
+      "avatar": "https://loremflickr.com/640/480/people?lock=933895698644992"
+    },
+    "expectedRevenue": "225.89",
+    "stage": "Deal Lost"
+  },
+  {
+    "title": "offensively eat damp congressman",
+    "description": "Toties validus argentum fugit.",
+    "amount": "941.81",
+    "closingDate": "2025-05-22T08:45:39.887Z",
+    "contact": {
+      "firstName": "Meta",
+      "lastName": "Kessler",
+      "fullName": "Mrs. Cora Wuckert",
+      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/962.jpg",
+      "email": "Grace.Russel@yahoo.com"
+    },
+    "company": {
+      "name": "Feeney Inc"
+    },
+    "assignee": {
+      "name": "Mrs. Irene Stark",
+      "avatar": "https://loremflickr.com/640/480/people?lock=3618073835732992"
+    },
+    "expectedRevenue": "44.38",
+    "stage": "In Draft"
+  },
+  {
+    "title": "ignorant consequently before especially everything",
+    "description": "Sequi asporto doloribus casus architecto arca vapulus corporis solus.",
+    "amount": "522.96",
+    "closingDate": "2024-08-15T10:35:08.661Z",
+    "contact": {
+      "firstName": "Misael",
+      "lastName": "Robel",
+      "fullName": "Roland Bergstrom MD",
+      "avatar": "https://avatars.githubusercontent.com/u/38238751",
+      "email": "Desmond72@yahoo.com"
+    },
+    "company": {
+      "name": "Stiedemann, Steuber and Rogahn"
+    },
+    "assignee": {
+      "name": "Abraham Bashirian",
+      "avatar": "https://loremflickr.com/640/480/people?lock=7696037376425984"
+    },
+    "expectedRevenue": "946.63",
+    "stage": "Qualified Lead"
+  },
+  {
+    "title": "for half expensive that",
+    "description": "Dedico volo suadeo tactus viridis tabula acer tego arto aeneus.",
+    "amount": "920.87",
+    "closingDate": "2024-12-14T17:09:27.321Z",
+    "contact": {
+      "firstName": "Alexys",
+      "lastName": "Reynolds",
+      "fullName": "Elsa Cummerata-Kautzer",
+      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/837.jpg",
+      "email": "Rae93@hotmail.com"
+    },
+    "company": {
+      "name": "Dare LLC"
+    },
+    "assignee": {
+      "name": "Diana Fisher-Ratke",
+      "avatar": "https://loremflickr.com/640/480/people?lock=8174963313868800"
+    },
+    "expectedRevenue": "545.17",
+    "stage": "Qualified Lead"
+  },
+  {
+    "title": "an black-and-white likewise ew",
+    "description": "Veritatis summa patrocinor consequuntur eos viscus xiphias solio.",
+    "amount": "253.15",
+    "closingDate": "2025-03-29T06:03:46.543Z",
+    "contact": {
+      "firstName": "Ella",
+      "lastName": "Anderson",
+      "fullName": "Randolph McCullough II",
+      "avatar": "https://avatars.githubusercontent.com/u/84658704",
+      "email": "Skylar.Nikolaus@gmail.com"
+    },
+    "company": {
+      "name": "Pacocha and Sons"
+    },
+    "assignee": {
+      "name": "Maggie Schumm-Robel",
+      "avatar": "https://loremflickr.com/640/480/people?lock=7075576313544704"
+    },
+    "expectedRevenue": "246.71",
+    "stage": "Deal Lost"
+  },
+  {
+    "title": "board oof understated amid since blah",
+    "description": "Deleniti uter viriliter audeo vae conduco vado cura.",
+    "amount": "104.23",
+    "closingDate": "2024-12-24T17:14:51.696Z",
+    "contact": {
+      "firstName": "Sylvan",
+      "lastName": "Bailey",
+      "fullName": "Jamie Fadel",
+      "avatar": "https://avatars.githubusercontent.com/u/32966104",
+      "email": "Evalyn.Koch75@gmail.com"
+    },
+    "company": {
+      "name": "Feil and Sons"
+    },
+    "assignee": {
+      "name": "Jessie Hammes",
+      "avatar": "https://loremflickr.com/640/480/people?lock=2291906857926656"
+    },
+    "expectedRevenue": "447.80",
+    "stage": "In Draft"
+  },
+  {
+    "title": "think supposing nose consequently",
+    "description": "Bellum confero bellicus cruentus ventus cribro caelum.",
+    "amount": "924.56",
+    "closingDate": "2025-03-14T03:44:06.752Z",
+    "contact": {
+      "firstName": "Ryann",
+      "lastName": "Rempel",
+      "fullName": "Jenny Hickle V",
+      "avatar": "https://avatars.githubusercontent.com/u/96734587",
+      "email": "Trey.Kozey@hotmail.com"
+    },
+    "company": {
+      "name": "Spencer - Yost"
+    },
+    "assignee": {
+      "name": "Ismael Kozey",
+      "avatar": "https://loremflickr.com/640/480/people?lock=5781717375778816"
+    },
+    "expectedRevenue": "77.20",
+    "stage": "New Lead"
+  },
+  {
+    "title": "delightfully hence unsung medium indeed",
+    "description": "Vos adfectus copia.",
+    "amount": "381.36",
+    "closingDate": "2025-03-31T02:41:53.485Z",
+    "contact": {
+      "firstName": "Buster",
+      "lastName": "Rempel",
+      "fullName": "Sonia Labadie",
+      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/39.jpg",
+      "email": "Anibal.Maggio@yahoo.com"
+    },
+    "company": {
+      "name": "Stroman - Johns"
+    },
+    "assignee": {
+      "name": "Orlando Brown",
+      "avatar": "https://loremflickr.com/640/480/people?lock=6534598452314112"
+    },
+    "expectedRevenue": "568.77",
+    "stage": "Proposal Sent"
+  },
+  {
+    "title": "useful yet phenotype what phew",
+    "description": "Valetudo mollitia eligendi nisi baiulus.",
+    "amount": "444.45",
+    "closingDate": "2024-09-11T22:22:04.451Z",
+    "contact": {
+      "firstName": "Lilian",
+      "lastName": "Hahn",
+      "fullName": "Ollie Quitzon",
+      "avatar": "https://avatars.githubusercontent.com/u/84299734",
+      "email": "Verdie_OHara61@gmail.com"
+    },
+    "company": {
+      "name": "Schmidt, Bergnaum and Schumm"
+    },
+    "assignee": {
+      "name": "Clarence Blick",
+      "avatar": "https://loremflickr.com/640/480/people?lock=1670339109060608"
+    },
+    "expectedRevenue": "888.40",
+    "stage": "Deal Lost"
+  },
+  {
+    "title": "than modulo absent enthuse amidst",
+    "description": "Optio cursim enim audacia volva.",
+    "amount": "631.50",
+    "closingDate": "2024-10-03T21:23:41.495Z",
+    "contact": {
+      "firstName": "Laurianne",
+      "lastName": "Hintz-Crona",
+      "fullName": "Wilfred Hahn",
+      "avatar": "https://avatars.githubusercontent.com/u/99275457",
+      "email": "Morris.Steuber@gmail.com"
+    },
+    "company": {
+      "name": "Champlin Group"
+    },
+    "assignee": {
+      "name": "Mack Cormier",
+      "avatar": "https://loremflickr.com/640/480/people?lock=8902458573062144"
+    },
+    "expectedRevenue": "138.32",
+    "stage": "Deal Lost"
+  },
+  {
+    "title": "kissingly variety above novel rust",
+    "description": "Bellum cometes abstergo campana coadunatio cupressus textus tonsor.",
+    "amount": "926.65",
+    "closingDate": "2025-03-09T13:56:57.150Z",
+    "contact": {
+      "firstName": "Emma",
+      "lastName": "Padberg",
+      "fullName": "Damon DuBuque",
+      "avatar": "https://avatars.githubusercontent.com/u/54921840",
+      "email": "Skylar27@gmail.com"
+    },
+    "company": {
+      "name": "Heathcote - Cartwright"
+    },
+    "assignee": {
+      "name": "Veronica VonRueden",
+      "avatar": "https://loremflickr.com/640/480/people?lock=8876276186087424"
+    },
+    "expectedRevenue": "348.61",
+    "stage": "In Draft"
+  },
+  {
+    "title": "honesty upward scarce blub demanding",
+    "description": "Agnosco aggero numquam enim vestrum.",
+    "amount": "127.01",
+    "closingDate": "2025-03-19T06:20:55.724Z",
+    "contact": {
+      "firstName": "Nadia",
+      "lastName": "Koelpin",
+      "fullName": "Dr. Valerie Christiansen",
+      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/347.jpg",
+      "email": "Hazel_Witting@hotmail.com"
+    },
+    "company": {
+      "name": "Kutch - Schneider"
+    },
+    "assignee": {
+      "name": "Darrel Kutch",
+      "avatar": "https://loremflickr.com/640/480/people?lock=5553485770653696"
+    },
+    "expectedRevenue": "122.92",
+    "stage": "Deal Lost"
+  },
+  {
+    "title": "thrill blah far revoke furnish including",
+    "description": "Arbor succurro theatrum crepusculum corona adsidue aurum aliquam tabesco adsum.",
+    "amount": "305.37",
+    "closingDate": "2025-04-06T01:29:39.596Z",
+    "contact": {
+      "firstName": "Jason",
+      "lastName": "Boyle",
+      "fullName": "Dr. Donald Herzog",
+      "avatar": "https://avatars.githubusercontent.com/u/49902511",
+      "email": "Layla82@hotmail.com"
+    },
+    "company": {
+      "name": "Fritsch - Waelchi"
+    },
+    "assignee": {
+      "name": "Vanessa Roob",
+      "avatar": "https://loremflickr.com/640/480/people?lock=1830254595276800"
+    },
+    "expectedRevenue": "604.80",
+    "stage": "In Draft"
+  },
+  {
+    "title": "collapse cooperative polarization blend since",
+    "description": "Truculenter vilicus verbera adstringo catena tribuo.",
+    "amount": "844.01",
+    "closingDate": "2024-09-09T20:05:31.477Z",
+    "contact": {
+      "firstName": "Arnulfo",
+      "lastName": "Skiles",
+      "fullName": "Kelly Runte",
+      "avatar": "https://cloudflare-ipfs.com/ipfs/Qmd3W5DuhgHirLHGVixi6V76LhCkZUz6pnFt5AJBiyvHye/avatar/50.jpg",
+      "email": "Rosendo.Ernser@yahoo.com"
+    },
+    "company": {
+      "name": "Krajcik - Harris"
+    },
+    "assignee": {
+      "name": "Stephanie Rogahn",
+      "avatar": "https://loremflickr.com/640/480/people?lock=58884345561088"
+    },
+    "expectedRevenue": "44.06",
+    "stage": "Proposal Sent"
   }
 ]
