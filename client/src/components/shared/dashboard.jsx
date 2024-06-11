@@ -37,8 +37,8 @@ import { UserNav } from "./user-nav";
 export function Dash({
   user,
   //   companies,
-  defaultLayout = [265, 440, 655],
-  defaultCollapsed = false,
+  defaultLayout = [12, 97],
+  defaultCollapsed = true,
   navCollapsedSize,
 }) {
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed);
@@ -53,7 +53,7 @@ export function Dash({
         }}
         className="min-h-screen w-full flex-col bg-muted/40 items-stretch">
         <ResizablePanel
-          defaultSize={10}
+          defaultSize={defaultLayout[0]}
           collapsedSize={navCollapsedSize}
           collapsible={true}
           minSize={10}
@@ -84,10 +84,10 @@ export function Dash({
               {isCollapsed ? (
                 <Tooltip>
                   <TooltipTrigger>💼</TooltipTrigger>
-                  <TooltipContent side="right">snazCRM</TooltipContent>
+                  <TooltipContent side="right">sanzCRM</TooltipContent>
                 </Tooltip>
               ) : (
-                "snazCRM 💼"
+                "sanzCRM 💼"
               )}
             </div>
           </div>

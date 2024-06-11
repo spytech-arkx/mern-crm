@@ -9,6 +9,16 @@
   font-size: 16px;
 }
 
+html {
+  overflow: hidden;
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  overflow: auto;
+}
+
 .ProseMirror:focus {
   outline: none;
 }
@@ -23,6 +33,13 @@
   width: 100%;
   max-width: 600px;
   pointer-events: none;
+}
+
+.resizer {
+  width: 5px;
+  cursor: col-resize;
+  user-select: none;
+  touch-action: none;
 }
 
 /* Ajoutez ce code dans votre fichier CSS global */

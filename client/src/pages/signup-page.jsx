@@ -49,7 +49,7 @@ export default function SignUpPage() {
         <div className="absolute inset-0" />
         <div className="relative z-20 flex items-center text-lg font-medium gap-2">
           <NotebookTabs />
-          snazCRM
+          sanzCRM
         </div>
 
         <div className="relative z-20 mt-auto">
