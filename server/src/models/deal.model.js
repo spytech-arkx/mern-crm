@@ -9,47 +9,47 @@ const DealSchema = new mongoose.Schema(
       sparse: true,
       required: true,
       trim: true,
-      minlength: 3,
-      maxlength: 50,
     },
-    description: {
+    notes: {
       type: String,
       trim: true,
-      maxlength: 255,
     },
-    amount: {
-      type: mongoose.Schema.Types.Decimal128,
-      required: true,
-    },
+    amount: Number,
     closingDate: Date,
-    expectedRevenue: {
-      type: mongoose.Schema.Types.Decimal128,
-    },
+    expectedRevenue: Number,
 
     // Deal Associations
-    companyId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Company',
-      required: true,
+    // assignee: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: 'User',
+    // },
+    // company: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: 'Company',
+    // },
+    // contact: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: 'Contact',
+    // },
+
+    assignee: {
+      type: Object,
     },
-    contactId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Contact',
+    company: {
+      type: Object,
+    },
+    contact: {
+      type: Object,
     },
 
     // Deal Stages and Tracking
     stage: {
       type: String,
-      required: true,
-      enum: ['Qualification', 'Proposal', 'Negotiation', 'Closed Won', 'Closed Lost'],
+      default: "New Lead",
     },
     type: {
       type: String,
       trim: true,
-    },
-    reasonForLoss: {
-      type: String,
-      enum: ['Competitor', 'Budget Constraints', 'No Decision', 'Other'],
     },
     nextStep: {
       type: String,
@@ -62,21 +62,24 @@ const DealSchema = new mongoose.Schema(
     },
     leadSource: {
       type: String,
-      enum: [
-        'None',
-        'Advertisement',
-        'Employee Referral',
-        'Facebook',
-        'Twitter',
-        'Google+',
-        'External Referral',
-        'Public Relations',
-        'Web Download',
-        'Web Research',
-        'Cold Call',
-        'Chat',
-      ],
     },
+    attachements: [{
+      name: {
+        type: String,
+        trim: true,
+      },
+      size: {
+        type: Number,
+      },
+      type: {
+        type: String,
+        trim: true,
+      },
+      url: {
+        type: String,
+        trim: true,
+      },
+    }],
 
     //   // Deal Timeline and Metrics
     //   SalesCycleDuration: Number, // Optional (in days)

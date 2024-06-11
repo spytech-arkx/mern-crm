@@ -8,56 +8,11 @@ import { CalendarClock, Plus } from "lucide-react";
 
 import { format } from "date-fns";
 import { cn, moneyFormatter } from "@/lib/utils";
-import {
-  BlueCircle,
-  GrayCircle,
-  OrangeCircle,
-  GreenCircle,
-  RedCircle,
-  PurpleCircle,
-} from "@/assets/small-circle";
 import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { AvatarFallback } from "@radix-ui/react-avatar";
-import { brands}  from "@/assets/brands";
-
-export const stages = [
-  {
-    value: "Qualification",
-    label: "Qualification",
-    icon: BlueCircle,
-    bg: "bg-white border rounded-xl shadow",
-  },
-  {
-    value: "Proposal",
-    label: "Proposal",
-    icon: GreenCircle,
-    bg: "bg-white border rounded-xl shadow",
-  },
-  {
-    value: "Negotiation",
-    label: "Negotiation",
-    icon: OrangeCircle,
-    bg: "bg-white border rounded-xl shadow",
-  },
-  {
-    value: "Closed Won",
-    label: "Closed Won",
-    icon: PurpleCircle,
-    bg: "bg-white border rounded-xl shadow",
-  },
-  {
-    value: "Closed Lost",
-    label: "Closed Lost",
-    icon: GrayCircle,
-    bg: "bg-white border rounded-xl shadow",
-  },
-  {
-    value: "impeded",
-    label: "Impeded",
-    icon: RedCircle,
-    bg: "bg-white border rounded-xl shadow",
-  },
-];
+import { brands } from "@/assets/brands";
+import { Badge } from "@/components/ui/badge";
+import { stages } from "@/data/deals";
 
 export const columns = [
   {
@@ -70,7 +25,7 @@ export const columns = [
         }
         onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
-        className="data-[state=checked]:bg-[#282828] data-[state=checked]:border-[2px]"
+        className="absolute left-2 top-[6px] data-[state=checked]:bg-[#282828] data-[state=checked]:border-[2px]"
       />
     ),
     cell: ({ row }) => (
@@ -95,15 +50,14 @@ export const columns = [
   },
   {
     accessorKey: "title",
-    header: ({ column }) => <DataTableColumnHeader className="ml-3" column={column} title="Title" />,
+    header: ({ column }) => (
+      <DataTableColumnHeader className="ml-3" column={column} title="Title" />
+    ),
     cell: ({ row }) => {
       return (
         // TODO: overflow-gradient ?
         <div className="flex space-x-2 ml-3 items-center overflow-hidden">
-          <span
-            className={cn(
-              // "truncate font-medium max-w-full sm:max-w-[150px] md:max-w-[300px] lg:max-w-[600px]",
-            )}>
+          <span className={cn("font-medium min-w-52 max-w-auto")}>
             {row.getValue("title")}
           </span>
         </div>
@@ -126,7 +80,7 @@ export const columns = [
       return (
         <div className="flex items-center space-x-2">
           {brands[row.index]}
-          <span className="max-w-[100px] truncate">{company.name}</span>
+          <span className="truncate">{company.name}</span>
         </div>
       );
     },
@@ -145,14 +99,16 @@ export const columns = [
       return (
         <div className="flex items-center space-x-2">
           {contact.avatar && (
-            <Avatar className="w-7 h-7 border-[2px]">
+            <Avatar className="w-7 h-7 border-[2px] justify-center items-center">
               <AvatarImage src={contact.avatar} alt="user's avatar" />
-              <AvatarFallback>{contact.firstName[0]}</AvatarFallback>
+              <AvatarFallback>
+                {contact.firstName[0] + contact.lastName[0]}
+              </AvatarFallback>
             </Avatar>
           )}
           <div className="grid">
-          <span className="">{contact.fullName}</span>
-          <span className="text-xs">{contact.email}</span>
+            <span className="">{contact.fullName}</span>
+            <span className="text-xs">{contact.email}</span>
           </div>
         </div>
       );
@@ -185,6 +141,47 @@ export const columns = [
     enableHiding: true,
   },
   {
+    accessorKey: "stage",
+    filterFn: (row, stage, value) => {
+      return value.includes(row.getValue(stage));
+    },
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Stage" />,
+    cell: ({ row }) => {
+      const stage = stages.find((stage) => stage.value === row.getValue("stage"));
+
+      if (!stage) {
+        return (
+          <span className="max-w-[200px] truncate text-neutral-80 text-xs">
+            <Plus size="16" />
+          </span>
+        );
+      }
+
+      return (
+        <Badge
+          variant="outline"
+          className={cn("rounded-full text-xs w-max font-medium shadow")}>
+          {stage.label}
+        </Badge>
+      );
+    },
+    enableSorting: true,
+    enableHiding: true,
+  },
+  {
+    accessorKey: "amount",
+    header: ({ column }) => <DataTableColumnHeader column={column} title="Value" />,
+    cell: ({ row }) => {
+      return (
+        <div className="flex items-center">
+          {moneyFormatter.format(row.getValue("amount")) ?? null}
+        </div>
+      );
+    },
+    enableHiding: true,
+    enableSorting: true,
+  },
+  {
     accessorKey: "closingDate",
     header: ({ column }) => <DataTableColumnHeader column={column} title="Closed Date" />,
     cell: ({ row }) => {
@@ -208,46 +205,6 @@ export const columns = [
     },
     enableSorting: true,
     enableHiding: true,
-  },
-  {
-    accessorKey: "stage",
-    filterFn: (row, stage, value) => {
-      return value.includes(row.getValue(stage));
-    },
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Stage" />,
-    cell: ({ row }) => {
-      const stage = stages.find((stage) => stage.value === row.getValue("stage"));
-
-      if (!stage) {
-        return (
-          <span className="max-w-[200px] truncate text-neutral-80 text-xs">
-            <Plus size="16" />
-          </span>
-        );
-      }
-
-      return (
-        <div className={"flex w-max py-[2px] rounded-[37px] items-center " + stage.bg}>
-          {stage.icon && <stage.icon />}
-          <span className="text-xs font-medium mx-1 pr-1">{stage.label}</span>
-        </div>
-      );
-    },
-    enableSorting: true,
-    enableHiding: true,
-  },
-  {
-    accessorKey: "amount",
-    header: ({ column }) => <DataTableColumnHeader column={column} title="Value" />,
-    cell: ({ row }) => {
-      return (
-        <div className="flex items-center">
-          {moneyFormatter.format(row.getValue("amount")) ?? null}
-        </div>
-      );
-    },
-    enableHiding: true,
-    enableSorting: true,
   },
   {
     id: "actions",

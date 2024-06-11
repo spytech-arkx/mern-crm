@@ -70,6 +70,7 @@ export function DataTable({ columns, data }) {
     if (!pendingDelete) {
       try {
         await deleteDeal(deal._id).unwrap();
+        dispatch(focusDealById(null));
         toast.success(`Deal ${deal.id} deletion was successful.`);
       } catch (err) {
         console.error(err);

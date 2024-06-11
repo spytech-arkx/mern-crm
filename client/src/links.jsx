@@ -5,7 +5,7 @@ import GeneralError from "./pages/500.jsx";
 import NotFoundError from "./pages/404.jsx";
 
 import TaskList from "./components/entities/tasks/list.jsx";
-import { TaskFormDrawer } from "./components/entities/tasks/form-drawer.jsx";
+import { TaskDrawer } from "./components/entities/tasks/form-drawer.jsx";
 
 import { createBrowserRouter } from "react-router-dom";
 import { AuthenticatedRoute, UnauthenticatedRoute } from "./features/auth/videur.jsx";
@@ -17,6 +17,8 @@ import CompaniesList from "./components/entities/companies/CompaniesList.jsx";
 import ProfilePage from "./pages/profile-page.jsx";
 import CompanyDetails from "./components/entities/companies/CompanyDetails.jsx";
 import { ProfileForm } from "./components/profile/profile-form.jsx";
+import DealList from "./components/entities/deals/list.jsx";
+import { DealDrawer } from "./components/entities/deals/drawer.jsx";
 
 const routerSF = createBrowserRouter([
   {
@@ -72,7 +74,7 @@ const routerSF = createBrowserRouter([
               </AuthenticatedRoute>
             ),
             children: [
-              { index: true, element: <ProfileForm />, },
+              { index: true, element: <ProfileForm /> },
               { path: "/me/preferences", element: <Index /> },
               { path: "/me/socials", element: <Index /> },
               { path: "/me/data", element: <Index /> },
@@ -92,7 +94,7 @@ const routerSF = createBrowserRouter([
             element: (
               <AuthenticatedRoute>
                 <TaskList />
-                <TaskFormDrawer />
+                <TaskDrawer />
               </AuthenticatedRoute>
             ),
           },
@@ -100,7 +102,8 @@ const routerSF = createBrowserRouter([
             path: "/deals",
             element: (
               <AuthenticatedRoute>
-                <Index />
+                <DealList />
+                <DealDrawer />
               </AuthenticatedRoute>
             ),
           },

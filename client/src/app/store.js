@@ -4,6 +4,7 @@ import { snazApi } from '@/features/api/auth'
 
 import tasksReducer from '@/features/tasks/slice'
 import authReducer from '@/features/auth/slice'
+import dealsReducer from '@/features/deals/slice'
 import companiesReducer from "@/features/companies/companies-slice";
 
 export const store = configureStore({
@@ -11,6 +12,7 @@ export const store = configureStore({
     [snazApi.reducerPath]: snazApi.reducer,
     tasks: tasksReducer,
     auth: authReducer,
+    deals: dealsReducer,
     companies: companiesReducer,
   },
   middleware: (getDefaultMiddleware) =>

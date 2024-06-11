@@ -5,23 +5,15 @@ import { Input } from "@/components/ui/input";
 import { DataTableViewOptions } from "../data-table-view-options";
 
 import { DataTableFacetedFilter } from "../data-table-faceted-filter";
-import { useGetDealsListQuery } from "@/features/api/deals";
 import { useDispatch } from "react-redux";
 import { focusDealById, toggleDealDrawer } from "@/features/deals/slice";
 import { Plus } from "lucide-react";
-import { stages } from "./columns";
+import { assignees, stages } from "@/data/deals";
 
 // DEALS!! FILTER NEED CHANGING
 export function DataTableToolbar({ table }) {
   const isFiltered = table.getState().columnFilters.length > 0;
   const dispatch = useDispatch();
-  const { data: deals, isSuccess } = useGetDealsListQuery();
-
-  let assignees = [];
-  if (isSuccess)
-    assignees = [...deals].map((deal) => {
-      return { label: deal.assignee?.name ?? null, value: deal.assignee?.name ?? null };
-    });
 
   return (
     <div className="flex items-center justify-between">
