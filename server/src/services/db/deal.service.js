@@ -3,7 +3,11 @@ const Deal = require("../../models/deal.model");
 
 async function readDeals(filter, projection, options) {
   try {
-    return await Deal.find(filter, projection, options); // Return the response
+    return await Deal.find(filter, projection, options)
+      .populate("contact")
+      .populate("company")
+      .populate("assignee")
+      .sort({ createdAt: -1 });
   } catch (err) {
     throw err;
   }
@@ -26,7 +30,9 @@ async function writeDeals(docs, operation, filters) {
       return bulkOp;
     }, {});
 
-    return await Deal.bulkWrite(bulkOps, { ordered: true });
+    return await Deal.bulkWrite(bulkOps, {
+      ordered: true,
+    });
   } catch (err) {
     throw err;
   }

@@ -85,11 +85,6 @@ const UserSchema = new mongoose.Schema(
       unique: true,
       sparse: true,
       trim: true,
-      validate: {
-        validator: (url) =>
-          /^(https?:\/\/)?([\da-z.-]+)\.([a-z]{2,6})([/\w .-]*)*\/?$/.test(url),
-        message: (props) => `${props.value} is not a valid website URL.`,
-      },
     }],
     avatar: { type: String, trim: true }, // Store the path to the avatar image,
 
@@ -118,6 +113,14 @@ const UserSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    virtuals: {
+      fullName: {
+        get() {
+          return `${this.firstName} ${this.lastName}`;
+        },
+      },
+    },
   },
 );
 

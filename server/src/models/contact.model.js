@@ -35,11 +35,6 @@ const ContactSchema = new mongoose.Schema(
       unique: true,
       sparse: true,
       trim: true,
-      match: [
-        /* Detects most of the phone numbers all over the world */
-        /(?:([+]\d{1,4})[-.\s]?)?(?:[(](\d{1,3})[)][-.\s]?)?(\d{1,4})[-.\s]?(\d{1,4})[-.\s]?(\d{1,9})/g,
-        'Please provide a valid phone number.',
-      ],
     },
     birthday: {
       type: Date,
@@ -76,6 +71,8 @@ const ContactSchema = new mongoose.Schema(
         match: /linkedin/g, // l3gz
       }, // Add more.. la bghiti
     },
+
+    avatar: String,
 
     // Sales pipeline specific infos
     leadSource: {

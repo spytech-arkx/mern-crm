@@ -2,7 +2,7 @@ const User = require('../../models/user.model');
 
 async function readUsers(filter, options) {
   try {
-    return await User.find(filter, { _id: 0 }, options);
+    return await User.find(filter, { password: 0 }, options);
   } catch (err) {
     throw err;
   }

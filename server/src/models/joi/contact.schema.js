@@ -1,23 +1,23 @@
-const Joi = require('joi');
+const Joi = require("joi");
 
 const contactSchema = Joi.object({
   // Main Information
-  salutation: Joi.string().valid('Mr.', 'Mrs.', 'Ms.', 'Dr.', 'Prof.', ''),
+  salutation: Joi.string().valid("Mr.", "Mrs.", "Ms.", "Dr.", "Prof.", ""),
   firstName: Joi.string()
     .required()
     .trim()
     .regex(/^[a-zA-Z\s]+$/)
-    .error(new Error('Please provide a valid name.')),
+    .error(new Error("Please provide a valid name.")),
   lastName: Joi.string()
     .required()
     .trim()
     .regex(/^[a-zA-Z\s]+$/)
-    .error(new Error('Please provide a valid name.')),
+    .error(new Error("Please provide a valid name.")),
 
   // Contact Information
   email: Joi.string()
     .trim()
-    .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net', 'org'] } }), // Allow null for optional fields
+    .email({ minDomainSegments: 2, tlds: { allow: ["com", "net", "org"] } }), // Allow null for optional fields
   phone: Joi.string()
     .trim()
     .regex(
@@ -33,6 +33,7 @@ const contactSchema = Joi.object({
   }),
   description: Joi.string().trim().max(80),
   emailOptOut: Joi.boolean(),
+  avatar: Joi.string().uri(),
 
   // Social Media Links
   socials: Joi.object({
@@ -46,29 +47,27 @@ const contactSchema = Joi.object({
 
   // Sales pipeline specific infos
   leadSource: Joi.string().valid(
-    'None',
-    'Advertisement',
-    'Employee Referral',
-    'Facebook',
-    'Twitter',
-    'Google+',
-    'External Referral',
-    'Public Relations',
-    'Web Download',
-    'Web Research',
-    'Cold Call',
-    'Chat',
+    "None",
+    "Advertisement",
+    "Employee Referral",
+    "Facebook",
+    "Twitter",
+    "Google+",
+    "External Referral",
+    "Public Relations",
+    "Web Download",
+    "Web Research",
+    "Cold Call",
+    "Chat",
   ),
 
   // Association Information
   title: Joi.string().trim().max(60),
-  skypeId: Joi.string()
-    .trim()
+  skypeId: Joi.string().trim(),
 }).options({ abortEarly: false, stripUnknown: true });
 
-const contactUpdateSchema = contactSchema.fork(
-  ['firstName', 'lastName'],
-  (schema) => schema.optional(),
+const contactUpdateSchema = contactSchema.fork(["firstName", "lastName"], (schema) =>
+  schema.optional(),
 );
 
 module.exports = { contactSchema, contactUpdateSchema };

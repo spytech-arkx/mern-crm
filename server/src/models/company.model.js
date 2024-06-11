@@ -96,6 +96,7 @@ const CompanySchema = new mongoose.Schema(
     annualRevenue: { type: Number, min: 1000 },
 
     // Optional Information
+    icon: { type: String, trim: true },
     tag: { type: String, trim: true },
 
     // System Information

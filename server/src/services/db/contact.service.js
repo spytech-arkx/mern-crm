@@ -7,7 +7,7 @@ const Contact = require("../../models/contact.model");
 // more on : https://mongoosejs.com/docs/api/query.html#Query.prototype.select()
 async function readContacts(filter, projection, options) {
   try {
-    return await Contact.find(filter, projection, options); // Return the response
+    return await Contact.find(filter, projection, options).sort({ createdAt: -1 });
   } catch (err) {
     throw err;
   }
