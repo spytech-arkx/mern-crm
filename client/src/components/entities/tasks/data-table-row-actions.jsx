@@ -26,6 +26,7 @@ export function DataTableRowActions({ row }) {
     if (!pendingDelete) {
       try {
         await deleteTask(row.original._id).unwrap();
+        dispatch(focusTaskById(null));
         toast.success(`Task ${row.original.id} deletion was successful.`);
       } catch (err) {
         console.error(err);

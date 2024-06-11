@@ -7,22 +7,14 @@ import { DataTableViewOptions } from "../data-table-view-options";
 import { priorities, statuses } from "@/data/tasks";
 
 import { DataTableFacetedFilter } from "../data-table-faceted-filter";
-import { useGetTasksListQuery } from "@/features/api/tasks";
 import { useDispatch } from "react-redux";
 import { focusTaskById, toggleTaskDrawer } from "@/features/tasks/slice";
 import { Plus } from "lucide-react";
+import { assignees } from "@/data/deals";
 
 export function DataTableToolbar({ table }) {
   const isFiltered = table.getState().columnFilters.length > 0;
   const dispatch = useDispatch();
-  const { data: tasks, isSuccess } = useGetTasksListQuery();
-
-  // TODO: replace assignees mock data 
-  let assignees = [];
-  if (isSuccess)
-    assignees = [...tasks].map((task) => {
-      return { label: task.assignee?.name ?? null, value: task.assignee?.name ?? null };
-    });
 
   return (
     <div className="flex items-center justify-between">

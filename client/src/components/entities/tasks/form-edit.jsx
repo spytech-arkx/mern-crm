@@ -31,7 +31,6 @@ import {
 import {
   useDeleteTaskMutation,
   useEditTaskMutation,
-  useGetTasksListQuery,
 } from "@/features/api/tasks";
 import { Spinner } from "@/components/ui/spinner";
 import { useState } from "react";
@@ -47,6 +46,8 @@ import { useUploadThing } from "@/lib/uploadthing";
 import { Label } from "@/components/ui/label";
 import { fileTypeIcons } from "@/data/file-types";
 import { ContextMenu, ContextMenuContent, ContextMenuItem, ContextMenuTrigger } from "@/components/ui/context-menu";
+import { assignees } from "@/data/deals";
+import { focusDealById } from "@/features/deals/slice";
 
 export function TaskForm({ task }) {
   // some state
@@ -72,7 +73,6 @@ export function TaskForm({ task }) {
   const dispatch = useDispatch();
   const [editTask, { isLoading }] = useEditTaskMutation();
   const [deleteTask, { isLoading: pendingDelete }] = useDeleteTaskMutation();
-  const { data } = useGetTasksListQuery();
 
   // That thing for uploads
   const { startUpload, isUploading } = useUploadThing("multiUploader", {
@@ -92,19 +92,6 @@ export function TaskForm({ task }) {
       // alert("upload has begun");
     },
   });
-  
-  // It is what it is. Gotta learn SSC.
-  if (!data)
-    return (
-      <div className="w-screen h-screen flex justify-center align-middle">
-        <Spinner size="large" />
-      </div>
-    );
-
-  // This will be removed.
-  const assignees = data.map((task) => {
-    return { name: task.assignee?.name, avatar: task.assignee?.avatar };
-  });
 
   // Handlers
   const handleClickDelete = async () => {
@@ -112,6 +99,7 @@ export function TaskForm({ task }) {
       try {
         await deleteTask(task._id).unwrap();
         dispatch(toggleTaskDrawer());
+        dispatch(focusDealById(null));
         toast.success(`Task ${task.id} deletion was successful.`);
       } catch (err) {
         console.error(err);
@@ -134,12 +122,12 @@ export function TaskForm({ task }) {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="mx-auto w-max h-full flex flex-col justify-center">
+        className="mx-auto w-max h-max flex flex-col justify-center">
         <Card className="border-none bg-none h-full flex flex-col">
           <CardHeader>
             {/* Header */}
             <div className="flex justify-between">
-              <span className="text-xs text-gray-400">{task.status?.toUpperCase()}</span>
+              <span className="text-xs text-gray-400">{task.id?.toUpperCase()}</span>
               <span className="text-xs text-gray-400">
                 {task.dueDate ? "DUE-DATE" : null}
               </span>
@@ -347,6 +335,7 @@ export function TaskForm({ task }) {
                         <div className="p-3 rounded-lg">
                           <Tiptap
                             data-vaul-no-drag
+                            styles = "border-none rounded-lg min-h-20 max-h-60 w-[620px] shadow-none py-0 pl-0 break-words text-s"
                             description={field.value}
                             onChange={field.onChange}
                           />

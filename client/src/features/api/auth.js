@@ -11,7 +11,7 @@ export const snazApi = createApi({
     // },
     credentials: "include",
   }),
-  tagTypes: ["Task", "Company", "Auth", "User"],
+  tagTypes: ["Task", "Company", "Auth", "User", "Deal"],
   endpoints: (builder) => ({
     login: builder.mutation({
       query: (credentials) => ({

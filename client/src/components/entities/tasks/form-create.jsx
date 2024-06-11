@@ -303,9 +303,13 @@ export function TaskForm2() {
                       DESCRIPTION
                     </FormLabel>
                     <FormControl>
-                      <ScrollArea className=" bg-gray-100 rounded-md border ">
+                      <ScrollArea className=" bg-gray-100 rounded-md border">
                         <div className="p-3 rounded-lg">
-                          <Tiptap description={field.value} onChange={field.onChange} />
+                          <Tiptap
+                            description={field.value}
+                            onChange={field.onChange}
+                            styles="border-none rounded-lg min-h-20 max-h-60 w-[696px] shadow-none py-0 pl-0 break-words"
+                          />
                         </div>
                       </ScrollArea>
                     </FormControl>
@@ -386,7 +390,7 @@ export function TaskForm2() {
               </section>
             </div>
           </CardContent>
-          <CardFooter className="justify-between py-3">
+          <CardFooter className="justify-end p-3">
             <Button
               type="submit"
               disabled={pendingCreation}

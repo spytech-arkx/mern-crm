@@ -9,7 +9,7 @@ EditorView.prototype.updateState = function updateState(state) {
   this.updateStateInner(state, this.state.plugins != state.plugins);
 };
 
-const Tiptap = ({ description, onChange }) => {
+const Tiptap = ({ description, onChange, styles }) => {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -26,8 +26,7 @@ const Tiptap = ({ description, onChange }) => {
     content: description,
     editorProps: {
       attributes: {
-        class:
-          "border-none rounded-lg min-h-20 max-h-60 w-[620px] shadow-none py-0 pl-0 text-s break-words",
+        class: styles,
       },
     },
     onUpdate({ editor }) {

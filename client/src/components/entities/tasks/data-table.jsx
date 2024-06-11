@@ -68,6 +68,7 @@ export function DataTable({ columns, data }) {
     if (!pendingDelete) {
       try {
         await deleteTask(task._id).unwrap();
+        dispatch(focusTaskById(null));
         toast.success(`Task ${task.id} deletion was successful.`);
       } catch (err) {
         console.error(err);
