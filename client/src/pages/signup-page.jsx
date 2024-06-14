@@ -35,12 +35,16 @@ export default function SignUpPage() {
   const onSubmit = async (data) => {
     // went the long road, in order to access the error immediatly.
     // You have to chain `unwrap()`
-    await signup(data).then((value) => {
-      if (value.error && value.error.status === 409) setError("email", { type: 409, message: "Email already exists."})
-      if (value.error && value.error.status !== 409 ) toast.error("Registration failed. Please try again or contact support.")
-      toast.info("Registered successfully, Please login.")
+    try {
+      await signup(data).unwrap();
+      toast.info("Registered successfully, Please login.");
       navigate("/login");
-    });
+    } catch (err) {
+      console.error(err);
+      if (err.status === 409)
+        setError("email", { type: 409, message: "Email already exists." });
+      toast.error("Registration failed. Please try again or contact support.");
+    }
   };
 
   return (
@@ -76,11 +80,21 @@ export default function SignUpPage() {
                   )}>
                   <div className="grid gap-2">
                     <Label htmlFor="firstName">First name</Label>
-                    <Input id="firstName" autoComplete="current-firstname" placeholder="John" {...register("firstName")} />
+                    <Input
+                      id="firstName"
+                      autoComplete="current-firstname"
+                      placeholder="John"
+                      {...register("firstName")}
+                    />
                   </div>
                   <div className="grid gap-2">
                     <Label htmlFor="lastName">Last name</Label>
-                    <Input id="lastName" autoComplete="current-lastname" placeholder="Doe" {...register("lastName")} />
+                    <Input
+                      id="lastName"
+                      autoComplete="current-lastname"
+                      placeholder="Doe"
+                      {...register("lastName")}
+                    />
                   </div>
                   {errors.firstName && (
                     <p className="text-red-500 text-xs grid">

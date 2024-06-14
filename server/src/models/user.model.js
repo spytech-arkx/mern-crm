@@ -1,7 +1,7 @@
-const mongoose = require('mongoose');
-const { hashPassword, hashExistingPassword } = require('../lib/bcrypt');
-const { logger } = require('../utils/logger');
-const { sendConfirmationMail } = require('../services/emails/post');
+const mongoose = require("mongoose");
+const { hashPassword, hashExistingPassword } = require("../lib/bcrypt");
+const { logger } = require("../utils/logger");
+const { sendConfirmationMail } = require("../services/emails/post");
 
 const UserSchema = new mongoose.Schema(
   {
@@ -82,8 +82,6 @@ const UserSchema = new mongoose.Schema(
     dateOfBirth: { type: Date },
     urls: [{
       type: String,
-      unique: true,
-      sparse: true,
       trim: true,
     }],
     avatar: { type: String, trim: true }, // Store the path to the avatar image,
