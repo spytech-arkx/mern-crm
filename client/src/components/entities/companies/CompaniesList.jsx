@@ -15,6 +15,8 @@ import {
   VStack,
   Spinner,
   Input,
+  Image,
+  Avatar,
 } from "@chakra-ui/react";
 import { Link as RouterLink } from "react-router-dom";
 import { useGetCompaniesListQuery } from "@/features/api/companies";
@@ -36,10 +38,12 @@ const CompaniesList = () => {
     onClose: closeDeleteMod,
   } = useDisclosure();
   const [deleteCompany, setDeleteCompany] = useState(null);
+  const [deleteCompanyName, setDeleteCompanyName] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
 
   const handleDeleteClick = (company) => {
-    setDeleteCompany(company);
+    setDeleteCompany(company._id);
+    setDeleteCompanyName(company.name);
     onOpDeleteMod();
   };
 
@@ -84,27 +88,32 @@ const CompaniesList = () => {
         onChange={(e) => setSearchTerm(e.target.value)}
         mb={4}
       />
-      <SimpleGrid spacing={4} templateColumns="repeat(auto-fill, minmax(250px, 1fr))">
+      <SimpleGrid spacing={6} templateColumns="repeat(auto-fill, minmax(250px, 1fr))">
         {filteredCompanies.map((company) => {
           const IconComponent = getRandomIcon();
           return (
-            <Card key={company._id} bg="white" boxShadow="md" rounded="md">
-              <CardHeader bg="gray.50" borderBottomWidth="1px">
-                <Heading size="md" color="gray.700">
-                  <Center>{company.name}</Center>
-                </Heading>
-              </CardHeader>
+            <Card
+              key={company._id}
+              bgGradient="linear(to-t, RGBA(0, 0, 0, 0.06), #FFFFFF)"
+              boxShadow="md"
+              rounded="md">
               <CardBody>
                 <Center>
                   <VStack>
-                    <Box borderRadius="50px" p={4} color="white" bg="gray.200">
-                      <IconComponent size={60} />
-                    </Box>
+                    {company.logo ? (
+                      <Box borderRadius="50px" color="white" bg="none">
+                        <Image as={Avatar} src={company.logo} />
+                      </Box>
+                    ) : (
+                      <Box borderRadius="50px" p={2} color="white" bg="gray.200">
+                        <IconComponent size={40} />
+                      </Box>
+                    )}
                     <Text>{company.name}</Text>
                   </VStack>
                 </Center>
                 <Text fontSize="lg" color="gray.500">
-                  {company.industry}
+                  Industry: {company.industry}
                 </Text>
                 {company.ownership && (
                   <Text fontSize="lg" color="gray.500">
@@ -126,28 +135,22 @@ const CompaniesList = () => {
                   View details
                 </Button>
                 <Button
-                  onClick={() => handleDeleteClick(company._id)}
+                  onClick={() => handleDeleteClick(company)}
                   bg="gray.100"
                   color="red.500"
                   ml={2}
                   leftIcon={<DeleteIcon color="red.500" />}>
                   Delete
                 </Button>
-                <CompanyDelete
-                  companyName={company.name}
-                  company={deleteCompany}
-                  isOpen={isOpDeleteMod}
-                  onClose={closeDeleteMod}
-                />
               </CardFooter>
             </Card>
           );
         })}
         <Card
-          bg="white"
+          bgGradient="linear(to-t, RGBA(0, 0, 0, 0.06), #FFFFFF)"
           boxShadow="md"
           rounded="md"
-          _hover={{ bg: "gray.300", boxShadow: "dark-lg" }}>
+          _hover={{ bg: "RGBA(0, 0, 0, 0.04)", boxShadow: "2xl" }}>
           <CardHeader bg="gray.50">
             <Heading size="md">
               <Center>Add new company</Center>
@@ -165,11 +168,17 @@ const CompaniesList = () => {
                 borderColor="gray.500">
                 <AddIcon color="gray.500" w={20} h={20} />
               </Box>
-              <CreateCompanyForm isOpen={isOpAddMod} onClose={closeAddMod} />
             </Center>
           </CardBody>
         </Card>
       </SimpleGrid>
+      <CreateCompanyForm isOpen={isOpAddMod} onClose={closeAddMod} />
+      <CompanyDelete
+        companyName={deleteCompanyName}
+        company={deleteCompany}
+        isOpen={isOpDeleteMod}
+        onClose={closeDeleteMod}
+      />
     </Box>
   );
 };

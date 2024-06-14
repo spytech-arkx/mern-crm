@@ -2,6 +2,7 @@ const Joi = require("joi");
 
 const contactSchema = Joi.object({
   // Main Information
+  logo: Joi.string().trim(),
   salutation: Joi.string().valid("Mr.", "Mrs.", "Ms.", "Dr.", "Prof.", ""),
   firstName: Joi.string()
     .required()
@@ -23,7 +24,7 @@ const contactSchema = Joi.object({
     .regex(
       /^(?:([+]\d{1,4})[-.\s]?)?(?:[(](\d{1,3})[)][-.\s]?)?(\d{1,4})[-.\s]?(\d{1,4})[-.\s]?(\d{1,9})/,
     ),
-  birthday: Joi.date(),
+  birthday: Joi.string().trim(),
   address: Joi.object({
     street: Joi.string().trim(),
     city: Joi.string().trim(),
@@ -40,6 +41,9 @@ const contactSchema = Joi.object({
     X: Joi.string()
       .trim()
       .regex(/twitter/),
+    Facebook: Joi.string()
+      .trim()
+      .regex(/facebook/),
     LinkedIn: Joi.string()
       .trim()
       .regex(/linkedin/),
@@ -60,6 +64,15 @@ const contactSchema = Joi.object({
     "Cold Call",
     "Chat",
   ),
+  createdBy: Joi.string()
+    .trim()
+    .pattern(/^[0-9a-fA-F]{24}$/)
+    .message("Invalid Mongo Id"),
+
+  lastModifiedBy: Joi.string()
+    .trim()
+    .pattern(/^[0-9a-fA-F]{24}$/)
+    .message("Invalid Mongo Id"),
 
   // Association Information
   title: Joi.string().trim().max(60),

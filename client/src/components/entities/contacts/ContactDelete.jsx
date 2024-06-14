@@ -1,4 +1,4 @@
-import { useDeleteCompanyMutation } from "@/features/api/companies";
+import { useDeleteContactMutation } from "@/features/api/contacts";
 import {
   Modal,
   ModalOverlay,
@@ -12,32 +12,32 @@ import {
 } from "@chakra-ui/react";
 import { useEffect } from "react";
 
-function CompanyDelete({ isOpen, onClose, company, companyName }) {
-  const [deleteCompany, { isLoading }] = useDeleteCompanyMutation();
+function ContactDelete({ isOpen, onClose, contact, contactName }) {
+  const [deleteContact, { isLoading }] = useDeleteContactMutation();
   const toast = useToast();
 
   useEffect(() => {
     if (isOpen) {
-      console.log(`Modal opened for ${companyName}`);
+      console.log(`Modal opened for ${contactName}`);
     }
-  }, [isOpen, companyName]);
+  }, [isOpen, contactName]);
 
   const handleDelete = async () => {
     try {
-      await deleteCompany(company).unwrap();
+      await deleteContact(contact).unwrap();
       toast({
-        title: `${companyName} deleted`,
-        description: "The company has been successfully deleted.",
+        title: `${contactName} deleted`,
+        description: "The Contact has been successfully deleted.",
         status: "success",
         duration: 5000,
         isClosable: true,
       });
       onClose(); // Ferme le modal après suppression
     } catch (err) {
-      console.error(err);
+      console.log(err);
       toast({
         title: "An error occurred.",
-        description: "Failed to delete the company.",
+        description: "Failed to delete the Contact.",
         status: "error",
         duration: 5000,
         isClosable: true,
@@ -49,10 +49,10 @@ function CompanyDelete({ isOpen, onClose, company, companyName }) {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Delete Company</ModalHeader>
+        <ModalHeader>Delete Contact</ModalHeader>
         <ModalCloseButton />
         <ModalBody>
-          Are you sure you want to delete<strong> {companyName}</strong>?
+          Are you sure you want to delete<strong> {contactName}</strong>?
         </ModalBody>
         <ModalFooter>
           <Button colorScheme="blue" mr={3} onClick={onClose}>
@@ -71,4 +71,4 @@ function CompanyDelete({ isOpen, onClose, company, companyName }) {
   );
 }
 
-export default CompanyDelete;
+export default ContactDelete;

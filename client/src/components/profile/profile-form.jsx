@@ -41,9 +41,6 @@ export function ProfileForm() {
       username: user?.username || "",
       phone: user?.phone,
       bio: user?.bio || "",
-      urls: user?.urls.map((url) => ({ value: url })) || [
-        { value: "" },
-      ],
     },
     mode: "onChange",
   });
@@ -62,13 +59,13 @@ export function ProfileForm() {
     onUploadError: (error) => {
       console.error(error);
       toast.error("Error occurred while uploading");
-    }
+    },
   });
 
   async function onSubmit(data) {
     try {
       await editUser({ id: user._id, data }).unwrap();
-      toast.info("Profile updated! 👌")
+      toast.info("Profile updated! 👌");
     } catch (error) {
       console.error(error);
       toast.error("Couldn't update profile, please try again");

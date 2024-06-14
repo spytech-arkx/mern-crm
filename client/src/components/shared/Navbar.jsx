@@ -102,12 +102,14 @@ const Navbar = () => {
           <MenuButton
             as={Avatar}
             bg="black"
+            color="white"
+            //p={2}
             src={user?.avatar}
             name={`${user?.firstName ?? "Unknown"} ${user?.lastName ?? "User"}`}
             boxSize="40px"
             aria-label="Options"
             variant="outline">
-            <AvatarBadge boxSize="0.9em" bg="green.500"/>
+            <AvatarBadge boxSize="0.9em" bg="green.500" />
           </MenuButton>
           <MenuList>
             <MenuItem

@@ -6,6 +6,10 @@ const extendedApi = snazApi.injectEndpoints({
       query: () => `/users`,
       providesTags: ["User"],
     }),
+    getUserById: builder.query({
+      query: (id) => `/users/${id}`,
+      providesTags: (id) => [{ type: `User`, id }],
+    }),
     deleteUser: builder.mutation({
       query: (id) => ({
         url: `/users/${id}`,
@@ -33,6 +37,7 @@ const extendedApi = snazApi.injectEndpoints({
 });
 
 export const {
+  useGetUserByIdQuery,
   useCreateUserMutation,
   useDeleteUserMutation,
   useEditUserMutation,

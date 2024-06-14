@@ -19,13 +19,15 @@ import CompanyDetails from "./components/entities/companies/CompanyDetails.jsx";
 import { ProfileForm } from "./components/profile/profile-form.jsx";
 import DealList from "./components/entities/deals/list.jsx";
 import { DealDrawer } from "./components/entities/deals/drawer.jsx";
+import ContactsList from "./components/entities/contacts/ContactsList.jsx";
+import ContactDetails from "./components/entities/contacts/ContactDetails.jsx";
 
 const routerSF = createBrowserRouter([
   {
     path: "/",
     element: (
       <AuthenticatedRoute>
-        <HomePage />
+        <HomePage /> 
       </AuthenticatedRoute>
     ),
     errorElement: <GeneralError />,
@@ -85,7 +87,15 @@ const routerSF = createBrowserRouter([
             path: "/contacts",
             element: (
               <AuthenticatedRoute>
-                <Index />
+                <ContactsList />
+              </AuthenticatedRoute>
+            ),
+          },
+          {
+            path: "/contacts/:contactId",
+            element: (
+              <AuthenticatedRoute>
+                <ContactDetails />
               </AuthenticatedRoute>
             ),
           },

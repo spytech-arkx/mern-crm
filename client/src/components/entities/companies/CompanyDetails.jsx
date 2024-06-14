@@ -15,6 +15,8 @@ import {
   TabPanels,
   Tab,
   TabPanel,
+  Image,
+  Avatar,
 } from "@chakra-ui/react";
 import { FaRegBuilding, FaDollarSign } from "react-icons/fa";
 import { LiaUsersSolid } from "react-icons/lia";
@@ -50,7 +52,6 @@ const CompanyDetails = () => {
       </Box>
     );
   }
-
   return (
     <Box p={{ base: 4, md: 8 }}>
       <Heading mb={4} textAlign="center">
@@ -77,8 +78,18 @@ const CompanyDetails = () => {
                     <Stack spacing={3}>
                       <Heading display="flex" size="md">
                         <Box borderRadius="10px" p={2}>
-                          <FaRegBuilding color="rgba(54, 162, 235, 0.54)" size="50px" />
+                          {company.logo ? (
+                            <Image
+                              as={Avatar}
+                              src={company.logo}
+                              alt="Company Logo"
+                              boxSize="50px"
+                            />
+                          ) : (
+                            <FaRegBuilding color="rgba(54, 162, 235, 0.54)" size="50px" />
+                          )}
                         </Box>
+
                         <Text ml={4} mt={2}>
                           {company.name}
                         </Text>

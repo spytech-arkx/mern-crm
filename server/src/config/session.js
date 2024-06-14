@@ -14,7 +14,7 @@ require("dotenv").config();
 
 // const redisStore = new RedisStore({
 //   client: redisClient,
-//   prefix: 'snazCRM:',
+//   prefix: 'sanzCRM:',
 // });
 
 const mongoStore = new MongoStore({

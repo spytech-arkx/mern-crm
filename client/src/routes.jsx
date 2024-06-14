@@ -5,9 +5,7 @@ import GeneralError from "./pages/500.jsx";
 import NotFoundError from "./pages/404.jsx";
 
 import TaskList from "./components/entities/tasks/list.jsx";
-import { TaskFormDrawer } from "./components/entities/tasks/form-drawer.jsx";
-import Dashboard from "./components/dashboard/Dashboard.jsx";
-import KanbanBoard from "./components/dashboard/kanban.jsx";
+import { TaskDrawer } from "./components/entities/tasks/form-drawer.jsx";
 import CompanyDetails from "./components/entities/companies/CompanyDetails.jsx";
 import CompaniesList from "./components/entities/companies/CompaniesList.jsx";
 
@@ -17,7 +15,12 @@ import { AuthenticatedRoute, UnauthenticatedRoute } from "./features/auth/videur
 import "./styles/index.css";
 import Root from "./root.jsx";
 import Index from "./components/shared/Index.jsx";
-import SettingsProfilePage from "./pages/profile-page.jsx";
+import ContactsList from "./components/entities/contacts/ContactsList.jsx";
+import ContactDetails from "./components/entities/contacts/ContactDetails.jsx";
+import DealList from "./components/entities/deals/list.jsx";
+import { DealDrawer } from "./components/entities/deals/drawer.jsx";
+import { ProfileForm } from "./components/profile/profile-form.jsx";
+import ProfilePage from "./pages/profile-page.jsx";
 
 const routerNT = createBrowserRouter([
   {
@@ -34,26 +37,10 @@ const routerNT = createBrowserRouter([
         children: [
           { index: true, element: <Index /> },
           {
-            path: "/kanban",
+            path: "/overview",
             element: (
               <AuthenticatedRoute>
-                <KanbanBoard />
-              </AuthenticatedRoute>
-            ),
-          },
-          {
-            path: "/dashboard",
-            element: (
-              <AuthenticatedRoute>
-                <Dashboard />
-              </AuthenticatedRoute>
-            ),
-          },
-          {
-            path: "/profile",
-            element: (
-              <AuthenticatedRoute>
-                <SettingsProfilePage />
+                <Index />
               </AuthenticatedRoute>
             ),
           },
@@ -82,10 +69,33 @@ const routerNT = createBrowserRouter([
             ),
           },
           {
+            path: "/me",
+            element: (
+              <AuthenticatedRoute>
+                <ProfilePage />
+              </AuthenticatedRoute>
+            ),
+            children: [
+              { index: true, element: <ProfileForm /> },
+              { path: "/me/preferences", element: <Index /> },
+              { path: "/me/socials", element: <Index /> },
+              { path: "/me/data", element: <Index /> },
+              { path: "/me/security", element: <Index /> },
+            ],
+          },
+          {
             path: "/contacts",
             element: (
               <AuthenticatedRoute>
-                <Index />
+                <ContactsList />
+              </AuthenticatedRoute>
+            ),
+          },
+          {
+            path: "/contacts/:contactId",
+            element: (
+              <AuthenticatedRoute>
+                <ContactDetails />
               </AuthenticatedRoute>
             ),
           },
@@ -94,7 +104,7 @@ const routerNT = createBrowserRouter([
             element: (
               <AuthenticatedRoute>
                 <TaskList />
-                <TaskFormDrawer />
+                <TaskDrawer />
               </AuthenticatedRoute>
             ),
           },
@@ -102,7 +112,8 @@ const routerNT = createBrowserRouter([
             path: "/deals",
             element: (
               <AuthenticatedRoute>
-                <Index />
+                <DealList />
+                <DealDrawer />
               </AuthenticatedRoute>
             ),
           },
