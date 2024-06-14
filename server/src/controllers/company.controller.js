@@ -3,7 +3,7 @@ const { readCompanies, writeCompanies } = require('../services/db/company.servic
 
 exports.getCompanies = async (req, res) => {
   try {
-    const companies = await readCompanies({});
+    const companies = await readCompanies({ createdBy: req.user._id });
     res.status(200).json(companies);
   } catch (err) {
     handleError(err, res);

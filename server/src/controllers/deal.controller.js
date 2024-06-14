@@ -3,7 +3,7 @@ const { readDeals, writeDeals } = require('../services/db/deal.service');
 
 exports.getDeals = async (req, res) => {
   try {
-    const deals = await readDeals({});
+    const deals = await readDeals({ createdBy: req.user._id });
     res.status(200).json(deals);
   } catch (err) {
     handleError(err, res);

@@ -12,7 +12,7 @@ const { readUsers, writeUsers, updateWithoutReturn } = require('../services/db/u
 // Admin priv. required
 exports.getUsers = async (req, res) => {
   try {
-    const users = await readUsers({});
+    const users = await readUsers({ createdBy: req.user._id });
     res.status(200).json(users);
   } catch (err) {
     handleError(err, res);

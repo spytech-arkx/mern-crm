@@ -1,27 +1,27 @@
-const express = require('express');
-const { validateParamsId, validateBodyData } = require('../middlewares/validator');
-const { isAuth } = require('../middlewares/authenticator');
-const sanitizeBodyData = require('../middlewares/sanitizer');
+const express = require("express");
+const { validateParamsId, validateBodyData } = require("../middlewares/validator");
+const { isAuth } = require("../middlewares/authenticator");
+const sanitizeBodyData = require("../middlewares/sanitizer");
 const {
   getLeads,
   getLeadById,
   deleteLead,
   updateLead,
   createLeads,
-} = require('../controllers/lead.controller');
+} = require("../controllers/lead.controller");
 
 const leadRouter = express.Router();
-leadRouter.use(isAuth);
-leadRouter.post('/', sanitizeBodyData, validateBodyData, createLeads);
-leadRouter.get('/', getLeads);
-leadRouter.get('/:id', validateParamsId, getLeadById);
+leadRouter.post("/", isAuth, sanitizeBodyData, validateBodyData, createLeads);
+leadRouter.get("/", isAuth, getLeads);
+leadRouter.get("/:id", isAuth, validateParamsId, getLeadById);
 leadRouter.patch(
-  '/:id',
+  "/:id",
+  isAuth,
   validateParamsId,
   sanitizeBodyData,
   validateBodyData,
   updateLead,
 );
-leadRouter.delete('/:id', validateParamsId, deleteLead);
+leadRouter.delete("/:id", isAuth, validateParamsId, deleteLead);
 
 module.exports = leadRouter;

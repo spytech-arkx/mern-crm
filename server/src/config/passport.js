@@ -8,7 +8,7 @@ const local = new LocalStrategy(
     usernameField: "email",
     passwordField: "password",
   },
-  (async (email, password, done) => {
+  async (email, password, done) => {
     try {
       const user = await User.findOne({ email });
       if (!user) return done(null, false, { message: "Incorrect Email." });
@@ -23,7 +23,7 @@ const local = new LocalStrategy(
     } catch (err) {
       return done(err);
     }
-  }),
+  },
 );
 
 passport.use(local);

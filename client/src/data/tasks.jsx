@@ -16,6 +16,7 @@ import {
 import { z } from "zod";
 
 export const taskSchema = z.object({
+  createdBy: z.string().trim().optional(),
   owner: z.string().trim().optional(),
   title: z
     .string()

@@ -1,8 +1,8 @@
-const express = require('express');
+const express = require("express");
 
-const { validateParamsId, validateBodyData } = require('../middlewares/validator');
-const sanitizeBodyData = require('../middlewares/sanitizer');
-const { isAuth } = require('../middlewares/authenticator');
+const { validateParamsId, validateBodyData } = require("../middlewares/validator");
+const sanitizeBodyData = require("../middlewares/sanitizer");
+const { isAuth } = require("../middlewares/authenticator");
 
 const {
   getUsers,
@@ -11,32 +11,32 @@ const {
   updateUser,
   createUsers,
   register,
-} = require('../controllers/user.controller');
+} = require("../controllers/user.controller");
 
-const { verifyEmail } = require('../services/emails/emailVerification');
-const { sendNotifEmail, postEmail } = require('../services/emails/email.controller');
+const { verifyEmail } = require("../services/emails/emailVerification");
+const { sendNotifEmail, postEmail } = require("../services/emails/email.controller");
 
 const userRouter = express.Router(); // Create an Express router
 
 // User CRUD ops.
-userRouter.post('/register', sanitizeBodyData, validateBodyData, register);
-userRouter.get('/verify-email/:token', verifyEmail);
-userRouter.use(isAuth);
-userRouter.post('/', sanitizeBodyData, validateBodyData, createUsers);
-userRouter.get('/', getUsers);
-userRouter.get('/:id', validateParamsId, getUserById);
+userRouter.post("/register", sanitizeBodyData, validateBodyData, register);
+userRouter.get("/verify-email/:token", verifyEmail);
+userRouter.post("/", isAuth, sanitizeBodyData, validateBodyData, createUsers);
+userRouter.get("/", isAuth, getUsers);
+userRouter.get("/:id", isAuth, validateParamsId, getUserById);
 userRouter.patch(
-  '/:id',
+  "/:id",
+  isAuth,
   validateParamsId,
   sanitizeBodyData,
   validateBodyData,
   updateUser,
 );
-userRouter.delete('/:id', validateParamsId, deleteUser);
+userRouter.delete("/:id", isAuth, validateParamsId, deleteUser);
 
 // User mailing
-userRouter.post('/notif', sendNotifEmail);
-userRouter.post('/send/:id', validateParamsId, postEmail);
+userRouter.post("/notif", sendNotifEmail);
+userRouter.post("/send/:id", validateParamsId, postEmail);
 
 // // Endpoint GET all users
 // const { permission, authenticator } = require('../middlewares/authenticator');

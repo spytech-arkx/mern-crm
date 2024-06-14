@@ -51,6 +51,7 @@ export function TaskForm2() {
   const form = useForm({
     resolver: zodResolver(taskSchema),
     defaultValues: {
+      createdBy: user?._id,
       owner: user?._id,
     },
     mode: "onSubmit",

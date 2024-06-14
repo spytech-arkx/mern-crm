@@ -3,7 +3,7 @@ const { readTasks, writeTasks } = require('../services/db/task.service');
 
 exports.getTasks = async (req, res) => {
   try {
-    const tasks = await readTasks({});
+    const tasks = await readTasks({ createdBy: req.user._id });
     res.status(200).json(tasks);
   } catch (err) {
     handleError(err, res);

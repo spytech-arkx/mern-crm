@@ -3,7 +3,7 @@ const { readContacts, writeContacts } = require('../services/db/contact.service'
 
 exports.getContacts = async (req, res) => {
   try {
-    const contacts = await readContacts({});
+    const contacts = await readContacts({ createdBy: req.user._id });
     res.status(200).json(contacts);
   } catch (err) {
     handleError(err, res);
